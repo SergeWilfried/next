@@ -20,6 +20,20 @@ enum UserRole {
   USER
 }
 
+enum SchoolCategory {
+  PRIVATE
+  PUBLIC
+  CHARTER
+  RELIGIOUS
+  NON_PROFIT
+}
+
+enum SchoolType {
+  HIGH_SCHOOL
+  MIDDLE_SCHOOL
+  ELEMENTARY_SCHOOL
+}
+
 model Account {
   id                String   @id @default(cuid())
   userId            String
@@ -88,6 +102,8 @@ model School {
   enrollments Enrollment[]
   donations   Donation[]
   staff       Staff[]
+  category    SchoolCategory
+  type        SchoolType
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -114,6 +130,7 @@ model Parent {
 
   @@map(name: "parents")
 }
+
 
 model Student {
   id             String   @id @default(cuid())
