@@ -24,7 +24,7 @@ export default async function ParentsPage() {
         <EmptyPlaceholder.Icon name="file" />
         <EmptyPlaceholder.Title>No parents listed</EmptyPlaceholder.Title>
         <EmptyPlaceholder.Description>
-          You don't have any parents yet. Start by adding some.
+          You don&apos;t have any parents yet. Start by adding some.
         </EmptyPlaceholder.Description>
         <Button>Add Parents</Button>
       </EmptyPlaceholder>

@@ -24,7 +24,7 @@ export default async function ApplicationsPage() {
         <EmptyPlaceholder.Icon name="file" />
         <EmptyPlaceholder.Title>No applications listed</EmptyPlaceholder.Title>
         <EmptyPlaceholder.Description>
-          You don't have any applications yet. Start by adding some.
+          You don&apos;t have any applications yet. Start by adding some.
         </EmptyPlaceholder.Description>
         <Button>Add Applications</Button>
       </EmptyPlaceholder>

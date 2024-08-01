@@ -24,7 +24,7 @@ export default async function PaymentsPage() {
         <EmptyPlaceholder.Icon name="file" />
         <EmptyPlaceholder.Title>No payments listed</EmptyPlaceholder.Title>
         <EmptyPlaceholder.Description>
-          You don't have any payments yet. Start by adding some.
+          You don&apos;t have any payments yet. Start by adding some.
         </EmptyPlaceholder.Description>
         <Button>Add Payments</Button>
       </EmptyPlaceholder>

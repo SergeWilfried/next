@@ -24,7 +24,7 @@ export default async function StaffPage() {
         <EmptyPlaceholder.Icon name="file" />
         <EmptyPlaceholder.Title>No staff listed</EmptyPlaceholder.Title>
         <EmptyPlaceholder.Description>
-          You don't have any staff yet. Start by adding some.
+          You don&apos;t have any staff yet. Start by adding some.
         </EmptyPlaceholder.Description>
         <Button>Add Staff</Button>
       </EmptyPlaceholder>

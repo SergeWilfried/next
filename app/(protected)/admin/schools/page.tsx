@@ -24,7 +24,7 @@ export default async function SchoolsPage() {
         <EmptyPlaceholder.Icon name="file" />
         <EmptyPlaceholder.Title>No schools listed</EmptyPlaceholder.Title>
         <EmptyPlaceholder.Description>
-          You don't have any schools yet. Start by adding some.
+          You don&apos;t have any schools yet. Start by adding some.
         </EmptyPlaceholder.Description>
         <Button>Add Schools</Button>
       </EmptyPlaceholder>

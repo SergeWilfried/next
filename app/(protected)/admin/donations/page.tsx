@@ -24,7 +24,7 @@ export default async function DonationsPage() {
         <EmptyPlaceholder.Icon name="file" />
         <EmptyPlaceholder.Title>No donations listed</EmptyPlaceholder.Title>
         <EmptyPlaceholder.Description>
-          You don't have any donations yet. Start by adding some.
+          You don&apos;t have any donations yet. Start by adding some.
         </EmptyPlaceholder.Description>
         <Button>Add Donations</Button>
       </EmptyPlaceholder>

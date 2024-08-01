@@ -7,7 +7,7 @@ const pages = [
     "Students",
     "Enrollments",
     "Applications",
-    "Payments",
+    "Accounting",
     "Staff",
     "Donations"
 ];
