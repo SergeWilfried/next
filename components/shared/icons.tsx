@@ -146,4 +146,5 @@ export const Icons = {
   creditCard: CreditCard,
   truck: Truck,
   briefcase: Briefcase,
+  file: File,
 };
