@@ -137,7 +137,11 @@ model Student {
   parent         Parent   @relation(fields: [parentId], references: [id])
   parentId       String
   dateOfBirth    DateTime
-  grade          Int
+  firstName      String
+  lastName       String
+  middleName     String?
+  suffix         String?
+  grade          String
   allergies      String?
   medicalNotes   String?
   school         School   @relation(fields: [schoolId], references: [id])
@@ -193,7 +197,7 @@ model Enrollment {
   student        Student  @relation(fields: [studentId], references: [id])
   studentId      String
   academicYear   String
-  grade          Int
+  grade          String
   status         EnrollmentStatus
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -312,7 +316,9 @@ enum PaymentStatus {
 }
 
 enum PaymentMethod {
-  CASH
+  CASH,
+  MOBILE_MONEY
+  WAVE
   CREDIT_CARD
   BANK_TRANSFER
   CHECK
