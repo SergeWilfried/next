@@ -58,6 +58,7 @@ export const sidebarLinks: SidebarNavItem[] = [
         href: "/dashboard/reports",
         icon: "fileText",
         title: "Reports",
+        badge: 2,
         authorizeOnly: [UserRole.ADMIN, UserRole.ACCOUNTANT, UserRole.TEACHER],
       },
       {
@@ -67,10 +68,10 @@ export const sidebarLinks: SidebarNavItem[] = [
         authorizeOnly: UserRole.USER,
       },
       {
-        href: "/admin/orders",
+        href: "/admin/donations",
         icon: "package",
-        title: "Orders",
-        badge: 2,
+        title: "Donations",
+        badge: 5,
         authorizeOnly: UserRole.ADMIN,
         disabled: true,
       },
