@@ -10,7 +10,7 @@ export const metadata = constructMetadata({
   description: "Manage reports in the school system.",
 });
 
-export default async function DonationsPage() {
+export default async function ReportsPage() {
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/login");
 
