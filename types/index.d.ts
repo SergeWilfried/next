@@ -15,6 +15,11 @@ export type SiteConfig = {
   };
 };
 
+export interface SearchParams {
+  [key: string]: string | string[] | undefined
+}
+
+
 export type NavItem = {
   title: string;
   href: string;
