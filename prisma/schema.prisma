@@ -316,7 +316,7 @@ enum PaymentStatus {
 }
 
 enum PaymentMethod {
-  CASH,
+  CASH
   MOBILE_MONEY
   WAVE
   CREDIT_CARD
