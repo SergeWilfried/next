@@ -5,7 +5,7 @@ import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 import { Button } from "@/components/ui/button";
 import { getStudents } from "@/actions/student-action";
-import { DataTable } from "@/components/data/data-table";
+import { DataTable } from "@/components/data-table/data-table";
 import { studentsTableColumns } from "./columns";
 import { GetStudentsSchema } from "@/lib/validations/student";
 
