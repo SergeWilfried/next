@@ -15,6 +15,11 @@ export type SiteConfig = {
   };
 };
 
+export interface SearchParams {
+  [key: string]: string | string[] | undefined
+}
+
+
 export type NavItem = {
   title: string;
   href: string;
@@ -24,7 +29,29 @@ export type NavItem = {
   authorizeOnly?: UserRole;
   icon?: keyof typeof Icons;
 };
+export interface Option {
+  label: string
+  value: string
+  icon?: React.ComponentType<{ className?: string }>
+  withCount?: boolean
+}
 
+export interface DataTableFilterOption<TData> {
+  id: string
+  label: string
+  value: keyof TData
+  options: Option[]
+  filterValues?: string[]
+  filterOperator?: string
+  isMulti?: boolean
+}
+
+export interface DataTableFilterField<TData> {
+  label: string
+  value: keyof TData
+  placeholder?: string
+  options?: Option[]
+}
 export type MainNavItem = NavItem;
 
 export type MarketingConfig = {

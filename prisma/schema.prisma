@@ -131,12 +131,29 @@ model Parent {
   @@map(name: "parents")
 }
 
+enum GenderEnum {
+  MALE
+  FEMALE
+  OTHER
+}
+enum EnrollmentStatus {
+  ACTIVE
+  INACTIVE
+  GRADUATED
+}
+
+enum DonationType {
+  DONATION
+  MONTHLY_FEE
+}
+
 
 model Student {
   id             String   @id @default(cuid())
   parent         Parent   @relation(fields: [parentId], references: [id])
   parentId       String
   dateOfBirth    DateTime
+  gender         GenderEnum @default(OTHER)
   firstName      String
   lastName       String
   middleName     String?
@@ -152,6 +169,7 @@ model Student {
   achievements   Achievement[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  status         EnrollmentStatus @default(INACTIVE)
 
   @@unique([parentId, schoolId, dateOfBirth])
   @@map(name: "students")
@@ -303,11 +321,6 @@ enum ApplicationStatus {
   REJECTED
 }
 
-enum EnrollmentStatus {
-  ACTIVE
-  INACTIVE
-  GRADUATED
-}
 
 enum PaymentStatus {
   PENDING
