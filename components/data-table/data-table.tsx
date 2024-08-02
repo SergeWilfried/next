@@ -1,7 +1,16 @@
-import * as React from "react"
-import { flexRender, type Table as TanstackTable } from "@tanstack/react-table"
+"use client"
 
-import { cn } from "@/lib/utils"
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  PaginationState,
+  useReactTable,
+} from "@tanstack/react-table"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import React from "react"
+
 import {
   Table,
   TableBody,
@@ -10,103 +19,133 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { DataTablePagination } from "@/components/data-table/data-table-pagination"
-import { getCommonPinningStyles } from "@/lib/data-table"
 
-interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
-  /**
-   * The table instance returned from useDataTable hook with pagination, sorting, filtering, etc.
-   * @type TanstackTable<TData>
-   */
-  table: TanstackTable<TData>
-
-  /**
-   * The floating bar to render at the bottom of the table on row selection.
-   * @default null
-   * @type React.ReactNode | null
-   * @example floatingBar={<TasksTableFloatingBar table={table} />}
-   */
-  floatingBar?: React.ReactNode | null
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[],
+  pageCount: number
 }
 
-export function DataTable<TData>({
-  table,
-  floatingBar = null,
-  children,
-  className,
-  ...props
-}: DataTableProps<TData>) {
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  pageCount
+}: DataTableProps<TData, TValue>) {
+
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  // search params
+  const page = searchParams?.get("page") ?? "1" // default is page: 1
+  const per_page = searchParams?.get("per_page") ?? "5" // default 5 record per page
+
+    // create query string
+    const createQueryString = React.useCallback(
+        (params: Record<string, string | number | null>) => {
+          const newSearchParams = new URLSearchParams(searchParams?.toString())
+    
+          for (const [key, value] of Object.entries(params)) {
+            if (value === null) {
+              newSearchParams.delete(key)
+            } else {
+              newSearchParams.set(key, String(value))
+            }
+          }
+    
+          return newSearchParams.toString()
+        },
+        [searchParams]
+      )
+    
+      // handle server-side pagination
+      const [{ pageIndex, pageSize }, setPagination] =
+        React.useState<PaginationState>({
+          pageIndex: Number(page) - 1,
+          pageSize: Number(per_page),
+        })
+    
+      const pagination = React.useMemo(
+        () => ({
+          pageIndex,
+          pageSize,
+        }),
+        [pageIndex, pageSize]
+      )
+    
+      React.useEffect(() => {
+        setPagination({
+          pageIndex: Number(page) - 1,
+          pageSize: Number(per_page),
+        })
+      }, [page, per_page])
+    
+       // changed the route as well
+      React.useEffect(() => {
+        router.push(
+          `${pathname}?${createQueryString({
+            page: pageIndex + 1,
+            per_page: pageSize,
+          })}`
+        )
+  }, [pageIndex, pageSize])
+
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    pageCount: pageCount ?? -1,
+    state: {
+      pagination
+    },
+    onPaginationChange: setPagination,
+    getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true,
+  })
   return (
-    <div
-      className={cn("w-full space-y-2.5 overflow-auto", className)}
-      {...props}
-    >
-      {children}
-      <div className="overflow-hidden rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      style={{
-                        ...getCommonPinningStyles({ column: header.column }),
-                      }}
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  )
-                })}
+    <div className="rounded-md border">
+      <Table>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                )
+              })}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && "selected"}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
               </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell
-                      key={cell.id}
-                      style={{
-                        ...getCommonPinningStyles({ column: cell.column }),
-                      }}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={table.getAllColumns().length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="flex flex-col gap-2.5">
-        <DataTablePagination table={table} />
-        {table.getFilteredSelectedRowModel().rows.length > 0 && floatingBar}
-      </div>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                No results.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
     </div>
   )
 }
