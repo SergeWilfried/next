@@ -151,6 +151,7 @@ import { EnrollmentStatus } from "@prisma/client";
         }),
         prisma.student.count()
       ])
+      console.log(students);
       return {
         error: null,
         data: students,
