@@ -20,6 +20,20 @@ enum UserRole {
   USER
 }
 
+enum SchoolCategory {
+  PRIVATE
+  PUBLIC
+  CHARTER
+  RELIGIOUS
+  NON_PROFIT
+}
+
+enum SchoolType {
+  HIGH_SCHOOL
+  MIDDLE_SCHOOL
+  ELEMENTARY_SCHOOL
+}
+
 model Account {
   id                String   @id @default(cuid())
   userId            String
@@ -88,6 +102,8 @@ model School {
   enrollments Enrollment[]
   donations   Donation[]
   staff       Staff[]
+  category    SchoolCategory
+  type        SchoolType
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -115,12 +131,33 @@ model Parent {
   @@map(name: "parents")
 }
 
+enum GenderEnum {
+  MALE
+  FEMALE
+  OTHER
+}
+enum EnrollmentStatus {
+  ACTIVE
+  INACTIVE
+  GRADUATED
+}
+
+enum DonationType {
+  DONATION
+  MONTHLY_FEE
+}
+
 model Student {
   id             String   @id @default(cuid())
   parent         Parent   @relation(fields: [parentId], references: [id])
   parentId       String
   dateOfBirth    DateTime
-  grade          Int
+  gender         GenderEnum @default(OTHER)
+  firstName      String
+  lastName       String
+  middleName     String?
+  suffix         String?
+  grade          String
   allergies      String?
   medicalNotes   String?
   school         School   @relation(fields: [schoolId], references: [id])
@@ -131,6 +168,7 @@ model Student {
   achievements   Achievement[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  status         EnrollmentStatus @default(INACTIVE)
 
   @@unique([parentId, schoolId, dateOfBirth])
   @@map(name: "students")
@@ -176,7 +214,7 @@ model Enrollment {
   student        Student  @relation(fields: [studentId], references: [id])
   studentId      String
   academicYear   String
-  grade          Int
+  grade          String
   status         EnrollmentStatus
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -282,11 +320,6 @@ enum ApplicationStatus {
   REJECTED
 }
 
-enum EnrollmentStatus {
-  ACTIVE
-  INACTIVE
-  GRADUATED
-}
 
 enum PaymentStatus {
   PENDING

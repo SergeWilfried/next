@@ -36,6 +36,16 @@ export interface Option {
   withCount?: boolean
 }
 
+export interface DataTableFilterOption<TData> {
+  id: string
+  label: string
+  value: keyof TData
+  options: Option[]
+  filterValues?: string[]
+  filterOperator?: string
+  isMulti?: boolean
+}
+
 export interface DataTableFilterField<TData> {
   label: string
   value: keyof TData
