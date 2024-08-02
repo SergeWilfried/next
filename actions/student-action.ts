@@ -142,13 +142,20 @@ import { EnrollmentStatus } from "@prisma/client";
     }
   }
 
-  export async function getStudents() {
+  export async function getStudents({page, per_page}: {page: number, per_page: number}) {
     try {
-      const students = await prisma.student.findMany()
+      const [students, count] = await Promise.all([
+        prisma.student.findMany({
+          skip: (page - 1) * per_page,
+          take: per_page,
+        }),
+        prisma.student.count()
+      ])
       return {
         error: null,
         data: students,
-        pageCount: Math.ceil(students.length / 10),
+        pageCount: Math.ceil(count / per_page),
+        total: count,
       }
     } catch (error) {
       console.error(error)
