@@ -147,6 +147,7 @@ enum DonationType {
   MONTHLY_FEE
 }
 
+
 model Student {
   id             String   @id @default(cuid())
   parent         Parent   @relation(fields: [parentId], references: [id])
@@ -329,6 +330,8 @@ enum PaymentStatus {
 
 enum PaymentMethod {
   CASH
+  MOBILE_MONEY
+  WAVE
   CREDIT_CARD
   BANK_TRANSFER
   CHECK
