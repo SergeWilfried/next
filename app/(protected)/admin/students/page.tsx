@@ -20,7 +20,7 @@ export default async function StudentsPage({searchParams}: {searchParams: GetStu
   const user = await getCurrentUser();
     // calculate limit and offset according page and per_page records
   const limit = typeof per_page === "string" ? parseInt(per_page) : 10
-  const offset = typeof page === "string" ? parseInt(page) > 0 ? (parseInt(page) - 1) * limit : 0 : 0
+  const offset = typeof page === "string" ? Math.max(1, (parseInt(page) - 1)) * limit : 1
   const { data: students, pageCount, total } = await getStudents({page: offset, per_page: limit});
 
   if (!user || user.role !== "ADMIN") redirect("/login");

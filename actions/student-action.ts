@@ -146,7 +146,7 @@ import { EnrollmentStatus } from "@prisma/client";
     try {
       const [students, count] = await Promise.all([
         prisma.student.findMany({
-          skip: (page - 1) * per_page,
+          skip: Math.max(0, (page - 1) * per_page),
           take: per_page,
         }),
         prisma.student.count()
