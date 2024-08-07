@@ -106,7 +106,7 @@ export function DataTable<TData, TValue>({
       ...column,
       cell: (info: any) => {
         const value = info.getValue();
-        if (column.id === 'status') {
+        if (column.id === 'Status') {
           return (
             <Badge className={`${getStatusColor(value)}`}>
               {value}
