@@ -116,7 +116,8 @@ export function DataTable<TData, TValue>({
         if (value instanceof Date) {
           return value.toLocaleDateString();
         }
-        return flexRender(column.cell, info);
+        // Use the original cell renderer if available, otherwise return the value
+        return column.cell ? flexRender(column.cell, info) : value;
       }
     }));
   }, [columns]);
@@ -134,87 +135,83 @@ export function DataTable<TData, TValue>({
     manualPagination: true,
   })
   return (
-    <div className="space-y-4">
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  )
-                })}
+    <div className="rounded-md border">
+      <Table>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                )
+              })}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && "selected"}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
               </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="flex justify-center">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious 
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                No results.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious 
+              href="#" 
+              onClick={() => table.previousPage()} 
+              isActive={!table.getCanPreviousPage()}
+            />
+          </PaginationItem>
+          {table.getPageOptions().map((page) => (
+            <PaginationItem key={page}>
+              <PaginationLink 
                 href="#" 
-                onClick={() => table.previousPage()} 
-                isActive={!table.getCanPreviousPage()}
-              />
+                onClick={() => table.setPageIndex(page)}
+                isActive={page === table.getState().pagination.pageIndex}
+              >
+                {page + 1}
+              </PaginationLink>
             </PaginationItem>
-            {table.getPageOptions().map((page) => (
-              <PaginationItem key={page}>
-                <PaginationLink 
-                  href="#" 
-                  onClick={() => table.setPageIndex(page)}
-                  isActive={page === table.getState().pagination.pageIndex}
-                >
-                  {page + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-            {pageCount > table.getPageCount() && (
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-            )}
+          ))}
+          {pageCount > table.getPageCount() && (
             <PaginationItem>
-              <PaginationNext 
-                href="#" 
-                onClick={() => table.nextPage()} 
-                isActive={!table.getCanNextPage()}
-              />
+              <PaginationEllipsis />
             </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </div>
+          )}
+          <PaginationItem>
+            <PaginationNext 
+              href="#" 
+              onClick={() => table.nextPage()} 
+              isActive={!table.getCanNextPage()}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   )
 }
