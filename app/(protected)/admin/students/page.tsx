@@ -18,21 +18,23 @@ export default async function StudentsPage({searchParams}: {searchParams: GetStu
   const { page, per_page } = searchParams
 
   const user = await getCurrentUser();
-    // calculate limit and offset according page and per_page records
-  const limit = typeof per_page === "string" ? parseInt(per_page) : 10
-  const offset = typeof page === "string" ? Math.max(1, (parseInt(page) - 1)) * limit : 1
-  const { data: students, pageCount, total } = await getStudents({page: offset, per_page: limit});
-
   if (!user || user.role !== "ADMIN") redirect("/login");
 
-  console.log(students)
+  // calculate limit and offset according page and per_page records
+  const limit = typeof per_page === "string" ? parseInt(per_page) : 10
+  const offset = typeof page === "string" ? Math.max(0, (parseInt(page) - 1)) * limit : 0
+
+  const { data: students, pageCount, total } = await getStudents({page: offset, per_page: limit});
+
   return (
     <>
       <DashboardHeader
         heading="Students"
         text="Manage students in the school system."
       />
-      {!students || students.length === 0 ? (
+      {students === null ? (
+        <div>Loading...</div>
+      ) : students.length === 0 ? (
         <EmptyPlaceholder>
           <EmptyPlaceholder.Icon name="file" />
           <EmptyPlaceholder.Title>No students listed</EmptyPlaceholder.Title>
@@ -42,7 +44,7 @@ export default async function StudentsPage({searchParams}: {searchParams: GetStu
           <Button>Add Students</Button>
         </EmptyPlaceholder>
       ) : (
-        <DataTable columns={studentsTableColumns} data={students} pageCount={1} />
+        <DataTable columns={studentsTableColumns} data={students} pageCount={pageCount} />
       )}
     </>
   );
