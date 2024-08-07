@@ -217,7 +217,7 @@ export function DataTable<TData, TValue>({
 function getStatusColor(status: string) {
   switch (status.toLowerCase()) {
     case 'active':
-      return 'bg-green-100 text-green-8000';
+      return 'bg-green-100 text-green-800';
     case 'inactive':
       return 'bg-red-100 text-red-800';
     case 'graduated':
