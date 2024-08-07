@@ -8,6 +8,7 @@ import { getAllStudents } from "@/actions/student-action";
 import { DataTable } from "@/components/data-table/data-table";
 import { studentsTableColumns } from "./columns";
 import { GetStudentsSchema } from "@/lib/validations/student";
+import StudentsLoading from "./loading";
 
 export const metadata = constructMetadata({
   title: "Students – School Management System",
@@ -28,7 +29,7 @@ export default async function StudentsPage() {
         text="Manage students in the school system."
       />
       {students === null ? (
-        <div>Loading...</div>
+        <StudentsLoading />
       ) : students.length === 0 ? (
         <EmptyPlaceholder>
           <EmptyPlaceholder.Icon name="file" />
