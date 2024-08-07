@@ -4,7 +4,7 @@ import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 import { Button } from "@/components/ui/button";
-import { getAllStudents } from "@/actions/student-action";
+import { getAllStudents, getStudents } from "@/actions/student-action";
 import { DataTable } from "@/components/data-table/data-table";
 import { studentsTableColumns } from "./columns";
 import { GetStudentsSchema } from "@/lib/validations/student";
@@ -14,13 +14,18 @@ export const metadata = constructMetadata({
   description: "Manage students in the school system.",
 });
 
-export default async function StudentsPage() {
+export default async function StudentsPage({searchParams}: {searchParams: GetStudentsSchema}) {
+  const { page, per_page } = searchParams
 
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/login");
 
+  // calculate limit and offset according page and per_page records
+  const limit = typeof per_page === "string" ? parseInt(per_page) : 10
+  const offset = typeof page === "string" ? Math.max(0, (parseInt(page) - 1)) * limit : 0
+
   // Get all students without pagination
-  const { data: students, count } = await getAllStudents();
+  const { data: students, pageCount } = await getStudents({page: offset, per_page: limit});
   return (
     <>
       <DashboardHeader
@@ -39,7 +44,7 @@ export default async function StudentsPage() {
           <Button>Add Students</Button>
         </EmptyPlaceholder>
       ) : (
-        <DataTable columns={studentsTableColumns} data={students} pageCount={count} />
+        <DataTable columns={studentsTableColumns} data={students} pageCount={pageCount} />
       )}
     </>
   );
