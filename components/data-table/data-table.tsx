@@ -116,7 +116,8 @@ export function DataTable<TData, TValue>({
         if (value instanceof Date) {
           return value.toLocaleDateString();
         }
-        return flexRender(column.cell, info);
+        // Use the original cell renderer if available, otherwise return the value
+        return column.cell ? flexRender(column.cell, info) : value;
       }
     }));
   }, [columns]);
