@@ -13,10 +13,6 @@ export const studentsTableColumns: ColumnDef<Student>[] = [
     header: "Last Name",
   },
   {
-    accessorKey: "middleName",
-    header: "Middle Name",
-  },
-  {
     accessorKey: "dateOfBirth",
     header: "Date of Birth",
   },
