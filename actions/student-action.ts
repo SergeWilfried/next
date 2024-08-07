@@ -186,8 +186,3 @@ import { EnrollmentStatus } from "@prisma/client";
       }
     }
   }
-
-export const students = (async () => {
-  const { data } = await getStudents({page: 1, per_page: 10});
-  return data;
-})();
