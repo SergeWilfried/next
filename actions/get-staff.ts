@@ -1,7 +1,9 @@
 
+import { prisma } from "@/lib/db";
 
 export async function getAllStaff() {
   try {
+    
     const staff = await prisma.staff.findMany();
     return {
       error: null,
