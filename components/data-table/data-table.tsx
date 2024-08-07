@@ -20,6 +20,16 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[],
@@ -90,9 +100,29 @@ export function DataTable<TData, TValue>({
         )
   }, [pageIndex, pageSize])
 
+  const formattedColumns = React.useMemo(() => {
+    return columns.map(column => ({
+      ...column,
+      cell: (info: any) => {
+        const value = info.getValue();
+        if (column.id === 'status') {
+          return (
+            <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(value)}`}>
+              {value}
+            </span>
+          );
+        }
+        if (value instanceof Date) {
+          return value.toLocaleDateString();
+        }
+        return flexRender(column.cell, info);
+      }
+    }));
+  }, [columns]);
+
   const table = useReactTable({
     data,
-    columns,
+    columns: formattedColumns,
     getCoreRowModel: getCoreRowModel(),
     pageCount: pageCount ?? -1,
     state: {
@@ -146,6 +176,53 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious 
+              href="#" 
+              onClick={() => table.previousPage()} 
+              isActive={!table.getCanPreviousPage()}
+            />
+          </PaginationItem>
+          {table.getPageOptions().map((page) => (
+            <PaginationItem key={page}>
+              <PaginationLink 
+                href="#" 
+                onClick={() => table.setPageIndex(page)}
+                isActive={page === table.getState().pagination.pageIndex}
+              >
+                {page + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          {pageCount > table.getPageCount() && (
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          )}
+          <PaginationItem>
+            <PaginationNext 
+              href="#" 
+              onClick={() => table.nextPage()} 
+              isActive={!table.getCanNextPage()}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   )
+}
+
+function getStatusColor(status: string) {
+  switch (status.toLowerCase()) {
+    case 'ACTIVE':
+      return 'bg-green-100 text-green-800';
+    case 'INACTIVE':
+      return 'bg-red-100 text-red-800';
+    case 'GRADUATED':
+      return 'bg-yellow-100 text-yellow-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
+  }
 }
