@@ -4,6 +4,22 @@ import { CreateStudentSchema, UpdateStudentSchema } from "@/lib/validations/stud
 import { EnrollmentStatus } from "@prisma/client";
 
 
+export async function getAllStudents() {
+  try {
+    const students = await prisma.student.findMany();
+    return {
+      error: null,
+      data: students,
+      count: students.length,
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      error: error,
+      data: null,
+    }
+  }
+}
   export async function updateStatus({ids, status}: {ids: string[], status: string}) {
     try {
        const response = await prisma.student.updateMany({
