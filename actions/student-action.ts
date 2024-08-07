@@ -142,7 +142,7 @@ import { EnrollmentStatus } from "@prisma/client";
     }
   }
 
-  export async function getStudents({page, per_page}: {page: number, per_page: number}) {
+  export async function getStudents({page = 1, per_page = 10}: {page?: number, per_page?: number}) {
     try {
       const [students, count] = await Promise.all([
         prisma.student.findMany({
