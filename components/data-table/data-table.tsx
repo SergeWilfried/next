@@ -29,6 +29,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
+import { Badge } from "@/components/ui/badge"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -107,9 +108,9 @@ export function DataTable<TData, TValue>({
         const value = info.getValue();
         if (column.id === 'status') {
           return (
-            <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(value)}`}>
+            <Badge className={`${getStatusColor(value)}`}>
               {value}
-            </span>
+            </Badge>
           );
         }
         if (value instanceof Date) {
