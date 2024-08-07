@@ -7,6 +7,11 @@ import {
   getPaginationRowModel,
   PaginationState,
   useReactTable,
+  SortingState,
+  ColumnFiltersState,
+  VisibilityState,
+  getSortedRowModel,
+  getFilteredRowModel,
 } from "@tanstack/react-table"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import React from "react"
@@ -20,16 +25,11 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination"
-import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu"
+import { ChevronDownIcon } from "@radix-ui/react-icons"
+import { DownloadIcon } from "@radix-ui/react-icons"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -49,7 +49,7 @@ export function DataTable<TData, TValue>({
 
   // search params
   const page = searchParams?.get("page") ?? "1" // default is page: 1
-  const per_page = searchParams?.get("per_page") ?? "5" // default 5 record per page
+  const per_page = searchParams?.get("per_page") ?? "10" // default 5 record per page
 
     // create query string
     const createQueryString = React.useCallback(
@@ -101,41 +101,83 @@ export function DataTable<TData, TValue>({
         )
   }, [pageIndex, pageSize])
 
-  const formattedColumns = React.useMemo(() => {
-    return columns.map(column => ({
-      ...column,
-      cell: (info: any) => {
-        const value = info.getValue();
-        if (column.id === 'Status') {
-          return (
-            <Badge className={`${getStatusColor(value)}`}>
-              {value}
-            </Badge>
-          );
-        }
-        if (value instanceof Date) {
-          return value.toLocaleDateString();
-        }
-        // Use the original cell renderer if available, otherwise return the value
-        return column.cell ? flexRender(column.cell, info) : value;
-      }
-    }));
-  }, [columns]);
+  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
     data,
-    columns: formattedColumns,
+    columns,
     getCoreRowModel: getCoreRowModel(),
     pageCount: pageCount ?? -1,
     state: {
-      pagination
+      pagination,
+      sorting,
+      columnFilters,
+      columnVisibility,
+      rowSelection,
     },
     onPaginationChange: setPagination,
     getPaginationRowModel: getPaginationRowModel(),
-    manualPagination: true,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: setRowSelection,
   })
+
+  // Add this function to handle export
+  const handleExport = () => {
+    // Implement your export logic here
+    console.log("Exporting data...")
+  }
+
   return (
-    <div className="space-y-4">
+    <div className="w-full space-y-4">
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter emails..."
+          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("email")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+        <div className="ml-auto flex space-x-2">
+          <Button variant="outline" onClick={handleExport}>
+            <DownloadIcon className="mr-2 h-4 w-4" />
+            Export
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  )
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -180,55 +222,30 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex justify-center">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious 
-                href="#" 
-                onClick={() => table.previousPage()} 
-                isActive={!table.getCanPreviousPage()}
-              />
-            </PaginationItem>
-            {table.getPageOptions().map((page) => (
-              <PaginationItem key={page}>
-                <PaginationLink 
-                  href="#" 
-                  onClick={() => table.setPageIndex(page)}
-                  isActive={page === table.getState().pagination.pageIndex}
-                >
-                  {page + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-            {pageCount > table.getPageCount() && (
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-            )}
-            <PaginationItem>
-              <PaginationNext 
-                href="#" 
-                onClick={() => table.nextPage()} 
-                isActive={!table.getCanNextPage()}
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+      <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="flex-1 text-sm text-muted-foreground">
+          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredRowModel().rows.length} row(s) selected.
+        </div>
+        <div className="space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   )
-}
-
-function getStatusColor(status: string) {
-  switch (status.toLowerCase()) {
-    case 'active':
-      return 'bg-green-100 text-green-800';
-    case 'inactive':
-      return 'bg-red-100 text-red-800';
-    case 'graduated':
-      return 'bg-yellow-100 text-yellow-800';
-    default:
-      return 'bg-gray-100 text-gray-800';
-  }
 }
