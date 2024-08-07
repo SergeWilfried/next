@@ -4,6 +4,10 @@ import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 import { Button } from "@/components/ui/button";
+import StaffLoading from "./loading";
+import { DataTable } from "@/components/data-table/data-table";
+import { staffTableColumns } from "./columns";
+import { getAllStaff } from "@/actions/get-staff";
 
 export const metadata = constructMetadata({
   title: "Staff – School Management System",
@@ -14,20 +18,29 @@ export default async function StaffPage() {
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/login");
 
+  // Fetch staff data and count (you'll need to implement these functions)
+  const { data: staff, count } = await getAllStaff();
+
   return (
     <>
       <DashboardHeader
         heading="Staff"
         text="Manage staff in the school system."
       />
-      <EmptyPlaceholder>
-        <EmptyPlaceholder.Icon name="file" />
-        <EmptyPlaceholder.Title>No staff listed</EmptyPlaceholder.Title>
-        <EmptyPlaceholder.Description>
-          You don&apos;t have any staff yet. Start by adding some.
-        </EmptyPlaceholder.Description>
-        <Button>Add Staff</Button>
-      </EmptyPlaceholder>
+      {staff === null ? (
+        <StaffLoading />
+      ) : staff.length === 0 ? (
+        <EmptyPlaceholder>
+          <EmptyPlaceholder.Icon name="file" />
+          <EmptyPlaceholder.Title>No staff listed</EmptyPlaceholder.Title>
+          <EmptyPlaceholder.Description>
+            You don&apos;t have any staff yet. Start by adding some.
+          </EmptyPlaceholder.Description>
+          <Button>Add Staff</Button>
+        </EmptyPlaceholder>
+      ) : (
+        <DataTable columns={staffTableColumns} data={staff} pageCount={count} />
+      )}
     </>
   );
 }
