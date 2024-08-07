@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider     = "postgresql"
-  url          = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum UserRole {
@@ -77,11 +77,11 @@ model User {
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
   role          UserRole  @default(USER)
-  parent        Parent?
 
   accounts Account[]
   sessions Session[]
- 
+  schools  School[]
+
   stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
   stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
   stripePriceId          String?   @map(name: "stripe_price_id")
@@ -91,42 +91,43 @@ model User {
 }
 
 model School {
-  id          String   @id @default(cuid())
-  name        String
-  address     String
-  phoneNumber String
-  parents     Parent[]
-  students    Student[]
+  id           String         @id @default(cuid())
+  name         String
+  address      String
+  phoneNumber  String
+  parents      Parent[]
+  students     Student[]
   pickupPeople PickupPerson[]
   applications Application[]
-  enrollments Enrollment[]
-  donations   Donation[]
-  staff       Staff[]
-  category    SchoolCategory
-  type        SchoolType
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  enrollments  Enrollment[]
+  donations    Donation[]
+  staff        Staff[]
+  category     SchoolCategory
+  type         SchoolType
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  User         User?          @relation(fields: [userId], references: [id])
+  userId       String?
 
   @@unique([name, address])
   @@map(name: "schools")
 }
 
 model Parent {
-  id                      String   @id @default(cuid())
-  userId                  String   @unique
-  user                    User     @relation(fields: [userId], references: [id])
+  id                      String                  @id @default(cuid())
+  fullName                String
   phoneNumber             String
   communicationPreference CommunicationPreference
-  emergencyContacts       Json[]   // Embedded emergency contacts
+  emergencyContacts       Json[] // Embedded emergency contacts
   students                Student[]
   pickupPeople            PickupPerson[]
   applications            Application[]
   enrollments             Enrollment[]
   donations               Donation[]
-  school                  School   @relation(fields: [schoolId], references: [id])
+  school                  School                  @relation(fields: [schoolId], references: [id])
   schoolId                String
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
+  createdAt               DateTime                @default(now())
+  updatedAt               DateTime                @updatedAt
 
   @@map(name: "parents")
 }
@@ -136,6 +137,7 @@ enum GenderEnum {
   FEMALE
   OTHER
 }
+
 enum EnrollmentStatus {
   ACTIVE
   INACTIVE
@@ -147,138 +149,137 @@ enum DonationType {
   MONTHLY_FEE
 }
 
-
 model Student {
-  id             String   @id @default(cuid())
-  parent         Parent   @relation(fields: [parentId], references: [id])
-  parentId       String
-  dateOfBirth    DateTime
-  gender         GenderEnum @default(OTHER)
-  firstName      String
-  lastName       String
-  middleName     String?
-  suffix         String?
-  grade          String
-  allergies      String?
-  medicalNotes   String?
-  school         School   @relation(fields: [schoolId], references: [id])
-  schoolId       String
-  pickupPeople   PickupPerson[]
-  enrollments    Enrollment[]
+  id                  String               @id @default(cuid())
+  parent              Parent               @relation(fields: [parentId], references: [id])
+  parentId            String
+  dateOfBirth         DateTime
+  gender              GenderEnum           @default(OTHER)
+  firstName           String
+  lastName            String
+  middleName          String?
+  suffix              String?
+  grade               String
+  allergies           String?
+  medicalNotes        String?
+  school              School               @relation(fields: [schoolId], references: [id])
+  schoolId            String
+  pickupPeople        PickupPerson[]
+  enrollments         Enrollment[]
   disciplinaryActions DisciplinaryAction[]
-  achievements   Achievement[]
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  status         EnrollmentStatus @default(INACTIVE)
+  achievements        Achievement[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  status              EnrollmentStatus     @default(INACTIVE)
 
   @@unique([parentId, schoolId, dateOfBirth])
   @@map(name: "students")
 }
 
 model PickupPerson {
-  id             String   @id @default(cuid())
-  parent         Parent   @relation(fields: [parentId], references: [id])
-  parentId       String
-  name           String
-  relationship   String
-  school         School   @relation(fields: [schoolId], references: [id])
-  schoolId       String
-  students       Student[]
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id           String    @id @default(cuid())
+  parent       Parent    @relation(fields: [parentId], references: [id])
+  parentId     String
+  name         String
+  relationship String
+  school       School    @relation(fields: [schoolId], references: [id])
+  schoolId     String
+  students     Student[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   @@unique([parentId, name, relationship])
   @@map(name: "pickup_people")
 }
 
 model Application {
-  id             String   @id @default(cuid())
-  parent         Parent   @relation(fields: [parentId], references: [id])
-  parentId       String
-  studentName    String
-  desiredGrade   Int
-  status         ApplicationStatus
-  submittedAt    DateTime @default(now())
-  school         School   @relation(fields: [schoolId], references: [id])
-  schoolId       String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id           String            @id @default(cuid())
+  parent       Parent            @relation(fields: [parentId], references: [id])
+  parentId     String
+  studentName  String
+  desiredGrade Int
+  status       ApplicationStatus
+  submittedAt  DateTime          @default(now())
+  school       School            @relation(fields: [schoolId], references: [id])
+  schoolId     String
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
 
   @@unique([parentId, studentName, desiredGrade, schoolId])
   @@map(name: "applications")
 }
 
 model Enrollment {
-  id             String   @id @default(cuid())
-  parent         Parent   @relation(fields: [parentId], references: [id])
-  parentId       String
-  student        Student  @relation(fields: [studentId], references: [id])
-  studentId      String
-  academicYear   String
-  grade          String
-  status         EnrollmentStatus
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  school         School   @relation(fields: [schoolId], references: [id])
-  schoolId       String
-  payments       Payment[]
-  totalFee       Float
-  paidAmount     Float    @default(0)
+  id           String           @id @default(cuid())
+  parent       Parent           @relation(fields: [parentId], references: [id])
+  parentId     String
+  student      Student          @relation(fields: [studentId], references: [id])
+  studentId    String
+  academicYear String
+  grade        String
+  status       EnrollmentStatus
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  school       School           @relation(fields: [schoolId], references: [id])
+  schoolId     String
+  payments     Payment[]
+  totalFee     Float
+  paidAmount   Float            @default(0)
 
   @@unique([studentId, academicYear, schoolId])
   @@map(name: "enrollments")
 }
 
 model Payment {
-  id             String   @id @default(cuid())
-  enrollment     Enrollment @relation(fields: [enrollmentId], references: [id])
-  enrollmentId   String
-  amount         Float
-  status         PaymentStatus
-  paymentDate    DateTime
-  paymentMethod  PaymentMethod
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  
+  id            String        @id @default(cuid())
+  enrollment    Enrollment    @relation(fields: [enrollmentId], references: [id])
+  enrollmentId  String
+  amount        Float
+  status        PaymentStatus
+  paymentDate   DateTime
+  paymentMethod PaymentMethod
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
   @@map(name: "payments")
 }
 
 model DisciplinaryAction {
-  id             String   @id @default(cuid())
-  student        Student  @relation(fields: [studentId], references: [id])
-  studentId      String
-  description    String
-  date           DateTime
-  actionTaken    String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id          String   @id @default(cuid())
+  student     Student  @relation(fields: [studentId], references: [id])
+  studentId   String
+  description String
+  date        DateTime
+  actionTaken String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map(name: "disciplinary_actions")
 }
 
 model Achievement {
-  id             String   @id @default(cuid())
-  student        Student  @relation(fields: [studentId], references: [id])
-  studentId      String
-  description    String
-  date           DateTime
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id          String   @id @default(cuid())
+  student     Student  @relation(fields: [studentId], references: [id])
+  studentId   String
+  description String
+  date        DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map(name: "achievements")
 }
 
 model Donation {
-  id             String   @id @default(cuid())
-  parent         Parent   @relation(fields: [parentId], references: [id])
-  parentId       String
-  amount         Float
-  date           DateTime
-  purpose        String?
-  school         School   @relation(fields: [schoolId], references: [id])
-  schoolId       String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id        String   @id @default(cuid())
+  parent    Parent   @relation(fields: [parentId], references: [id])
+  parentId  String
+  amount    Float
+  date      DateTime
+  purpose   String?
+  school    School   @relation(fields: [schoolId], references: [id])
+  schoolId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([parentId])
   @@index([schoolId])
@@ -286,15 +287,15 @@ model Donation {
 }
 
 model Staff {
-  id             String   @id @default(cuid())
-  position       String
-  department     String?
-  name           String
-  email          String   @unique
-  school         School   @relation(fields: [schoolId], references: [id])
-  schoolId       String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id         String   @id @default(cuid())
+  position   String
+  department String?
+  name       String
+  email      String   @unique
+  school     School   @relation(fields: [schoolId], references: [id])
+  schoolId   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@unique([name, position, schoolId])
   @@map(name: "staff")
@@ -320,7 +321,6 @@ enum ApplicationStatus {
   APPROVED
   REJECTED
 }
-
 
 enum PaymentStatus {
   PENDING

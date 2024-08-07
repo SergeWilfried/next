@@ -25,7 +25,7 @@ export default async function StudentsPage({searchParams}: {searchParams: GetStu
 
   if (!user || user.role !== "ADMIN") redirect("/login");
 
-
+  console.log(students)
   return (
     <>
       <DashboardHeader
