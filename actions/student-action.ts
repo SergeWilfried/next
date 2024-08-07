@@ -9,8 +9,8 @@ export async function getAllStudents() {
     const students = await prisma.student.findMany();
     return {
       error: null,
-      data: students,
-      count: students.length,
+      data: students ?? [],
+      count: students.length ?? 0,
     }
   } catch (error) {
     console.error(error)
