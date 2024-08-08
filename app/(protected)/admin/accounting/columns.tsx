@@ -10,6 +10,7 @@ import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 import { EditPaymentSheet } from "./edit-payment-sheet"
 
+
 export const paymentsTableColumns: ColumnDef<Payment>[] = [
   {
     id: "select",
