@@ -9,6 +9,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 import { EditPaymentSheet } from "./edit-payment-sheet"
+import { useToast } from "@/components/ui/use-toast"
 
 
 export const paymentsTableColumns: ColumnDef<Payment>[] = [
@@ -50,7 +51,7 @@ export const paymentsTableColumns: ColumnDef<Payment>[] = [
       const amount = parseFloat(row.getValue("amount"))
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "XOF",
+        currency: "USD",
       }).format(amount)
       return <div>{formatted}</div>
     },
@@ -87,6 +88,7 @@ export const paymentsTableColumns: ColumnDef<Payment>[] = [
     cell: ({ row }) => {
       const payment = row.original
       const buttonLabel = payment.status === PaymentStatus.PENDING ? "View payment details" : "Print receipt"
+      const { toast } = useToast()
 
       const handleDownloadOrView = (isView: boolean) => {
         if (isView) {
@@ -109,7 +111,13 @@ export const paymentsTableColumns: ColumnDef<Payment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+               onClick={() => {
+                navigator.clipboard.writeText(payment.id)
+                toast({
+                  title: "Payment ID copied",
+                  description: "Payment ID copied to clipboard",
+                })
+              }}
             >
               Copy payment ID
             </DropdownMenuItem>
