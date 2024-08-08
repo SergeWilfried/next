@@ -47,7 +47,7 @@ export const donationsTableColumns: ColumnDef<Donation>[] = [
       const amount = parseFloat(row.getValue("amount"))
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "USD",
+        currency: "XOF",
       }).format(amount)
       return <div>{formatted}</div>
     },
