@@ -101,6 +101,7 @@ model School {
   applications Application[]
   enrollments  Enrollment[]
   donations    Donation[]
+  reports      Report[]
   staff        Staff[]
   category     SchoolCategory
   type         SchoolType
@@ -111,6 +112,20 @@ model School {
 
   @@unique([name, address])
   @@map(name: "schools")
+}
+
+model Report {
+  id String @id @default(cuid())
+  name String
+  description String?
+  fileUrl String?
+  school School @relation(fields: [schoolId], references: [id])
+  schoolId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map(name: "reports")
+  @@index([schoolId])
 }
 
 model Parent {
