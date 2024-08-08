@@ -73,7 +73,7 @@ export const sidebarLinks: SidebarNavItem[] = [
         title: "Donations",
         badge: 5,
         authorizeOnly: UserRole.ADMIN,
-        disabled: true,
+        disabled: false,
       },
       {
         href: "#/dashboard/portal",
