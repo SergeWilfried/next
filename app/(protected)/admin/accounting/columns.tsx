@@ -8,18 +8,8 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { EditPaymentSheet } from "./edit-payment-sheet"
+
 
 export const paymentsTableColumns: ColumnDef<Payment>[] = [
   {
@@ -86,7 +76,9 @@ export const paymentsTableColumns: ColumnDef<Payment>[] = [
     accessorKey: "paymentMethod",
     header: "Payment Method",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue<PaymentMethod>("paymentMethod")}</div>
+      <Badge variant="outline" className="capitalize">
+        {row.getValue<PaymentMethod>("paymentMethod").replace('_', ' ')}
+      </Badge>
     ),
   },
   {
@@ -94,6 +86,17 @@ export const paymentsTableColumns: ColumnDef<Payment>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const payment = row.original
+      const buttonLabel = payment.status === PaymentStatus.PENDING ? "View payment details" : "Print receipt"
+
+      const handleDownloadOrView = (isView: boolean) => {
+        if (isView) {
+          // View payment details
+          console.log("View payment details")
+        } else {
+          // Download receipt
+          console.log("Download receipt")
+        }
+      }
 
       return (
         <DropdownMenu>
@@ -111,42 +114,9 @@ export const paymentsTableColumns: ColumnDef<Payment>[] = [
               Copy payment ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-            <Sheet>
-              <SheetTrigger asChild>
-                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                  Edit payment
-                </DropdownMenuItem>
-              </SheetTrigger>
-              <SheetContent>
-                <SheetHeader>
-                  <SheetTitle>Edit Payment</SheetTitle>
-                  <SheetDescription>
-                    Make changes to the payment here. Click save when you&apos;re done.
-                  </SheetDescription>
-                </SheetHeader>
-                <div className="grid gap-4 py-4">
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="amount" className="text-right">
-                      Amount
-                    </Label>
-                    <Input id="amount" defaultValue={payment.amount.toString()} className="col-span-3" />
-                  </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="status" className="text-right">
-                      Status
-                    </Label>
-                    <Input id="status" defaultValue={payment.status} className="col-span-3" />
-                  </div>
-                  {/* Add more fields as needed */}
-                </div>
-                <SheetFooter>
-                  <SheetClose asChild>
-                    <Button type="submit">Save changes</Button>
-                  </SheetClose>
-                </SheetFooter>
-              </SheetContent>
-            </Sheet>
+            <DropdownMenuItem onClick={() => handleDownloadOrView(true)}>{buttonLabel}</DropdownMenuItem>
+            <EditPaymentSheet payment={payment} />
+            <DropdownMenuItem>Delete payment</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
