@@ -84,11 +84,11 @@ export const reportsTableColumns: ColumnDef<Report>[] = [
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(student.id)}
             >
-              Copy application ID
+              Copy report ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View application details</DropdownMenuItem>
-            <DropdownMenuItem>Edit application</DropdownMenuItem>
+            <DropdownMenuItem>View report details</DropdownMenuItem>
+            <DropdownMenuItem>Download report</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
