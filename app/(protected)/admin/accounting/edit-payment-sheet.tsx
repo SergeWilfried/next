@@ -77,7 +77,7 @@ export function EditPaymentSheet({ payment }: EditPaymentSheetProps) {
         <SheetHeader>
           <SheetTitle>Edit Payment</SheetTitle>
           <SheetDescription>
-            Make changes to the payment here. Click save when you're done.
+            Make changes to the payment here. Click save when you&apos;re done.
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
