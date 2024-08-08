@@ -4,6 +4,10 @@ import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 import { Button } from "@/components/ui/button";
+import { getAllDonations } from "@/actions/get-donations";
+import DonationsLoading from "./loading";
+import { DataTable } from "@/components/data-table/data-table";
+import { donationsTableColumns } from "./columns";
 
 export const metadata = constructMetadata({
   title: "Donations – School Management System",
@@ -14,12 +18,18 @@ export default async function DonationsPage() {
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/login");
 
+
+  // Fetch donations from the server
+  const { data: donations, error, count } = await getAllDonations();
   return (
     <>
       <DashboardHeader
         heading="Donations"
         text="Manage donations in the school system."
       />
+      {donations === null ? (
+        <DonationsLoading />
+      ) : donations.length === 0 ? (  
       <EmptyPlaceholder>
         <EmptyPlaceholder.Icon name="file" />
         <EmptyPlaceholder.Title>No donations listed</EmptyPlaceholder.Title>
@@ -28,6 +38,9 @@ export default async function DonationsPage() {
         </EmptyPlaceholder.Description>
         <Button>Add Donations</Button>
       </EmptyPlaceholder>
+    ) : (
+      <DataTable data={donations} columns={donationsTableColumns} pageCount={count} />
+    )}
     </>
   );
 }
