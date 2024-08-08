@@ -8,6 +8,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
+import { useToast } from "@/components/ui/use-toast"
 
 export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
   {
@@ -69,7 +70,7 @@ export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
       const amount = parseFloat(row.getValue("totalFee"))
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "XOF",
+        currency: "USD",
       }).format(amount)
       return <div>{formatted}</div>
     },
@@ -81,7 +82,7 @@ export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
       const amount = parseFloat(row.getValue("paidAmount"))
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "XOF",
+        currency: "USD",
       }).format(amount)
       return <div>{formatted}</div>
     },
@@ -98,7 +99,8 @@ export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original
+      const enrollment = row.original
+      const { toast } = useToast()
 
       return (
         <DropdownMenu>
@@ -111,7 +113,13 @@ export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => {
+                navigator.clipboard.writeText(enrollment.id)
+                toast({
+                  title: "Enrollment ID copied",
+                  description: "Enrollment ID copied to clipboard",
+                })
+              }}
             >
               Copy enrollment ID
             </DropdownMenuItem>
