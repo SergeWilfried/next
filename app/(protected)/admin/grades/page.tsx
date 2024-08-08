@@ -40,8 +40,8 @@ export default async function GradesPage() {
       ) : (
         <DataTable
           data={grades}
-          count={count}
           columns={gradesTableColumns}
+          pageCount={count}
         />
       )}
     </>
