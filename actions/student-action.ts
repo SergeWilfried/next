@@ -73,30 +73,6 @@ export async function getAllStudents() {
     }
   }
 
-  export async function updateGrade({ids, grade}: {ids: string[], grade: string}) {
-    try {
-      const response = await prisma.student.updateMany({
-        where: {
-          id: {
-            in: ids,
-          },
-        },
-        data: {
-          grade: grade,
-        },
-      })
-      return {
-        error: null,
-        data: response,
-      }
-    } catch (error) {
-      console.error(error)
-      return {
-        error: error,
-        data: null,
-      }
-    }
-  }
 
   export async function deleteStudents({ids}: {ids: string[]}) {
     try {
