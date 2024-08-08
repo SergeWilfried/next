@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge"
 
 const actions = (row: Row<Student>) => [
   { label: "View", isCopyable:false, onClick: () => {} },
-  { label: "Copy student Id", isCopyable:true, onClick: () => {}, separator:true },
+  { label: "Student Id", isCopyable:true, onClick: () => {}, separator:true },
   { label: "Edit", isCopyable:false, onClick: () => {} },
   { label: "Delete", isCopyable:false, onClick: () => {} },
 ]
