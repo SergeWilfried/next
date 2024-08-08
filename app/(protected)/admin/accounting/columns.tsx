@@ -122,7 +122,7 @@ export const paymentsTableColumns: ColumnDef<Payment>[] = [
                 <SheetHeader>
                   <SheetTitle>Edit Payment</SheetTitle>
                   <SheetDescription>
-                    Make changes to the payment here. Click save when you're done.
+                    Make changes to the payment here. Click save when you&apos;re done.
                   </SheetDescription>
                 </SheetHeader>
                 <div className="grid gap-4 py-4">
