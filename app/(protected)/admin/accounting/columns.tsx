@@ -75,7 +75,9 @@ export const paymentsTableColumns: ColumnDef<Payment>[] = [
     accessorKey: "paymentMethod",
     header: "Payment Method",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue<PaymentMethod>("paymentMethod")}</div>
+      <Badge variant="outline" className="capitalize">
+        {row.getValue<PaymentMethod>("paymentMethod").replace('_', ' ')}
+      </Badge>
     ),
   },
   {
