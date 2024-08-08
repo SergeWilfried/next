@@ -1,12 +1,12 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { DashboardHeader } from "@/components/dashboard/header";
 
-export default function SchoolsLoading() {
+export default function GradesLoading() {
   return (
     <>
       <DashboardHeader
-        heading="Schools"
-        text="Manage schools in the school system."
+        heading="Grades"
+        text="Manage grades in the school system."
       />
       <Skeleton className="size-full rounded-lg" />
     </>

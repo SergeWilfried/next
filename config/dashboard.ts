@@ -13,9 +13,9 @@ export const sidebarLinks: SidebarNavItem[] = [
         authorizeOnly: [UserRole.ADMIN, UserRole.ACCOUNTANT],
       },
       {
-        href: "/admin/schools",
+        href: "/admin/grades",
         icon: "building",
-        title: "Schools",
+        title: "Grades",
         authorizeOnly: [UserRole.ADMIN, UserRole.ACCOUNTANT, UserRole.TEACHER],
       },
       {
@@ -53,6 +53,12 @@ export const sidebarLinks: SidebarNavItem[] = [
         icon: "users",
         title: "My Children",
         authorizeOnly: UserRole.USER,
+      },
+      {
+        href: "/dashboard/parents",
+        icon: "users",
+        title: "Parents",
+        authorizeOnly: [UserRole.ADMIN, UserRole.ACCOUNTANT, UserRole.TEACHER],
       },
       {
         href: "/admin/reports",

@@ -109,23 +109,24 @@ model School {
   updatedAt    DateTime       @updatedAt
   User         User?          @relation(fields: [userId], references: [id])
   userId       String?
+  grades       Grade[]
 
   @@unique([name, address])
   @@map(name: "schools")
 }
 
 model Report {
-  id String @id @default(cuid())
-  name String
+  id          String   @id @default(cuid())
+  name        String
   description String?
-  fileUrl String?
-  school School @relation(fields: [schoolId], references: [id])
-  schoolId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  fileUrl     String?
+  school      School   @relation(fields: [schoolId], references: [id])
+  schoolId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  @@map(name: "reports")
   @@index([schoolId])
+  @@map(name: "reports")
 }
 
 model Parent {
@@ -174,7 +175,6 @@ model Student {
   lastName            String
   middleName          String?
   suffix              String?
-  grade               String
   allergies           String?
   medicalNotes        String?
   school              School               @relation(fields: [schoolId], references: [id])
@@ -186,6 +186,8 @@ model Student {
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
   status              EnrollmentStatus     @default(INACTIVE)
+  Grade               Grade?               @relation(fields: [gradeId], references: [id])
+  gradeId             String?
 
   @@unique([parentId, schoolId, dateOfBirth])
   @@map(name: "students")
@@ -208,19 +210,20 @@ model PickupPerson {
 }
 
 model Application {
-  id           String            @id @default(cuid())
-  parent       Parent            @relation(fields: [parentId], references: [id])
-  parentId     String
-  studentName  String
-  desiredGrade Int
-  status       ApplicationStatus
-  submittedAt  DateTime          @default(now())
-  school       School            @relation(fields: [schoolId], references: [id])
-  schoolId     String
-  createdAt    DateTime          @default(now())
-  updatedAt    DateTime          @updatedAt
+  id          String            @id @default(cuid())
+  parent      Parent            @relation(fields: [parentId], references: [id])
+  parentId    String
+  studentName String
+  status      ApplicationStatus
+  submittedAt DateTime          @default(now())
+  school      School            @relation(fields: [schoolId], references: [id])
+  schoolId    String
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  grade       Grade?            @relation(fields: [gradeId], references: [id])
+  gradeId     String?
 
-  @@unique([parentId, studentName, desiredGrade, schoolId])
+  @@unique([parentId, studentName, schoolId])
   @@map(name: "applications")
 }
 
@@ -231,7 +234,8 @@ model Enrollment {
   student      Student          @relation(fields: [studentId], references: [id])
   studentId    String
   academicYear String
-  grade        String
+  grade        Grade            @relation(fields: [gradeId], references: [id])
+  gradeId      String
   status       EnrollmentStatus
   createdAt    DateTime         @default(now())
   updatedAt    DateTime         @updatedAt
@@ -341,6 +345,22 @@ enum PaymentStatus {
   PENDING
   PAID
   OVERDUE
+}
+
+model Grade {
+  id           String        @id @default(cuid())
+  name         String
+  description  String?
+  students     Student[]
+  enrollments  Enrollment[]
+  applications Application[]
+  school       School        @relation(fields: [schoolId], references: [id])
+  schoolId     String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@unique([name, schoolId])
+  @@map(name: "grades")
 }
 
 enum PaymentMethod {
