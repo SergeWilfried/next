@@ -8,6 +8,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { format } from "date-fns" // Added this import
 import { Badge } from "@/components/ui/badge"
+import { useToast } from "@/components/ui/use-toast"
 
 export const studentsTableColumns: ColumnDef<Student>[] = [
   {
@@ -77,7 +78,8 @@ export const studentsTableColumns: ColumnDef<Student>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const student = row.original
- 
+      const { toast } = useToast()
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -89,7 +91,13 @@ export const studentsTableColumns: ColumnDef<Student>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(student.id)}
+              onClick={() => {
+                navigator.clipboard.writeText(student.id)
+                toast({
+                  title: "Student ID copied",
+                  description: "Student ID copied to clipboard",
+                })
+              }}
             >
               Copy student ID
             </DropdownMenuItem>
