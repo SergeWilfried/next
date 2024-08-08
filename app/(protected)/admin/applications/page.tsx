@@ -9,6 +9,7 @@ import { DataTable } from "@/components/data-table/data-table";
 import { applicationsTableColumns } from "./columns";
 import ApplicationsLoading from "./loading";
 
+
 export const metadata = constructMetadata({
   title: "Applications – School Management System",
   description: "Manage applications in the school system.",

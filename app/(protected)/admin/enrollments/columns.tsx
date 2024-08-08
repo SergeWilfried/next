@@ -1,14 +1,20 @@
 "use client"
 
 import { Payment, PaymentStatus, PaymentMethod, Enrollment, EnrollmentStatus } from "@prisma/client"
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef, Row } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { ArrowUpDown } from "lucide-react"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
-import { useToast } from "@/components/ui/use-toast"
+import { ActionsCell } from "@/components/action-cell/action-cell"
+
+const actions = (row: Row<Enrollment>) => [
+  { label: "Enrollment ID", isCopyable:true, copyText: row.original.id, separator:true, onClick: () => {} },
+  { label: "View", isCopyable:false, onClick: () => {} },
+  { label: "Edit", isCopyable:false, onClick: () => {} },
+  { label: "Delete", isCopyable:false, onClick: () => {} },
+]
 
 export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
   {
@@ -77,7 +83,7 @@ export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
   },
   {
     accessorKey: "paidAmount",
-    header: "Paid Amount",
+    header: "Paid",
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("paidAmount"))
       const formatted = new Intl.NumberFormat("en-US", {
@@ -89,7 +95,7 @@ export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Enrollment Date",
+    header: "Created At",
     cell: ({ row }) => {
       const date = row.getValue<Date>("createdAt")
       return <div>{format(date, "MMM d, yyyy")}</div>
@@ -99,36 +105,10 @@ export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const enrollment = row.original
-      const { toast } = useToast()
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => {
-                navigator.clipboard.writeText(enrollment.id)
-                toast({
-                  title: "Enrollment ID copied",
-                  description: "Enrollment ID copied to clipboard",
-                })
-              }}
-            >
-              Copy enrollment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View enrollment details</DropdownMenuItem>
-            <DropdownMenuItem>Edit enrollment</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
+      return <ActionsCell 
+      row={row}
+      actions={actions(row)}
+      />
     },
   },
 ]
