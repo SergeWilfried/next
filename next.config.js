@@ -1,4 +1,6 @@
-const { withContentlayer } = require("next-contentlayer2");
+const withPlugins = require('next-compose-plugins');
+const runtimeCaching = require('next-pwa/cache');
+const { withContentlayer } = require('next-contentlayer2');
 
 import("./env.mjs");
 
@@ -24,7 +26,19 @@ const nextConfig = {
   },
   experimental: {
     serverComponentsExternalPackages: ["@prisma/client"],
-  },
+  }
 };
 
-module.exports = withContentlayer(nextConfig);
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  runtimeCaching,
+  disable: process.env.NODE_ENV === 'development',
+  skipWaiting: true,
+  register: true
+})
+
+
+module.exports = withPlugins([
+  [withPWA],
+  [withContentlayer]
+], nextConfig);
