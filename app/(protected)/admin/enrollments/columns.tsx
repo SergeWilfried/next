@@ -69,7 +69,7 @@ export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
       const amount = parseFloat(row.getValue("totalFee"))
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "USD",
+        currency: "XOF",
       }).format(amount)
       return <div>{formatted}</div>
     },
@@ -81,7 +81,7 @@ export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
       const amount = parseFloat(row.getValue("paidAmount"))
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "USD",
+        currency: "XOF",
       }).format(amount)
       return <div>{formatted}</div>
     },
