@@ -1,15 +1,20 @@
 "use client"
 
 import { Staff } from "@prisma/client"
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef, Row } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { ArrowUpDown } from "lucide-react"
 import { format } from "date-fns"
-import { Badge } from "@/components/ui/badge"
-import { useToast } from "@/components/ui/use-toast"
+import { ActionsCell } from "@/components/action-cell/action-cell"
 
+const actions = (row: Row<Staff>) => [
+  { label: "Invite", isCopyable:false, onClick: () => {} },
+  { label: "Reset Password", isCopyable:false, separator:true, onClick: () => {} },
+  { label: "View", isCopyable:false, onClick: () => {} },
+  { label: "Edit", isCopyable:false, onClick: () => {} },
+  { label: "Delete", isCopyable:false, onClick: () => {} },
+]
 export const staffTableColumns: ColumnDef<Staff>[] = [
   {
     id: "select",
@@ -69,36 +74,10 @@ export const staffTableColumns: ColumnDef<Staff>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const staff = row.original
-      const { toast } = useToast()
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => {
-                navigator.clipboard.writeText(staff.id)
-                toast({
-                  title: "Staff ID copied",
-                  description: "Staff ID copied to clipboard",
-                })
-              }}
-            >
-              Copy staff ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View staff details</DropdownMenuItem>
-            <DropdownMenuItem>Edit staff</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
+      return <ActionsCell
+          row={row}
+          actions={actions(row)}
+      />
     },
   },
 ]

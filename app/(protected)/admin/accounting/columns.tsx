@@ -1,16 +1,20 @@
 "use client"
 
 import { Payment, PaymentStatus, PaymentMethod } from "@prisma/client"
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef, Row } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { ArrowUpDown } from "lucide-react"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
-import { EditPaymentSheet } from "./edit-payment-sheet"
-import { useToast } from "@/components/ui/use-toast"
+import { ActionsCell } from "@/components/action-cell/action-cell"
 
+const actions = (row: Row<Payment>) => [
+  { label: "Print Receipt", isCopyable:false, onClick: () => {} },
+  { label: "Send Reminder", isCopyable:false, onClick: () => {} },
+  { label: "Edit", isCopyable:false, onClick: () => {} },
+  { label: "Delete", isCopyable:false, onClick: () => {} },
+]
 
 export const paymentsTableColumns: ColumnDef<Payment>[] = [
   {
@@ -86,48 +90,10 @@ export const paymentsTableColumns: ColumnDef<Payment>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original
-      const buttonLabel = payment.status === PaymentStatus.PENDING ? "View payment details" : "Print receipt"
-      const { toast } = useToast()
-
-      const handleDownloadOrView = (isView: boolean) => {
-        if (isView) {
-          // View payment details
-          console.log("View payment details")
-        } else {
-          // Download receipt
-          console.log("Download receipt")
-        }
-      }
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-               onClick={() => {
-                navigator.clipboard.writeText(payment.id)
-                toast({
-                  title: "Payment ID copied",
-                  description: "Payment ID copied to clipboard",
-                })
-              }}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => handleDownloadOrView(true)}>{buttonLabel}</DropdownMenuItem>
-            <EditPaymentSheet payment={payment} />
-            <DropdownMenuItem>Delete payment</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
+      return <ActionsCell 
+      row={row}
+      actions={actions(row)}
+      />
     },
   },
 ]

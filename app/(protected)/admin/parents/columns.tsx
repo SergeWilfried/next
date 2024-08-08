@@ -1,14 +1,18 @@
 "use client"
 
 import { Parent } from "@prisma/client"
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef, Row } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { ArrowUpDown } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { useToast } from "@/components/ui/use-toast"
+import { ActionsCell } from "@/components/action-cell/action-cell"
 
+const actions = (row: Row<Parent>) => [
+  { label: "View", isCopyable:false, onClick: () => {} },
+  { label: "Edit", isCopyable:false, onClick: () => {} },
+  { label: "Delete", isCopyable:false, onClick: () => {} },
+]
 export const parentsTableColumns: ColumnDef<Parent>[] = [
   {
     id: "select",
@@ -90,36 +94,10 @@ export const parentsTableColumns: ColumnDef<Parent>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const parent = row.original
-      const { toast } = useToast()
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-               onClick={() => {
-                navigator.clipboard.writeText(parent.id)
-                toast({
-                  title: "Parent ID copied",
-                  description: "Parent ID copied to clipboard",
-                })
-              }}
-            >
-              Copy student ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View student details</DropdownMenuItem>
-            <DropdownMenuItem>Edit student</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
+      return <ActionsCell
+        row={row}
+        actions={actions(row)}
+      />
     },
   },
 ]
