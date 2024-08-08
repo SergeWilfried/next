@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
+import { useToast } from "@/components/ui/use-toast"
 
 export const applicationsTableColumns: ColumnDef<Application>[] = [
   {
@@ -69,8 +70,9 @@ export const applicationsTableColumns: ColumnDef<Application>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const student = row.original
- 
+      const application = row.original
+      const { toast } = useToast()
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -82,7 +84,13 @@ export const applicationsTableColumns: ColumnDef<Application>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(student.id)}
+              onClick={() => {
+                navigator.clipboard.writeText(application.id)
+                toast({
+                  title: "Application ID copied",
+                  description: "Application ID copied to clipboard",
+                })
+              }}
             >
               Copy application ID
             </DropdownMenuItem>
