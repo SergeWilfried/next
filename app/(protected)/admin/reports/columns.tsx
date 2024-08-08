@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
+import { useToast } from "@/components/ui/use-toast"
 
 export const reportsTableColumns: ColumnDef<Report>[] = [
   {
@@ -69,8 +70,8 @@ export const reportsTableColumns: ColumnDef<Report>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const student = row.original
- 
+      const report = row.original
+      const { toast } = useToast()
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -82,7 +83,13 @@ export const reportsTableColumns: ColumnDef<Report>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(student.id)}
+              onClick={() => {
+                navigator.clipboard.writeText(report.id)
+                toast({
+                  title: "Report ID copied",
+                  description: "Report ID copied to clipboard",
+                })
+              }}
             >
               Copy report ID
             </DropdownMenuItem>
