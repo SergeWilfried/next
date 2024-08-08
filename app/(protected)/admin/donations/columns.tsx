@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { format } from "date-fns"
+import { useToast } from "@/components/ui/use-toast"
 
 export const donationsTableColumns: ColumnDef<Donation>[] = [
   {
@@ -47,7 +48,7 @@ export const donationsTableColumns: ColumnDef<Donation>[] = [
       const amount = parseFloat(row.getValue("amount"))
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "XOF",
+        currency: "USD",
       }).format(amount)
       return <div>{formatted}</div>
     },
@@ -73,6 +74,7 @@ export const donationsTableColumns: ColumnDef<Donation>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const donation = row.original
+      const { toast } = useToast()
 
       return (
         <DropdownMenu>
@@ -85,7 +87,13 @@ export const donationsTableColumns: ColumnDef<Donation>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(donation.id)}
+              onClick={() => {
+                navigator.clipboard.writeText(donation.id)
+                toast({
+                  title: "Donation ID copied",
+                  description: "Donation ID copied to clipboard",
+                })
+              }}
             >
               Copy donation ID
             </DropdownMenuItem>
