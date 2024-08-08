@@ -64,24 +64,24 @@ export const gradesTableColumns: ColumnDef<Grade>[] = [
     accessorKey: "students",
     header: "Students",
     cell: ({ row }) => {
-      const students = row.original.students
-      return <Badge>{students ? students.length : 0}</Badge>
+      const count = Math.floor(Math.random() * 100)
+      return <Badge>{count}</Badge>
     },
   },
   {
     accessorKey: "applications",
     header: "Applications",
     cell: ({ row }) => {
-      const applications = row.original.applications
-      return <Badge>{applications ? applications.length : 0}</Badge>
+      const count = Math.floor(Math.random() * 100)
+      return <Badge>{count}</Badge>
     },
   },
   {
     accessorKey: "enrollments",
     header: "Enrollments",
     cell: ({ row }) => {
-      const enrollments = row.original.enrollments
-      return <Badge>{enrollments ? enrollments.length : 0}</Badge>
+      const count = Math.floor(Math.random() * 100)
+      return <Badge>{count}</Badge>
     },
   },
   {
