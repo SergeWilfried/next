@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavItem, SidebarNavItem } from "@/types";
-import { Menu, PanelLeftClose, PanelRightClose } from "lucide-react";
+import { Menu, PanelLeftClose, PanelRightClose, ChevronDown, ChevronRight } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -30,25 +30,6 @@ interface DashboardSidebarProps {
 export function DashboardSidebar({ links }: DashboardSidebarProps) {
   const path = usePathname();
 
-  // NOTE: Use this if you want save in local storage -- Credits: Hosna Qasmei
-  //
-  // const [isSidebarExpanded, setIsSidebarExpanded] = useState(() => {
-  //   if (typeof window !== "undefined") {
-  //     const saved = window.localStorage.getItem("sidebarExpanded");
-  //     return saved !== null ? JSON.parse(saved) : true;
-  //   }
-  //   return true;
-  // });
-
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     window.localStorage.setItem(
-  //       "sidebarExpanded",
-  //       JSON.stringify(isSidebarExpanded),
-  //     );
-  //   }
-  // }, [isSidebarExpanded]);
-
   const { isTablet } = useMediaQuery();
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(!isTablet);
 
@@ -60,148 +41,69 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
     setIsSidebarExpanded(!isTablet);
   }, [isTablet]);
 
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+
+  const toggleExpand = (itemTitle: string) => {
+    setExpandedItems(prev => ({ ...prev, [itemTitle]: !prev[itemTitle] }));
+  };
+
   const renderNavItems = (items: NavItem[], level = 0) => {
     return items.map((item) => {
       const Icon = Icons[item.icon || "arrowRight"];
+      const isExpanded = expandedItems[item.title] || false;
+      
       return (
-        item.href && (
-          <Fragment key={`link-fragment-${item.title}`}>
-            {isSidebarExpanded ? (
-              <div className={`ml-${level * 4}`}>
-                <Link
-                  key={`link-${item.title}`}
-                  href={item.disabled ? "#" : item.href}
-                  className={cn(
-                    "flex items-center gap-3 rounded-md p-2 text-sm font-medium hover:bg-muted",
-                    path === item.href
-                      ? "bg-muted"
-                      : "text-muted-foreground hover:text-accent-foreground",
-                    item.disabled &&
-                      "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
-                  )}
-                >
-                  <Icon className="size-5" />
-                  {item.title}
-                  {item.badge && (
-                    <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
-                      {item.badge}
-                    </Badge>
-                  )}
-                </Link>
-                {item.children && renderNavItems(item.children, level + 1)}
-              </div>
-            ) : (
-              <Tooltip key={`tooltip-${item.title}`}>
-                <TooltipTrigger asChild>
+        <Fragment key={`link-fragment-${item.title}`}>
+          {isSidebarExpanded ? (
+            <div className={`ml-${level * 4}`}>
+              <div
+                className={cn(
+                  "flex items-center gap-3 rounded-md p-2 text-sm font-medium hover:bg-muted",
+                  path === item.href
+                    ? "bg-muted"
+                    : "text-muted-foreground hover:text-accent-foreground",
+                  item.disabled &&
+                    "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
+                )}
+              >
+                {item.href ? (
                   <Link
-                    key={`link-tooltip-${item.title}`}
                     href={item.disabled ? "#" : item.href}
-                    className={cn(
-                      "flex items-center gap-3 rounded-md py-2 text-sm font-medium hover:bg-muted",
-                      path === item.href
-                        ? "bg-muted"
-                        : "text-muted-foreground hover:text-accent-foreground",
-                      item.disabled &&
-                        "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
-                    )}
+                    className="flex-1 flex items-center"
                   >
-                    <span className="flex size-full items-center justify-center">
-                      <Icon className="size-5" />
-                    </span>
+                    <Icon className="size-5 mr-3" />
+                    {item.title}
                   </Link>
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                  {item.title}
-                </TooltipContent>
-              </Tooltip>
-            )}
-          </Fragment>
-        )
-      );
-    });
-  };
-
-  return (
-    <TooltipProvider delayDuration={0}>
-      <div className="sticky top-0 h-full">
-        <ScrollArea className="h-full overflow-y-auto border-r">
-          <aside
-            className={cn(
-              isSidebarExpanded ? "w-[220px] xl:w-[260px]" : "w-[68px]",
-              "hidden h-screen md:block",
-            )}
-          >
-            <div className="flex h-full max-h-screen flex-1 flex-col gap-2">
-              <div className="flex h-14 items-center p-4 lg:h-[60px]">
-                {isSidebarExpanded ? <ProjectSwitcher /> : null}
-
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="ml-auto size-9 lg:size-8"
-                  onClick={toggleSidebar}
-                >
-                  {isSidebarExpanded ? (
-                    <PanelLeftClose
-                      size={18}
-                      className="stroke-muted-foreground"
-                    />
-                  ) : (
-                    <PanelRightClose
-                      size={18}
-                      className="stroke-muted-foreground"
-                    />
-                  )}
-                  <span className="sr-only">Toggle Sidebar</span>
-                </Button>
-              </div>
-
-              <nav className="flex flex-1 flex-col gap-8 px-4 pt-4">
-                {links.map((section) => (
-                  <section
-                    key={section.title}
-                    className="flex flex-col gap-0.5"
+                ) : (
+                  <>
+                    <Icon className="size-5" />
+                    <span className="flex-1">{item.title}</span>
+                  </>
+                )}
+                {item.badge && (
+                  <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
+                    {item.badge}
+                  </Badge>
+                )}
+                {item.children && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="ml-auto h-8 w-8"
+                    onClick={() => toggleExpand(item.title)}
                   >
-                    {isSidebarExpanded ? (
-                      <p className="text-xs text-muted-foreground">
-                        {section.title}
-                      </p>
+                    {isExpanded ? (
+                      <ChevronDown className="h-4 w-4" />
                     ) : (
-                      <div className="h-4" />
+                      <ChevronRight className="h-4 w-4" />
                     )}
-                    {renderNavItems(section.items)}
-                  </section>
-                ))}
-              </nav>
-
-              <div className="mt-auto xl:p-4">
-                {isSidebarExpanded ? <UpgradeCard /> : null}
+                  </Button>
+                )}
               </div>
+              {item.children && isExpanded && renderNavItems(item.children, level + 1)}
             </div>
-          </aside>
-        </ScrollArea>
-      </div>
-    </TooltipProvider>
-  );
-}
-
-export function MobileSheetSidebar({ links }: DashboardSidebarProps) {
-  const path = usePathname();
-  const [open, setOpen] = useState(false);
-  const { isSm, isMobile } = useMediaQuery();
-
-  const renderMobileNavItems = (items: NavItem[], level = 0) => {
-    return items.map((item) => {
-      const Icon = Icons[item.icon || "arrowRight"];
-      return (
-        item.href && (
-          <Fragment key={`link-fragment-${item.title}`}>
-            <Link
-              key={`link-${item.title}`}
-              onClick={() => {
-                if (!item.disabled) setOpen(false);
-              }}
-              href={item.disabled ? "#" : item.href}
+          ) : (
+            <div
               className={cn(
                 "flex items-center gap-3 rounded-md p-2 text-sm font-medium hover:bg-muted",
                 path === item.href
@@ -212,17 +114,133 @@ export function MobileSheetSidebar({ links }: DashboardSidebarProps) {
                 `ml-${level * 4}`
               )}
             >
-              <Icon className="size-5" />
+              <Icon className="size-5 mr-3" />
               {item.title}
               {item.badge && (
                 <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
                   {item.badge}
                 </Badge>
               )}
-            </Link>
-            {item.children && renderMobileNavItems(item.children, level + 1)}
-          </Fragment>
-        )
+            </div>
+          )}
+        </Fragment>
+      );
+    });
+  };
+
+  return (
+    <div
+      className={cn(
+        "flex flex-col gap-2 p-6 text-lg font-medium",
+        isSidebarExpanded ? "flex" : "hidden md:flex"
+      )}
+    >
+      <nav className="flex flex-1 flex-col gap-y-8">
+        <Link
+          href="#"
+          className="flex items-center gap-2 text-lg font-semibold"
+        >
+          <Icons.logo className="size-6" />
+          <span className="font-urban text-xl font-bold">
+            {siteConfig.name}
+          </span>
+        </Link>
+
+        <ProjectSwitcher large />
+
+        {links.map((section) => (
+          <section
+            key={section.title}
+            className="flex flex-col gap-0.5"
+          >
+            <p className="text-xs text-muted-foreground">
+              {section.title}
+            </p>
+
+            {section.items.map((item) => (
+              <Fragment key={`link-fragment-${item.title}`}>
+                {renderNavItems([item], 0)}
+              </Fragment>
+            ))}
+          </section>
+        ))}
+
+        <div className="mt-auto">
+          <UpgradeCard />
+        </div>
+      </nav>
+    </div>
+  );
+}
+
+export function MobileSheetSidebar({ links }: DashboardSidebarProps) {
+  const path = usePathname();
+  const [open, setOpen] = useState(false);
+  const { isSm, isMobile } = useMediaQuery();
+
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+
+  const toggleExpand = (itemTitle: string) => {
+    setExpandedItems(prev => ({ ...prev, [itemTitle]: !prev[itemTitle] }));
+  };
+
+  const renderMobileNavItems = (items: NavItem[], level = 0) => {
+    return items.map((item) => {
+      const Icon = Icons[item.icon || "arrowRight"];
+      const isExpanded = expandedItems[item.title] || false;
+
+      return (
+        <Fragment key={`link-fragment-${item.title}`}>
+          <div
+            className={cn(
+              "flex items-center gap-3 rounded-md p-2 text-sm font-medium hover:bg-muted",
+              path === item.href
+                ? "bg-muted"
+                : "text-muted-foreground hover:text-accent-foreground",
+              item.disabled &&
+                "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
+              `ml-${level * 4}`
+            )}
+          >
+            {item.href ? (
+              <Link
+                onClick={() => {
+                  if (!item.disabled) setOpen(false);
+                }}
+                href={item.disabled ? "#" : item.href}
+                className="flex-1 flex items-center"
+              >
+                <Icon className="size-5 mr-3" />
+                {item.title}
+              </Link>
+            ) : (
+              <>
+                <Icon className="size-5" />
+                <span className="flex-1">{item.title}</span>
+              </>
+            )}
+            {item.badge && (
+              <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
+                {item.badge}
+              </Badge>
+            )}
+            {item.children && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="ml-auto h-8 w-8"
+                onClick={() => toggleExpand(item.title)}
+              >
+                {isExpanded ? (
+                  <ChevronDown className="h-4 w-4" />
+                ) : (
+                  <ChevronRight className="h-4 w-4" />
+                )}
+              </Button>
+            )}
+          </div>
+          {item.children && isExpanded && renderMobileNavItems(item.children, level + 1)}
+        </Fragment>
       );
     });
   };
@@ -265,7 +283,11 @@ export function MobileSheetSidebar({ links }: DashboardSidebarProps) {
                       {section.title}
                     </p>
 
-                    {renderMobileNavItems(section.items)}
+                    {section.items.map((item) => (
+                      <Fragment key={`link-fragment-${item.title}`}>
+                        {renderMobileNavItems([item], 0)}
+                      </Fragment>
+                    ))}
                   </section>
                 ))}
 
