@@ -28,6 +28,7 @@ export type NavItem = {
   external?: boolean;
   authorizeOnly?: UserRole;
   icon?: keyof typeof Icons;
+  children?: NavItem[];
 };
 export interface Option {
   label: string

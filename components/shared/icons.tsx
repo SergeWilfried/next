@@ -35,6 +35,8 @@ import {
   Truck,
   User,
   Users,
+  Calendar,
+  Book,
   X,
 } from "lucide-react";
 
@@ -147,4 +149,6 @@ export const Icons = {
   truck: Truck,
   briefcase: Briefcase,
   file: File,
+  calendar: Calendar,
+  book: Book,
 };

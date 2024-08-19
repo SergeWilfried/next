@@ -25,8 +25,8 @@ export default async function GradesPage() {
   return (
     <>
       <DashboardHeader
-        heading="Schools"
-        text="Manage schools in the school system."
+        heading="Grades"
+        text="Manage grades in the school system."
       />
       {grades.length === 0 ? (
       <EmptyPlaceholder>
