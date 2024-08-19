@@ -9,7 +9,6 @@ export default function BentoGrid() {
     <section className="py-32">
       <MaxWidthWrapper>
         <div className="relative z-10 grid grid-cols-6 gap-3">
-          {/* First card */}
           <div className="relative col-span-full flex overflow-hidden rounded-2xl border bg-background p-8 lg:col-span-2">
             <div className="relative m-auto size-fit">
               <div className="relative flex h-24 w-56 items-center">
