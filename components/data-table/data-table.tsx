@@ -147,7 +147,7 @@ export function DataTable<TData, TValue>({
         />
         <div className="ml-auto flex space-x-2">
           <Button variant="outline" onClick={handleExport}>
-            <DownloadIcon className="mr-2 h-4 w-4" />
+            <DownloadIcon className="h-4 w-4 mr-2" />
             Export
           </Button>
           <DropdownMenu>
