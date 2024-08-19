@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavItem, SidebarNavItem } from "@/types";
-import { Menu, PanelLeftClose, PanelRightClose, ChevronDown, ChevronRight } from "lucide-react";
+import { Menu, ChevronDown, ChevronRight } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -54,75 +54,52 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
       
       return (
         <Fragment key={`link-fragment-${item.title}`}>
-          {isSidebarExpanded ? (
-            <div className={`ml-${level * 4}`}>
-              <div
-                className={cn(
-                  "flex items-center gap-3 rounded-md p-2 text-sm font-medium hover:bg-muted",
-                  path === item.href
-                    ? "bg-muted"
-                    : "text-muted-foreground hover:text-accent-foreground",
-                  item.disabled &&
-                    "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
-                )}
+          <div
+            className={cn(
+              "flex items-center gap-3 rounded-md p-2 text-sm font-medium hover:bg-muted",
+              path === item.href
+                ? "bg-muted"
+                : "text-muted-foreground hover:text-accent-foreground",
+              item.disabled &&
+                "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
+              `ml-${level * 4}`
+            )}
+          >
+            {item.href ? (
+              <Link
+                href={item.disabled ? "#" : item.href}
+                className="flex flex-1 items-center"
               >
-                {item.href ? (
-                  <Link
-                    href={item.disabled ? "#" : item.href}
-                    className="flex flex-1 items-center"
-                  >
-                    <Icon className="mr-3 size-5" />
-                    {item.title}
-                  </Link>
+                <Icon className="mr-3 size-5" />
+                {isSidebarExpanded && item.title}
+              </Link>
+            ) : (
+              <>
+                <Icon className="size-5" />
+                {isSidebarExpanded && <span className="flex-1">{item.title}</span>}
+              </>
+            )}
+            {isSidebarExpanded && item.badge && (
+              <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
+                {item.badge}
+              </Badge>
+            )}
+            {isSidebarExpanded && item.children && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="ml-auto size-8"
+                onClick={() => toggleExpand(item.title)}
+              >
+                {isExpanded ? (
+                  <ChevronDown className="size-4" />
                 ) : (
-                  <>
-                    <Icon className="size-5" />
-                    <span className="flex-1">{item.title}</span>
-                  </>
+                  <ChevronRight className="size-4" />
                 )}
-                {item.badge && (
-                  <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
-                    {item.badge}
-                  </Badge>
-                )}
-                {item.children && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="ml-auto size-8"
-                    onClick={() => toggleExpand(item.title)}
-                  >
-                    {isExpanded ? (
-                      <ChevronDown className="size-4" />
-                    ) : (
-                      <ChevronRight className="size-4" />
-                    )}
-                  </Button>
-                )}
-              </div>
-              {item.children && isExpanded && renderNavItems(item.children, level + 1)}
-            </div>
-          ) : (
-            <div
-              className={cn(
-                "flex items-center gap-3 rounded-md p-2 text-sm font-medium hover:bg-muted",
-                path === item.href
-                  ? "bg-muted"
-                  : "text-muted-foreground hover:text-accent-foreground",
-                item.disabled &&
-                  "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
-                `ml-${level * 4}`
-              )}
-            >
-              <Icon className="mr-3 size-5" />
-              {item.title}
-              {item.badge && (
-                <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
-                  {item.badge}
-                </Badge>
-              )}
-            </div>
-          )}
+              </Button>
+            )}
+          </div>
+          {isSidebarExpanded && item.children && isExpanded && renderNavItems(item.children, level + 1)}
         </Fragment>
       );
     });
@@ -132,6 +109,7 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
     <div
       className={cn(
         "flex flex-col gap-2 p-6 text-lg font-medium",
+        isSidebarExpanded ? "w-64" : "w-20",
         isSidebarExpanded ? "flex" : "hidden md:flex"
       )}
     >
@@ -141,21 +119,25 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
           className="flex items-center gap-2 text-lg font-semibold"
         >
           <Icons.logo className="size-6" />
-          <span className="font-urban text-xl font-bold">
-            {siteConfig.name}
-          </span>
+          {isSidebarExpanded && (
+            <span className="font-urban text-xl font-bold">
+              {siteConfig.name}
+            </span>
+          )}
         </Link>
 
-        <ProjectSwitcher large />
+        <ProjectSwitcher large={isSidebarExpanded} />
 
         {links.map((section) => (
           <section
             key={section.title}
             className="flex flex-col gap-0.5"
           >
-            <p className="text-xs text-muted-foreground">
-              {section.title}
-            </p>
+            {isSidebarExpanded && (
+              <p className="text-xs text-muted-foreground">
+                {section.title}
+              </p>
+            )}
 
             {section.items.map((item) => (
               <Fragment key={`link-fragment-${item.title}`}>
@@ -166,7 +148,7 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
         ))}
 
         <div className="mt-auto">
-          <UpgradeCard />
+          {isSidebarExpanded && <UpgradeCard />}
         </div>
       </nav>
     </div>
