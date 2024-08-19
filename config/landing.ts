@@ -2,51 +2,48 @@ import { FeatureLdg, InfoLdg, TestimonialType } from "types";
 
 export const infos: InfoLdg[] = [
   {
-    title: "Empower your projects",
+    title: "Empower Your School",
     description:
-      "Unlock the full potential of your projects with our open-source SaaS platform. Collaborate seamlessly, innovate effortlessly, and scale limitlessly.",
-    image: "/_static/illustrations/work-from-home.jpg",
+      "Unlock the full potential of your educational institution with our comprehensive school information management system. Streamline operations, enhance communication, and improve learning outcomes.",
+    image: "/_static/illustrations/school-management.jpg",
     list: [
       {
-        title: "Collaborative",
-        description: "Work together with your team members in real-time.",
-        icon: "laptop",
+        title: "Efficient",
+        description: "Automate administrative tasks and save valuable time.",
+        icon: "clock",
       },
       {
         title: "Innovative",
-        description: "Stay ahead of the curve with access constant updates.",
-        icon: "settings",
+        description: "Leverage AI-powered tools for personalized learning experiences.",
+        icon: "brain",
       },
       {
         title: "Scalable",
-        description:
-          "Our platform offers the scalability needed to adapt to your needs.",
-        icon: "search",
+        description: "Adapt to your school's needs as it grows and evolves.",
+        icon: "trendingUp",
       },
     ],
   },
   {
     title: "Seamless Integration",
     description:
-      "Integrate our open-source SaaS seamlessly into your existing workflows. Effortlessly connect with your favorite tools and services for a streamlined experience.",
-    image: "/_static/illustrations/work-from-home.jpg",
+      "EduManager integrates effortlessly into your existing school ecosystem. Connect with your favorite educational tools and services for a unified experience.",
+    image: "/_static/illustrations/integration.jpg",
     list: [
       {
         title: "Flexible",
-        description:
-          "Customize your integrations to fit your unique requirements.",
-        icon: "laptop",
-      },
-      {
-        title: "Efficient",
-        description: "Streamline your processes and reducing manual effort.",
-        icon: "search",
-      },
-      {
-        title: "Reliable",
-        description:
-          "Rely on our robust infrastructure and comprehensive documentation.",
+        description: "Customize features to match your school's unique requirements.",
         icon: "settings",
+      },
+      {
+        title: "Connected",
+        description: "Sync data across multiple platforms and devices.",
+        icon: "link",
+      },
+      {
+        title: "Secure",
+        description: "Ensure data privacy and compliance with educational standards.",
+        icon: "shield",
       },
     ],
   },
@@ -54,97 +51,84 @@ export const infos: InfoLdg[] = [
 
 export const features: FeatureLdg[] = [
   {
-    title: "Feature 1",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
-    icon: "nextjs",
-  },
-  {
-    title: "Feature 2",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
-    icon: "google",
-  },
-  {
-    title: "Feature 3",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
-    icon: "gitHub",
-  },
-  {
-    title: "Feature 4",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
-    icon: "laptop",
-  },
-  {
-    title: "Feature 5",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
+    title: "Student Management",
+    description: "Efficiently manage student records, admissions, and track academic progress with ease.",
+    link: "/features/student-management",
     icon: "user",
   },
   {
-    title: "Feature 6",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
-    icon: "copy",
+    title: "AI-Powered E-Learning",
+    description: "Leverage artificial intelligence for personalized learning experiences and adaptive content delivery.",
+    link: "/features/ai-elearning",
+    icon: "brain",
+  },
+  {
+    title: "Multi-Channel Communication",
+    description: "Stay connected with staff, students, and parents via SMS, WhatsApp, and in-app messaging.",
+    link: "/features/communication",
+    icon: "messageSquare",
+  },
+  {
+    title: "Payment Reminders",
+    description: "Automate fee reminders and streamline payment tracking for parents and guardians.",
+    link: "/features/payments",
+    icon: "dollarSign",
+  },
+  {
+    title: "Parents Portal",
+    description: "Provide parents with real-time access to their child's academic information and school updates.",
+    link: "/features/parents-portal",
+    icon: "users",
+  },
+  {
+    title: "Attendance Tracking",
+    description: "Simplify attendance recording and generate comprehensive reports for students and staff.",
+    link: "/features/attendance",
+    icon: "checkSquare",
   },
 ];
 
 export const testimonials: TestimonialType[] = [
   {
-    name: "John Doe",
-    job: "Full Stack Developer",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+    name: "Sarah Johnson",
+    job: "School Principal",
+    image: "https://randomuser.me/api/portraits/women/1.jpg",
     review:
-      "The next-saas-stripe-starter repo has truly revolutionized my development workflow. With its comprehensive features and seamless integration with Stripe, I've been able to build and deploy projects faster than ever before. The documentation is clear and concise, making it easy to navigate through the setup process. I highly recommend next-saas-stripe-starter to any developer.",
+      "EduManager has revolutionized how we run our school. The AI-powered e-learning platform has significantly improved student engagement and performance. It's been a game-changer for us.",
   },
   {
-    name: "Alice Smith",
-    job: "UI/UX Designer",
-    image: "https://randomuser.me/api/portraits/women/2.jpg",
+    name: "Michael Chen",
+    job: "IT Administrator",
+    image: "https://randomuser.me/api/portraits/men/2.jpg",
     review:
-      "Thanks to next-saas-stripe-starter, I've been able to create modern and attractive user interfaces in record time. The starter kit provides a solid foundation for building sleek and intuitive designs, allowing me to focus more on the creative aspects of my work.",
+      "The ease of implementation and robust features of EduManager impressed me. It seamlessly integrated with our existing systems, and the support team was incredibly helpful throughout the process.",
   },
   {
-    name: "David Johnson",
-    job: "DevOps Engineer",
-    image: "https://randomuser.me/api/portraits/men/3.jpg",
+    name: "Emily Rodriguez",
+    job: "Teacher",
+    image: "https://randomuser.me/api/portraits/women/3.jpg",
     review:
-      "Thanks to next-saas-stripe-starter, I was able to streamline the entire process and get payments up and running in no time. ",
+      "As a teacher, I love how EduManager simplifies attendance tracking and grade management. The AI-powered learning tools have helped me provide more personalized instruction to my students.",
   },
   {
-    name: "Michael Wilson",
-    job: "Project Manager",
-    image: "https://randomuser.me/api/portraits/men/5.jpg",
+    name: "David Okafor",
+    job: "Parent",
+    image: "https://randomuser.me/api/portraits/men/4.jpg",
     review:
-      "I'm impressed by the quality of code and clear documentation of next-saas-stripe-starter. Kudos to the team!",
+      "The parents portal is fantastic! I can easily track my child's progress, communicate with teachers, and receive important updates. The payment reminder feature is also very helpful.",
   },
   {
-    name: "Sophia Garcia",
-    job: "Data Analyst",
-    image: "https://randomuser.me/api/portraits/women/6.jpg",
+    name: "Lisa Patel",
+    job: "School Administrator",
+    image: "https://randomuser.me/api/portraits/women/5.jpg",
     review:
-      "next-saas-stripe-starter provided me with the tools I needed to efficiently manage user data. Thank you so much!",
+      "EduManager has streamlined our administrative tasks tremendously. The multi-channel communication feature, including SMS and WhatsApp, has greatly improved our engagement with parents.",
   },
   {
-    name: "Emily Brown",
-    job: "Marketing Manager",
-    image: "https://randomuser.me/api/portraits/women/4.jpg",
+    name: "Thomas Müller",
+    job: "Finance Manager",
+    image: "https://randomuser.me/api/portraits/men/6.jpg",
     review:
-      "next-saas-stripe-starter has been an invaluable asset in my role as a marketing manager. With its seamless integration with Stripe, I've been able to launch targeted marketing campaigns with built-in payment functionality, allowing us to monetize our products and services more effectively.",
-  },
-  {
-    name: "Jason Stan",
-    job: "Web Designer",
-    image: "https://randomuser.me/api/portraits/men/9.jpg",
-    review:
-      "Thanks to next-saas-stripe-starter, I've been able to create modern and attractive user interfaces in record time. The starter kit provides a solid foundation for building sleek and intuitive designs, allowing me to focus more on the creative aspects of my work.",
+      "The payment tracking and reminder system in EduManager has significantly improved our fee collection process. It's user-friendly for parents and has reduced our administrative workload.",
   },
 ];
