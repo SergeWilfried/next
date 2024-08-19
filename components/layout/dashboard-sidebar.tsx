@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavItem, SidebarNavItem } from "@/types";
-import { Menu, ChevronDown, ChevronRight } from "lucide-react";
+import { Menu, PanelLeftClose, PanelRightClose } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -27,8 +27,86 @@ interface DashboardSidebarProps {
   links: SidebarNavItem[];
 }
 
+function renderNavItems(items: NavItem[], path: string, isSidebarExpanded: boolean, depth = 0) {
+  return items.map((item) => {
+    const Icon = Icons[item.icon || "arrowRight"];
+    return (
+      <Fragment key={`link-fragment-${item.title}`}>
+        {isSidebarExpanded ? (
+          <Link
+            key={`link-${item.title}`}
+            href={item.disabled ? "#" : item.href}
+            className={cn(
+              "flex items-center gap-3 rounded-md p-2 text-sm font-medium",
+              "hover:bg-muted",
+              path === item.href
+                ? "bg-muted text-foreground"
+                : "text-muted-foreground hover:text-accent-foreground",
+              item.disabled && "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground"
+            )}
+          >
+            <Icon className="size-5" />
+            <span>{item.title}</span>
+            {item.badge && (
+              <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
+                {item.badge}
+              </Badge>
+            )}
+          </Link>
+        ) : (
+          <Tooltip key={`tooltip-${item.title}`}>
+            <TooltipTrigger asChild>
+              <Link
+                key={`link-tooltip-${item.title}`}
+                href={item.disabled ? "#" : item.href}
+                className={cn(
+                  "flex items-center justify-center rounded-md py-2",
+                  "hover:bg-muted",
+                  path === item.href
+                    ? "bg-muted text-foreground"
+                    : "text-muted-foreground hover:text-accent-foreground",
+                  item.disabled && "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground"
+                )}
+              >
+                <Icon className="size-5" />
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              {item.title}
+            </TooltipContent>
+          </Tooltip>
+        )}
+        {item.children && (
+          <div className={cn("mt-1", depth === 0 ? "ml-4" : "ml-2")}>
+            {renderNavItems(item.children, path, isSidebarExpanded, depth + 1)}
+          </div>
+        )}
+      </Fragment>
+    );
+  });
+}
+
 export function DashboardSidebar({ links }: DashboardSidebarProps) {
   const path = usePathname();
+
+  // NOTE: Use this if you want save in local storage -- Credits: Hosna Qasmei
+  //
+  // const [isSidebarExpanded, setIsSidebarExpanded] = useState(() => {
+  //   if (typeof window !== "undefined") {
+  //     const saved = window.localStorage.getItem("sidebarExpanded");
+  //     return saved !== null ? JSON.parse(saved) : true;
+  //   }
+  //   return true;
+  // });
+
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     window.localStorage.setItem(
+  //       "sidebarExpanded",
+  //       JSON.stringify(isSidebarExpanded),
+  //     );
+  //   }
+  // }, [isSidebarExpanded]);
 
   const { isTablet } = useMediaQuery();
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(!isTablet);
@@ -41,117 +119,67 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
     setIsSidebarExpanded(!isTablet);
   }, [isTablet]);
 
-  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
-
-  const toggleExpand = (itemTitle: string) => {
-    setExpandedItems(prev => ({ ...prev, [itemTitle]: !prev[itemTitle] }));
-  };
-
-  const renderNavItems = (items: NavItem[], level = 0) => {
-    return items.map((item) => {
-      const Icon = Icons[item.icon || "arrowRight"];
-      const isExpanded = expandedItems[item.title] || false;
-      
-      return (
-        <Fragment key={`link-fragment-${item.title}`}>
-          <div
-            className={cn(
-              "flex items-center gap-3 rounded-md p-2 text-sm font-medium hover:bg-muted",
-              path === item.href
-                ? "bg-muted"
-                : "text-muted-foreground hover:text-accent-foreground",
-              item.disabled &&
-                "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
-              `ml-${level * 4}`
-            )}
-          >
-            {item.href ? (
-              <Link
-                href={item.disabled ? "#" : item.href}
-                className="flex flex-1 items-center"
-              >
-                <Icon className="mr-3 size-5" />
-                {isSidebarExpanded && item.title}
-              </Link>
-            ) : (
-              <>
-                <Icon className="size-5" />
-                {isSidebarExpanded && <span className="flex-1">{item.title}</span>}
-              </>
-            )}
-            {isSidebarExpanded && item.badge && (
-              <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
-                {item.badge}
-              </Badge>
-            )}
-            {isSidebarExpanded && item.children && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="ml-auto size-8"
-                onClick={() => toggleExpand(item.title)}
-              >
-                {isExpanded ? (
-                  <ChevronDown className="size-4" />
-                ) : (
-                  <ChevronRight className="size-4" />
-                )}
-              </Button>
-            )}
-          </div>
-          {isSidebarExpanded && item.children && isExpanded && renderNavItems(item.children, level + 1)}
-        </Fragment>
-      );
-    });
-  };
-
   return (
-    <div
-      className={cn(
-        "flex flex-col gap-2 p-6 text-lg font-medium",
-        isSidebarExpanded ? "w-64" : "w-20",
-        isSidebarExpanded ? "flex" : "hidden md:flex"
-      )}
-    >
-      <nav className="flex flex-1 flex-col gap-y-8">
-        <Link
-          href="#"
-          className="flex items-center gap-2 text-lg font-semibold"
-        >
-          <Icons.logo className="size-6" />
-          {isSidebarExpanded && (
-            <span className="font-urban text-xl font-bold">
-              {siteConfig.name}
-            </span>
-          )}
-        </Link>
-
-        <ProjectSwitcher large={isSidebarExpanded} />
-
-        {links.map((section) => (
-          <section
-            key={section.title}
-            className="flex flex-col gap-0.5"
-          >
-            {isSidebarExpanded && (
-              <p className="text-xs text-muted-foreground">
-                {section.title}
-              </p>
+    <TooltipProvider delayDuration={0}>
+      <div className="sticky top-0 h-full">
+        <ScrollArea className="h-full overflow-y-auto border-r">
+          <aside
+            className={cn(
+              isSidebarExpanded ? "w-[220px] xl:w-[260px]" : "w-[68px]",
+              "hidden h-screen md:block",
             )}
+          >
+            <div className="flex h-full max-h-screen flex-1 flex-col gap-2">
+              <div className="flex h-14 items-center p-4 lg:h-[60px]">
+                {isSidebarExpanded ? <ProjectSwitcher /> : null}
 
-            {section.items.map((item) => (
-              <Fragment key={`link-fragment-${item.title}`}>
-                {renderNavItems([item], 0)}
-              </Fragment>
-            ))}
-          </section>
-        ))}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="ml-auto size-9 lg:size-8"
+                  onClick={toggleSidebar}
+                >
+                  {isSidebarExpanded ? (
+                    <PanelLeftClose
+                      size={18}
+                      className="stroke-muted-foreground"
+                    />
+                  ) : (
+                    <PanelRightClose
+                      size={18}
+                      className="stroke-muted-foreground"
+                    />
+                  )}
+                  <span className="sr-only">Toggle Sidebar</span>
+                </Button>
+              </div>
 
-        <div className="mt-auto">
-          {isSidebarExpanded && <UpgradeCard />}
-        </div>
-      </nav>
-    </div>
+              <nav className="flex flex-1 flex-col gap-2 px-4 pt-4">
+                {links.map((section) => (
+                  <section
+                    key={section.title}
+                    className="flex flex-col gap-1"
+                  >
+                    {isSidebarExpanded ? (
+                      <p className="mb-1 text-xs font-medium text-muted-foreground">
+                        {section.title}
+                      </p>
+                    ) : (
+                      <div className="h-4" />
+                    )}
+                    {renderNavItems(section.items, path, isSidebarExpanded)}
+                  </section>
+                ))}
+              </nav>
+
+              <div className="mt-auto xl:p-4">
+                {isSidebarExpanded ? <UpgradeCard /> : null}
+              </div>
+            </div>
+          </aside>
+        </ScrollArea>
+      </div>
+    </TooltipProvider>
   );
 }
 
@@ -159,73 +187,6 @@ export function MobileSheetSidebar({ links }: DashboardSidebarProps) {
   const path = usePathname();
   const [open, setOpen] = useState(false);
   const { isSm, isMobile } = useMediaQuery();
-
-  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
-
-  const toggleExpand = (itemTitle: string) => {
-    setExpandedItems(prev => ({ ...prev, [itemTitle]: !prev[itemTitle] }));
-  };
-
-  const renderMobileNavItems = (items: NavItem[], level = 0) => {
-    return items.map((item) => {
-      const Icon = Icons[item.icon || "arrowRight"];
-      const isExpanded = expandedItems[item.title] || false;
-
-      return (
-        <Fragment key={`link-fragment-${item.title}`}>
-          <div
-            className={cn(
-              "flex items-center gap-3 rounded-md p-2 text-sm font-medium hover:bg-muted",
-              path === item.href
-                ? "bg-muted"
-                : "text-muted-foreground hover:text-accent-foreground",
-              item.disabled &&
-                "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
-              `ml-${level * 4}`
-            )}
-          >
-            {item.href ? (
-              <Link
-                onClick={() => {
-                  if (!item.disabled) setOpen(false);
-                }}
-                href={item.disabled ? "#" : item.href}
-                className="flex flex-1 items-center"
-              >
-                <Icon className="mr-3 size-5" />
-                {item.title}
-              </Link>
-            ) : (
-              <>
-                <Icon className="size-5" />
-                <span className="flex-1">{item.title}</span>
-              </>
-            )}
-            {item.badge && (
-              <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
-                {item.badge}
-              </Badge>
-            )}
-            {item.children && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="ml-auto size-8"
-                onClick={() => toggleExpand(item.title)}
-              >
-                {isExpanded ? (
-                  <ChevronDown className="size-4" />
-                ) : (
-                  <ChevronRight className="size-4" />
-                )}
-              </Button>
-            )}
-          </div>
-          {item.children && isExpanded && renderMobileNavItems(item.children, level + 1)}
-        </Fragment>
-      );
-    });
-  };
 
   if (isSm || isMobile) {
     return (
@@ -265,11 +226,38 @@ export function MobileSheetSidebar({ links }: DashboardSidebarProps) {
                       {section.title}
                     </p>
 
-                    {section.items.map((item) => (
-                      <Fragment key={`link-fragment-${item.title}`}>
-                        {renderMobileNavItems([item], 0)}
-                      </Fragment>
-                    ))}
+                    {section.items.map((item) => {
+                      const Icon = Icons[item.icon || "arrowRight"];
+                      return (
+                        item.href && (
+                          <Fragment key={`link-fragment-${item.title}`}>
+                            <Link
+                              key={`link-${item.title}`}
+                              onClick={() => {
+                                if (!item.disabled) setOpen(false);
+                              }}
+                              href={item.disabled ? "#" : item.href}
+                              className={cn(
+                                "flex items-center gap-3 rounded-md p-2 text-sm font-medium hover:bg-muted",
+                                path === item.href
+                                  ? "bg-muted"
+                                  : "text-muted-foreground hover:text-accent-foreground",
+                                item.disabled &&
+                                  "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
+                              )}
+                            >
+                              <Icon className="size-5" />
+                              {item.title}
+                              {item.badge && (
+                                <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
+                                  {item.badge}
+                                </Badge>
+                              )}
+                            </Link>
+                          </Fragment>
+                        )
+                      );
+                    })}
                   </section>
                 ))}
 
