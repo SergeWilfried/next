@@ -1,8 +1,6 @@
 import Link from "next/link";
 
-import { env } from "@/env.mjs";
-import { siteConfig } from "@/config/site";
-import { cn, nFormatter } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
 
@@ -24,7 +22,7 @@ export default async function HeroLanding() {
         <h1 className="text-balance font-urban text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-[66px]">
           Streamline Your School Management with{" "}
           <span className="text-gradient_indigo-purple font-extrabold">
-            EduManager
+            GeSco
           </span>
         </h1>
 

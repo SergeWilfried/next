@@ -16,18 +16,13 @@ export const infos: InfoLdg[] = [
         title: "Innovative",
         description: "Leverage AI-powered tools for personalized learning experiences.",
         icon: "brain",
-      },
-      {
-        title: "Scalable",
-        description: "Adapt to your school's needs as it grows and evolves.",
-        icon: "trendingUp",
-      },
+      }
     ],
   },
   {
     title: "Seamless Integration",
     description:
-      "EduManager integrates effortlessly into your existing school ecosystem. Connect with your favorite educational tools and services for a unified experience.",
+      "GeSco integrates effortlessly into your existing school ecosystem. Connect with your favorite educational tools and services for a unified experience.",
     image: "/_static/illustrations/integration.jpg",
     list: [
       {
@@ -94,21 +89,21 @@ export const testimonials: TestimonialType[] = [
     job: "School Principal",
     image: "https://randomuser.me/api/portraits/women/1.jpg",
     review:
-      "EduManager has revolutionized how we run our school. The AI-powered e-learning platform has significantly improved student engagement and performance. It's been a game-changer for us.",
+      "GeSco has revolutionized how we run our school. The AI-powered e-learning platform has significantly improved student engagement and performance. It's been a game-changer for us.",
   },
   {
     name: "Michael Chen",
     job: "IT Administrator",
     image: "https://randomuser.me/api/portraits/men/2.jpg",
     review:
-      "The ease of implementation and robust features of EduManager impressed me. It seamlessly integrated with our existing systems, and the support team was incredibly helpful throughout the process.",
+      "The ease of implementation and robust features of GeSco impressed me. It seamlessly integrated with our existing systems, and the support team was incredibly helpful throughout the process.",
   },
   {
     name: "Emily Rodriguez",
     job: "Teacher",
     image: "https://randomuser.me/api/portraits/women/3.jpg",
     review:
-      "As a teacher, I love how EduManager simplifies attendance tracking and grade management. The AI-powered learning tools have helped me provide more personalized instruction to my students.",
+      "As a teacher, I love how GeSco simplifies attendance tracking and grade management. The AI-powered learning tools have helped me provide more personalized instruction to my students.",
   },
   {
     name: "David Okafor",
@@ -122,13 +117,13 @@ export const testimonials: TestimonialType[] = [
     job: "School Administrator",
     image: "https://randomuser.me/api/portraits/women/5.jpg",
     review:
-      "EduManager has streamlined our administrative tasks tremendously. The multi-channel communication feature, including SMS and WhatsApp, has greatly improved our engagement with parents.",
+      "GeSco has streamlined our administrative tasks tremendously. The multi-channel communication feature, including SMS and WhatsApp, has greatly improved our engagement with parents.",
   },
   {
     name: "Thomas Müller",
     job: "Finance Manager",
     image: "https://randomuser.me/api/portraits/men/6.jpg",
     review:
-      "The payment tracking and reminder system in EduManager has significantly improved our fee collection process. It's user-friendly for parents and has reduced our administrative workload.",
+      "The payment tracking and reminder system in GeSco has significantly improved our fee collection process. It's user-friendly for parents and has reduced our administrative workload.",
   },
 ];
