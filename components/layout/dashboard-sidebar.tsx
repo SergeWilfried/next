@@ -69,9 +69,9 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
                 {item.href ? (
                   <Link
                     href={item.disabled ? "#" : item.href}
-                    className="flex-1 flex items-center"
+                    className="flex flex-1 items-center"
                   >
-                    <Icon className="size-5 mr-3" />
+                    <Icon className="mr-3 size-5" />
                     {item.title}
                   </Link>
                 ) : (
@@ -89,13 +89,13 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="ml-auto h-8 w-8"
+                    className="ml-auto size-8"
                     onClick={() => toggleExpand(item.title)}
                   >
                     {isExpanded ? (
-                      <ChevronDown className="h-4 w-4" />
+                      <ChevronDown className="size-4" />
                     ) : (
-                      <ChevronRight className="h-4 w-4" />
+                      <ChevronRight className="size-4" />
                     )}
                   </Button>
                 )}
@@ -114,7 +114,7 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
                 `ml-${level * 4}`
               )}
             >
-              <Icon className="size-5 mr-3" />
+              <Icon className="mr-3 size-5" />
               {item.title}
               {item.badge && (
                 <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
@@ -208,9 +208,9 @@ export function MobileSheetSidebar({ links }: DashboardSidebarProps) {
                   if (!item.disabled) setOpen(false);
                 }}
                 href={item.disabled ? "#" : item.href}
-                className="flex-1 flex items-center"
+                className="flex flex-1 items-center"
               >
-                <Icon className="size-5 mr-3" />
+                <Icon className="mr-3 size-5" />
                 {item.title}
               </Link>
             ) : (
@@ -228,13 +228,13 @@ export function MobileSheetSidebar({ links }: DashboardSidebarProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                className="ml-auto h-8 w-8"
+                className="ml-auto size-8"
                 onClick={() => toggleExpand(item.title)}
               >
                 {isExpanded ? (
-                  <ChevronDown className="h-4 w-4" />
+                  <ChevronDown className="size-4" />
                 ) : (
-                  <ChevronRight className="h-4 w-4" />
+                  <ChevronRight className="size-4" />
                 )}
               </Button>
             )}
