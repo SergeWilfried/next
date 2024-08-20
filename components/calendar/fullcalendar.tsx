@@ -5,7 +5,6 @@ import { EventInput, EventClickArg } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
-import { Separator } from "../ui/separator";
 
 let eventGuid: number = 0;
 
