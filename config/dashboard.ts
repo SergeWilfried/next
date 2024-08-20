@@ -11,21 +11,9 @@ export const sidebarLinks: SidebarNavItem[] = [
         authorizeOnly: ["ADMIN", "ACCOUNTANT"],
       },
       {
-        href: "/admin/students",
-        icon: "users",
-        title: "Students",
-        authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
-      },
-      {
-        href: "/admin/staff",
-        icon: "briefcase",
-        title: "Staff",
-        authorizeOnly: ["ADMIN", "ACCOUNTANT"],
-      },
-      {
         href: "/admin/accounting",
         icon: "creditCard",
-        title: "Accounting",
+        title: "Financials",
         authorizeOnly: ["ADMIN", "ACCOUNTANT"],
       },
       {
@@ -35,11 +23,23 @@ export const sidebarLinks: SidebarNavItem[] = [
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
       },
       {
+        href: "/admin/staff",
+        icon: "briefcase",
+        title: "Staff",
+        authorizeOnly: ["ADMIN", "ACCOUNTANT"],
+      },
+      {
         href: "/admin/classes",
         icon: "book",
         title: "Classes",
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
         children: [
+          {
+            href: "/admin/students",
+            icon: "users",
+            title: "Students",
+            authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
+          },
           {
             href: "/admin/grades",
             icon: "building",
@@ -47,12 +47,18 @@ export const sidebarLinks: SidebarNavItem[] = [
             authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
           },
           {
-            href: "/admin/enrollments",
+            href: "/admin/attendance",
             icon: "clipboard",
-            title: "Enrollments",
+            title: "Attendance",
             authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
           },
         ],
+      },
+      {
+        href: "/admin/enrollments",
+        icon: "clipboard",
+        title: "Enrollments",
+        authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
       },
       {
         href: "/admin/applications",
