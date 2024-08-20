@@ -5,7 +5,6 @@ import { EventInput, EventClickArg } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
-import { Separator } from "../ui/separator";
 
 let eventGuid: number = 0;
 
@@ -61,26 +60,25 @@ const SchedulePage = () => {
         initialView="dayGridMonth"
         events={events}
         selectable={true}
+        headerToolbar={{
+          start: "dayGridMonth,timeGridWeek,timeGridDay custom1",
+          center: 'title',
+        }}
+        customButtons={{
+          custom1: {
+            text: "Add Event",
+            click: () => {
+              console.log("custom1");
+            },
+          },
+        }}
         dayMaxEvents={true}
-        businessHours={{ daysOfWeek: [1, 2, 3, 4, 5] }}
+        businessHours={{ daysOfWeek: [1, 2, 3, 4, 5, 6] }}
         dateClick={(e: DateClickArg) => {
-          if (e.dayEl.classList.contains("fc-day-past")) return;
           handleDateClick(e);
         }}
         eventClick={(e: EventClickArg) => handleEventClick(e)}
       />
-      <Separator className="my-2" />
-      <ul>
-        <li>登録中のイベント(削除)</li>
-        <ul>
-          {events.map((e: EventInput) => (
-            <li key={e.id}>
-              {e.title}
-              <span onClick={() => removeEvent(e.id!)}>(x)</span>
-            </li>
-          ))}
-        </ul>
-      </ul>
     </>
   );
 };
