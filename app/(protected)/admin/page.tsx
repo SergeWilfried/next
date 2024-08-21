@@ -28,7 +28,7 @@ export default async function AdminPage() {
           <InfoCard title="New Enrollments" value="156" type="students" change="+12% this year" />
           <InfoCard title="Monthly Revenue" value="$125,000" type="accounting" change="+8% from last month" />
         </div>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="flex flex-col md:flex-row gap-5">
           <TransactionsList />
           <TransactionsList />
         </div>
