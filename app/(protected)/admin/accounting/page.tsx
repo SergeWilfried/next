@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DonutChartComponent } from "@/components/charts/donut";
 import { InteractiveBarChart } from "@/components/charts/interactive-bar-chart";
 import { LineChartComponent } from "@/components/charts/line-chart";
+import { PieChartComponent } from "@/components/charts/pie-chart-interactive";
 
 export const metadata = constructMetadata({
   title: "Accounting – School Management System",
@@ -29,17 +30,39 @@ export default async function PaymentsPage() {
   const expectedRevenue = 1000000; // This should be fetched from your database or calculated based on your business logic
   const revenueProgress = (totalRevenue / expectedRevenue) * 100;
   const averagePayment = totalRevenue / 5;
-  const paymentsByMonth = {}; // Logic to group payments by month
-  const paymentsByCategory = {}; // Logic to group payments by category
-
+  const paymentsByMonth = [
+    { month: "January", paid: 1000, due: 1000 },
+    { month: "February", paid: 1000, due: 1000 },
+    { month: "March", paid: 1000, due: 1000 },
+    { month: "April", paid: 1000, due: 1000 },
+    { month: "May", paid: 1000, due: 1000 },
+    { month: "June", paid: 1000, due: 1000 },
+    { month: "July", paid: 1000, due: 1000 },
+    { month: "August", paid: 1000, due: 1000 },
+    { month: "September", paid: 1000, due: 1000 },
+    { month: "October", paid: 1000, due: 1000 },
+    { month: "November", paid: 1000, due: 1000 },
+    { month: "December", paid: 1000, due: 1000 },
+  ]; // Logic to group payments by month
+  const thisMonth = (month: string) => {
+    const currentMonth = paymentsByMonth.find(m => m.month === month) ?? { paid: 0, due: 0 };
+    const previousMonthIndex = paymentsByMonth.findIndex(m => m.month === month) - 1;
+    const previousMonth = previousMonthIndex >= 0 ? paymentsByMonth[previousMonthIndex] : { paid: 0, due: 0 };
+    return {
+      paid: currentMonth.paid,
+      due: currentMonth.due,
+      // compare to previous month
+    trend: currentMonth.paid / previousMonth.paid
+    }
+  };
   return (
     <>
       <DashboardHeader
-        heading="Payments"
-        text="Manage payments and view financial health of the school."
+        heading="Financial Overview"
+        text="Key metrics and trends for the school's financial health."
       />
       
-      {/* Add this new card for revenue progress */}
+      {/* High-level overview */}
       <Card className="mb-8">
         <CardHeader>
           <CardTitle>Revenue Progress</CardTitle>
@@ -102,33 +125,18 @@ export default async function PaymentsPage() {
             <CardTitle>Monthly Revenue</CardTitle>
           </CardHeader>
           <CardContent>
-            <InteractiveBarChart />
+            <DonutChartComponent data={thisMonth} />
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Payment Categories</CardTitle>
+            <CardTitle>Payments By Month</CardTitle>
           </CardHeader>
           <CardContent>
-            <DonutChartComponent />
+            <PieChartComponent data={paymentsByMonth} />
           </CardContent>
         </Card>
       </div>
-
-      {payments === null ? (
-        <PaymentsLoading />
-      ) : payments.length === 0 ? (
-        <EmptyPlaceholder>
-          <EmptyPlaceholder.Icon name="file" />
-          <EmptyPlaceholder.Title>No payments listed</EmptyPlaceholder.Title>
-          <EmptyPlaceholder.Description>
-            You don&apos;t have any payments yet. Start by adding some.
-          </EmptyPlaceholder.Description>
-          <Button>Add Payments</Button>
-        </EmptyPlaceholder>
-      ) : (
-        <DataTable columns={paymentsTableColumns} data={payments} pageCount={count} />
-      )}
     </>
   );
 }
