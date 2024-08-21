@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { EventInput, EventClickArg } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -9,6 +9,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from '@fullcalendar/list';
 import rrulePlugin from '@fullcalendar/rrule';
 import { RRule } from 'rrule';
+import { toast } from "@/components/ui/use-toast";
 
 import '@fullcalendar/common/main.css';
 import '@fullcalendar/daygrid/main.css';
@@ -54,17 +55,109 @@ interface FormData {
   frequency: 'weekly' | 'monthly' | 'yearly';
 }
 
-const SchedulePage = () => {
-  const classes: ClassInfo[] = [
-    { id: '1', name: 'Math 101', color: '#FF5733', status: 'active' },
-    { id: '2', name: 'History 201', color: '#33FF57', status: 'cancelled' },
-    { id: '3', name: 'Physics 301', color: '#3357FF', status: 'done' },
-  ];
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { useEventManagement } from "@/hooks/use-events-management";
 
-  const [events, setEvents] = useState<EventInput[]>([]);
+
+const classes: ClassInfo[] = [
+  { id: '1', name: 'Math 101', color: '#FF5733', status: 'active' },
+  { id: '2', name: 'History 201', color: '#33FF57', status: 'cancelled' },
+  { id: '3', name: 'Physics 301', color: '#3357FF', status: 'done' },
+];
+
+const createEventId = (): string => {
+  return String(eventGuid++);
+};
+
+const createEventFromFormData = (data: FormData, existingEventId?: string): EventInput => {
+  const selectedClass = classes.find(c => c.id === data.classId);
+  if (!selectedClass) {
+    throw new Error("Invalid class selected");
+  }
+
+  const startDate = new Date();
+  startDate.setHours(parseInt(data.startTime.split(':')[0], 10));
+  startDate.setMinutes(parseInt(data.startTime.split(':')[1], 10));
+  startDate.setSeconds(0);
+  startDate.setMilliseconds(0);
+
+  const endDate = new Date(startDate);
+  endDate.setHours(parseInt(data.endTime.split(':')[0], 10));
+  endDate.setMinutes(parseInt(data.endTime.split(':')[1], 10));
+
+  if (endDate <= startDate) {
+    throw new Error("End time must be after start time");
+  }
+
+  let rrule;
+  try {
+    switch (data.frequency) {
+      case 'weekly':
+        rrule = new RRule({
+          freq: RRule.WEEKLY,
+          byweekday: [parseInt(data.dayOfWeek, 10) - 1],
+          dtstart: startDate,
+          until: new Date(startDate.getFullYear() + 1, startDate.getMonth(), startDate.getDate())
+        });
+        break;
+      case 'monthly':
+        rrule = new RRule({
+          freq: RRule.MONTHLY,
+          bysetpos: Math.floor((startDate.getDate() - 1) / 7) + 1,
+          byweekday: [parseInt(data.dayOfWeek, 10) - 1],
+          dtstart: startDate,
+          until: new Date(startDate.getFullYear() + 1, startDate.getMonth(), startDate.getDate())
+        });
+        break;
+      case 'yearly':
+        rrule = new RRule({
+          freq: RRule.YEARLY,
+          bymonth: startDate.getMonth() + 1,
+          bymonthday: startDate.getDate(),
+          dtstart: startDate,
+          until: new Date(startDate.getFullYear() + 5, startDate.getMonth(), startDate.getDate())
+        });
+        break;
+      default:
+        throw new Error("Invalid frequency selected");
+    }
+  } catch (error) {
+    throw new Error(`Error creating recurrence rule: ${error.message}`);
+  }
+
+  const newEvent: EventInput = {
+    id: existingEventId || createEventId(),
+    title: data.title || selectedClass.name,
+    startTime: data.startTime,
+    endTime: data.endTime,
+    backgroundColor: selectedClass.color,
+    borderColor: selectedClass.color,
+    extendedProps: {
+      classId: selectedClass.id,
+      status: selectedClass.status
+    },
+    rrule: rrule.toString()
+  };
+
+  return newEvent;
+};
+
+const SchedulePage = () => {
+  const { events, addEvent, updateEvent, deleteEvent } = useEventManagement();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<EventInput | null>(null);
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
   const form = useForm<FormData>({
     defaultValues: {
@@ -85,71 +178,76 @@ const SchedulePage = () => {
       frequency: "weekly",
     },
   });
+  const handleDialogClose = useCallback(() => {
+    setIsDialogOpen(false);
+    form.reset();
+  }, [form]);
 
-  const addClassSchedule = (data: FormData) => {
-    const selectedClass = classes.find(c => c.id === data.classId);
-    if (!selectedClass) return;
-
-    const startDate = new Date();
-    startDate.setHours(parseInt(data.startTime.split(':')[0]));
-    startDate.setMinutes(parseInt(data.startTime.split(':')[1]));
-    startDate.setSeconds(0);
-    startDate.setMilliseconds(0);
-
-    const endDate = new Date(startDate);
-    endDate.setHours(parseInt(data.endTime.split(':')[0]));
-    endDate.setMinutes(parseInt(data.endTime.split(':')[1]));
-
-    let rrule;
-    switch (data.frequency) {
-      case 'weekly':
-        rrule = new RRule({
-          freq: RRule.WEEKLY,
-          byweekday: [parseInt(data.dayOfWeek) - 1],
-          dtstart: startDate,
-          until: new Date(startDate.getFullYear() + 1, startDate.getMonth(), startDate.getDate())
-        });
-        break;
-      case 'monthly':
-        rrule = new RRule({
-          freq: RRule.MONTHLY,
-          bysetpos: Math.floor((startDate.getDate() - 1) / 7) + 1,
-          byweekday: [parseInt(data.dayOfWeek) - 1],
-          dtstart: startDate,
-          until: new Date(startDate.getFullYear() + 1, startDate.getMonth(), startDate.getDate())
-        });
-        break;
-      case 'yearly':
-        rrule = new RRule({
-          freq: RRule.YEARLY,
-          bymonth: startDate.getMonth() + 1,
-          bymonthday: startDate.getDate(),
-          dtstart: startDate,
-          until: new Date(startDate.getFullYear() + 5, startDate.getMonth(), startDate.getDate())
-        });
-        break;
+  const handleSubmit = useCallback((data: FormData) => {
+    try {
+      const newEvent = createEventFromFormData(data);
+      addEvent(newEvent);
+      handleDialogClose();
+      toast({
+        title: "Success",
+        description: "Class schedule added successfully",
+        variant: "default",
+      });
+    } catch (error) {
+      console.error("Failed to add event:", error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to add class schedule",
+        variant: "destructive",
+      });
     }
+  }, [addEvent, handleDialogClose]);
 
-    const newEvent: EventInput = {
-      id: createEventId(),
-      title: selectedClass.name,
-      startTime: data.startTime,
-      endTime: data.endTime,
-      backgroundColor: selectedClass.color,
-      borderColor: selectedClass.color,
-      extendedProps: {
-        status: selectedClass.status
-      },
-      rrule: rrule.toString()
-    };
 
-    setEvents([...events, newEvent]);
-  };
 
-  const onSubmit = (data: FormData) => {
-    addClassSchedule(data);
-    handleDialogClose();
-  };
+  const handleEditSubmit = useCallback((data: FormData) => {
+    if (!editingEvent) return;
+    try {
+      const updatedEvent = createEventFromFormData(data, editingEvent.id as string);
+      updateEvent(updatedEvent);
+      setIsEditDialogOpen(false);
+      setEditingEvent(null);
+      toast({
+        title: "Success",
+        description: "Class schedule updated successfully",
+        variant: "default",
+      });
+    } catch (error) {
+      console.error("Failed to update event:", error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to update class schedule",
+        variant: "destructive",
+      });
+    }
+  }, [editingEvent, updateEvent]);
+
+  const handleDeleteConfirm = useCallback(() => {
+    if (!editingEvent) return;
+    try {
+      deleteEvent(editingEvent.id as string);
+      setIsEditDialogOpen(false);
+      setEditingEvent(null);
+      setIsDeleteAlertOpen(false);
+      toast({
+        title: "Success",
+        description: "Class schedule deleted successfully",
+        variant: "default",
+      });
+    } catch (error) {
+      console.error("Failed to delete event:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete class schedule",
+        variant: "destructive",
+      });
+    }
+  }, [editingEvent, deleteEvent]);
 
   const handleEventClick = (clickInfo: EventClickArg) => {
     const event = clickInfo.event;
@@ -174,37 +272,6 @@ const SchedulePage = () => {
       rrule: event.extendedProps?.rrule
     });
     setIsEditDialogOpen(true);
-  };
-
-  const handleEditSubmit = (data: FormData) => {
-    if (!editingEvent) return;
-
-    const updatedEvent = {
-      ...editingEvent,
-      title: data.title,
-      startTime: data.startTime,
-      endTime: data.endTime,
-      rrule: new RRule({
-        freq: data.frequency === 'weekly' ? RRule.WEEKLY :
-              data.frequency === 'monthly' ? RRule.MONTHLY : RRule.YEARLY,
-        byweekday: [parseInt(data.dayOfWeek) - 1],
-        dtstart: new Date(editingEvent.start as Date),
-        until: new Date((editingEvent.start as Date).getFullYear() + 1, (editingEvent.start as Date).getMonth(), (editingEvent.start as Date).getDate())
-      }).toString()
-    };
-
-    setEvents(events.map(e => e.id === editingEvent.id ? updatedEvent : e));
-    setIsEditDialogOpen(false);
-    setEditingEvent(null);
-  };
-
-  const createEventId = (): string => {
-    return `event${++eventGuid}`;
-  };
-
-  const handleDialogClose = () => {
-    setIsDialogOpen(false);
-    form.reset();
   };
 
   return (
@@ -259,7 +326,7 @@ const SchedulePage = () => {
             </DialogDescription>
           </DialogHeader>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
                 name="classId"
@@ -396,6 +463,7 @@ const SchedulePage = () => {
                         <SelectItem value="3">Wednesday</SelectItem>
                         <SelectItem value="4">Thursday</SelectItem>
                         <SelectItem value="5">Friday</SelectItem>
+                        <SelectItem value="6">Saturday</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -450,11 +518,32 @@ const SchedulePage = () => {
                   </FormItem>
                 )}
               />
-              <DialogFooter>
-                <Button type="button" variant="secondary" onClick={() => setIsEditDialogOpen(false)}>
-                  Cancel
-                </Button>
-                <Button type="submit">Save Changes</Button>
+              <DialogFooter className="flex justify-between">
+                <AlertDialog open={isDeleteAlertOpen} onOpenChange={setIsDeleteAlertOpen}>
+                  <AlertDialogTrigger asChild>
+                    <Button type="button" variant="destructive">
+                      Delete
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Are you sure you want to delete this class schedule?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently delete the class schedule from your calendar.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={handleDeleteConfirm}>Delete</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+                <div>
+                  <Button type="button" variant="secondary" onClick={() => setIsEditDialogOpen(false)} className="mr-2">
+                    Cancel
+                  </Button>
+                  <Button type="submit">Save Changes</Button>
+                </div>
               </DialogFooter>
             </form>
           </Form>
