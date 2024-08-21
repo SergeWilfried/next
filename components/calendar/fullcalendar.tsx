@@ -11,11 +11,6 @@ import rrulePlugin from '@fullcalendar/rrule';
 import { RRule } from 'rrule';
 import { toast } from "@/components/ui/use-toast";
 
-import '@fullcalendar/common/main.css';
-import '@fullcalendar/daygrid/main.css';
-import '@fullcalendar/timegrid/main.css';
-import '@fullcalendar/list/main.css';
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
