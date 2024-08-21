@@ -61,6 +61,7 @@ const chartConfig = {
 
 
 interface PieChartComponentProps {
+    title: string
     data: {
         paid: number
         due: number
@@ -68,7 +69,7 @@ interface PieChartComponentProps {
         fill: string
     }[]
 }
-export function PieChartComponent({data}: PieChartComponentProps) {
+export function PieChartComponent({title, data}: PieChartComponentProps) {
     const id = "pie-interactive"
     const [activeMonth, setActiveMonth] = React.useState(data[0].month)
 
@@ -83,8 +84,8 @@ export function PieChartComponent({data}: PieChartComponentProps) {
       <ChartStyle id={id} config={chartConfig} />
       <CardHeader className="flex-row items-start space-y-0 pb-0">
         <div className="grid gap-1">
-          <CardTitle>Pie Chart - Interactive</CardTitle>
-          <CardDescription>January - June 2024</CardDescription>
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{activeMonth} - ${new Date().getFullYear()}</CardDescription>
         </div>
         <Select value={activeMonth} onValueChange={setActiveMonth}>
           <SelectTrigger
@@ -137,7 +138,7 @@ export function PieChartComponent({data}: PieChartComponentProps) {
               data={data}
               dataKey="paid"
               nameKey="month"
-              innerRadius={60}
+              innerRadius={80}
               strokeWidth={5}
               activeIndex={activeIndex}
               activeShape={({
