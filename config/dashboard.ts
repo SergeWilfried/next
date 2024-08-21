@@ -35,7 +35,7 @@ export const sidebarLinks: SidebarNavItem[] = [
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
       },
       {
-        href: "/admin/classes",
+        href: "/admin/class",
         icon: "book",
         title: "Classes",
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
