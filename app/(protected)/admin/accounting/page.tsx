@@ -51,7 +51,7 @@ export default async function PaymentsPage() {
         text="Key metrics and trends for the school's financial health."
       />   
 
-      {/* Updated cards using InfoCard component */}
+      {/* First row: InfoCards */}
       <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <InfoCard
           title="Total Revenue"
@@ -75,23 +75,10 @@ export default async function PaymentsPage() {
         />
       </div>
 
-      <div className="flex flex-col gap-5 md:flex-row">
-        <Card className="w-full md:w-1/2">
-          <CardHeader>
-            <CardTitle>Payments By Month</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <PieChartComponent data={paymentsByMonth} />
-          </CardContent>
-        </Card>
-        <Card className="w-full md:w-1/2">
-          <CardHeader>
-            <CardTitle>Recent Transactions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <TransactionsList />
-          </CardContent>
-        </Card>
+      {/* Second row: Chart and List */}
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <PieChartComponent title="Payments by Month" data={paymentsByMonth} />
+        <TransactionsList />
       </div>
     </>
   );
