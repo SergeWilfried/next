@@ -5,13 +5,22 @@ import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import InfoCard from "@/components/dashboard/info-card";
 import TransactionsList from "@/components/dashboard/transactions-list";
-
+import { AttendanceChartComponent } from "@/components/charts/attendance-chart";
 export const metadata = constructMetadata({
   title: "Admin – GesCo",
   description: "Admin page for only admin management.",
 });
 
 export default async function AdminPage() {
+  const attendanceData = [
+    { month: "January", present: 186, absent: 80 },
+    { month: "February", present: 305, absent: 200 },
+    { month: "March", present: 237, absent: 120 },
+    { month: "April", present: 73, absent: 190 },
+    { month: "May", present: 209, absent: 130 },
+    { month: "June", present: 214, absent: 140 },
+  ]
+  
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/login");
 
@@ -30,7 +39,7 @@ export default async function AdminPage() {
         </div>
         <div className="flex flex-col gap-5 md:flex-row md:justify-between">
           <div className="w-full md:w-[50%]">
-            <AttendanceChartComponentProps />
+            <AttendanceChartComponent title="Attendance" data={attendanceData} />
           </div>
           <div className="w-full md:w-[50%]">
             <TransactionsList />
