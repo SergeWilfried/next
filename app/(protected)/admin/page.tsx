@@ -30,7 +30,7 @@ export default async function AdminPage() {
         </div>
         <div className="flex flex-col gap-5 md:flex-row md:justify-between">
           <div className="w-full md:w-[50%]">
-            <TransactionsList />
+            <AttendanceChartComponentProps />
           </div>
           <div className="w-full md:w-[50%]">
             <TransactionsList />
