@@ -121,8 +121,8 @@ export function PieChartComponent({
             />
             <Pie
               data={data}
-              dataKey="paid"
-              nameKey="month"
+              dataKey="name"
+              nameKey="value"
               innerRadius={60}
               strokeWidth={5}
               activeIndex={activeIndex}
@@ -162,7 +162,7 @@ export function PieChartComponent({
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          Payments
                         </tspan>
                       </text>
                     )
