@@ -1,6 +1,6 @@
 "use client"
 
-import { Donation } from "@prisma/client"
+import { Class } from "@prisma/client"
 import { ColumnDef, Row } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
@@ -8,19 +8,12 @@ import { ArrowUpDown } from "lucide-react"
 import { format } from "date-fns"
 import { ActionsCell } from "@/components/action-cell/action-cell"
 
-const actions = (row: Row<Donation>) => [
+const actions = (row: Row<Class>) => [
   { label: "View", isCopyable:false, onClick: () => {} },
   { label: "Edit", isCopyable:false, onClick: () => {} },
 ]
 
-interface Class {
-  id: string
-  schoolId: string
-  name: string
-  description: string
-  createdAt: Date
-  updatedAt: Date
-}
+
 
 export const classTableColumns: ColumnDef<Class>[] = [
   {
@@ -59,6 +52,10 @@ export const classTableColumns: ColumnDef<Class>[] = [
     header: "Description",
   },
   {
+    accessorKey: "school.name",
+    header: "School Name",
+  },
+  {
     accessorKey: "schoolId",
     header: "School ID",
   },
@@ -76,6 +73,30 @@ export const classTableColumns: ColumnDef<Class>[] = [
     cell: ({ row }) => {
       const date = row.getValue<Date>("updatedAt")
       return <div>{format(date, "MMM d, yyyy")}</div>
+    },
+  },
+  {
+    accessorKey: "students",
+    header: "Students",
+    cell: ({ row }) => {
+      const students = row.getValue<Student[]>("students")
+      return <div>{students?.length || 0}</div>
+    },
+  },
+  {
+    accessorKey: "teachers",
+    header: "Teachers",
+    cell: ({ row }) => {
+      const teachers = row.getValue<Staff[]>("teachers")
+      return <div>{teachers?.length || 0}</div>
+    },
+  },
+  {
+    accessorKey: "course",
+    header: "Courses",
+    cell: ({ row }) => {
+      const courses = row.getValue<Course[]>("course")
+      return <div>{courses?.length || 0}</div>
     },
   },
   {

@@ -109,7 +109,8 @@ model School {
   updatedAt    DateTime       @updatedAt
   User         User?          @relation(fields: [userId], references: [id])
   userId       String?
-  grades       Grade[]
+  classes      Class[]
+  courses      Course[]
 
   @@unique([name, address])
   @@map(name: "schools")
@@ -186,8 +187,8 @@ model Student {
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
   status              EnrollmentStatus     @default(INACTIVE)
-  Grade               Grade?               @relation(fields: [gradeId], references: [id])
-  gradeId             String?
+  Class               Class?               @relation(fields: [classId], references: [id])
+  classId             String?
 
   @@unique([parentId, schoolId, dateOfBirth])
   @@map(name: "students")
@@ -220,11 +221,61 @@ model Application {
   schoolId    String
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
-  grade       Grade?            @relation(fields: [gradeId], references: [id])
-  gradeId     String?
+  class       Class?            @relation(fields: [classId], references: [id])
+  classId     String?
 
   @@unique([parentId, studentName, schoolId])
   @@map(name: "applications")
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  school      School   @relation(fields: [schoolId], references: [id])
+  schoolId    String
+  classId     String
+  class       Class    @relation(fields: [classId], references: [id])
+  teacher     Staff    @relation(fields: [teacherId], references: [id])
+  teacherId   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([name, schoolId])
+  @@map(name: "courses")
+}
+
+model Class {
+  id           String        @id @default(cuid())
+  name         String
+  description  String?
+  school       School        @relation(fields: [schoolId], references: [id])
+  schoolId     String
+  students     Student[]
+  enrollments  Enrollment[]
+  applications Application[]
+  teachers     Staff[]
+  course       Course[]
+  grades       Grade[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@unique([name, schoolId])
+  @@map(name: "classes")
+}
+
+model Grade {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  score       Float?
+  classId     String
+  class       Class    @relation(fields: [classId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([name, classId])
+  @@map(name: "grades")
 }
 
 model Enrollment {
@@ -234,8 +285,8 @@ model Enrollment {
   student      Student          @relation(fields: [studentId], references: [id])
   studentId    String
   academicYear String
-  grade        Grade            @relation(fields: [gradeId], references: [id])
-  gradeId      String
+  class        Class            @relation(fields: [classId], references: [id])
+  classId      String
   status       EnrollmentStatus
   createdAt    DateTime         @default(now())
   updatedAt    DateTime         @updatedAt
@@ -315,6 +366,9 @@ model Staff {
   schoolId   String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  Course     Course[]
+  Class      Class?   @relation(fields: [classId], references: [id])
+  classId    String?
 
   @@unique([name, position, schoolId])
   @@map(name: "staff")
@@ -345,22 +399,6 @@ enum PaymentStatus {
   PENDING
   PAID
   OVERDUE
-}
-
-model Grade {
-  id           String        @id @default(cuid())
-  name         String
-  description  String?
-  students     Student[]
-  enrollments  Enrollment[]
-  applications Application[]
-  school       School        @relation(fields: [schoolId], references: [id])
-  schoolId     String
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-
-  @@unique([name, schoolId])
-  @@map(name: "grades")
 }
 
 enum PaymentMethod {
