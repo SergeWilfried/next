@@ -3,7 +3,7 @@ import { getCurrentUser } from "@/lib/session";
 import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { getAllPayments } from "@/actions/get-payment";
-import { InfoCard } from "@/components/dashboard/info-card";
+import InfoCard from "@/components/dashboard/info-card";
 import { PieChartComponent } from "@/components/charts/pie-chart-interactive";
 import TransactionsList from "@/components/dashboard/transactions-list";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
