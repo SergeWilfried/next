@@ -170,3 +170,57 @@ export const getBlurDataURL = async (url: string | null) => {
 
 export const placeholderBlurhash =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAoJJREFUWEfFl4lu4zAMRO3cx/9/au6reMaOdkxTTl0grQFCRoqaT+SQotq2bV9N8rRt28xms87m83l553eZ/9vr9Wpkz+ezkT0ej+6dv1X81AFw7M4FBACPVn2c1Z3zLgDeJwHgeLFYdAARYioAEAKJEG2WAjl3gCwNYymQQ9b7/V4spmIAwO6Wy2VnAMikBWlDURBELf8CuN1uHQSrPwMAHK5WqwFELQ01AIXdAa7XawfAb3p6AOwK5+v1ugAoEq4FRSFLgavfQ49jAGQpAE5wjgGCeRrGdBArwHOPcwFcLpcGU1X0IsBuN5tNgYhaiFFwHTiAwq8I+O5xfj6fOz38K+X/fYAdb7fbAgFAjIJ6Aav3AYlQ6nfnDoDz0+lUxNiLALvf7XaDNGQ6GANQBKR85V27B4D3QQRw7hGIYlQKWGM79hSweyCUe1blXhEAogfABwHAXAcqSYkxCtHLUK3XBajSc4Dj8dilAeiSAgD2+30BAEKV4GKcAuDqB4TdYwBgPQByCgApUBoE4EJUGvxUjF3Q69/zLw3g/HA45ABKgdIQu+JPIyDnisCfAxAFNFM0EFNQ64gfS0EUoQP8ighrZSjn3oziZEQpauyKbfjbZchHUL/3AS/Dd30gAkxuRACgfO+EWQW8qwI1o+wseNuKcQiESjALvwNoMI0TcRzD4lFcPYwIM+JTF5x6HOs8yI7jeB5oKhpMRFH9UwaSCDB2Jmg4rc6E2TT0biIaG0rQhNqyhpHBcayTTSXH6vcDL7/sdqRK8LkwTsU499E8vRcAojHcZ4AxABdilgrp4lsXk8oVqgwh7+6H3phqd8J0Kk4vbx/+sZqCD/vNLya/5dT9fAH8g1WdNGgwbQAAAABJRU5ErkJggg==";
+
+
+
+  export function formatBytes(
+    bytes: number,
+    opts: {
+      decimals?: number
+      sizeType?: "accurate" | "normal"
+    } = {}
+  ) {
+    const { decimals = 0, sizeType = "normal" } = opts
+  
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
+    const accurateSizes = ["Bytes", "KiB", "MiB", "GiB", "TiB"]
+    if (bytes === 0) return "0 Byte"
+    const i = Math.floor(Math.log(bytes) / Math.log(1024))
+    return `${(bytes / Math.pow(1024, i)).toFixed(decimals)} ${
+      sizeType === "accurate"
+        ? (accurateSizes[i] ?? "Bytest")
+        : (sizes[i] ?? "Bytes")
+    }`
+  }
+  
+  export function slugify(text: string) {
+    return text
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, "-") // Replace spaces with -
+      .replace(/[^\w-]+/g, "") // Remove all non-word chars
+      .replace(/--+/g, "-") // Replace multiple - with single -
+      .replace(/^-+/, "") // Trim - from start of text
+      .replace(/-+$/, "") // Trim - from end of text
+  }
+  
+  /**
+   * Stole this from the @radix-ui/primitive
+   * @see https://github.com/radix-ui/primitives/blob/main/packages/core/primitive/src/primitive.tsx
+   */
+  export function composeEventHandlers<E>(
+    originalEventHandler?: (event: E) => void,
+    ourEventHandler?: (event: E) => void,
+    { checkForDefaultPrevented = true } = {}
+  ) {
+    return function handleEvent(event: E) {
+      originalEventHandler?.(event)
+  
+      if (
+        checkForDefaultPrevented === false ||
+        !(event as unknown as Event).defaultPrevented
+      ) {
+        return ourEventHandler?.(event)
+      }
+    }
+  }
