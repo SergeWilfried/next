@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { EventInput, EventClickArg, DateClickArg } from "@fullcalendar/core";
+import { EventInput, EventClickArg } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import { DateClickArg } from "@fullcalendar/interaction";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
