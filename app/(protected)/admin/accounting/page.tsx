@@ -23,21 +23,16 @@ export default async function PaymentsPage() {
   const totalRevenue = payments ? payments.reduce((sum, payment) => sum + payment.amount, 0) : 0;
   const expectedRevenue = 1000000; // This should be fetched from your database or calculated based on your business logic
   const txCount = count ? count : 0;
-  const averagePayment = totalRevenue / txCount;
+  const averagePayment = txCount > 0 ? totalRevenue / txCount : 0;
+
   const paymentsByMonth = [
-    { month: "January", paid: 1000, due: 1000 },
-    { month: "February", paid: 1000, due: 1000 },
-    { month: "March", paid: 1000, due: 1000 },
-    { month: "April", paid: 1000, due: 1000 },
-    { month: "May", paid: 1000, due: 1000 },
-    { month: "June", paid: 1000, due: 1000 },
-    { month: "July", paid: 1000, due: 1000 },
-    { month: "August", paid: 1000, due: 1000 },
-    { month: "September", paid: 1000, due: 1000 },
-    { month: "October", paid: 1000, due: 1000 },
-    { month: "November", paid: 1000, due: 1000 },
-    { month: "December", paid: 1000, due: 1000 },
-  ]; // Logic to group payments by month
+      { month: "january", paid: 250000, due: 100000, fill: "var(--color-january)" },
+      { month: "february", paid: 305000, due: 150000, fill: "var(--color-february)" },
+      { month: "march", paid: 237000, due: 120000, fill: "var(--color-march)" },
+      { month: "april", paid: 173000, due: 100000, fill: "var(--color-april)" },
+      { month: "may", paid: 209000, due: 150000, fill: "var(--color-may)" },
+  ]; 
+  // Logic to group payments by month
   const thisMonth = (month: string) => {
     const currentMonth = paymentsByMonth.find(m => m.month === month) ?? { paid: 0, due: 0 };
     const previousMonthIndex = paymentsByMonth.findIndex(m => m.month === month) - 1;
@@ -65,7 +60,7 @@ export default async function PaymentsPage() {
         />
         <InfoCard
           title="Average Payment"
-          value={`$${averagePayment.toFixed(2)}`}
+          value={`$${isNaN(averagePayment) ? '0.00' : averagePayment.toFixed(2)}`}
           type="accounting"
         />
         <InfoCard
@@ -80,20 +75,23 @@ export default async function PaymentsPage() {
         />
       </div>
 
-      <div className="flex flex-col gap-5 md:flex-row md:justify-between">
-        <div className="w-full md:w-[50%]">
-          <Card>
-            <CardHeader>
-              <CardTitle>Payments By Month</CardTitle>
+      <div className="flex flex-col gap-5 md:flex-row">
+        <Card className="w-full md:w-1/2">
+          <CardHeader>
+            <CardTitle>Payments By Month</CardTitle>
           </CardHeader>
           <CardContent>
             <PieChartComponent data={paymentsByMonth} />
           </CardContent>
         </Card>
-        <div className="w-full md:w-[50%]">
-          <TransactionsList />
-        </div>
-        </div>
+        <Card className="w-full md:w-1/2">
+          <CardHeader>
+            <CardTitle>Recent Transactions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <TransactionsList />
+          </CardContent>
+        </Card>
       </div>
     </>
   );

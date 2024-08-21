@@ -25,36 +25,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-interface DataPoint {
-    month: string
-    paid: number
-    due: number
-  }
-  
-  interface PieChartComponentProps {
-    data: DataPoint[]
-    title?: string
-    description?: string
-    trendPercentage?: number
-  }
 
-  const chartConfig = {
-    payments: {
-      label: "Payments",
-    },
-    paid: {
-      label: "Paid",
-    },
-    due: {
-      label: "Due",
-    },
-    january: {
-      label: "January",
-      color: "hsl(var(--chart-1))",
-    },
-    february: {
-        label: "February",
-        color: "hsl(var(--chart-2))",
+
+const chartConfig = {
+  payments: {
+    label: "payments",
+  },
+  paid: {
+    label: "paid",
+  },
+  due: {
+    label: "due",
+  },
+  january: {
+    label: "January",
+    color: "hsl(var(--chart-1))",
+  },
+  february: {
+    label: "February",
+    color: "hsl(var(--chart-2))",
   },
   march: {
     label: "March",
@@ -68,57 +57,34 @@ interface DataPoint {
     label: "May",
     color: "hsl(var(--chart-5))",
   },
-  june: {
-    label: "June",
-    color: "hsl(var(--chart-6))",
-  },
-  july: {
-    label: "July",
-    color: "hsl(var(--chart-7))",
-  },
-  august: {
-    label: "August",
-    color: "hsl(var(--chart-8))",
-  },
-  september: {
-    label: "September",
-    color: "hsl(var(--chart-8))",
-  },
-  october: {
-    label: "October",
-    color: "hsl(var(--chart-8))",
-  },
-  november: {
-    label: "November",
-    color: "hsl(var(--chart-8))",
-  },
-  december: {
-    label: "December",
-    color: "hsl(var(--chart-8))",
-  }
 } satisfies ChartConfig
 
-export function PieChartComponent({
-    data,
-    title,
-    description,
-  }: PieChartComponentProps) {
+
+interface PieChartComponentProps {
+    data: {
+        paid: number
+        due: number
+        month: string
+        fill: string
+    }[]
+}
+export function PieChartComponent({data}: PieChartComponentProps) {
     const id = "pie-interactive"
-  const [activeMonth, setActiveMonth] = React.useState(data[0]?.month)
+    const [activeMonth, setActiveMonth] = React.useState(data[0].month)
 
   const activeIndex = React.useMemo(
-    () => data.findIndex((item) => item?.month === activeMonth),
+    () => data.findIndex((item) => item.month === activeMonth),
     [activeMonth]
   )
-  const months = React.useMemo(() => data.map((item) => item?.month as string), [data])
+  const months = React.useMemo(() => data.map((item) => item.month), [])
 
   return (
-      <Card data-chart={id} className="flex flex-col">
-        <ChartStyle id={id} config={chartConfig} />
-        <CardHeader className="flex-row items-start space-y-0 pb-0">
-          <div className="grid gap-1">
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>{`${activeMonth} - ${new Date().getFullYear()}`}</CardDescription>
+    <Card data-chart={id} className="flex flex-col">
+      <ChartStyle id={id} config={chartConfig} />
+      <CardHeader className="flex-row items-start space-y-0 pb-0">
+        <div className="grid gap-1">
+          <CardTitle>Pie Chart - Interactive</CardTitle>
+          <CardDescription>January - June 2024</CardDescription>
         </div>
         <Select value={activeMonth} onValueChange={setActiveMonth}>
           <SelectTrigger
@@ -169,8 +135,8 @@ export function PieChartComponent({
             />
             <Pie
               data={data}
-              dataKey="name"
-              nameKey="value"
+              dataKey="paid"
+              nameKey="month"
               innerRadius={60}
               strokeWidth={5}
               activeIndex={activeIndex}
