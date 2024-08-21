@@ -70,6 +70,15 @@ const classes: ClassInfo[] = [
   { id: '1', name: 'Math 101', color: '#FF5733', status: 'active' },
   { id: '2', name: 'History 201', color: '#33FF57', status: 'cancelled' },
   { id: '3', name: 'Physics 301', color: '#3357FF', status: 'done' },
+  { id: '4', name: 'Chemistry 401', color: '#3357FF', status: 'done' },
+  { id: '5', name: 'Biology 501', color: '#3357FF', status: 'done' },
+  { id: '6', name: 'English 601', color: '#3357FF', status: 'done' },
+  { id: '7', name: 'Science 701', color: '#3357FF', status: 'done' },
+  { id: '8', name: 'Social Studies 801', color: '#3357FF', status: 'done' },
+  { id: '9', name: 'Art 901', color: '#3357FF', status: 'done' },
+  { id: '10', name: 'Music 1001', color: '#3357FF', status: 'done' },
+  { id: '11', name: 'Physical Education 1101', color: '#3357FF', status: 'done' },
+  { id: '12', name: 'Foreign Language 1201', color: '#3357FF', status: 'done' }
 ];
 
 const createEventId = (): string => {
@@ -289,7 +298,11 @@ const SchedulePage = () => {
           right: 'dayGridMonth,timeGridWeek,listWeek'
         }}
         views={{
-          listWeek: { buttonText: 'List' }
+          listWeek: { buttonText: 'List' },
+          dayGridMonth: {
+            dayMaxEventRows: 3,
+            dayMaxEvents: 3,
+          },
         }}
         events={events}
         slotMinTime="08:00:00"
@@ -320,6 +333,9 @@ const SchedulePage = () => {
           }
         }}
         noEventsContent={() => "No classes scheduled"}
+        dayMaxEventRows={3}
+        dayMaxEvents={3}
+        moreLinkClick="popover"
       />
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
