@@ -63,7 +63,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useEventManagement } from "@/hooks/use-events-management";
 
-const VALID_DAYS_OF_WEEK = ['1', '2', '3', '4', '5', '6', '7'];
+const VALID_DAYS_OF_WEEK = ['1', '2', '3', '4', '5', '6'];
 const VALID_FREQUENCIES = ['weekly', 'monthly', 'yearly'];
 
 const classes: ClassInfo[] = [
@@ -267,11 +267,11 @@ const SchedulePage = () => {
     const rrule = RRule.fromString(event.extendedProps?.rrule || "");
     
     editForm.reset({
-      classId: event.id,
       title: event.title,
+      classId: event.extendedProps.classId, // Use classId from extendedProps
       dayOfWeek: (rrule.options.byweekday?.[0] + 1).toString() || "",
-      startTime: event.startStr.split('T')[1].slice(0, 5),
-      endTime: event.endStr.split('T')[1].slice(0, 5),
+      startTime: event.start ? event.start.toTimeString().slice(0, 5) : "",
+      endTime: event.end ? event.end.toTimeString().slice(0, 5) : "",
       frequency: rrule.options.freq === RRule.WEEKLY ? "weekly" :
                  rrule.options.freq === RRule.MONTHLY ? "monthly" : "yearly",
     });
@@ -280,7 +280,7 @@ const SchedulePage = () => {
       id: event.id,
       title: event.title,
       start: event.start ? event.start : undefined,
-      end: event.end ? event.end : undefined ,
+      end: event.end ? event.end : undefined,
       extendedProps: event.extendedProps,
       rrule: event.extendedProps?.rrule
     });
@@ -304,13 +304,18 @@ const SchedulePage = () => {
             dayMaxEvents: 3,
           },
         }}
+        businessHours={{
+          daysOfWeek: [1, 2, 3, 4, 5, 6], // Monday to Saturday
+          startTime: '08:00:00',
+          endTime: '18:00:00',
+        }}
         events={events}
         slotMinTime="08:00:00"
-        slotMaxTime="22:00:00"
+        slotMaxTime="18:00:00"
         allDaySlot={false}
         customButtons={{
           addClassSchedule: {
-            text: 'Add Class Schedule',
+            text: 'Add Class',
             click: () => setIsDialogOpen(true),
           },
         }}
@@ -390,7 +395,6 @@ const SchedulePage = () => {
                         <SelectItem value="4">Thursday</SelectItem>
                         <SelectItem value="5">Friday</SelectItem>
                         <SelectItem value="6">Saturday</SelectItem>
-                        <SelectItem value="7">Sunday</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -474,6 +478,30 @@ const SchedulePage = () => {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={editForm.control}
+                name="classId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Select Class</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a class" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {classes.map((cls) => (
+                          <SelectItem key={cls.id} value={cls.id}>
+                            {cls.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
