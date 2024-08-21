@@ -37,7 +37,8 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function LineChartComponent({ value, max, className }: { value: number; max: number; className?: string }) {
+export function LineChartComponent() {
+
   return (
     <Card>
       <CardHeader>
