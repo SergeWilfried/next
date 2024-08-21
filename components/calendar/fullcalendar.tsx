@@ -92,7 +92,7 @@ const SchedulePage = () => {
         initialView="timeGridWeek"
         events={events}
         headerToolbar={{
-          left: 'prev,next today',
+          left: 'prev,next today addClassSchedule',
           center: 'title',
           right: 'timeGridWeek,timeGridDay'
         }}
