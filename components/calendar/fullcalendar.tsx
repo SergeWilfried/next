@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { EventInput, EventClickArg } from "@fullcalendar/core";
+import { EventInput, EventClickArg, DateClickArg } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -30,34 +30,43 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 let eventGuid: number = 0;
 
+interface FormData {
+  classId: string;
+  dayOfWeek: string;
+  startTime: string;
+  endTime: string;
+}
+
 const SchedulePage = () => {
-  const [classes, setClasses] = useState([
+  const classes = [
     { id: '1', name: 'Math 101', color: '#FF5733' },
     { id: '2', name: 'History 201', color: '#33FF57' },
     { id: '3', name: 'Physics 301', color: '#3357FF' },
-  ]);
+  ];
 
   const [events, setEvents] = useState<EventInput[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  const form = useForm({
+  const form = useForm<FormData>({
     defaultValues: {
       classId: "",
-      eventDate: "",
+      dayOfWeek: "",
       startTime: "",
       endTime: "",
     },
   });
 
-  const addClassSchedule = (classId: string, date: string, startTime: string, endTime: string) => {
+  const addClassSchedule = (classId: string, dayOfWeek: string, startTime: string, endTime: string) => {
     const selectedClass = classes.find(c => c.id === classId);
     if (!selectedClass) return;
 
     const newEvent: EventInput = {
       id: createEventId(),
       title: selectedClass.name,
-      start: `${date}T${startTime}`,
-      end: `${date}T${endTime}`,
+      daysOfWeek: [parseInt(dayOfWeek)],
+      startTime,
+      endTime,
       color: selectedClass.color,
     };
 
@@ -71,8 +80,19 @@ const SchedulePage = () => {
     }
   };
 
-  const onSubmit = (data) => {
-    addClassSchedule(data.classId, data.eventDate, data.startTime, data.endTime);
+  const handleDateClick = (arg: DateClickArg) => {
+    const clickedDate = arg.date;
+    const dayOfWeek = clickedDate.getDay();
+    const formattedTime = clickedDate.toTimeString().slice(0, 5); // Get HH:MM format
+
+    setSelectedDate(arg.dateStr);
+    form.setValue('dayOfWeek', dayOfWeek.toString());
+    form.setValue('startTime', formattedTime);
+    setIsDialogOpen(true);
+  };
+
+  const onSubmit = (data: FormData) => {
+    addClassSchedule(data.classId, data.dayOfWeek, data.startTime, data.endTime);
     handleDialogClose();
   };
 
@@ -82,37 +102,55 @@ const SchedulePage = () => {
 
   const handleDialogClose = () => {
     setIsDialogOpen(false);
+    setSelectedDate(null);
     form.reset();
   };
 
   return (
     <>
       <FullCalendar
-        plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="timeGridWeek"
         events={events}
         headerToolbar={{
-          left: 'prev,next today',
+          left: 'prev,next today addClassSchedule',
           center: 'title',
-          right: 'timeGridWeek,timeGridDay'
+          right: 'dayGridMonth,timeGridWeek'
         }}
         slotMinTime="08:00:00"
-        slotMaxTime="22:00:00"
+        slotMaxTime="18:00:00"
         allDaySlot={false}
+        weekends={false}
+        hiddenDays={[0, 6]}
         customButtons={{
           addClassSchedule: {
-            text: 'Add Class Schedule',
+            text: 'Add Class',
             click: () => setIsDialogOpen(true),
           },
         }}
         eventClick={handleEventClick}
+        editable={false}
+        selectable={true}
+        dateClick={handleDateClick}
+        views={{
+          timeGridWeek: {
+            dayHeaderFormat: { weekday: 'long' },
+          },
+          dayGridMonth: {
+            dayMaxEvents: 3,
+            dayMaxEventRows: 3,
+            moreLinkClick: "popover",
+          },
+        }}
       />
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Add Class Schedule</DialogTitle>
+            <DialogTitle>Add Class to Timetable</DialogTitle>
             <DialogDescription>
-              Enter the details for the class schedule.
+              {selectedDate 
+                ? `Adding class for ${new Date(selectedDate).toLocaleDateString()} at ${new Date(selectedDate).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`
+                : 'Enter the details for the class schedule.'}
             </DialogDescription>
           </DialogHeader>
           <Form {...form}>
@@ -143,13 +181,24 @@ const SchedulePage = () => {
               />
               <FormField
                 control={form.control}
-                name="eventDate"
+                name="dayOfWeek"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Date</FormLabel>
-                    <FormControl>
-                      <Input type="date" {...field} />
-                    </FormControl>
+                    <FormLabel>Day of Week</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a day" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="1">Monday</SelectItem>
+                        <SelectItem value="2">Tuesday</SelectItem>
+                        <SelectItem value="3">Wednesday</SelectItem>
+                        <SelectItem value="4">Thursday</SelectItem>
+                        <SelectItem value="5">Friday</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -184,7 +233,7 @@ const SchedulePage = () => {
                 <Button type="button" variant="secondary" onClick={handleDialogClose}>
                   Cancel
                 </Button>
-                <Button type="submit">Add Schedule</Button>
+                <Button type="submit">Add to Timetable</Button>
               </DialogFooter>
             </form>
           </Form>
