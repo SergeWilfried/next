@@ -219,15 +219,15 @@ export function useParseCsv({
   }
 
   function getSanitizedData({ data }: { data: Record<string, unknown>[] }) {
-    return data.map((row) =>
-      Object.keys(row).reduce(
-        (acc, key) => ({
-          ...acc,
-          [key]: row[key] === null ? "" : row[key],
-        }),
-        {}
-      )
-    )
+    return data.map((row) => {
+      const sanitizedRow = {}
+      for (const key in row) {
+        if (Object.prototype.hasOwnProperty.call(row, key)) {
+          sanitizedRow[key] = row[key] === null ? "" : row[key]
+        }
+      }
+      return sanitizedRow
+    })
   }
 
   return {
