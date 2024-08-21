@@ -29,7 +29,7 @@ export const sidebarLinks: SidebarNavItem[] = [
         authorizeOnly: ["ADMIN", "ACCOUNTANT"],
       },
       {
-        href: "/dashboard/parents",
+        href: "/admin/parents",
         icon: "users",
         title: "Parents",
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
