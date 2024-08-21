@@ -23,7 +23,7 @@ export default async function PaymentsPage() {
   const totalRevenue = payments ? payments.reduce((sum, payment) => sum + payment.amount, 0) : 0;
   const expectedRevenue = 1000000; // This should be fetched from your database or calculated based on your business logic
   const txCount = count ? count : 0;
-  const averagePayment = totalRevenue / txCount;
+  const averagePayment = txCount > 0 ? totalRevenue / txCount : 0;
 
   const paymentsByMonth = [
       { month: "january", paid: 250000, due: 100000, fill: "var(--color-january)" },
@@ -60,7 +60,7 @@ export default async function PaymentsPage() {
         />
         <InfoCard
           title="Average Payment"
-          value={`$${averagePayment.toFixed(2)}`}
+          value={`$${isNaN(averagePayment) ? '0.00' : averagePayment.toFixed(2)}`}
           type="accounting"
         />
         <InfoCard
