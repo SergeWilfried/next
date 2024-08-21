@@ -1,6 +1,6 @@
 "use client"
 
-import { Class } from "@prisma/client"
+import { Class, Course, Staff } from "@prisma/client"
 import { ColumnDef, Row } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
@@ -79,7 +79,7 @@ export const classTableColumns: ColumnDef<Class>[] = [
     accessorKey: "students",
     header: "Students",
     cell: ({ row }) => {
-      const students = row.getValue<Student[]>("students")
+      const students = row.getValue<Class[]>("students")
       return <div>{students?.length || 0}</div>
     },
   },
