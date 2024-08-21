@@ -138,7 +138,7 @@ export function PieChartComponent({title, data}: PieChartComponentProps) {
               data={data}
               dataKey="paid"
               nameKey="month"
-              innerRadius={60}
+              innerRadius={80}
               strokeWidth={5}
               activeIndex={activeIndex}
               activeShape={({
