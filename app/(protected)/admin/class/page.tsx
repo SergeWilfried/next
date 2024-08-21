@@ -4,14 +4,19 @@ import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 import { Button } from "@/components/ui/button";
-import { getAllDonations } from "@/actions/get-donations";
 import ClassLoading from "./loading";
 import { DataTable } from "@/components/data-table/data-table";
 import { classTableColumns } from "./columns";
 
+/// TODO: Fetch classes from the server
+async function getAllClasses() {
+  const { data: classes, count } = await Promise.resolve({ data: [], count: 0 });
+  return { data: classes, count, error: null };
+}
+
 export const metadata = constructMetadata({
-  title: "Donations – School Management System",
-  description: "Manage donations in the school system.",
+  title: "Classes – School Management System",
+  description: "Manage your school classes.",
 });
 
 export default async function ClassPage() {
@@ -22,16 +27,16 @@ export default async function ClassPage() {
   // Fetch classes from the server
   // TODO: Fetch classes from the server
   // FIXME: This is a temporary placeholder for the classes table
-  const { data: donations, error, count } = await getAllDonations();
+  const { data: classes, error, count } = await getAllClasses();
   return (
     <>
       <DashboardHeader
         heading="Classes"
         text="Manage your school classes."
       />
-      {donations === null ? (
+      {classes === null ? (
         <ClassLoading />
-      ) : donations.length === 0 ? (  
+      ) : classes.length === 0 ? (  
       <EmptyPlaceholder>
         <EmptyPlaceholder.Icon name="building" />
         <EmptyPlaceholder.Title>No classes listed</EmptyPlaceholder.Title>
@@ -41,7 +46,7 @@ export default async function ClassPage() {
         <Button>Add Donations</Button>
       </EmptyPlaceholder>
     ) : (
-      <DataTable data={donations} columns={classTableColumns} pageCount={count} />
+      <DataTable data={classes} columns={classTableColumns} pageCount={count} />
     )}
     </>
   );

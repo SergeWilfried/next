@@ -6,7 +6,6 @@ import { getAllPayments } from "@/actions/get-payment";
 import InfoCard from "@/components/dashboard/info-card";
 import { PieChartComponent } from "@/components/charts/pie-chart-interactive";
 import TransactionsList from "@/components/dashboard/transactions-list";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export const metadata = constructMetadata({
   title: "Accounting – School Management System",
@@ -78,7 +77,7 @@ export default async function PaymentsPage() {
       {/* Second row: Chart and List */}
       <div className="flex flex-col gap-5 md:flex-row md:justify-between">
           <div className="w-full md:w-[50%]">
-            <PieChartComponent title="Revenue by Month" data={paymentsByMonth} />
+            <PieChartComponent title="Re" data={paymentsByMonth} />
           </div>
           <div className="w-full md:w-[50%]">
             <TransactionsList />
