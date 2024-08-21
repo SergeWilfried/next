@@ -13,6 +13,15 @@ const actions = (row: Row<Donation>) => [
   { label: "Edit", isCopyable:false, onClick: () => {} },
 ]
 
+interface Class {
+  id: string
+  schoolId: string
+  name: string
+  description: string
+  createdAt: Date
+  updatedAt: Date
+}
+
 export const classTableColumns: ColumnDef<Class>[] = [
   {
     id: "select",
@@ -34,44 +43,40 @@ export const classTableColumns: ColumnDef<Class>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "parentId",
+    accessorKey: "name",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Parent ID
+        Class Name
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
   },
   {
-    accessorKey: "amount",
-    header: "Amount",
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
-      return <div>{formatted}</div>
-    },
-  },
-  {
-    accessorKey: "date",
-    header: "Date",
-    cell: ({ row }) => {
-      const date = row.getValue<Date>("date")
-      return <div>{format(date, "MMM d, yyyy")}</div>
-    },
-  },
-  {
-    accessorKey: "purpose",
-    header: "Purpose",
+    accessorKey: "description",
+    header: "Description",
   },
   {
     accessorKey: "schoolId",
     header: "School ID",
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Created At",
+    cell: ({ row }) => {
+      const date = row.getValue<Date>("createdAt")
+      return <div>{format(date, "MMM d, yyyy")}</div>
+    },
+  },
+  {
+    accessorKey: "updatedAt",
+    header: "Updated At",
+    cell: ({ row }) => {
+      const date = row.getValue<Date>("updatedAt")
+      return <div>{format(date, "MMM d, yyyy")}</div>
+    },
   },
   {
     id: "actions",
