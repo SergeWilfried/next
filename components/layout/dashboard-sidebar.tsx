@@ -27,6 +27,65 @@ interface DashboardSidebarProps {
   links: SidebarNavItem[];
 }
 
+function renderNavItems(items: NavItem[], path: string, isSidebarExpanded: boolean, depth = 0) {
+  return items.map((item) => {
+    const Icon = Icons[item.icon || "arrowRight"];
+    return (
+      <Fragment key={`link-fragment-${item.title}`}>
+        {isSidebarExpanded ? (
+          <Link
+            key={`link-${item.title}`}
+            href={item.disabled ? "#" : item.href}
+            className={cn(
+              "flex items-center gap-3 rounded-md p-2 text-sm font-medium",
+              "hover:bg-muted",
+              path === item.href
+                ? "bg-muted text-foreground"
+                : "text-muted-foreground hover:text-accent-foreground",
+              item.disabled && "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground"
+            )}
+          >
+            <Icon className="size-5" />
+            <span>{item.title}</span>
+            {item.badge && (
+              <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
+                {item.badge}
+              </Badge>
+            )}
+          </Link>
+        ) : (
+          <Tooltip key={`tooltip-${item.title}`}>
+            <TooltipTrigger asChild>
+              <Link
+                key={`link-tooltip-${item.title}`}
+                href={item.disabled ? "#" : item.href}
+                className={cn(
+                  "flex items-center justify-center rounded-md py-2",
+                  "hover:bg-muted",
+                  path === item.href
+                    ? "bg-muted text-foreground"
+                    : "text-muted-foreground hover:text-accent-foreground",
+                  item.disabled && "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground"
+                )}
+              >
+                <Icon className="size-5" />
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              {item.title}
+            </TooltipContent>
+          </Tooltip>
+        )}
+        {item.children && (
+          <div className={cn("mt-1", depth === 0 ? "ml-4" : "ml-2")}>
+            {renderNavItems(item.children, path, isSidebarExpanded, depth + 1)}
+          </div>
+        )}
+      </Fragment>
+    );
+  });
+}
+
 export function DashboardSidebar({ links }: DashboardSidebarProps) {
   const path = usePathname();
 
@@ -95,74 +154,20 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
                 </Button>
               </div>
 
-              <nav className="flex flex-1 flex-col gap-8 px-4 pt-4">
+              <nav className="flex flex-1 flex-col gap-2 px-4 pt-4">
                 {links.map((section) => (
                   <section
                     key={section.title}
-                    className="flex flex-col gap-0.5"
+                    className="flex flex-col gap-1"
                   >
                     {isSidebarExpanded ? (
-                      <p className="text-xs text-muted-foreground">
+                      <p className="mb-1 text-xs font-medium text-muted-foreground">
                         {section.title}
                       </p>
                     ) : (
                       <div className="h-4" />
                     )}
-                    {section.items.map((item) => {
-                      const Icon = Icons[item.icon || "arrowRight"];
-                      return (
-                        item.href && (
-                          <Fragment key={`link-fragment-${item.title}`}>
-                            {isSidebarExpanded ? (
-                              <Link
-                                key={`link-${item.title}`}
-                                href={item.disabled ? "#" : item.href}
-                                className={cn(
-                                  "flex items-center gap-3 rounded-md p-2 text-sm font-medium hover:bg-muted",
-                                  path === item.href
-                                    ? "bg-muted"
-                                    : "text-muted-foreground hover:text-accent-foreground",
-                                  item.disabled &&
-                                    "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
-                                )}
-                              >
-                                <Icon className="size-5" />
-                                {item.title}
-                                {item.badge && (
-                                  <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
-                                    {item.badge}
-                                  </Badge>
-                                )}
-                              </Link>
-                            ) : (
-                              <Tooltip key={`tooltip-${item.title}`}>
-                                <TooltipTrigger asChild>
-                                  <Link
-                                    key={`link-tooltip-${item.title}`}
-                                    href={item.disabled ? "#" : item.href}
-                                    className={cn(
-                                      "flex items-center gap-3 rounded-md py-2 text-sm font-medium hover:bg-muted",
-                                      path === item.href
-                                        ? "bg-muted"
-                                        : "text-muted-foreground hover:text-accent-foreground",
-                                      item.disabled &&
-                                        "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
-                                    )}
-                                  >
-                                    <span className="flex size-full items-center justify-center">
-                                      <Icon className="size-5" />
-                                    </span>
-                                  </Link>
-                                </TooltipTrigger>
-                                <TooltipContent side="right">
-                                  {item.title}
-                                </TooltipContent>
-                              </Tooltip>
-                            )}
-                          </Fragment>
-                        )
-                      );
-                    })}
+                    {renderNavItems(section.items, path, isSidebarExpanded)}
                   </section>
                 ))}
               </nav>
