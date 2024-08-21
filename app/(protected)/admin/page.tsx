@@ -7,7 +7,7 @@ import InfoCard from "@/components/dashboard/info-card";
 import TransactionsList from "@/components/dashboard/transactions-list";
 
 export const metadata = constructMetadata({
-  title: "Admin – GesCo",
+  title: "Admin – GesCo",
   description: "Admin page for only admin management.",
 });
 
@@ -28,8 +28,10 @@ export default async function AdminPage() {
           <InfoCard title="New Enrollments" value="156" type="students" change="+12% this year" />
           <InfoCard title="Monthly Revenue" value="$125,000" type="accounting" change="+8% from last month" />
         </div>
-        <TransactionsList />
-        <TransactionsList />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <TransactionsList />
+          <TransactionsList />
+        </div>
       </div>
     </>
   );
