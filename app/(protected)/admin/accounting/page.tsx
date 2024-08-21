@@ -2,17 +2,10 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/session";
 import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
-import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
-import { Button } from "@/components/ui/button";
 import { getAllPayments } from "@/actions/get-payment";
-import PaymentsLoading from "./loading";
-import { DataTable } from "@/components/data-table/data-table";
-import { paymentsTableColumns } from "./columns";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DonutChartComponent } from "@/components/charts/donut";
-import { InteractiveBarChart } from "@/components/charts/interactive-bar-chart";
-import { LineChartComponent } from "@/components/charts/line-chart";
 import { PieChartComponent } from "@/components/charts/pie-chart-interactive";
+import TransactionsList from "@/components/dashboard/transactions-list";
 
 export const metadata = constructMetadata({
   title: "Accounting – School Management System",
@@ -60,28 +53,7 @@ export default async function PaymentsPage() {
       <DashboardHeader
         heading="Financial Overview"
         text="Key metrics and trends for the school's financial health."
-      />
-      
-      {/* High-level overview */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle>Revenue Progress</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <LineChartComponent 
-            value={revenueProgress} 
-            max={100} 
-            className="mb-2 h-4"
-          />
-          <div className="flex justify-between text-sm text-muted-foreground">
-            <span>Current: ${totalRevenue.toFixed(2)}</span>
-            <span>Expected: ${expectedRevenue.toFixed(2)}</span>
-          </div>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {revenueProgress.toFixed(1)}% of expected revenue collected
-          </p>
-        </CardContent>
-      </Card>
+      />   
 
       {/* Existing cards and charts */}
       <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -122,20 +94,13 @@ export default async function PaymentsPage() {
       <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Monthly Revenue</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <DonutChartComponent data={thisMonth} />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
             <CardTitle>Payments By Month</CardTitle>
           </CardHeader>
           <CardContent>
             <PieChartComponent data={paymentsByMonth} />
           </CardContent>
         </Card>
+        <TransactionsList />
       </div>
     </>
   );
