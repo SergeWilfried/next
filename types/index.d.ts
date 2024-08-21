@@ -3,6 +3,12 @@ import type { Icon } from "lucide-react";
 
 import { Icons } from "@/components/shared/icons";
 
+
+import { type ClientUploadedFileData } from "uploadthing/types"
+
+export interface UploadedFile<T = unknown> extends ClientUploadedFileData<T> {}
+
+
 export type SiteConfig = {
   name: string;
   description: string;

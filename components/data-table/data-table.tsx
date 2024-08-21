@@ -30,17 +30,18 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu"
 import { ChevronDownIcon } from "@radix-ui/react-icons"
 import { DownloadIcon } from "@radix-ui/react-icons"
+import { CsvImporter } from "../dropzone/csv-importer"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[],
-  pageCount: number
+  pageCount: number,
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  pageCount
+  pageCount,
 }: DataTableProps<TData, TValue>) {
 
   const router = useRouter()
@@ -105,7 +106,7 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-
+  const [setData] = React.useState<TData[]>(data);
   const table = useReactTable({
     data,
     columns,
@@ -146,6 +147,26 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
         <div className="ml-auto flex space-x-2">
+          <CsvImporter
+            fields={columns.map(col => ({
+              label: String(col.header),
+              value: String(col.id),
+              required: true
+            }))}
+            onImport={(parsedData) => {
+              const formattedData = parsedData.map((item): TData => {
+                const newItem: Partial<TData> = {};
+                for (const key in item) {
+                  if (Object.prototype.hasOwnProperty.call(item, key)) {
+                    (newItem as any)[key] = item[key];
+                  }
+                }
+                return newItem as TData;
+              })
+              // TODO: add data to table
+            }}
+            className="self-end"
+          />
           <Button variant="outline" onClick={handleExport}>
             <DownloadIcon className="mr-2 h-4 w-4" />
             Export
