@@ -39,7 +39,7 @@ interface DataPoint {
   }
 
   const chartConfig = {
-    visitors: {
+    payments: {
       label: "Payments",
     },
     paid: {
@@ -53,22 +53,50 @@ interface DataPoint {
       color: "hsl(var(--chart-1))",
     },
     february: {
-      label: "February",
-      color: "hsl(var(--chart-2))",
-    },
-    march: {
-      label: "March",
-      color: "hsl(var(--chart-3))",
-    },
-    april: {
-      label: "April",
-      color: "hsl(var(--chart-4))",
-    },
-    may: {
-      label: "May",
-      color: "hsl(var(--chart-5))",
-    },
-  } satisfies ChartConfig
+        label: "February",
+        color: "hsl(var(--chart-2))",
+  },
+  march: {
+    label: "March",
+    color: "hsl(var(--chart-3))",
+  },
+  april: {
+    label: "April",
+    color: "hsl(var(--chart-4))",
+  },
+  may: {
+    label: "May",
+    color: "hsl(var(--chart-5))",
+  },
+  june: {
+    label: "June",
+    color: "hsl(var(--chart-6))",
+  },
+  july: {
+    label: "July",
+    color: "hsl(var(--chart-7))",
+  },
+  august: {
+    label: "August",
+    color: "hsl(var(--chart-8))",
+  },
+  september: {
+    label: "September",
+    color: "hsl(var(--chart-8))",
+  },
+  october: {
+    label: "October",
+    color: "hsl(var(--chart-8))",
+  },
+  november: {
+    label: "November",
+    color: "hsl(var(--chart-8))",
+  },
+  december: {
+    label: "December",
+    color: "hsl(var(--chart-8))",
+  }
+} satisfies ChartConfig
 
 export function PieChartComponent({
     data,
@@ -141,8 +169,8 @@ export function PieChartComponent({
             />
             <Pie
               data={data}
-              dataKey="paid"
-              nameKey="month"
+              dataKey="name"
+              nameKey="value"
               innerRadius={60}
               strokeWidth={5}
               activeIndex={activeIndex}
@@ -182,7 +210,7 @@ export function PieChartComponent({
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          Payments
                         </tspan>
                       </text>
                     )
