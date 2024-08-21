@@ -38,6 +38,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function LineChartComponent() {
+
   return (
     <Card>
       <CardHeader>
