@@ -169,8 +169,8 @@ export function PieChartComponent({
             />
             <Pie
               data={data}
-              dataKey="name"
-              nameKey="value"
+              dataKey="paid"
+              nameKey="month"
               innerRadius={60}
               strokeWidth={5}
               activeIndex={activeIndex}
