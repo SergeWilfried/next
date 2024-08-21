@@ -61,22 +61,22 @@ export default async function PaymentsPage() {
         <InfoCard
           title="Total Revenue"
           value={`$${totalRevenue.toFixed(2)}`}
-          icon="dollar-sign"
+          type="dollarSign"
         />
         <InfoCard
           title="Average Payment"
           value={`$${averagePayment.toFixed(2)}`}
-          icon="credit-card"
+          type="accounting"
         />
         <InfoCard
           title="Total Payments"
           value={txCount.toString()}
-          icon="file-text"
+          type="fileText"
         />
         <InfoCard
           title="Payment Rate"
           value="95%"
-          icon="percent"
+          type="percent"
         />
       </div>
 

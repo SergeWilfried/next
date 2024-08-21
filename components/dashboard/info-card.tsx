@@ -1,4 +1,4 @@
-import { School, Users, DollarSign, PiggyBank, UserPlus } from "lucide-react"
+import { School, Users, DollarSign, PiggyBank, UserPlus, FileText, Percent } from "lucide-react"
 
 import {
   Card,
@@ -10,7 +10,7 @@ import {
 interface InfoCardProps {
   title: string;
   value: string;
-  type: 'students' | 'teachers' | 'accounting' | 'donations' | 'enrollments';
+  type: 'students' | 'teachers' | 'accounting' | 'donations' | 'enrollments' | 'dollarSign' | 'fileText' | 'percent' ;
   change?: string;
 }
 
@@ -20,6 +20,9 @@ const iconMap = {
   accounting: DollarSign,
   donations: PiggyBank,
   enrollments: UserPlus,
+  dollarSign: DollarSign,
+  fileText: FileText,
+  percent: Percent,
 }
 
 
