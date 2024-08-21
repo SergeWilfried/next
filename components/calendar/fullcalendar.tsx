@@ -63,6 +63,8 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useEventManagement } from "@/hooks/use-events-management";
 
+const VALID_DAYS_OF_WEEK = ['1', '2', '3', '4', '5', '6', '7'];
+const VALID_FREQUENCIES = ['weekly', 'monthly', 'yearly'];
 
 const classes: ClassInfo[] = [
   { id: '1', name: 'Math 101', color: '#FF5733', status: 'active' },
@@ -92,6 +94,16 @@ const createEventFromFormData = (data: FormData, existingEventId?: string): Even
 
   if (endDate <= startDate) {
     throw new Error("End time must be after start time");
+  }
+
+  // Validate dayOfWeek
+  if (!VALID_DAYS_OF_WEEK.includes(data.dayOfWeek)) {
+    throw new Error("Invalid day of week selected");
+  }
+
+  // Validate frequency
+  if (!VALID_FREQUENCIES.includes(data.frequency)) {
+    throw new Error("Invalid frequency selected");
   }
 
   let rrule;
@@ -157,7 +169,7 @@ const SchedulePage = () => {
   const form = useForm<FormData>({
     defaultValues: {
       classId: "",
-      dayOfWeek: "",
+      dayOfWeek: "1", // Default to Monday
       startTime: "",
       endTime: "",
       frequency: "weekly",
@@ -167,7 +179,7 @@ const SchedulePage = () => {
   const editForm = useForm<FormData>({
     defaultValues: {
       classId: "",
-      dayOfWeek: "",
+      dayOfWeek: "1", // Default to Monday
       startTime: "",
       endTime: "",
       frequency: "weekly",
@@ -189,10 +201,9 @@ const SchedulePage = () => {
         variant: "default",
       });
     } catch (error) {
-      console.error("Failed to add event:", error);
       toast({
         title: "Error",
-        description: error.message || "Failed to add class schedule",
+        description: `Failed to add class schedule: ${error.message}`,
         variant: "destructive",
       });
     }
@@ -213,10 +224,9 @@ const SchedulePage = () => {
         variant: "default",
       });
     } catch (error) {
-      console.error("Failed to update event:", error);
       toast({
         title: "Error",
-        description: error.message || "Failed to update class schedule",
+        description: `Failed to update class schedule: ${error.message}`,
         variant: "destructive",
       });
     }
@@ -235,10 +245,9 @@ const SchedulePage = () => {
         variant: "default",
       });
     } catch (error) {
-      console.error("Failed to delete event:", error);
       toast({
         title: "Error",
-        description: "Failed to delete class schedule",
+        description: `Failed to delete class schedule: ${error.message}`,
         variant: "destructive",
       });
     }
@@ -352,9 +361,22 @@ const SchedulePage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Day of Week</FormLabel>
-                    <FormControl>
-                      <Input type="number" {...field} />
-                    </FormControl>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a day" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="1">Monday</SelectItem>
+                        <SelectItem value="2">Tuesday</SelectItem>
+                        <SelectItem value="3">Wednesday</SelectItem>
+                        <SelectItem value="4">Thursday</SelectItem>
+                        <SelectItem value="5">Friday</SelectItem>
+                        <SelectItem value="6">Saturday</SelectItem>
+                        <SelectItem value="7">Sunday</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -459,6 +481,7 @@ const SchedulePage = () => {
                         <SelectItem value="4">Thursday</SelectItem>
                         <SelectItem value="5">Friday</SelectItem>
                         <SelectItem value="6">Saturday</SelectItem>
+                        <SelectItem value="7">Sunday</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
