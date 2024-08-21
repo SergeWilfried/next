@@ -154,8 +154,8 @@ const createEventFromFormData = (data: FormData, existingEventId?: string): Even
   const newEvent: EventInput = {
     id: existingEventId || createEventId(),
     title: data.title || selectedClass.name,
-    startTime: data.startTime,
-    endTime: data.endTime,
+    start: startDate,
+    end: endDate,
     backgroundColor: selectedClass.color,
     borderColor: selectedClass.color,
     extendedProps: {
