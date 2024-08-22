@@ -3,12 +3,12 @@ import { getCurrentUser } from "@/lib/session";
 import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
-import { Button } from "@/components/ui/button";
 import { getAllStudents } from "@/actions/student-action";
 import { DataTable } from "@/components/data-table/data-table";
 import { studentsTableColumns } from "./columns";
-import { GetStudentsSchema } from "@/lib/validations/student";
 import StudentsLoading from "./loading";
+import { NewStudentDialog } from "./add-students-dialog";
+
 
 export const metadata = constructMetadata({
   title: "Students – School Management System",
@@ -27,7 +27,9 @@ export default async function StudentsPage() {
       <DashboardHeader
         heading="Students"
         text="Manage students in the school system."
-      />
+      >
+        <NewStudentDialog />
+      </DashboardHeader>
       {students === null ? (
         <StudentsLoading />
       ) : students.length === 0 ? (
@@ -37,7 +39,7 @@ export default async function StudentsPage() {
           <EmptyPlaceholder.Description>
             You don&apos;t have any students yet. Start by adding some.
           </EmptyPlaceholder.Description>
-          <Button>Add Students</Button>
+          <NewStudentDialog /> {/* Replace the Button with this */}
         </EmptyPlaceholder>
       ) : (
         <DataTable columns={studentsTableColumns} data={students} pageCount={count} />

@@ -8,6 +8,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -25,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { TrendingUp } from "lucide-react"
 
 
 const chartConfig = {
@@ -85,7 +87,7 @@ export function PieChartComponent({title, data}: PieChartComponentProps) {
       <CardHeader className="flex-row items-start space-y-0 pb-0">
         <div className="grid gap-1">
           <CardTitle>{title}</CardTitle>
-          <CardDescription>{activeMonth} - ${new Date().getFullYear()}</CardDescription>
+          <CardDescription>{activeMonth.charAt(0).toUpperCase() + activeMonth.slice(1)} - {new Date().getFullYear()}</CardDescription>
         </div>
         <Select value={activeMonth} onValueChange={setActiveMonth}>
           <SelectTrigger
@@ -188,6 +190,14 @@ export function PieChartComponent({title, data}: PieChartComponentProps) {
           </PieChart>
         </ChartContainer>
       </CardContent>
+      <CardFooter className="flex-col items-start gap-2 text-sm">
+        <div className="flex gap-2 font-medium leading-none">
+          Trending up by 15.2% this month <TrendingUp className="h-4 w-4" />
+        </div>
+        <div className="leading-none text-muted-foreground">
+          Showing total {title} for the last 6 months
+        </div>
+      </CardFooter>
     </Card>
   )
 }
