@@ -32,7 +32,7 @@ export default async function AdminPage() {
       />
       <div className="flex flex-col gap-5">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <InfoCard title="Total Students" value="1,234" type="students" change="+5% from last yea" />
+          <InfoCard title="Total Students" value="1,234" type="students" change="+5% from last year" />
           <InfoCard title="Total Teachers" value="78" type="teachers" change="+2 since last year" />
           <InfoCard title="New Enrollments" value="156" type="students" change="+12% this year" />
           <InfoCard title="Monthly Revenue" value="$125,000" type="accounting" change="+8% from last month" />

@@ -3,11 +3,10 @@ import { getCurrentUser } from "@/lib/session";
 import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
-import { Button } from "@/components/ui/button";
 import ClassLoading from "./loading";
 import { DataTable } from "@/components/data-table/data-table";
 import { classTableColumns } from "./columns";
-
+import AddClassDialog from "./add-class-dialog";
 /// TODO: Fetch classes from the server
 async function getAllClasses() {
   const { data: classes, count } = await Promise.resolve({ data: [], count: 0 });
@@ -33,7 +32,9 @@ export default async function ClassPage() {
       <DashboardHeader
         heading="Classes"
         text="Manage your school classes."
-      />
+      >
+        <AddClassDialog />
+      </DashboardHeader>
       {classes === null ? (
         <ClassLoading />
       ) : classes.length === 0 ? (  
@@ -43,7 +44,7 @@ export default async function ClassPage() {
         <EmptyPlaceholder.Description>
           You don&apos;t have any classes yet. Start by adding some.
         </EmptyPlaceholder.Description>
-        <Button>Add Donations</Button>
+        <AddClassDialog /> {/* Replace the Button with this */}
       </EmptyPlaceholder>
     ) : (
       <DataTable data={classes} columns={classTableColumns} pageCount={count} />
