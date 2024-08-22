@@ -13,32 +13,45 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const classSchema = z.object({
+  className: z.string().min(1, "Class name is required"),
+  description: z.string().optional(),
+});
+
+type ClassFormData = z.infer<typeof classSchema>;
 
 export default function AddClassDialog() {
   const [open, setOpen] = useState(false);
-  const [className, setClassName] = useState("");
-  const [description, setDescription] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ClassFormData>({
+    resolver: zodResolver(classSchema),
+  });
+
+  const onSubmit = async (data: ClassFormData) => {
     try {
       const response = await fetch('/api/classes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: className, description }),
+        body: JSON.stringify({ name: data.className, description: data.description }),
       });
       if (!response.ok) {
         throw new Error('Failed to create class');
       }
-      // Handle successful creation (e.g., show a success message)
       setOpen(false);
-      setClassName("");
-      setDescription("");
+      reset();
     } catch (error) {
       console.error('Error creating class:', error);
-      // Handle error (e.g., show an error message to the user)
     }
   };
 
@@ -54,29 +67,24 @@ export default function AddClassDialog() {
             Enter the details for the new class here.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="className" className="text-right">
-                Class Name
-              </Label>
+            <div className="grid gap-2">
+              <Label htmlFor="className">Class Name</Label>
               <Input
                 id="className"
-                value={className}
-                onChange={(e) => setClassName(e.target.value)}
-                className="col-span-3"
-                required
+                {...register("className")}
+                className={errors.className ? "border-red-500" : ""}
               />
+              {errors.className && (
+                <p className="text-red-500 text-sm">{errors.className.message}</p>
+              )}
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="description" className="text-right">
-                Description
-              </Label>
+            <div className="grid gap-2">
+              <Label htmlFor="description">Description</Label>
               <Input
                 id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="col-span-3"
+                {...register("description")}
               />
             </div>
           </div>
