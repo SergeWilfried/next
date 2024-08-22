@@ -33,8 +33,8 @@ interface AttendanceChartComponentProps {
     title: string
     data: {
         month: string
-        desktop: number
-        mobile: number
+        present: number
+        absent: number
     }[]
 }
 export function AttendanceChartComponent({title, data}: AttendanceChartComponentProps) {
