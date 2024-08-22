@@ -50,8 +50,7 @@ export default async function PaymentsPage() {
         text="Key metrics and trends for the school's financial health."
       />   
 
-      {/* First row: InfoCards */}
-      <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <InfoCard
           title="Total Revenue"
           value={`$${totalRevenue.toFixed(2)}`}
@@ -74,10 +73,9 @@ export default async function PaymentsPage() {
         />
       </div>
 
-      {/* Second row: Chart and List */}
       <div className="flex flex-col gap-5 md:flex-row md:justify-between">
           <div className="w-full md:w-[50%]">
-            <PieChartComponent title="Payments by Month" data={paymentsByMonth} />
+            <PieChartComponent title="Monthly Payments" data={paymentsByMonth} />
           </div>
           <div className="w-full md:w-[50%]">
             <TransactionsList />
