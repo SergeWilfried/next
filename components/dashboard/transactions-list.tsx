@@ -26,7 +26,7 @@ export default function TransactionsList() {
         <div className="grid gap-2">
           <CardTitle>Transactions</CardTitle>
           <CardDescription className="text-balance">
-            Recent transactions from your store.
+            Recent transactions from your account.
           </CardDescription>
         </div>
         <Button size="sm" className="ml-auto shrink-0 gap-1 px-4">
