@@ -15,7 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { createStudent } from "@/actions/student-action";
+
 import { 
   Form, 
   FormControl, 
@@ -25,6 +25,7 @@ import {
   FormMessage 
 } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useRouter } from 'next/navigation';
 
 const studentSchema = z.object({
   firstName: z.string().min(1, "First name is required").max(50, "First name must be 50 characters or less"),
@@ -51,6 +52,7 @@ type StudentFormValues = z.infer<typeof studentSchema>;
 
 export function NewStudentDialog() {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const form = useForm<StudentFormValues>({
     resolver: zodResolver(studentSchema),
@@ -88,10 +90,9 @@ export function NewStudentDialog() {
         grade: "12.5"
       };
 
-
-      await createStudent(studentData);
       setOpen(false);
       form.reset();
+      router.refresh(); // Refresh the page to show the new student
       // You might want to add a toast notification here
     } catch (error) {
       console.error("Failed to create student:", error);
