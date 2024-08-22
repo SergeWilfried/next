@@ -60,7 +60,7 @@ export default function AddClassDialog() {
       <DialogTrigger asChild>
         <Button>Add Class</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[425px] sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add New Class</DialogTitle>
           <DialogDescription>
@@ -77,7 +77,7 @@ export default function AddClassDialog() {
                 className={errors.className ? "border-red-500" : ""}
               />
               {errors.className && (
-                <p className="text-red-500 text-sm">{errors.className.message}</p>
+                <p className="text-sm text-red-500">{errors.className.message}</p>
               )}
             </div>
             <div className="grid gap-2">
