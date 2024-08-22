@@ -26,16 +26,32 @@ import {
 } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useRouter } from 'next/navigation';
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { format } from "date-fns";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import * as React from "react"
+import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
 
 const studentSchema = z.object({
   firstName: z.string().min(1, "First name is required").max(50, "First name must be 50 characters or less"),
   middleName: z.string().max(50, "Middle name must be 50 characters or less").optional(),
   lastName: z.string().min(1, "Last name is required").max(50, "Last name must be 50 characters or less"),
-  dateOfBirth: z.string().refine((date) => {
-    const parsedDate = new Date(date);
-    return !isNaN(parsedDate.getTime()) && parsedDate <= new Date();
-  }, {
-    message: "Invalid date. Please enter a valid date not in the future.",
+  dateOfBirth: z.date({
+    required_error: "Date of birth is required.",
   }),
   gender: z.enum(["OTHER", "MALE", "FEMALE"], {
     errorMap: () => ({ message: "Please select a valid gender option" })
@@ -46,9 +62,17 @@ const studentSchema = z.object({
     (file) => !file || (file.size <= 5 * 1024 * 1024 && ['image/jpeg', 'image/png', 'image/gif'].includes(file.type)),
     "File must be a valid image (JPEG, PNG, or GIF) and less than 5MB"
   ),
+  class: z.string().min(1, "Class is required"),
 });
 
 type StudentFormValues = z.infer<typeof studentSchema>;
+
+const classes = [
+  { value: "class1", label: "Class 1" },
+  { value: "class2", label: "Class 2" },
+  { value: "class3", label: "Class 3" },
+  // Add more classes as needed
+];
 
 export function NewStudentDialog() {
   const [open, setOpen] = useState(false);
@@ -60,12 +84,15 @@ export function NewStudentDialog() {
       firstName: "",
       middleName: "",
       lastName: "",
-      dateOfBirth: "",
+      dateOfBirth: new Date(),
       gender: "OTHER",
       parentId: "",
       schoolId: "",
+      class: "",
     },
   });
+
+  const [openClass, setOpenClass] = React.useState(false);
 
   const onSubmit = async (data: StudentFormValues) => {
     try {
@@ -87,7 +114,8 @@ export function NewStudentDialog() {
         gender: data.gender,
         middleName: data.middleName,
         picture: data.picture,
-        grade: "12.5"
+        grade: "12.5",
+        class: data.class,
       };
 
       setOpen(false);
@@ -157,11 +185,39 @@ export function NewStudentDialog() {
               control={form.control}
               name="dateOfBirth"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-col">
                   <FormLabel>Date of Birth</FormLabel>
-                  <FormControl>
-                    <Input type="date" {...field} />
-                  </FormControl>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-[240px] pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
                   <FormMessage />
                 </FormItem>
               )}
@@ -207,6 +263,61 @@ export function NewStudentDialog() {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="class"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Class</FormLabel>
+                  <Popover open={openClass} onOpenChange={setOpenClass}>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          aria-expanded={openClass}
+                          className="w-[200px] justify-between"
+                        >
+                          {field.value
+                            ? classes.find((c) => c.value === field.value)?.label
+                            : "Select class..."}
+                          <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[200px] p-0">
+                      <Command>
+                        <CommandInput placeholder="Search class..." className="h-9" />
+                        <CommandList>
+                          <CommandEmpty>No class found.</CommandEmpty>
+                          <CommandGroup>
+                            {classes.map((c) => (
+                              <CommandItem
+                                key={c.value}
+                                value={c.value}
+                                onSelect={(currentValue) => {
+                                  form.setValue("class", currentValue);
+                                  setOpenClass(false);
+                                }}
+                              >
+                                {c.label}
+                                <CheckIcon
+                                  className={cn(
+                                    "ml-auto h-4 w-4",
+                                    field.value === c.value ? "opacity-100" : "opacity-0"
+                                  )}
+                                />
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                   <FormMessage />
                 </FormItem>
               )}
