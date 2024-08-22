@@ -15,7 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { createStudent } from "@/actions/student-action";
+
 import { 
   Form, 
   FormControl, 
@@ -90,8 +90,6 @@ export function NewStudentDialog() {
         grade: "12.5"
       };
 
-
-      await createStudent(studentData);
       setOpen(false);
       form.reset();
       router.refresh(); // Refresh the page to show the new student
