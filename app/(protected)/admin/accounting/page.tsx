@@ -55,21 +55,25 @@ export default async function PaymentsPage() {
           title="Total Revenue"
           value={`$${totalRevenue.toFixed(2)}`}
           type="dollarSign"
+          change="+18% from last month"
         />
         <InfoCard
           title="Average Payment"
           value={`$${isNaN(averagePayment) ? '0.00' : averagePayment.toFixed(2)}`}
           type="accounting"
+          change="+18% from last month"
         />
         <InfoCard
           title="Total Payments"
           value={txCount.toString()}
           type="fileText"
+          change="+18% from last month"
         />
         <InfoCard
           title="Payment Rate"
-          value="95%"
+          value={`${(totalRevenue / expectedRevenue) * 100}%`}
           type="percent"
+          change="+8% from last month"
         />
       </div>
 

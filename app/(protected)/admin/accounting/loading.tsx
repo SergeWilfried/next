@@ -5,8 +5,8 @@ export default function PaymentsLoading() {
   return (
     <>
       <DashboardHeader
-        heading="Payments"
-        text="Manage payments in the school system."
+        heading="Financial Overview"
+        text="Key metrics and trends for the school's financial health."
       />
       <Skeleton className="size-full rounded-lg" />
     </>
