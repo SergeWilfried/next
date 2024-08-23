@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/popover";
 
 import { cn } from "@/lib/utils";
-import { ScrollArea } from "./scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type PhoneInputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -50,9 +50,9 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
            * when a valid phone number is not entered. To prevent this,
            * the value is coerced to an empty string.
            *
-           * @param {E164Number | undefined} value - The entered value
+           * @param {RPNInput.Value} value - The entered value
            */
-          onChange={(value) => onChange?.(value || "")}
+          onChange={(value: RPNInput.Value) => onChange?.(value ?? "")}
           {...props}
         />
       );
