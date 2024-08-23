@@ -19,9 +19,14 @@ gender: z.enum(["OTHER", "MALE", "FEMALE"], {
 }),
 parentFullName: z.string().min(1, "Parent's full name is required"),
 parentPhoneNumber: z.string().min(1, "Parent's phone number is required"),
-parentCommunicationPreferences: z.array(z.enum(["EMAIL", "SMS", "PHONE"])).min(1, "Select at least one communication preference"),
-schoolId: z.string().min(1, "School ID is required"),
+parentGender: z.enum(["OTHER", "MALE", "FEMALE"], {
+    errorMap: () => ({ message: "Please select a valid gender option" })
+}),
+parentMaritalStatus: z.enum(["SINGLE", "MARRIED", "DIVORCED", "WIDOWED", "OTHER"], {
+    errorMap: () => ({ message: "Please select a valid marital status" })
+}),
 parentId: z.string().min(1, "Parent ID is required"),
+parentCommunicationPreferences: z.array(z.enum(["EMAIL", "SMS", "PHONE"])).min(1, "Select at least one communication preference"),
 picture: z.instanceof(File).optional().refine(
     (file) => !file || (file.size <= 5 * 1024 * 1024 && ['image/jpeg', 'image/png', 'image/gif'].includes(file.type)),
     "File must be a valid image (JPEG, PNG, or GIF) and less than 5MB"
@@ -69,7 +74,8 @@ import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { CalendarIcon } from "@radix-ui/react-icons"
 import { PhoneInput } from "@/components/input/phone-input";
-import { DialogHeader, DialogFooter, DialogClose, X } from "@/components/ui/dialog";
+import { DialogHeader, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { X } from "lucide-react";
 
 export function NewStudentDialog() {
 const [open, setOpen] = useState(false)
@@ -83,8 +89,9 @@ const form = useForm<StudentFormValues>({
     gender: "OTHER",
     parentFullName: "",
     parentPhoneNumber: "",
+    parentGender: "OTHER",
+    parentMaritalStatus: "SINGLE",
     parentCommunicationPreferences: [],
-    schoolId: "",
     class: "",
     },
 })
@@ -105,7 +112,6 @@ const onSubmit = async (data: StudentFormValues) => {
         lastName: data.lastName,
         dateOfBirth: new Date(data.dateOfBirth),
         parentId: data.parentId,
-        schoolId: data.schoolId,
         gender: data.gender,
         middleName: data.middleName,
         picture: data.picture,
@@ -136,7 +142,7 @@ return (
         <form onSubmit={form.handleSubmit(onSubmit)}>
             <Tabs defaultValue="personal" className="w-full">
             <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="personal">Personal</TabsTrigger>
+                <TabsTrigger value="personal">General</TabsTrigger>
                 <TabsTrigger value="additional">Additional</TabsTrigger>
                 <TabsTrigger value="parent">Parent</TabsTrigger>
                 <TabsTrigger value="class">Class</TabsTrigger>
@@ -317,6 +323,52 @@ return (
                     />
                     <FormField
                     control={form.control}
+                    name="parentGender"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>Parent&apos;s Gender</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Select gender" />
+                            </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                            <SelectItem value="OTHER">Other</SelectItem>
+                            <SelectItem value="MALE">Male</SelectItem>
+                            <SelectItem value="FEMALE">Female</SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={form.control}
+                    name="parentMaritalStatus"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>Marital Status</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Select marital status" />
+                            </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                            <SelectItem value="SINGLE">Single</SelectItem>
+                            <SelectItem value="MARRIED">Married</SelectItem>
+                            <SelectItem value="DIVORCED">Divorced</SelectItem>
+                            <SelectItem value="WIDOWED">Widowed</SelectItem>
+                            <SelectItem value="OTHER">Other</SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={form.control}
                     name="parentCommunicationPreferences"
                     render={() => (
                         <FormItem>
@@ -370,7 +422,7 @@ return (
                 <Card>
                 <CardHeader>
                     <CardTitle>Class Information</CardTitle>
-                    <CardDescription>Enter the class and school details here.</CardDescription>
+                    <CardDescription>Enter the class details here.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-2">
                     <FormField
@@ -397,19 +449,6 @@ return (
                         </FormItem>
                     )}
                     />
-                    <FormField
-                    control={form.control}
-                    name="schoolId"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>School ID</FormLabel>
-                        <FormControl>
-                            <Input placeholder="Enter school ID" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
                 </CardContent>
                 </Card>
             </TabsContent>
@@ -426,4 +465,5 @@ return (
         </DialogClose>
     </DialogContent>
     </Dialog>
+)
 }
