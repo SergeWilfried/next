@@ -140,7 +140,7 @@ import { PhoneInput } from "@/components/input/phone-input";
                     <Card>
                     <CardHeader>
                         <CardTitle>Personal Information</CardTitle>
-                        <CardDescription>Enter the student's basic details here.</CardDescription>
+                        <CardDescription>Enter the student&apos;s basic details here.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-2">
                         <FormField
@@ -281,7 +281,7 @@ import { PhoneInput } from "@/components/input/phone-input";
                     <Card>
                     <CardHeader>
                         <CardTitle>Parent Information</CardTitle>
-                        <CardDescription>Enter the parent's details here.</CardDescription>
+                        <CardDescription>Enter the parent&apos;s details here.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <FormField
