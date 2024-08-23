@@ -318,7 +318,7 @@ import { PhoneInput } from "@/components/input/phone-input";
                             <div className="mb-4">
                                 <FormLabel className="text-base">Communication Preferences</FormLabel>
                                 <FormDescription>
-                                Select how you'd like to receive communications.
+                                Select how you&apos;d like to receive communications.
                                 </FormDescription>
                             </div>
                             {communicationPreferences.map((item) => (
