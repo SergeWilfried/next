@@ -60,7 +60,7 @@ TabsContent,
 TabsList,
 TabsTrigger,
 } from "@/components/ui/tabs"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -129,7 +129,7 @@ return (
     </DialogTrigger>
     <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-            <DialogTitle>Add New Student</DialogTitle>
+            <DialogTitle>Enroll New Student</DialogTitle>
             <DialogDescription>Enter student details across all tabs before saving.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
