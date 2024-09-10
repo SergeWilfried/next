@@ -15,9 +15,8 @@ export const env = createEnv({
     EMAIL_FROM: z.string().min(1),
     STRIPE_API_KEY: z.string().min(1),
     STRIPE_WEBHOOK_SECRET: z.string().min(1),
-    MAILDEV_SMTP_PORT: z.string().min(1),
-    MAILDEV_PORT: z.string().min(1),
-    EMAIL_FROM: z.string().min(1),
+    MAILDEV_SMTP_PORT: z.string().optional(),
+    MAILDEV_PORT: z.string().optional()
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().min(1),
