@@ -8,6 +8,7 @@ import { DataTable } from "@/components/data-table/data-table";
 import { parentsTableColumns } from "./columns";
 import { getAllParents } from "@/actions/get-parents-action";
 import ParentsLoading from "./loading";
+import { NewParentDialog } from "./add-parent-dialog";
 
 export const metadata = constructMetadata({
   title: "Parents – School Management System",
@@ -25,8 +26,14 @@ export default async function ParentsPage() {
     <>
       <DashboardHeader
         heading="Parents"
-        text="Manage parents in the school system."
-      />
+        items={[
+          { href: "/", label: "Home" },
+          { href: "/admin", label: "Admin" },
+          { href: "/admin/parents", label: "Parents" },
+        ]}
+      >
+        <NewParentDialog />
+      </DashboardHeader>
       {parents === null ? (
         <ParentsLoading />
       ) : parents.length === 0 ? (
@@ -36,7 +43,7 @@ export default async function ParentsPage() {
           <EmptyPlaceholder.Description>
             You don&apos;t have any parents yet. Start by adding some.
           </EmptyPlaceholder.Description>
-          <Button>Add Parents</Button>
+          <Button>Import from Excel</Button>
         </EmptyPlaceholder>
       ) : (
         <DataTable columns={parentsTableColumns} data={parents} pageCount={count} />

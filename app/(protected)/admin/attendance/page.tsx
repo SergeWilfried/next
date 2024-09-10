@@ -26,7 +26,11 @@ export default async function ApplicationsPage() {
     <>
       <DashboardHeader
         heading="Attendance"
-        text="Manage attendance in the school system."
+        items={[
+          { href: "/", label: "Home" },
+          { href: "/admin", label: "Admin" },
+          { href: "/admin/attendance", label: "Attendance" },
+        ]}
       />
       {error ? (
         <div>Error loading applications. Please try again later.</div>
@@ -41,7 +45,7 @@ export default async function ApplicationsPage() {
           <EmptyPlaceholder.Description>
             You don&apos;t have any attendance yet. Start by adding some.
           </EmptyPlaceholder.Description>
-          <Button>Add Attendance</Button>
+          <Button>Import Attendance</Button>
         </EmptyPlaceholder>
       )}
     </>
