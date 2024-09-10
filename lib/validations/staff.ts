@@ -22,7 +22,9 @@ export const createStaffSchema = z.object({
   position: z.string(),
   department: z.string().optional(),
   email: z.string().email(),
+  phoneNumber: z.string().optional(),
   schoolId: z.string(),
+  classId: z.string().optional(),
 })
 
 export type CreateStaffSchema = z.infer<typeof createStaffSchema>
@@ -32,6 +34,8 @@ export const updateStaffSchema = z.object({
   position: z.string().optional(),
   department: z.string().optional(),
   email: z.string().email().optional(),
+  phoneNumber: z.string().optional(),
+  classId: z.string().optional(),
 })
 
 export type UpdateStaffSchema = z.infer<typeof updateStaffSchema>
