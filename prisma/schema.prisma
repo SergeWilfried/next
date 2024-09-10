@@ -369,7 +369,7 @@ model Staff {
   Course     Course[]
   Class      Class?   @relation(fields: [classId], references: [id])
   classId    String?
-
+  phoneNumber String
   @@unique([name, position, schoolId])
   @@map(name: "staff")
 }
