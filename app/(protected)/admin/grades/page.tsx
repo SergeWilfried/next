@@ -26,7 +26,11 @@ export default async function GradesPage() {
     <>
       <DashboardHeader
         heading="Grades"
-        text="Manage grades in the school system."
+        items={[
+          { href: "/", label: "Home" },
+          { href: "/admin", label: "Admin" },
+          { href: "/admin/grades", label: "Grades" },
+        ]}
       />
       {grades.length === 0 ? (
       <EmptyPlaceholder>
@@ -35,7 +39,7 @@ export default async function GradesPage() {
         <EmptyPlaceholder.Description>
           You don&apos;t have any grades yet. Start by adding some.
         </EmptyPlaceholder.Description>
-        <Button>Add Grades</Button>
+        <Button>Import Grades</Button>
         </EmptyPlaceholder>
       ) : (
         <DataTable

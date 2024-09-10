@@ -8,6 +8,7 @@ import StaffLoading from "./loading";
 import { DataTable } from "@/components/data-table/data-table";
 import { staffTableColumns } from "./columns";
 import { getAllStaff } from "@/actions/get-staff";
+import { NewStaffDialog } from "./add-staff-dialog";
 
 export const metadata = constructMetadata({
   title: "Staff – School Management System",
@@ -25,8 +26,14 @@ export default async function StaffPage() {
     <>
       <DashboardHeader
         heading="Staff"
-        text="Manage staff in the school system."
-      />
+        items={[
+          { href: "/", label: "Home" },
+          { href: "/admin", label: "Admin" },
+          { href: "/admin/staff", label: "Staff" },
+        ]}
+      >
+        <NewStaffDialog />
+      </DashboardHeader>
       {staff === null ? (
         <StaffLoading />
       ) : staff.length === 0 ? (
@@ -36,7 +43,7 @@ export default async function StaffPage() {
           <EmptyPlaceholder.Description>
             You don&apos;t have any staff yet. Start by adding some.
           </EmptyPlaceholder.Description>
-          <Button>Add Staff</Button>
+          <Button>Import from Excel</Button>
         </EmptyPlaceholder>
       ) : (
         <DataTable columns={staffTableColumns} data={staff} pageCount={count} />
