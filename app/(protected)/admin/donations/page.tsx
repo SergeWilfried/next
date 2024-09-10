@@ -25,7 +25,11 @@ export default async function DonationsPage() {
     <>
       <DashboardHeader
         heading="Donations"
-        text="Manage donations in the school system."
+        items={[
+          { href: "/", label: "Home" },
+          { href: "/admin", label: "Admin" },
+          { href: "/admin/donations", label: "Donations" },
+        ]}
       />
       {donations === null ? (
         <DonationsLoading />

@@ -7,6 +7,7 @@ import ClassLoading from "./loading";
 import { DataTable } from "@/components/data-table/data-table";
 import { classTableColumns } from "./columns";
 import AddClassDialog from "./add-class-dialog";
+import { Button } from "@/components/ui/button";
 /// TODO: Fetch classes from the server
 async function getAllClasses() {
   const { data: classes, count } = await Promise.resolve({ data: [], count: 0 });
@@ -31,7 +32,11 @@ export default async function ClassPage() {
     <>
       <DashboardHeader
         heading="Classes"
-        text="Manage your school classes."
+        items={[
+          { href: "/", label: "Home" },
+          { href: "/admin", label: "Admin" },
+          { href: "/admin/classes", label: "Classes" },
+        ]}
       >
         <AddClassDialog />
       </DashboardHeader>
@@ -44,7 +49,7 @@ export default async function ClassPage() {
         <EmptyPlaceholder.Description>
           You don&apos;t have any classes yet. Start by adding some.
         </EmptyPlaceholder.Description>
-        <AddClassDialog /> {/* Replace the Button with this */}
+        <Button>Import from Excel</Button>
       </EmptyPlaceholder>
     ) : (
       <DataTable data={classes} columns={classTableColumns} pageCount={count} />

@@ -6,34 +6,32 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import * as React from "react"
 
-const studentSchema = z.object({
+const staffSchema = z.object({
 firstName: z.string().min(1, "First name is required").max(50, "First name must be 50 characters or less"),
 middleName: z.string().max(50, "Middle name must be 50 characters or less").optional(),
 lastName: z.string().min(1, "Last name is required").max(50, "Last name must be 50 characters or less"),
 dateOfBirth: z.date({
     required_error: "Date of birth is required.",
 }),
+phoneNumber: z.string().min(1, "Phone number is required"),
 gender: z.enum(["OTHER", "MALE", "FEMALE"], {
     errorMap: () => ({ message: "Please select a valid gender option" })
 }),
-parentFullName: z.string().min(1, "Parent's full name is required"),
-parentPhoneNumber: z.string().min(1, "Parent's phone number is required"),
-parentGender: z.enum(["OTHER", "MALE", "FEMALE"], {
-    errorMap: () => ({ message: "Please select a valid gender option" })
-}),
-parentMaritalStatus: z.enum(["SINGLE", "MARRIED", "DIVORCED", "WIDOWED", "OTHER"], {
+maritalStatus: z.enum(["SINGLE", "MARRIED", "DIVORCED", "WIDOWED", "OTHER"], {
     errorMap: () => ({ message: "Please select a valid marital status" })
 }),
-parentId: z.string().min(1, "Parent ID is required"),
-parentCommunicationPreferences: z.array(z.enum(["EMAIL", "SMS", "PHONE"])).min(1, "Select at least one communication preference"),
+preferedCommunicationPreferences: z.array(z.enum(["EMAIL", "SMS", "PHONE"])).min(1, "Select at least one communication preference"),
 picture: z.instanceof(File).optional().refine(
     (file) => !file || (file.size <= 5 * 1024 * 1024 && ['image/jpeg', 'image/png', 'image/gif'].includes(file.type)),
     "File must be a valid image (JPEG, PNG, or GIF) and less than 5MB"
 ),
 class: z.string().min(1, "Class is required"),
+role: z.enum(["TEACHER", "ADMIN", "SUPPORT_STAFF"], {
+    errorMap: () => ({ message: "Please select a valid role" })
+}),
 });
 
-type StudentFormValues = z.infer<typeof studentSchema>;
+type StaffFormValues = z.infer<typeof staffSchema>;
 
 
 
@@ -49,27 +47,27 @@ import { format } from "date-fns"
 import { CalendarIcon } from "@radix-ui/react-icons"
 import { DialogHeader, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { X } from "lucide-react";
+import { PhoneInput } from "@/components/input/phone-input";
 
-export function NewStudentDialog() {
+export function NewStaffDialog() {
 const [open, setOpen] = useState(false)
-const form = useForm<StudentFormValues>({
-    resolver: zodResolver(studentSchema),
+const form = useForm<StaffFormValues>({
+    resolver: zodResolver(staffSchema),
     defaultValues: {
     firstName: "",
     middleName: "",
     lastName: "",
     dateOfBirth: new Date(),
     gender: "OTHER",
-    parentFullName: "",
-    parentPhoneNumber: "",
-    parentGender: "OTHER",
-    parentMaritalStatus: "SINGLE",
-    parentCommunicationPreferences: [],
+    phoneNumber: "",
+    maritalStatus: "SINGLE",
+    preferedCommunicationPreferences: [],
     class: "",
+    role: "TEACHER",
     },
 })
 
-const onSubmit = async (data: StudentFormValues) => {
+const onSubmit = async (data: StaffFormValues) => {
     try {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
@@ -85,7 +83,7 @@ const onSubmit = async (data: StudentFormValues) => {
     form.reset();
     // You might want to add a toast notification here
     } catch (error) {
-    console.error("Failed to create student:", error);
+    console.error("Failed to create staff:", error);
     // You might want to add an error toast notification here
     }
 }
@@ -93,12 +91,12 @@ const onSubmit = async (data: StudentFormValues) => {
 return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Add Student</Button>
+        <Button>Add Staff</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[525px]">
         <DialogHeader>
-          <DialogTitle>Enroll New Student</DialogTitle>
-          <DialogDescription>Enter student details to enroll a new student.</DialogDescription>
+          <DialogTitle>Enroll New Staff</DialogTitle>
+          <DialogDescription>Enter staff details to enroll a new staff.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -143,59 +141,96 @@ return (
                 </FormItem>
               )}
             />
+            <div className="flex space-x-4">
+              <FormField
+                control={form.control}
+                name="dateOfBirth"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Date of Birth</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="gender"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Gender</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select gender" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="OTHER">Other</SelectItem>
+                        <SelectItem value="MALE">Male</SelectItem>
+                        <SelectItem value="FEMALE">Female</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormField
               control={form.control}
-              name="dateOfBirth"
+              name="phoneNumber"
               render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Date of Birth</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) =>
-                          date > new Date() || date < new Date("1900-01-01")
-                        }
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
+                <FormItem>
+                  <FormLabel>Phone Number</FormLabel>
+                  <FormControl>
+                    <PhoneInput placeholder="Enter phone number" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name="gender"
+              name="role"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Gender</FormLabel>
+                  <FormLabel>Role</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select gender" />
+                        <SelectValue placeholder="Select role" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="OTHER">Other</SelectItem>
-                      <SelectItem value="MALE">Male</SelectItem>
-                      <SelectItem value="FEMALE">Female</SelectItem>
+                      <SelectItem value="TEACHER">Teacher</SelectItem>
+                      <SelectItem value="ADMIN">Admin</SelectItem>
+                      <SelectItem value="SUPPORT_STAFF">Support Staff</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -204,7 +239,7 @@ return (
             />
             <DialogFooter>
               <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-              <Button type="submit">Save Student</Button>
+              <Button type="submit">Save Staff</Button>
             </DialogFooter>
           </form>
         </Form>

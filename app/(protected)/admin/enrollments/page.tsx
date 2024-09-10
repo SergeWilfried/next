@@ -25,7 +25,11 @@ export default async function EnrollmentsPage() {
     <>
       <DashboardHeader
         heading="Enrollments"
-        text="Manage enrollments in the school system."
+        items={[
+          { href: "/", label: "Home" },
+          { href: "/admin", label: "Admin" },
+          { href: "/admin/enrollments", label: "Enrollments" },
+        ]}
       />
       {error && <div>{error}</div>}
       {enrollments.length === 0 ? (
@@ -35,7 +39,7 @@ export default async function EnrollmentsPage() {
         <EmptyPlaceholder.Description>
           You don&apos;t have any enrollments yet. Start by adding some.
         </EmptyPlaceholder.Description>
-        <Button>Add Enrollments</Button>
+        <Button>Import Enrollments</Button>
       </EmptyPlaceholder>
     ) : (
       <DataTable data={enrollments} columns={enrollmentsTableColumns} pageCount={count} />

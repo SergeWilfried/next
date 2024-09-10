@@ -105,6 +105,24 @@ export default function TransactionsList() {
               </TableCell>
               <TableCell className="text-right">$450.00</TableCell>
             </TableRow>
+            <TableRow>
+              <TableCell>
+                <div className="font-medium">Olivia Johnson</div>
+                <div className="hidden text-sm text-muted-foreground md:inline">
+                  olivia@example.com
+                </div>
+              </TableCell>
+              <TableCell className="hidden xl:table-column">Purchase</TableCell>
+              <TableCell className="hidden xl:table-column">
+                <Badge className="text-xs" variant="outline">
+                  Pending
+                </Badge>
+              </TableCell>
+              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
+                2023-06-27
+              </TableCell>
+              <TableCell className="text-right">$275.00</TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </CardContent>
