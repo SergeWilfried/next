@@ -12,8 +12,8 @@ export default {
       clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
     Resend({
-      apiKey: "re_7Qto9z49_LfKodxQ12stxKJexSmYjFTFW",
-      from: "SCHOOLZ <onboarding@resend.dev>",
+      apiKey: env.RESEND_API_KEY,
+      from: env.EMAIL_FROM,
     }),
   ],
 } satisfies NextAuthConfig;
