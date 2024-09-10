@@ -57,7 +57,6 @@ export async function POST(request: NextRequest) {
     const donation = await prisma.donation.create({
       data: {
         ...validatedData,
-        parentId: 'null', // Set parentId to null if it's not required
         date: validatedData.donationDate,
       },
     });
