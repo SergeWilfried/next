@@ -4,6 +4,7 @@ interface DashboardHeaderProps {
   heading: string;
   items?: { href: string; label: string }[];
   children?: React.ReactNode;
+  text?: string;
 }
 
 
@@ -11,6 +12,7 @@ interface DashboardHeaderProps {
 export function DashboardHeader({
   heading,
   items,
+  text,
   children,
 }: DashboardHeaderProps) {
   return (
@@ -18,6 +20,7 @@ export function DashboardHeader({
       <div className="grid gap-1">
         <h1 className="font-heading text-2xl font-semibold">{heading}</h1>
         {items && <BreadcrumbResponsive items={items} />}
+        {text && <p className="text-sm text-muted-foreground">{text}</p>}
       </div>
       {children}
     </div>
