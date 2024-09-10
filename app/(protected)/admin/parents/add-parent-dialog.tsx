@@ -14,12 +14,6 @@ gender: z.enum(["OTHER", "MALE", "FEMALE"], {
     errorMap: () => ({ message: "Please select a valid gender option" })
 }),
 phoneNumber: z.string().min(1, "Parent's phone number is required"),
-gender: z.enum(["OTHER", "MALE", "FEMALE"], {
-    errorMap: () => ({ message: "Please select a valid gender option" })
-}),
-parentMaritalStatus: z.enum(["SINGLE", "MARRIED", "DIVORCED", "WIDOWED", "OTHER"], {
-    errorMap: () => ({ message: "Please select a valid marital status" })
-}),
 maritalStatus: z.enum(["SINGLE", "MARRIED", "DIVORCED", "WIDOWED", "OTHER"], {
     errorMap: () => ({ message: "Please select a valid marital status" })
 }),
