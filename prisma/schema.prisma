@@ -132,7 +132,9 @@ model Report {
 
 model Parent {
   id                      String                  @id @default(cuid())
-  fullName                String
+  firstName               String
+  lastName                String
+  middleName              String?
   phoneNumber             String
   communicationPreference CommunicationPreference
   emergencyContacts       Json[] // Embedded emergency contacts
