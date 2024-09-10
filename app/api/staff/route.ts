@@ -45,13 +45,16 @@ export async function POST(request: Request) {
     if (!emailRegex.test(body.email)) {
       return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
     }
-
     const newStaff = await prisma.staff.create({
       data: {
         position: body.position,
         department: body.department,
         name: body.name,
         email: body.email,
+        phoneNumber: body.phoneNumber,
+        school: {
+          connect: { id: body.schoolId }
+        },
         schoolId: body.schoolId,
         classId: body.classId,
       },
