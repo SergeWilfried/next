@@ -54,11 +54,10 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const validatedData = createDonationSchema.parse(body);
-
     const donation = await prisma.donation.create({
       data: {
         ...validatedData,
-        /// FIXME: parentId is not defined
+        parentId: 'null', // Set parentId to null if it's not required
         date: validatedData.donationDate,
       },
     });
