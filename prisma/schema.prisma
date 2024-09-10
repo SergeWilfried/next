@@ -142,7 +142,6 @@ model Parent {
   pickupPeople            PickupPerson[]
   applications            Application[]
   enrollments             Enrollment[]
-  donations               Donation[]
   school                  School                  @relation(fields: [schoolId], references: [id])
   schoolId                String
   createdAt               DateTime                @default(now())
@@ -191,6 +190,7 @@ model Student {
   status              EnrollmentStatus     @default(INACTIVE)
   Class               Class?               @relation(fields: [classId], references: [id])
   classId             String?
+  Donation            Donation[]
 
   @@unique([parentId, schoolId, dateOfBirth])
   @@map(name: "students")
@@ -343,35 +343,36 @@ model Achievement {
 
 model Donation {
   id        String   @id @default(cuid())
-  parent    Parent   @relation(fields: [parentId], references: [id])
-  parentId  String
   amount    Float
   date      DateTime
   purpose   String?
   school    School   @relation(fields: [schoolId], references: [id])
   schoolId  String
+  reference String?
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([parentId])
   @@index([schoolId])
   @@map(name: "donations")
 }
 
 model Staff {
-  id         String   @id @default(cuid())
-  position   String
-  department String?
-  name       String
-  email      String   @unique
-  school     School   @relation(fields: [schoolId], references: [id])
-  schoolId   String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  Course     Course[]
-  Class      Class?   @relation(fields: [classId], references: [id])
-  classId    String?
+  id          String   @id @default(cuid())
+  position    String
+  department  String?
+  name        String
+  email       String   @unique
+  school      School   @relation(fields: [schoolId], references: [id])
+  schoolId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Course      Course[]
+  Class       Class?   @relation(fields: [classId], references: [id])
+  classId     String?
   phoneNumber String
+
   @@unique([name, position, schoolId])
   @@map(name: "staff")
 }
