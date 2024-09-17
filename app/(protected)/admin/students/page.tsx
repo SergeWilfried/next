@@ -19,7 +19,7 @@ export default async function StudentsPage() {
 		schoolId: user.schools?.[0]?.id ?? "",
 		search: "",
 		sort: "asc",
-		sortBy: "name",
+		sortBy: "firstName",
 	});
 
 	if (error) {
