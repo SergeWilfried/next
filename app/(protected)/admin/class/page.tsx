@@ -8,11 +8,7 @@ import { DataTable } from "@/components/data-table/data-table";
 import { classTableColumns } from "./columns";
 import AddClassDialog from "./add-class-dialog";
 import { Button } from "@/components/ui/button";
-/// TODO: Fetch classes from the server
-async function getAllClasses() {
-  const { data: classes, count } = await Promise.resolve({ data: [], count: 0 });
-  return { data: classes, count, error: null };
-}
+import { getAllClasses } from "@/actions/get-all-classes";
 
 export const metadata = constructMetadata({
   title: "Classes – School Management System",
