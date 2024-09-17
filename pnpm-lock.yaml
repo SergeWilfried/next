@@ -182,6 +182,9 @@ importers:
       contentlayer2:
         specifier: ^0.5.0
         version: 0.5.0(esbuild@0.19.11)
+      cookies-next:
+        specifier: ^4.2.1
+        version: 4.2.1
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -3940,6 +3943,9 @@ packages:
   cookie@0.6.0:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
     engines: {node: '>= 0.6'}
+
+  cookies-next@4.2.1:
+    resolution: {integrity: sha512-qsjtZ8TLlxCSX2JphMQNhkm3V3zIMQ05WrLkBKBwu50npBbBfiZWIdmSMzBGcdGKfMK19E0PIitTfRFAdMGHXg==}
 
   core-js-compat@3.38.0:
     resolution: {integrity: sha512-75LAicdLa4OJVwFxFbQR3NdnZjNgX6ILpVcVzcC4T2smerB5lELMrJQQQoWV6TiuC/vlaFqgU2tKQx9w5s0e0A==}
@@ -11399,6 +11405,11 @@ snapshots:
   cookie@0.4.2: {}
 
   cookie@0.6.0: {}
+
+  cookies-next@4.2.1:
+    dependencies:
+      '@types/cookie': 0.6.0
+      cookie: 0.6.0
 
   core-js-compat@3.38.0:
     dependencies:

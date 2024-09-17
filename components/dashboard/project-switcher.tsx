@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Check, ChevronsUpDown, Plus } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { setCookie } from 'cookies-next';
 
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -46,7 +48,9 @@ export default function ProjectSwitcher({
   const { data: session, status } = useSession();
   const [openPopover, setOpenPopover] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedSchool, setSelectedSchool] = useState<School | null>(schools[0] || null);
   const user = session?.user as User;
+  const router = useRouter();
 
   const {
     register,
@@ -69,6 +73,13 @@ export default function ProjectSwitcher({
     const response = await createSchool({ userId: user.id || '', ...data });
     setIsDialogOpen(false);
     reset();
+  };
+
+  const handleSchoolChange = (school: School) => {
+    setSelectedSchool(school);
+    setOpenPopover(false);
+    setCookie('selectedSchoolId', school.id);
+    router.refresh();
   };
 
   return (
@@ -94,7 +105,7 @@ export default function ProjectSwitcher({
                     large ? "w-full" : "max-w-[80px]",
                   )}
                 >
-                  {schools[0]?.name}
+                  {selectedSchool?.name || "Select a school"}
                 </span>
               </div>
             </div>
@@ -106,10 +117,11 @@ export default function ProjectSwitcher({
         </PopoverTrigger>
         <PopoverContent align="start" className="max-w-60 p-2">
           <ProjectList
-            selected={schools[0]}
+            selected={selectedSchool || schools[0]}
             projects={schools}
             setOpenPopover={setOpenPopover}
             setIsDialogOpen={setIsDialogOpen}
+            onSchoolChange={handleSchoolChange}
           />
         </PopoverContent>
       </Popover>
@@ -189,35 +201,39 @@ function ProjectList({
   projects,
   setOpenPopover,
   setIsDialogOpen,
+  onSchoolChange,
 }: {
   selected: School;
   projects: School[];
   setOpenPopover: (open: boolean) => void;
   setIsDialogOpen: (open: boolean) => void;
+  onSchoolChange: (school: School) => void;
 }) {
   return (
     <div className="flex flex-col gap-1">
-      {projects.map(({ id, name }) => (
+      {projects.map((school) => (
         <Link
-          key={id}
+          key={school.id}
           className={cn(
             buttonVariants({ variant: "ghost" }),
             "relative flex h-9 items-center gap-3 p-3 text-muted-foreground hover:text-foreground",
           )}
           href="#"
-          onClick={() => setOpenPopover(false)}
-        >
+          onClick={() => {
+            onSchoolChange(school);
+            setOpenPopover(false);
+          }}        >
           <div className={cn("size-3 shrink-0 rounded-full", `bg-${randomColor}-500`)} />
           <span
             className={`flex-1 truncate text-sm ${
-              selected.id === id
+              selected.id === school.id
                 ? "font-medium text-foreground"
                 : "font-normal"
             }`}
           >
-            {name}
+            {school.name}
           </span>
-          {selected.id === id && (
+          {selected.id === school.id && (
             <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-foreground">
               <Check size={18} aria-hidden="true" />
             </span>

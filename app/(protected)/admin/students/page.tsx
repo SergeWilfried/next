@@ -8,16 +8,19 @@ import StudentsLoading from "./loading";
 import { NewStudentDialog } from "./add-students-dialog";
 import { Button } from "@/components/ui/button";
 import { getStudents } from "@/lib/api";
+import { cookies } from 'next/headers';
 
 export default async function StudentsPage() {
 	const user = await getCurrentUser();
+  const cookieStore = cookies();
+  const selectedSchoolId = cookieStore.get('selectedSchoolId')?.value;
 	if (!user || user.role !== "ADMIN") redirect("/login");
 
 	const { data: students, count, error } = await getStudents({
 		page: 1,
 		limit: 10,
 		userId: user.id ?? "",
-		schoolId: "",
+		schoolId: selectedSchoolId ?? "",
 		search: "",
 		sort: "asc",
 		sortBy: "firstName",
