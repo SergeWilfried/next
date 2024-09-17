@@ -39,9 +39,10 @@ export async function GET(req: Request) {
         name: true
       }
     });
+    console.warn('validatedParams.userId', validatedParams.userId);
     const schoolIds = schools?.map(school => school.id);
-    console.warn(schoolIds);
-    console.warn(schools);
+    console.warn('schoolIds', schoolIds);
+    console.warn('schools', schools);
 
     let where: any = {
       parentId: validatedParams.parentId,
