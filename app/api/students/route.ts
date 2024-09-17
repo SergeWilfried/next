@@ -40,6 +40,7 @@ export async function GET(req: Request) {
       }
     });
     const schoolIds = schools?.map(school => school.id);
+
     let where: any = {
       parentId: validatedParams.parentId,
       firstName: validatedParams.firstName,
