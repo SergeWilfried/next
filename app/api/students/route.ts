@@ -29,30 +29,50 @@ export async function POST(req: Request) {
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    console.log(searchParams);
     const validatedParams = getStudentsSchema.parse(Object.fromEntries(searchParams));
 
-    const students = await prisma.student.findMany({
-      where: {
-        parentId: validatedParams.parentId,
-        firstName: validatedParams.firstName,
-        lastName: validatedParams.lastName,
-        middleName: validatedParams.middleName,
-        dateOfBirth: validatedParams.dateOfBirth ? new Date(validatedParams.dateOfBirth) : undefined,
-        classId: validatedParams.grade,
-        schoolId: validatedParams.schoolId,
-      },
-      include: { parent: true, school: true },
-      take: validatedParams.per_page,
-      skip: (validatedParams.page - 1) * validatedParams.per_page,
-      orderBy: validatedParams.sort ? { [validatedParams.sort]: 'asc' } : undefined,
-    });
+    let where: any = {
+      parentId: validatedParams.parentId,
+      firstName: validatedParams.firstName,
+      lastName: validatedParams.lastName,
+      middleName: validatedParams.middleName,
+      dateOfBirth: validatedParams.dateOfBirth ? new Date(validatedParams.dateOfBirth) : undefined,
+      classId: validatedParams.grade,
+      schoolId: validatedParams.schoolId,
+    };
+
+    if (validatedParams.search) {
+      where = {
+        AND: [
+          {
+            OR: [
+              { firstName: { contains: validatedParams.search, mode: 'insensitive' } },
+              { lastName: { contains: validatedParams.search, mode: 'insensitive' } },
+            ],
+          },
+          ...Object.entries(where).map(([key, value]) => ({ [key]: value })),
+        ],
+      };
+    }
+
+    const [students, totalCount] = await Promise.all([
+      prisma.student.findMany({
+        where,
+        include: { parent: true, school: true },
+        take: validatedParams.limit,
+        skip: (validatedParams.page - 1) * validatedParams.limit,
+        orderBy: validatedParams.sortBy ? { [validatedParams.sortBy]: validatedParams.sort } : undefined,
+      }),
+      prisma.student.count({ where }),
+    ]);
+
     return NextResponse.json({
       data: students,
-      count: students.length ?? 0,
+      count: totalCount,
       error: null,
     });
   } catch (error) {
+    console.error(error);
     if (error.name === 'ZodError') {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
