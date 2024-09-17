@@ -1,9 +1,13 @@
 import { z } from "zod"
 
 export const searchParamsSchema = z.object({
-  page: z.coerce.number().default(1),
+  page: z.coerce.number().int().positive().default(1),
+  limit: z.coerce.number().int().positive().default(10),
+  userId: z.string().optional(),
+  search: z.string().optional(),
+  sort: z.enum(['asc', 'desc']).default('asc'),
+  sortBy: z.string().default('firstName'),
   per_page: z.coerce.number().default(10),
-  sort: z.string().optional(),
   parentId: z.string().optional(),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
