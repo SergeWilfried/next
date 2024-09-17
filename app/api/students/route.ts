@@ -48,13 +48,11 @@ export async function GET(req: Request) {
       middleName: validatedParams.middleName,
       dateOfBirth: validatedParams.dateOfBirth ? new Date(validatedParams.dateOfBirth) : undefined,
       classId: validatedParams.grade,
-      schools: {
-        some: {
-          id: {
+      school: {
+        id: {
             in: schoolIds
           }
         }
-      },
     };
 
     if (validatedParams.search) {
