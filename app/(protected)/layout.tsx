@@ -10,6 +10,7 @@ import {
 import { ModeToggle } from "@/components/layout/mode-toggle";
 import { UserAccountNav } from "@/components/layout/user-account-nav";
 import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
+import { getSchools } from "@/lib/api/schools";
 
 interface ProtectedLayoutProps {
   children: React.ReactNode;
@@ -20,6 +21,8 @@ export default async function Dashboard({ children }: ProtectedLayoutProps) {
 
   if (!user) redirect("/login");
 
+  const { data: schools } = await getSchools({ userId: user?.id || "" });
+
   const filteredLinks = sidebarLinks.map((section) => ({
     ...section,
     items: section.items.filter(
@@ -29,12 +32,12 @@ export default async function Dashboard({ children }: ProtectedLayoutProps) {
 
   return (
     <div className="relative flex min-h-screen w-full">
-      <DashboardSidebar links={filteredLinks} />
+      <DashboardSidebar links={filteredLinks} user={user} schools={schools || []} />
 
       <div className="flex flex-1 flex-col">
         <header className="sticky top-0 z-50 flex h-14 bg-background px-4 lg:h-[60px] xl:px-8">
           <MaxWidthWrapper className="flex max-w-7xl items-center gap-x-3 px-0">
-            <MobileSheetSidebar links={filteredLinks} />
+            <MobileSheetSidebar links={filteredLinks} user={user} schools={schools || []} />
 
             <div className="w-full flex-1">
               <SearchCommand links={filteredLinks} />

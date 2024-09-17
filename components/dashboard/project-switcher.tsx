@@ -36,7 +36,7 @@ const schoolSchema = z.object({
 
 type SchoolFormData = z.infer<typeof schoolSchema>;
 
-export default async function ProjectSwitcher({
+export default function ProjectSwitcher({
   large = false,
   schools,
 }: {
@@ -45,13 +45,8 @@ export default async function ProjectSwitcher({
 }) {
   const { data: session, status } = useSession();
   const [openPopover, setOpenPopover] = useState(false);
-  const user = session?.user as User;
-
-  if (!schools || status === "loading") {
-    return <ProjectSwitcherPlaceholder />;
-  }
-
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const user = session?.user as User;
 
   const {
     register,
@@ -65,6 +60,10 @@ export default async function ProjectSwitcher({
       type: SchoolType.HIGH_SCHOOL,
     },
   });
+
+  if (!schools || status === "loading") {
+    return <ProjectSwitcherPlaceholder />;
+  }
 
   const handleCreateSchool = async (data: SchoolFormData) => {
     const response = await createSchool({ userId: user.id || '', ...data });

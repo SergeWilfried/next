@@ -22,11 +22,13 @@ import {
 import ProjectSwitcher from "@/components/dashboard/project-switcher";
 import { UpgradeCard } from "@/components/dashboard/upgrade-card";
 import { Icons } from "@/components/shared/icons";
-import { getSchools } from "@/lib/api/schools";
-import { getCurrentUser } from "@/lib/session";
+import { User } from "next-auth";
+import { School } from "@prisma/client";
 
 interface DashboardSidebarProps {
   links: SidebarNavItem[];
+  user: any;
+  schools: School[]; // Replace 'any' with the correct type for schools
 }
 
 function renderNavItems(items: NavItem[], path: string, isSidebarExpanded: boolean, depth = 0) {
@@ -88,31 +90,9 @@ function renderNavItems(items: NavItem[], path: string, isSidebarExpanded: boole
   });
 }
 
-export async function DashboardSidebar({ links }: DashboardSidebarProps) {
+export function DashboardSidebar({ links, user, schools }: DashboardSidebarProps) {
   const path = usePathname();
-  const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/login");
-  
-  const { data: schools } = await getSchools({ userId: user?.id || "" });
-
-  // NOTE: Use this if you want save in local storage -- Credits: Hosna Qasmei
-  //
-  // const [isSidebarExpanded, setIsSidebarExpanded] = useState(() => {
-  //   if (typeof window !== "undefined") {
-  //     const saved = window.localStorage.getItem("sidebarExpanded");
-  //     return saved !== null ? JSON.parse(saved) : true;
-  //   }
-  //   return true;
-  // });
-
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     window.localStorage.setItem(
-  //       "sidebarExpanded",
-  //       JSON.stringify(isSidebarExpanded),
-  //     );
-  //   }
-  // }, [isSidebarExpanded]);
 
   const { isTablet } = useMediaQuery();
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(!isTablet);
@@ -189,14 +169,11 @@ export async function DashboardSidebar({ links }: DashboardSidebarProps) {
   );
 }
 
-export async function MobileSheetSidebar({ links }: DashboardSidebarProps) {
+export function MobileSheetSidebar({ links, user, schools }: DashboardSidebarProps) {
   const path = usePathname();
   const [open, setOpen] = useState(false);
   const { isSm, isMobile } = useMediaQuery();
-  const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/login");
-  
-  const { data: schools } = await getSchools({ userId: user?.id || "" });
 
   if (isSm || isMobile) {
     return (
