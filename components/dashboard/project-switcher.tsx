@@ -72,7 +72,7 @@ export default function ProjectSwitcher({
   };
 
   return (
-    <div>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <Popover open={openPopover} onOpenChange={setOpenPopover}>
         <PopoverTrigger>
           <Button
@@ -109,92 +109,78 @@ export default function ProjectSwitcher({
             selected={schools[0]}
             projects={schools}
             setOpenPopover={setOpenPopover}
+            setIsDialogOpen={setIsDialogOpen}
           />
         </PopoverContent>
       </Popover>
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <Button
-            variant="outline"
-            className="relative flex h-9 items-center justify-center gap-2 p-2"
-            onClick={() => {
-              setOpenPopover(false);
-              setIsDialogOpen(true);
-            }}
-          >
-            <Plus size={18} className="absolute left-2.5 top-2" />
-            <span className="flex-1 truncate text-center">New School</span>
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create New School</DialogTitle>
-          </DialogHeader>
-          <form onSubmit={handleSubmit(handleCreateSchool)} className="space-y-4">
-            <div>
-              <Label htmlFor="name">School Name</Label>
-              <Input
-                id="name"
-                {...register("name")}
-                placeholder="Enter school name"
-              />
-              {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
-            </div>
-            <div>
-              <Label htmlFor="address">Address</Label>
-              <Input
-                id="address"
-                {...register("address")}
-                placeholder="Enter school address"
-              />
-              {errors.address && <p className="text-sm text-red-500">{errors.address.message}</p>}
-            </div>
-            <div>
-              <Label htmlFor="phoneNumber">Phone Number</Label>
-              <Input
-                id="phoneNumber"
-                {...register("phoneNumber")}
-                placeholder="Enter phone number"
-              />
-              {errors.phoneNumber && <p className="text-sm text-red-500">{errors.phoneNumber.message}</p>}
-            </div>
-            <div>
-              <Label htmlFor="category">Category</Label>
-              <Select {...register("category")}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.values(SchoolCategory).map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {errors.category && <p className="text-sm text-red-500">{errors.category.message}</p>}
-            </div>
-            <div>
-              <Label htmlFor="type">Type</Label>
-              <Select {...register("type")}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select type" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.values(SchoolType).map((type) => (
-                    <SelectItem key={type} value={type}>
-                      {type}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {errors.type && <p className="text-sm text-red-500">{errors.type.message}</p>}
-            </div>
-            <Button type="submit">Create School</Button>
-          </form>
-        </DialogContent>
-      </Dialog>
-    </div>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Create New School</DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit(handleCreateSchool)} className="space-y-4">
+          <div>
+            <Label htmlFor="name">School Name</Label>
+            <Input
+              id="name"
+              {...register("name")}
+              placeholder="Enter school name"
+            />
+            {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
+          </div>
+          <div>
+            <Label htmlFor="address">Address</Label>
+            <Input
+              id="address"
+              {...register("address")}
+              placeholder="Enter school address"
+            />
+            {errors.address && <p className="text-sm text-red-500">{errors.address.message}</p>}
+          </div>
+          <div>
+            <Label htmlFor="phoneNumber">Phone Number</Label>
+            <Input
+              id="phoneNumber"
+              {...register("phoneNumber")}
+              placeholder="Enter phone number"
+            />
+            {errors.phoneNumber && <p className="text-sm text-red-500">{errors.phoneNumber.message}</p>}
+          </div>
+          <div>
+            <Label htmlFor="category">Category</Label>
+            <Select {...register("category")}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select category" />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.values(SchoolCategory).map((category) => (
+                  <SelectItem key={category} value={category}>
+                    {category}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {errors.category && <p className="text-sm text-red-500">{errors.category.message}</p>}
+          </div>
+          <div>
+            <Label htmlFor="type">Type</Label>
+            <Select {...register("type")}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select type" />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.values(SchoolType).map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {type}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {errors.type && <p className="text-sm text-red-500">{errors.type.message}</p>}
+          </div>
+          <Button type="submit">Create School</Button>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -202,10 +188,12 @@ function ProjectList({
   selected,
   projects,
   setOpenPopover,
+  setIsDialogOpen,
 }: {
   selected: School;
   projects: School[];
   setOpenPopover: (open: boolean) => void;
+  setIsDialogOpen: (open: boolean) => void;
 }) {
   return (
     <div className="flex flex-col gap-1">
@@ -236,16 +224,19 @@ function ProjectList({
           )}
         </Link>
       ))}
-      <Button
-        variant="outline"
-        className="relative flex h-9 items-center justify-center gap-2 p-2"
-        onClick={() => {
-          setOpenPopover(false);
-        }}
-      >
-        <Plus size={18} className="absolute left-2.5 top-2" />
-        <span className="flex-1 truncate text-center">New School</span>
-      </Button>
+      <DialogTrigger asChild>
+        <Button
+          variant="outline"
+          className="relative flex h-9 items-center justify-center gap-2 p-2"
+          onClick={() => {
+            setOpenPopover(false);
+            setIsDialogOpen(true);
+          }}
+        >
+          <Plus size={18} className="absolute left-2.5 top-2" />
+          <span className="flex-1 truncate text-center">New School</span>
+        </Button>
+      </DialogTrigger>
     </div>
   );
 }
