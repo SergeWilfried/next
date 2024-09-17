@@ -22,6 +22,7 @@ export const createDonationSchema = z.object({
   donationType: z.string(),
   donationDate: z.date(),
   schoolId: z.string(),
+  studentId: z.string(),
 })
 
 export type CreateDonationSchema = z.infer<typeof createDonationSchema>
@@ -31,6 +32,8 @@ export const updateDonationSchema = z.object({
   amount: z.number().positive().optional(),
   donationType: z.string().optional(),
   donationDate: z.date().optional(),
+  studentId: z.string().optional(),
+  schoolId: z.string().optional(),
 })
 
 export type UpdateDonationSchema = z.infer<typeof updateDonationSchema>

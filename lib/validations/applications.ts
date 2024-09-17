@@ -6,6 +6,7 @@ export const searchParamsSchema = z.object({
   per_page: z.coerce.number().default(10),
   sort: z.string().optional(),
   studentName: z.string().optional(),
+  parentId: z.string().optional(),
   grade: z.string().optional(),
   status: z.nativeEnum(ApplicationStatus).optional(),
   from: z.string().optional(),
@@ -23,6 +24,7 @@ export const createApplicationSchema = z.object({
   status: z.nativeEnum(ApplicationStatus),
   applicationDate: z.date(),
   schoolId: z.string(),
+  parentId: z.string(),
 })
 
 export type CreateApplicationSchema = z.infer<typeof createApplicationSchema>
