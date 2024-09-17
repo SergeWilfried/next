@@ -4,6 +4,7 @@ export const searchParamsSchema = z.object({
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().default(10),
   userId: z.string().optional(),
+  schoolId: z.string().optional(),
   search: z.string().optional(),
   sort: z.enum(['asc', 'desc']).default('asc'),
   sortBy: z.enum(['firstName', 'lastName', 'dateOfBirth', 'createdAt', 'updatedAt']).optional(),

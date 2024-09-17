@@ -30,33 +30,37 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const validatedParams = getStudentsSchema.parse(Object.fromEntries(searchParams));
-    const schools = await prisma.school.findMany({
-      where: {
-        userId: validatedParams.userId
+    let schoolIds; 
+    let where: any = {};
+    if(!validatedParams.schoolId){
+      const schools = await prisma.school.findMany({
+        where: {
+          userId: validatedParams.userId
       },
       select: {
         id: true,
         name: true
       }
     });
-    console.warn('validatedParams.userId', validatedParams.userId);
-    const schoolIds = schools?.map(school => school.id);
-    console.warn('schoolIds', schoolIds);
-    console.warn('schools', schools);
-
-    let where: any = {
-      parentId: validatedParams.parentId,
-      firstName: validatedParams.firstName,
-      lastName: validatedParams.lastName,
-      middleName: validatedParams.middleName,
-      dateOfBirth: validatedParams.dateOfBirth ? new Date(validatedParams.dateOfBirth) : undefined,
-      classId: validatedParams.grade,
-      school: {
-        id: {
-            in: schoolIds
+      schoolIds = schools?.map(school => school.id);
+      where = {
+        parentId: validatedParams.parentId,
+        firstName: validatedParams.firstName,
+        lastName: validatedParams.lastName,
+        middleName: validatedParams.middleName,
+        dateOfBirth: validatedParams.dateOfBirth ? new Date(validatedParams.dateOfBirth) : undefined,
+        classId: validatedParams.grade,
+        school: {
+          id: {
+              in: schoolIds
+            }
           }
-        }
-    };
+      };
+    } else {
+      where = {
+        schoolId: validatedParams.schoolId
+      };
+    }
 
     if (validatedParams.search) {
       where = {
