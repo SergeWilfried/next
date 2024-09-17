@@ -8,8 +8,7 @@ export const getUserByEmail = async (email: string) => {
       },
       select: {
         name: true,
-        emailVerified: true,
-        schools: true,
+        emailVerified: true
       },
     });
 
@@ -24,7 +23,12 @@ export const getUserById = async (id: string) => {
     const user = await prisma.user.findUnique({
       where: { id },
       include: {
-        schools: true,
+        schools: {
+          select: {
+            id: true,
+            name: true
+          },
+        },
       },
     });
 

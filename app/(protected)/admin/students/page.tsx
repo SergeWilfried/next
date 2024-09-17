@@ -16,7 +16,7 @@ export default async function StudentsPage() {
 	const { data: students, count, error } = await getStudents({
 		page: 1,
 		limit: 10,
-		schoolId: user.schools?.[0]?.id ?? "",
+		userId: user.id ?? "",
 		search: "",
 		sort: "asc",
 		sortBy: "firstName",

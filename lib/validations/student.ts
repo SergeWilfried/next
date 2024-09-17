@@ -14,7 +14,6 @@ export const searchParamsSchema = z.object({
   middleName: z.string().optional(),
   dateOfBirth: z.string().optional(),
   grade: z.string().optional(),
-  schoolId: z.string().optional(),
   from: z.string().optional(),
   to: z.string().optional(),
   operator: z.enum(["and", "or"]).optional(),
