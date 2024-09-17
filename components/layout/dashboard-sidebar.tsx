@@ -2,7 +2,7 @@
 
 import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { NavItem, SidebarNavItem } from "@/types";
 import { Menu, PanelLeftClose, PanelRightClose } from "lucide-react";
 
@@ -22,6 +22,8 @@ import {
 import ProjectSwitcher from "@/components/dashboard/project-switcher";
 import { UpgradeCard } from "@/components/dashboard/upgrade-card";
 import { Icons } from "@/components/shared/icons";
+import { getSchools } from "@/lib/api/schools";
+import { getCurrentUser } from "@/lib/session";
 
 interface DashboardSidebarProps {
   links: SidebarNavItem[];
@@ -86,8 +88,12 @@ function renderNavItems(items: NavItem[], path: string, isSidebarExpanded: boole
   });
 }
 
-export function DashboardSidebar({ links }: DashboardSidebarProps) {
+export async function DashboardSidebar({ links }: DashboardSidebarProps) {
   const path = usePathname();
+  const user = await getCurrentUser();
+  if (!user || user.role !== "ADMIN") redirect("/login");
+  
+  const { data: schools } = await getSchools({ userId: user?.id || "" });
 
   // NOTE: Use this if you want save in local storage -- Credits: Hosna Qasmei
   //
@@ -131,7 +137,7 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
           >
             <div className="flex h-full max-h-screen flex-1 flex-col gap-2">
               <div className="flex h-14 items-center p-4 lg:h-[60px]">
-                {isSidebarExpanded ? <ProjectSwitcher /> : null}
+                {isSidebarExpanded ? <ProjectSwitcher schools={schools || []} /> : null}
 
                 <Button
                   variant="ghost"
@@ -183,10 +189,14 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
   );
 }
 
-export function MobileSheetSidebar({ links }: DashboardSidebarProps) {
+export async function MobileSheetSidebar({ links }: DashboardSidebarProps) {
   const path = usePathname();
   const [open, setOpen] = useState(false);
   const { isSm, isMobile } = useMediaQuery();
+  const user = await getCurrentUser();
+  if (!user || user.role !== "ADMIN") redirect("/login");
+  
+  const { data: schools } = await getSchools({ userId: user?.id || "" });
 
   if (isSm || isMobile) {
     return (
@@ -215,7 +225,7 @@ export function MobileSheetSidebar({ links }: DashboardSidebarProps) {
                   </span>
                 </Link>
 
-                <ProjectSwitcher large />
+                <ProjectSwitcher schools={schools || []} large />
 
                 {links.map((section) => (
                   <section
