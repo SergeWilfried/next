@@ -29,6 +29,7 @@ export async function POST(req: Request) {
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
+    console.log(searchParams);
     const validatedParams = getStudentsSchema.parse(Object.fromEntries(searchParams));
 
     const students = await prisma.student.findMany({
@@ -46,7 +47,11 @@ export async function GET(req: Request) {
       skip: (validatedParams.page - 1) * validatedParams.per_page,
       orderBy: validatedParams.sort ? { [validatedParams.sort]: 'asc' } : undefined,
     });
-    return NextResponse.json(students);
+    return NextResponse.json({
+      data: students,
+      count: students.length ?? 0,
+      error: null,
+    });
   } catch (error) {
     if (error.name === 'ZodError') {
       return NextResponse.json({ error: error.errors }, { status: 400 });
