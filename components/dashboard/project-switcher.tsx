@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Check, ChevronsUpDown, Plus } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { setCookie } from 'cookies-next';
 
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -46,7 +48,9 @@ export default function ProjectSwitcher({
   const { data: session, status } = useSession();
   const [openPopover, setOpenPopover] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedSchool, setSelectedSchool] = useState<School | null>(schools[0] || null);
   const user = session?.user as User;
+  const router = useRouter();
 
   const {
     register,
@@ -69,6 +73,13 @@ export default function ProjectSwitcher({
     const response = await createSchool({ userId: user.id || '', ...data });
     setIsDialogOpen(false);
     reset();
+  };
+
+  const handleSchoolChange = (school: School) => {
+    setSelectedSchool(school);
+    setOpenPopover(false);
+    setCookie('selectedSchoolId', school.id);
+    router.refresh();
   };
 
   return (
@@ -94,7 +105,7 @@ export default function ProjectSwitcher({
                     large ? "w-full" : "max-w-[80px]",
                   )}
                 >
-                  {schools[0]?.name}
+                  {selectedSchool?.name || "Select a school"}
                 </span>
               </div>
             </div>
@@ -106,10 +117,11 @@ export default function ProjectSwitcher({
         </PopoverTrigger>
         <PopoverContent align="start" className="max-w-60 p-2">
           <ProjectList
-            selected={schools[0]}
+            selected={selectedSchool || schools[0]}
             projects={schools}
             setOpenPopover={setOpenPopover}
             setIsDialogOpen={setIsDialogOpen}
+            onSchoolChange={handleSchoolChange}
           />
         </PopoverContent>
       </Popover>
@@ -189,11 +201,13 @@ function ProjectList({
   projects,
   setOpenPopover,
   setIsDialogOpen,
+  onSchoolChange,
 }: {
   selected: School;
   projects: School[];
   setOpenPopover: (open: boolean) => void;
   setIsDialogOpen: (open: boolean) => void;
+  onSchoolChange: (school: School) => void;
 }) {
   return (
     <div className="flex flex-col gap-1">
