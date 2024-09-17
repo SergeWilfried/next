@@ -211,27 +211,29 @@ function ProjectList({
 }) {
   return (
     <div className="flex flex-col gap-1">
-      {projects.map(({ id, name }) => (
+      {projects.map((school) => (
         <Link
-          key={id}
+          key={school.id}
           className={cn(
             buttonVariants({ variant: "ghost" }),
             "relative flex h-9 items-center gap-3 p-3 text-muted-foreground hover:text-foreground",
           )}
           href="#"
-          onClick={() => setOpenPopover(false)}
-        >
+          onClick={() => {
+            onSchoolChange(school);
+            setOpenPopover(false);
+          }}        >
           <div className={cn("size-3 shrink-0 rounded-full", `bg-${randomColor}-500`)} />
           <span
             className={`flex-1 truncate text-sm ${
-              selected.id === id
+              selected.id === school.id
                 ? "font-medium text-foreground"
                 : "font-normal"
             }`}
           >
-            {name}
+            {school.name}
           </span>
-          {selected.id === id && (
+          {selected.id === school.id && (
             <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-foreground">
               <Check size={18} aria-hidden="true" />
             </span>
