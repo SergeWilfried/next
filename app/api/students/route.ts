@@ -30,6 +30,16 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const validatedParams = getStudentsSchema.parse(Object.fromEntries(searchParams));
+    const schools = await prisma.school.findMany({
+      where: {
+        userId: validatedParams.userId
+      },
+      select: {
+        id: true,
+        name: true
+      }
+    });
+    const schoolIds = schools?.map(school => school.id);
 
     let where: any = {
       parentId: validatedParams.parentId,
@@ -38,7 +48,13 @@ export async function GET(req: Request) {
       middleName: validatedParams.middleName,
       dateOfBirth: validatedParams.dateOfBirth ? new Date(validatedParams.dateOfBirth) : undefined,
       classId: validatedParams.grade,
-      schoolId: validatedParams.schoolId,
+      schools: {
+        some: {
+          id: {
+            in: schoolIds
+          }
+        }
+      },
     };
 
     if (validatedParams.search) {
