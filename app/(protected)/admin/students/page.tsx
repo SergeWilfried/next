@@ -17,6 +17,7 @@ export default async function StudentsPage() {
 		page: 1,
 		limit: 10,
 		userId: user.id ?? "",
+		schoolId: "",
 		search: "",
 		sort: "asc",
 		sortBy: "firstName",

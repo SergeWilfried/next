@@ -2,6 +2,7 @@ import { Student } from "@prisma/client";
 
 export async function getStudents({
   page,
+  schoolId,
   userId,
   limit,
   search,
@@ -10,6 +11,7 @@ export async function getStudents({
 }: {
   page: number;
   limit: number;
+  schoolId: string;
   userId: string;
   search: string;
   sort: "asc" | "desc";
@@ -20,6 +22,7 @@ export async function getStudents({
       const queryParams = new URLSearchParams({
         page: page.toString(),
         limit: limit.toString(),
+        schoolId,
         userId,
         search,
         sort,

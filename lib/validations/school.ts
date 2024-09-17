@@ -20,6 +20,9 @@ export const createSchoolSchema = z.object({
   name: z.string(),
   address: z.string(),
   phoneNumber: z.string(),
+  userId: z.string(),
+  category: z.enum(["PRIVATE", "PUBLIC", "CHARTER", "RELIGIOUS", "NON_PROFIT"]).optional(),
+  type: z.enum(["HIGH_SCHOOL", "MIDDLE_SCHOOL", "ELEMENTARY_SCHOOL"]).optional(),
 })
 
 export type CreateSchoolSchema = z.infer<typeof createSchoolSchema>
