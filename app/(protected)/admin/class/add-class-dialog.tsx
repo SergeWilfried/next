@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
+
 import {
   Dialog,
   DialogContent,
@@ -26,6 +28,7 @@ type ClassFormData = z.infer<typeof classSchema>;
 
 export default function AddClassDialog() {
   const [open, setOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -37,8 +40,9 @@ export default function AddClassDialog() {
   });
 
   const onSubmit = async (data: ClassFormData) => {
+    setIsSubmitting(true);
     try {
-      const response = await fetch('/api/classes', {
+      const response = await fetch('/api/class', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,8 +54,20 @@ export default function AddClassDialog() {
       }
       setOpen(false);
       reset();
+      toast({
+        title: "Success",
+        description: "Class created successfully",
+        variant: "default",
+      });
     } catch (error) {
       console.error('Error creating class:', error);
+      toast({
+        title: "Error",
+        description: "Failed to create class. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -89,7 +105,9 @@ export default function AddClassDialog() {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Create Class</Button>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Creating...' : 'Create Class'}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
