@@ -61,7 +61,7 @@ export const staffTableColumns: ColumnDef<Staff>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Created At",
+    header: "Joined",
     cell: ({ row }) => {
       const createdAt = row.getValue("createdAt")
       const formatted = createdAt
