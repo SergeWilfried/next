@@ -6,7 +6,7 @@ export const addNewParent = async (parent) : Promise<{
     error: string | null
 }> => {
     try {
-        const response = await fetch('/api/parents', {
+        const response = await fetch('/api/parent', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ export const addNewParent = async (parent) : Promise<{
 
     export async function updateParent(parent: Parent) : Promise<void> {
         try {
-            const response = await fetch(`/api/parents/${parent.id}`, {
+            const response = await fetch(`/api/parent/${parent.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ export const addNewParent = async (parent) : Promise<{
 
     export async function deleteParent(id: string) : Promise<void> {
         try {
-            await fetch(`/api/parents/${id}`, {
+            await fetch(`/api/parent/${id}`, {
                 method: 'DELETE',
             });
         } catch (error) {
@@ -57,7 +57,7 @@ export const addNewParent = async (parent) : Promise<{
 
     export async function getParent(id: string) : Promise<{data: Parent | null, error: string | null}> { 
         try {
-            const response = await fetch(`/api/parents/${id}`);
+            const response = await fetch(`/api/parent/${id}`);
             if (!response.ok) {
                 return { data: null, error: 'Failed to fetch parent' };
             }
@@ -71,7 +71,7 @@ export const addNewParent = async (parent) : Promise<{
 
     export async function getParents() : Promise<{data: Parent[], count: number, error: string | null}> {
         try {
-            const response = await fetch('/api/parents');
+            const response = await fetch('/api/parent');
             if (!response.ok) {
                 throw new Error('Failed to fetch parents');
             }
