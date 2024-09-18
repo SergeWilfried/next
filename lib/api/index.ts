@@ -1,9 +1,12 @@
 import { getStudents } from "./students";
 import { getUsers } from "./users";
-import { getAllPayments } from "./accounting";
+import { getAllPayments, getPaymentById, createPayment, updatePayment, } from "./accounting";
 
 export {
   getStudents,
   getUsers,
-  getAllPayments
+  getAllPayments,
+  getPaymentById,
+  createPayment,
+  updatePayment
 };
