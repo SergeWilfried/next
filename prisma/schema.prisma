@@ -135,6 +135,9 @@ model Parent {
   firstName               String
   lastName                String
   middleName              String?
+  gender                  GenderEnum              @default(OTHER)
+  dateOfBirth             DateTime
+  maritalStatus           MaritalStatus
   phoneNumber             String
   communicationPreference CommunicationPreference
   emergencyContacts       Json[] // Embedded emergency contacts
@@ -160,6 +163,14 @@ enum EnrollmentStatus {
   ACTIVE
   INACTIVE
   GRADUATED
+}
+
+enum MaritalStatus {
+  SINGLE
+  MARRIED
+  DIVORCED
+  WIDOWED
+  OTHER
 }
 
 enum DonationType {

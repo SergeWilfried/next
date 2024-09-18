@@ -3,36 +3,19 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import * as React from "react"
-
-const parentSchema = z.object({
-firstName: z.string().min(1, "First name is required").max(50, "First name must be 50 characters or less"),
-middleName: z.string().max(50, "Middle name must be 50 characters or less").optional(),
-lastName: z.string().min(1, "Last name is required").max(50, "Last name must be 50 characters or less"),
-gender: z.enum(["OTHER", "MALE", "FEMALE"], {
-    errorMap: () => ({ message: "Please select a valid gender option" })
-}),
-phoneNumber: z.string().min(1, "Parent's phone number is required"),
-maritalStatus: z.enum(["SINGLE", "MARRIED", "DIVORCED", "WIDOWED", "OTHER"], {
-    errorMap: () => ({ message: "Please select a valid marital status" })
-}),
-parentId: z.string().min(1, "Parent ID is required"),
-parentCommunicationPreferences: z.array(z.enum(["EMAIL", "SMS", "PHONE"])).min(1, "Select at least one communication preference"),
-});
-
-type ParentFormValues = z.infer<typeof parentSchema>;
-
-
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { toast } from "@/components/ui/use-toast"
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { DialogHeader, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 import { PhoneInput } from "@/components/input/phone-input";
+import { addNewParent } from "@/lib/api";
+import { ParentFormValues, parentSchema } from "@/lib/validations/parents";
+import type { Parent } from "@prisma/client";
 
 export function NewParentDialog() {
 const [open, setOpen] = useState(false)
@@ -45,20 +28,24 @@ const form = useForm<ParentFormValues>({
     gender: "OTHER",
     phoneNumber: "",
     maritalStatus: "SINGLE",
-    parentCommunicationPreferences: [],
+    communicationPreference: [],
     },
 })
 
 const onSubmit = async (data: ParentFormValues) => {
     try {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-        if (value instanceof File) {
-        formData.append(key, value);
-        } else if (value !== undefined) {
-        formData.append(key, value.toString());
-        }
-    });
+      const result = await addNewParent(data);
+      
+      if (result.error) {
+        throw new Error(result.error);
+      }
+
+      setOpen(false);
+      form.reset();
+      toast({
+        title: "Success",
+        description: "Parent added successfully",
+      });
     
 
     setOpen(false);
@@ -187,7 +174,7 @@ return (
                 />
             <DialogFooter>
               <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-              <Button type="submit">Save Student</Button>
+              <Button type="submit">Save</Button>
             </DialogFooter>
           </form>
         </Form>
