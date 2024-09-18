@@ -55,7 +55,6 @@ export const addNewParent = async (parent) : Promise<{
             });
         } catch (error) {
             console.error("Failed to delete parent:", error);
-            throw error;
         }
     }
 
