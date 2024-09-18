@@ -76,27 +76,10 @@ export const parentsTableColumns: ColumnDef<Parent>[] = [
     },
   },
   {
-    accessorKey: "applicationsCount",
-    header: "Applications",
-    cell: ({ row }) => {
-      const count = Math.floor(Math.random() * 5)
-      return <div>{count}</div>
-    },
-  },
-  {
     accessorKey: "contactsCount",
     header: "Contacts",
     cell: ({ row }) => {
       const count = Math.floor(Math.random() * 5)
-      return <div>{count}</div>
-    },
-    enableHiding: true,
-  },
-  {
-    accessorKey: "donationsCount",
-    header: "Donations",
-    cell: ({ row }) => {
-      const count = Math.floor(Math.random() * 25)
       return <div>{count}</div>
     },
     enableHiding: true,
