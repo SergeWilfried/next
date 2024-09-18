@@ -42,7 +42,7 @@ export default function AddClassDialog() {
   const onSubmit = async (data: ClassFormData) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch('/api/classes', {
+      const response = await fetch('/api/class', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
