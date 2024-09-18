@@ -55,7 +55,7 @@ export const addNewParent = async (parent) : Promise<{
         }
     }
 
-    export async function getParent(id: string) : Promise<{data: Parent, error: string | null}> { 
+    export async function getParent(id: string) : Promise<{data: Parent | null, error: string | null}> { 
         try {
             const response = await fetch(`/api/parents/${id}`);
             if (!response.ok) {
