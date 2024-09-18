@@ -59,6 +59,15 @@ export const parentsTableColumns: ColumnDef<Parent>[] = [
     ),
   },
   {
+    accessorKey: "maritalStatus",
+    header: "Marital Status",
+    cell: ({ row }) => (
+      <Badge variant="secondary" className="capitalize">
+        {row.getValue("maritalStatus")}
+      </Badge>
+    ),
+  },
+  {
     accessorKey: "studentCount",
     header: "Students",
     cell: ({ row }) => {
@@ -81,6 +90,7 @@ export const parentsTableColumns: ColumnDef<Parent>[] = [
       const count = Math.floor(Math.random() * 5)
       return <div>{count}</div>
     },
+    enableHiding: true,
   },
   {
     accessorKey: "donationsCount",
@@ -89,6 +99,7 @@ export const parentsTableColumns: ColumnDef<Parent>[] = [
       const count = Math.floor(Math.random() * 25)
       return <div>{count}</div>
     },
+    enableHiding: true,
   },
   {
     id: "actions",

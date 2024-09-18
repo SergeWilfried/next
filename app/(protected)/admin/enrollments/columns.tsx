@@ -46,7 +46,9 @@ export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
         Enrollment ID
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
+      
     ),
+    enableHiding: true,
   },
   {
     accessorKey: "student.name",
@@ -100,6 +102,7 @@ export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
       const date = row.getValue<Date>("createdAt")
       return <div>{format(date, "MMM d, yyyy")}</div>
     },
+    enableHiding: true,
   },
   {
     id: "actions",
