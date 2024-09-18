@@ -32,6 +32,24 @@ export const createParentSchema = z.object({
   schoolId: z.string(),
 })
 
+export const parentSchema = z.object({
+  firstName: z.string().min(1, "First name is required").max(50, "First name must be 50 characters or less"),
+  middleName: z.string().max(50, "Middle name must be 50 characters or less").optional(),
+  lastName: z.string().min(1, "Last name is required").max(50, "Last name must be 50 characters or less"),
+  gender: z.enum(["OTHER", "MALE", "FEMALE"], {
+      errorMap: () => ({ message: "Please select a valid gender option" })
+  }),
+  phoneNumber: z.string().min(1, "Parent's phone number is required"),
+  maritalStatus: z.enum(["SINGLE", "MARRIED", "DIVORCED", "WIDOWED", "OTHER"], {
+      errorMap: () => ({ message: "Please select a valid marital status" })
+  }),
+  dateOfBirth: z.coerce.date().max(new Date(), "Date of birth cannot be in the future"),
+  communicationPreference: z.array(z.enum(["EMAIL", "SMS", "PHONE"])).min(1, "Select at least one communication preference"),
+  });
+  
+  export type ParentFormValues = z.infer<typeof parentSchema>;
+  
+
 export type CreateParentSchema = z.infer<typeof createParentSchema>
 
 export const updateParentSchema = z.object({
