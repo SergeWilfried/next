@@ -59,13 +59,13 @@ export const addNewParent = async (parent) : Promise<{
         try {
             const response = await fetch(`/api/parents/${id}`);
             if (!response.ok) {
-                throw new Error('Failed to fetch parent');
+                return { data: null, error: 'Failed to fetch parent' };
             }
             const result = await response.json();
-            return result;
+            return { data: result, error: null };
         } catch (error) {
             console.error("Failed to fetch parent:", error);
-            throw error;
+            return { data: null, error: error.message };
         }
     }
 
