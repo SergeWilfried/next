@@ -42,7 +42,7 @@ export const classTableColumns: ColumnDef<Class>[] = [
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Class Name
+        Name
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -52,20 +52,13 @@ export const classTableColumns: ColumnDef<Class>[] = [
     header: "Description",
   },
   {
-    accessorKey: "school.name",
-    header: "School Name",
-  },
-  {
-    accessorKey: "schoolId",
-    header: "School ID",
-  },
-  {
     accessorKey: "createdAt",
     header: "Created At",
     cell: ({ row }) => {
       const date = row.getValue<Date>("createdAt")
       return <div>{format(date, "MMM d, yyyy")}</div>
     },
+    enableHiding: true,
   },
   {
     accessorKey: "updatedAt",
@@ -73,6 +66,15 @@ export const classTableColumns: ColumnDef<Class>[] = [
     cell: ({ row }) => {
       const date = row.getValue<Date>("updatedAt")
       return <div>{format(date, "MMM d, yyyy")}</div>
+    },
+    enableHiding: true,
+  },
+  {
+    accessorKey: "course",
+    header: "Courses",
+    cell: ({ row }) => {
+      const courses = row.getValue<Course[]>("course")
+      return <div>{courses?.length || 0}</div>
     },
   },
   {
@@ -91,14 +93,7 @@ export const classTableColumns: ColumnDef<Class>[] = [
       return <div>{teachers?.length || 0}</div>
     },
   },
-  {
-    accessorKey: "course",
-    header: "Courses",
-    cell: ({ row }) => {
-      const courses = row.getValue<Course[]>("course")
-      return <div>{courses?.length || 0}</div>
-    },
-  },
+
   {
     id: "actions",
     enableHiding: false,

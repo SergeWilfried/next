@@ -69,6 +69,7 @@ export const staffTableColumns: ColumnDef<Staff>[] = [
         : ""
       return <div>{formatted}</div>
     },
+    enableHiding: true,
   },
   {
     id: "actions",
