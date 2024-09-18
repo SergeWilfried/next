@@ -69,6 +69,10 @@ export const studentsTableColumns: ColumnDef<Student>[] = [
     header: "Gender",
   },
   {
+    accessorKey: "class.name",
+    header: "Class",
+  },
+  {
     accessorKey: "grade",
     header: "Grade",
   },

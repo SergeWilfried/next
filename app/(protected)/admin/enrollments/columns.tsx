@@ -37,20 +37,6 @@ export const enrollmentsTableColumns: ColumnDef<Enrollment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Enrollment ID
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-      
-    ),
-    enableHiding: true,
-  },
-  {
     accessorKey: "student.name",
     header: "Student Name",
   },

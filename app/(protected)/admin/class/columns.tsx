@@ -48,10 +48,6 @@ export const classTableColumns: ColumnDef<Class>[] = [
     ),
   },
   {
-    accessorKey: "description",
-    header: "Description",
-  },
-  {
     accessorKey: "createdAt",
     header: "Created At",
     cell: ({ row }) => {
