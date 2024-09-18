@@ -22,6 +22,9 @@ export const createParentSchema = z.object({
   lastName: z.string(),
   middleName: z.string().optional(),
   studentId: z.string(),
+  gender: z.enum(['MALE', 'FEMALE', 'OTHER']),
+  dateOfBirth: z.string(),
+  maritalStatus: z.enum(['SINGLE', 'MARRIED', 'DIVORCED', 'WIDOWED']), 
   phoneNumber: z.string(),
   communicationPreference: z.enum(["SMS", "WHATSAPP", "PHONE"]),
   emergencyContacts: z.array(z.object({
