@@ -76,7 +76,11 @@ export const addNewParent = async (parent) : Promise<{
                 throw new Error('Failed to fetch parents');
             }
             const result = await response.json();
-            return { data: result.parents, count: result.count, error: null };
+            return { 
+                data: result.parents || [], 
+                count: result.count || 0, 
+                error: null 
+            };
         } catch (error) {
             console.error("Failed to fetch parents:", error);
             return { data: [], count: 0, error: error.message };
