@@ -37,14 +37,11 @@ export const addNewParent = async (parent) : Promise<{
             });
 
             if (!response.ok) {
-                throw new Error('Failed to update parent');
+                console.error('Failed to update parent');
+                return;
             }
-
-            const result = await response.json();
-            return result;
         } catch (error) {
             console.error("Failed to update parent:", error);
-            throw error;
         }
     }
 
