@@ -19,8 +19,9 @@ export const sidebarLinks: SidebarNavItem[] = [
     
       {
         href: "/admin/attendance",
-        title: "Peoples",
+        title: "People",
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
+        icon: "users",
         children: [
           {
             href: "/admin/staff",
@@ -45,7 +46,7 @@ export const sidebarLinks: SidebarNavItem[] = [
           {
             href: "/admin/calendar",
             icon: "calendar",
-            title: "Schedules",
+            title: "Schedule",
             authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
           },
           {
@@ -55,7 +56,7 @@ export const sidebarLinks: SidebarNavItem[] = [
             authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
           },
           {
-            href: "/admin/classes",
+            href: "/admin/class",
             icon: "book",
             title: "Classes",
             authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
@@ -63,7 +64,7 @@ export const sidebarLinks: SidebarNavItem[] = [
           {
             href: "/admin/subjects",
             icon: "book",
-            title: "Subjects",
+            title: "Courses",
             authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
           },
           {
@@ -104,14 +105,6 @@ export const sidebarLinks: SidebarNavItem[] = [
         title: "Reports",
         badge: 2,
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
-      },
-      {
-        href: "/admin/donations",
-        icon: "package",
-        title: "Donations",
-        badge: 5,
-        authorizeOnly: ["ADMIN"],
-        disabled: false,
       },
       {
         href: "/dashboard",
