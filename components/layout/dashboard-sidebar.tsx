@@ -174,11 +174,11 @@ export function DashboardSidebar({ links, user, schools }: DashboardSidebarProps
               ))}
             </nav>
 
-            {isSidebarExpanded && (
+            {/* {isSidebarExpanded && (
               <div className="mt-auto p-4">
                 <UpgradeCard />
               </div>
-            )}
+            )} */}
           </div>
         </aside>
       </ScrollArea>
@@ -230,9 +230,9 @@ export function MobileSheetSidebar({ links, user, schools }: DashboardSidebarPro
                   </section>
                 ))}
 
-                <div className="mt-auto">
+                {/* <div className="mt-auto">
                   <UpgradeCard />
-                </div>
+                </div> */}
               </nav>
             </div>
           </ScrollArea>
