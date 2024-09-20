@@ -19,7 +19,7 @@ export const sidebarLinks: SidebarNavItem[] = [
       {
         href: "/admin/calendar",
         icon: "calendar",
-        title: "Calendar",
+        title: "Schedules",
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
       },
       {
