@@ -16,34 +16,54 @@ export const sidebarLinks: SidebarNavItem[] = [
         title: "Financials",
         authorizeOnly: ["ADMIN", "ACCOUNTANT"],
       },
+    
       {
-        href: "/admin/calendar",
-        icon: "calendar",
-        title: "Schedules",
+        href: "/admin/attendance",
+        title: "Peoples",
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
-      },
-      {
-        href: "/admin/staff",
-        icon: "briefcase",
-        title: "Staff",
-        authorizeOnly: ["ADMIN", "ACCOUNTANT"],
-      },
-      {
-        href: "/admin/parents",
-        icon: "users",
-        title: "Parents",
-        authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
+        children: [
+          {
+            href: "/admin/staff",
+            icon: "briefcase",
+            title: "Staff",
+            authorizeOnly: ["ADMIN", "ACCOUNTANT"],
+          },
+          {
+            href: "/admin/parents",
+            icon: "users",
+            title: "Parents",
+            authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
+          },
+        ]
       },
       {
         href: "/admin/class",
         icon: "book",
-        title: "Classes",
+        title: "Academic",
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
         children: [
+          {
+            href: "/admin/calendar",
+            icon: "calendar",
+            title: "Schedules",
+            authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
+          },
           {
             href: "/admin/students",
             icon: "users",
             title: "Students",
+            authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
+          },
+          {
+            href: "/admin/classes",
+            icon: "book",
+            title: "Classes",
+            authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
+          },
+          {
+            href: "/admin/subjects",
+            icon: "book",
+            title: "Subjects",
             authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
           },
           {
@@ -56,6 +76,12 @@ export const sidebarLinks: SidebarNavItem[] = [
             href: "/admin/attendance",
             icon: "clipboard",
             title: "Attendance",
+            authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
+          },
+          {
+            href: "/admin/exams",
+            icon: "clipboard",
+            title: "Exams",
             authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
           },
         ],
