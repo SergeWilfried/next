@@ -93,8 +93,9 @@ export default function BentoGrid() {
                   Secure by default
                 </h2>
                 <p className="text-muted-foreground">
-                  Provident fugit and vero voluptate. magnam magni doloribus
-                  dolores voluptates a sapiente nisi.
+                  Protect student data with advanced encryption and role-based
+                  access control, ensuring compliance with educational privacy
+                  regulations.
                 </p>
               </div>
             </div>
@@ -187,11 +188,11 @@ export default function BentoGrid() {
               </div>
               <div className="relative z-10 mt-8 space-y-1.5 text-center">
                 <h2 className="text-lg font-medium text-foreground">
-                  Faster than light
+                Efficient Management
                 </h2>
                 <p className="text-muted-foreground">
-                  Provident fugit vero voluptate. magnam magni doloribus dolores
-                  voluptates inventore nisi.
+                    Streamline administrative tasks, from enrollment to grading
+                    allowing staff to focus on what matters most: education.
                 </p>
               </div>
             </div>
@@ -219,11 +220,12 @@ export default function BentoGrid() {
                 </div>
                 <div className="space-y-2">
                   <h2 className="text-lg font-medium text-foreground">
-                    Faster than light
+                  Comprehensive Reporting
                   </h2>
                   <p className="text-muted-foreground">
-                    Provident fugit vero voluptate. Voluptates a sapiente
-                    inventore nisi.
+                    Generate detailed reports on student performance, attendance, and
+                    financial data to make informed decisions and improve educational 
+                    outcomes.
                   </p>
                 </div>
               </div>
@@ -304,11 +306,11 @@ export default function BentoGrid() {
                 </div>
                 <div className="space-y-2">
                   <h2 className="text-lg font-medium text-foreground">
-                    Keep your loved ones safe
+                  Seamless Communication
                   </h2>
                   <p className="text-muted-foreground">
-                    Voluptate. magnam magni doloribus dolores voluptates a
-                    sapiente.
+                    Foster collaboration between teachers, students, and parents 
+                    with integrated messaging and notification systems.
                   </p>
                 </div>
               </div>
