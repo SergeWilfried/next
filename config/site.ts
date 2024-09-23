@@ -6,7 +6,7 @@ const site_url = env.NEXT_PUBLIC_APP_URL;
 export const siteConfig: SiteConfig = {
   name: "Gesco",
   description:
-    "Révolutionnez la gestion de votre école avec Gesco ! Notre plateforme de gestion scolaire tout-en-un offre des outils puissants pour l&apos;administration, la communication et l&apos;apprentissage, conçus pour optimiser les opérations éducatives et améliorer l&apos;expérience des élèves, des enseignants et des parents.",
+    "Révolutionnez la gestion de votre école avec Gesco ! Notre plateforme de gestion scolaire tout-en-un offre des outils puissants pour l'administration, la communication et l'apprentissage, conçus pour optimiser les opérations éducatives et améliorer l'expérience des élèves, des enseignants et des parents.",
   url: site_url,
   ogImage: `${site_url}/_static/og.jpg`,
   links: {
@@ -22,7 +22,7 @@ export const footerLinks: SidebarNavItem[] = [
     items: [
       { title: "A propos", href: "#" },
       { title: "Entreprise", href: "#" },
-      { title: "Conditions d&apos;utilisation", href: "#" },
+      { title: "Conditions d'utilisation", href: "#" },
       { title: "Politique de confidentialité", href: "#" },
     ],
   },

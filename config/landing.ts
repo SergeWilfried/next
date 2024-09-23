@@ -4,7 +4,7 @@ export const infos: InfoLdg[] = [
   {
     title: "Donnez du Pouvoir à Votre École",
     description:
-      "Libérez tout le potentiel de votre établissement éducatif avec notre système complet de gestion de l&apos;information scolaire. Rationalisez les opérations, améliorez la communication et optimisez les résultats d&apos;apprentissage.",
+      "Libérez tout le potentiel de votre établissement éducatif avec notre système complet de gestion de l'information scolaire. Rationalisez les opérations, améliorez la communication et optimisez les résultats d'apprentissage.",
     image: "/_static/illustrations/call-waiting.svg",
     list: [
       {
@@ -14,7 +14,7 @@ export const infos: InfoLdg[] = [
       },
       {
         title: "Innovant",
-        description: "Tirez parti des outils alimentés par l&apos;IA pour des expériences d&apos;apprentissage personnalisées.",
+        description: "Tirez parti des outils alimentés par l'IA pour des expériences d'apprentissage personnalisées.",
         icon: "brain",
       }
     ],
@@ -22,7 +22,7 @@ export const infos: InfoLdg[] = [
   {
     title: "Intégration Transparente",
     description:
-      "GeSco s&apos;intègre sans effort dans votre écosystème scolaire existant. Connectez-vous à vos outils et services éducatifs préférés pour une expérience unifiée.",
+      "Gesco s'intègre sans effort dans votre écosystème scolaire existant. Connectez-vous à vos outils et services éducatifs préférés pour une expérience unifiée.",
     image: "/_static/illustrations/rocket-crashed.svg",
     list: [
       {
@@ -52,8 +52,8 @@ export const features: FeatureLdg[] = [
     icon: "user",
   },
   {
-    title: "E-Learning Alimenté par l&apos;IA",
-    description: "Utilisez l&apos;intelligence artificielle pour des expériences d&apos;apprentissage personnalisées et une diffusion de contenu adaptative.",
+    title: "E-Learning Alimenté par l'IA",
+    description: "Utilisez l'intelligence artificielle pour des expériences d'apprentissage personnalisées et une diffusion de contenu adaptative.",
     link: "/features/ai-elearning",
     icon: "brain",
   },
@@ -71,13 +71,13 @@ export const features: FeatureLdg[] = [
   },
   {
     title: "Portail Parents",
-    description: "Offrez aux parents un accès en temps réel aux informations académiques de leur enfant et aux mises à jour de l&apos;école.",
+    description: "Offrez aux parents un accès en temps réel aux informations académiques de leur enfant et aux mises à jour de l'école.",
     link: "/features/parents-portal",
     icon: "users",
   },
   {
     title: "Suivi des Présences",
-    description: "Simplifiez l&apos;enregistrement des présences et générez des rapports complets pour les étudiants et le personnel.",
+    description: "Simplifiez l'enregistrement des présences et générez des rapports complets pour les étudiants et le personnel.",
     link: "/features/attendance",
     icon: "checkSquare",
   },
@@ -89,21 +89,21 @@ export const testimonials: TestimonialType[] = [
     job: "School Principal",
     image: "https://randomuser.me/api/portraits/women/1.jpg",
     review:
-      "GeSco a révolutionné la façon dont nous gérons notre école. La plateforme d&apos;e-learning alimentée par l&apos;IA a considérablement amélioré l&apos;engagement et les performances des élèves. Ça a été un véritable changement pour nous.",
+      "Gesco a révolutionné la façon dont nous gérons notre école. La plateforme d'e-learning alimentée par l'IA a considérablement amélioré l'engagement et les performances des élèves. Ça a été un véritable changement pour nous.",
   },
   {
     name: "Michael Chen",
     job: "IT Administrator",
     image: "https://randomuser.me/api/portraits/men/2.jpg",
     review:
-      "La facilité de mise en œuvre et les fonctionnalités robustes de GeSco m&apos;ont impressionné. Il s&apos;est intégré parfaitement à nos systèmes existants, et l&apos;équipe de support a été incroyablement utile tout au long du processus.",
+      "La facilité de mise en œuvre et les fonctionnalités robustes de Gesco m'ont impressionné. Il s'est intégré parfaitement à nos systèmes existants, et l'équipe de support a été incroyablement utile tout au long du processus.",
   },
   {
     name: "Emily Rodriguez",
     job: "Teacher",
     image: "https://randomuser.me/api/portraits/women/3.jpg",
     review:
-      "En tant qu&apos;enseignante, j&apos;adore la façon dont GeSco simplifie le suivi des présences et la gestion des notes. Les outils d&apos;apprentissage alimentés par l&apos;IA m&apos;ont aidée à fournir un enseignement plus personnalisé à mes élèves.",
+      "En tant qu'enseignante, j'adore la façon dont Gesco simplifie le suivi des présences et la gestion des notes. Les outils d'apprentissage alimentés par l'IA m'ont aidée à fournir un enseignement plus personnalisé à mes élèves.",
   },
   {
     name: "David Okafor",
@@ -117,13 +117,13 @@ export const testimonials: TestimonialType[] = [
     job: "School Administrator",
     image: "https://randomuser.me/api/portraits/women/5.jpg",
     review:
-      "GeSco a considérablement rationalisé nos tâches administratives. La fonction de communication multicanale, y compris SMS et WhatsApp, a grandement amélioré notre engagement auprès des parents.",
+      "Gesco a considérablement rationalisé nos tâches administratives. La fonction de communication multicanale, y compris SMS et WhatsApp, a grandement amélioré notre engagement auprès des parents.",
   },
   {
     name: "Thomas Müller",
     job: "Finance Manager",
     image: "https://randomuser.me/api/portraits/men/6.jpg",
     review:
-      "Le système de suivi et de rappel des paiements de GeSco a considérablement amélioré notre processus de collecte des frais. Il est convivial pour les parents et a réduit notre charge de travail administrative.",
+      "Le système de suivi et de rappel des paiements de Gesco a considérablement amélioré notre processus de collecte des frais. Il est convivial pour les parents et a réduit notre charge de travail administrative.",
   },
 ];
