@@ -6,7 +6,7 @@ export const BLOG_CATEGORIES: {
   {
     title: "News",
     slug: "news",
-    description: "Updates and announcements from Next GesCo.",
+    description: "Updates and announcements from Next Gesco.",
   },
   {
     title: "Education",
@@ -16,9 +16,9 @@ export const BLOG_CATEGORIES: {
 ];
 
 export const BLOG_AUTHORS = {
-  mickasmt: {
-    name: "mickasmt",
-    image: "/_static/avatars/mickasmt.png",
+  sergewilfried: {
+    name: "sergewilfried",
+    image: "/_static/avatars/sergewilfried.png",
     twitter: "miickasmt",
   },
   shadcn: {

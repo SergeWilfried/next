@@ -30,7 +30,7 @@ export async function GET(req: Request) {
 
     const fontSize = heading.length > 80 ? "60px" : "80px"
 
-    const githubName = "mickasmt";
+    const githubName = "sergewilfried";
 
     return new ImageResponse(
       (
@@ -55,7 +55,7 @@ export async function GET(req: Request) {
               color: 'transparent'
             }}
           >
-            GesCo
+            Gesco
           </div>
 
           <div tw="flex flex-col flex-1 py-16">
@@ -126,7 +126,7 @@ export async function GET(req: Request) {
                   stroke-linejoin="round"
                 />
               </svg>
-              <div tw="flex ml-2">github.com/mickasmt/next-saas-stripe-starter</div>
+              <div tw="flex ml-2">github.com/sergewilfried/next-saas-stripe-starter</div>
             </div>
           </div>
         </div>

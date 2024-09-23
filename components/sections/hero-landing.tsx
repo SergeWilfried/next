@@ -16,13 +16,13 @@ export default async function HeroLanding() {
           )}
         >
           <span className="mr-3">📚</span>
-          <span>Discover Our Features</span>
+          <span>Découvrez nos fonctionnalités</span>
         </Link>
 
         <h1 className="text-balance font-urban text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-[66px]">
-          Streamline Your School Management with{" "}
+          Simplifiez la gestion de votre établissement avec{" "}
           <span className="text-gradient_indigo-purple font-extrabold">
-            GeSco
+            Gesco
           </span>
         </h1>
 
@@ -30,7 +30,7 @@ export default async function HeroLanding() {
           className="max-w-2xl text-balance leading-normal text-muted-foreground sm:text-xl sm:leading-8"
           style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
         >
-          Efficiently manage student records, attendance, grades, and more with our comprehensive school information management system.
+          Gérez efficacement les dossiers des élèves, les paiements, la présence, les notes et plus encore avec notre logiciel complet de gestion scolaire.
         </p>
 
         <div
@@ -45,7 +45,7 @@ export default async function HeroLanding() {
               "gap-2",
             )}
           >
-            <span>Request Demo</span>
+            <span>Demander une démo</span>
             <Icons.arrowRight className="size-4" />
           </Link>
           <Link
@@ -60,7 +60,7 @@ export default async function HeroLanding() {
             )}
           >
             <Icons.mail className="mr-2 size-4" />
-            <p>Contact Us</p>
+            <p>Contactez-nous</p>
           </Link>
         </div>
       </div>

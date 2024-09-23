@@ -10,33 +10,33 @@ import { HeaderSection } from "../shared/header-section";
 const pricingFaqData = [
   {
     id: "item-1",
-    question: "What is the cost of the free plan?",
+    question: "Quel est le coût du plan gratuit ?",
     answer:
-      "Our free plan is completely free, with no monthly or annual charges. It's a great way to get started and explore our basic features.",
+      "Notre plan gratuit est totalement gratuit, sans frais mensuels ni annuels. C&apos;est un excellent moyen de commencer et d&apos;explorer nos fonctionnalités de base.",
   },
   {
     id: "item-2",
-    question: "How much does the Basic Monthly plan cost?",
+    question: "Combien coûte le plan Basique Mensuel ?",
     answer:
-      "The Basic Monthly plan is priced at $15 per month. It provides access to our core features and is billed on a monthly basis.",
+      "Le plan Basique Mensuel coûte 15 € par mois. Il donne accès à nos fonctionnalités principales et est facturé mensuellement.",
   },
   {
     id: "item-3",
-    question: "What is the price of the Pro Monthly plan?",
+    question: "Quel est le prix du plan Pro Mensuel ?",
     answer:
-      "The Pro Monthly plan is available for $25 per month. It offers advanced features and is billed on a monthly basis for added flexibility.",
+      "Le plan Pro Mensuel est disponible pour 25 € par mois. Il offre des fonctionnalités avancées et est facturé mensuellement pour plus de flexibilité.",
   },
   {
     id: "item-4",
-    question: "Do you offer any annual subscription plans?",
+    question: "Proposez-vous des abonnements annuels ?",
     answer:
-      "Yes, we offer annual subscription plans for even more savings. The Basic Annual plan is $144 per year, and the Pro Annual plan is $300 per year.",
+      "Oui, nous proposons des abonnements annuels pour plus d&apos;économies. Le plan Basique Annuel est à 144 € par an, et le plan Pro Annuel à 300 € par an.",
   },
   {
     id: "item-5",
-    question: "Is there a trial period for the paid plans?",
+    question: "Y a-t-il une période d&apos;essai pour les plans payants ?",
     answer:
-      "We offer a 14-day free trial for both the Pro Monthly and Pro Annual plans. It's a great way to experience all the features before committing to a paid subscription.",
+      "Nous offrons un essai gratuit de 14 jours pour les plans Pro Mensuel et Pro Annuel. C&apos;est idéal pour tester toutes les fonctionnalités avant de s&apos;engager.",
   },
 ];
 
@@ -45,10 +45,8 @@ export function PricingFaq() {
     <section className="container max-w-4xl py-2">
       <HeaderSection
         label="FAQ"
-        title="Frequently Asked Questions"
-        subtitle="Explore our comprehensive FAQ to find quick answers to common
-          inquiries. If you need further assistance, don't hesitate to
-          contact us for personalized help."
+        title="Questions Fréquemment Posées"
+        subtitle="Explorez notre FAQ complète pour trouver rapidement des réponses aux questions courantes. Pour plus d&apos;aide, n&apos;hésitez pas à nous contacter."
       />
 
       <Accordion type="single" collapsible className="my-12 w-full">

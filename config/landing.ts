@@ -2,42 +2,42 @@ import { FeatureLdg, InfoLdg, TestimonialType } from "types";
 
 export const infos: InfoLdg[] = [
   {
-    title: "Empower Your School",
+    title: "Donnez du Pouvoir à Votre École",
     description:
-      "Unlock the full potential of your educational institution with our comprehensive school information management system. Streamline operations, enhance communication, and improve learning outcomes.",
-    image: "/_static/illustrations/school-management.jpg",
+      "Libérez tout le potentiel de votre établissement éducatif avec notre système complet de gestion de l&apos;information scolaire. Rationalisez les opérations, améliorez la communication et optimisez les résultats d&apos;apprentissage.",
+    image: "/_static/illustrations/call-waiting.svg",
     list: [
       {
-        title: "Efficient",
-        description: "Automate administrative tasks and save valuable time.",
+        title: "Efficace",
+        description: "Automatisez les tâches administratives et gagnez un temps précieux.",
         icon: "clock",
       },
       {
-        title: "Innovative",
-        description: "Leverage AI-powered tools for personalized learning experiences.",
+        title: "Innovant",
+        description: "Tirez parti des outils alimentés par l&apos;IA pour des expériences d&apos;apprentissage personnalisées.",
         icon: "brain",
       }
     ],
   },
   {
-    title: "Seamless Integration",
+    title: "Intégration Transparente",
     description:
-      "GeSco integrates effortlessly into your existing school ecosystem. Connect with your favorite educational tools and services for a unified experience.",
-    image: "/_static/illustrations/integration.jpg",
+      "GeSco s&apos;intègre sans effort dans votre écosystème scolaire existant. Connectez-vous à vos outils et services éducatifs préférés pour une expérience unifiée.",
+    image: "/_static/illustrations/rocket-crashed.svg",
     list: [
       {
         title: "Flexible",
-        description: "Customize features to match your school's unique requirements.",
+        description: "Personnalisez les fonctionnalités pour répondre aux besoins uniques de votre école.",
         icon: "settings",
       },
       {
-        title: "Connected",
-        description: "Sync data across multiple platforms and devices.",
+        title: "Connecté",
+        description: "Synchronisez les données sur plusieurs plateformes et appareils.",
         icon: "link",
       },
       {
-        title: "Secure",
-        description: "Ensure data privacy and compliance with educational standards.",
+        title: "Sécurisé",
+        description: "Assurez la confidentialité des données et la conformité aux normes éducatives.",
         icon: "shield",
       },
     ],
@@ -46,38 +46,38 @@ export const infos: InfoLdg[] = [
 
 export const features: FeatureLdg[] = [
   {
-    title: "Student Management",
-    description: "Efficiently manage student records, admissions, and track academic progress with ease.",
+    title: "Gestion des Étudiants",
+    description: "Gérez efficacement les dossiers des étudiants, les admissions et suivez facilement les progrès académiques.",
     link: "/features/student-management",
     icon: "user",
   },
   {
-    title: "AI-Powered E-Learning",
-    description: "Leverage artificial intelligence for personalized learning experiences and adaptive content delivery.",
+    title: "E-Learning Alimenté par l&apos;IA",
+    description: "Utilisez l&apos;intelligence artificielle pour des expériences d&apos;apprentissage personnalisées et une diffusion de contenu adaptative.",
     link: "/features/ai-elearning",
     icon: "brain",
   },
   {
-    title: "Multi-Channel Communication",
-    description: "Stay connected with staff, students, and parents via SMS, WhatsApp, and in-app messaging.",
+    title: "Communication Multicanale",
+    description: "Restez en contact avec le personnel, les étudiants et les parents via SMS, WhatsApp et la messagerie intégrée.",
     link: "/features/communication",
     icon: "messageSquare",
   },
   {
-    title: "Payment Reminders",
-    description: "Automate fee reminders and streamline payment tracking for parents and guardians.",
+    title: "Rappels de Paiement",
+    description: "Automatisez les rappels de frais et simplifiez le suivi des paiements pour les parents et les tuteurs.",
     link: "/features/payments",
     icon: "dollarSign",
   },
   {
-    title: "Parents Portal",
-    description: "Provide parents with real-time access to their child's academic information and school updates.",
+    title: "Portail Parents",
+    description: "Offrez aux parents un accès en temps réel aux informations académiques de leur enfant et aux mises à jour de l&apos;école.",
     link: "/features/parents-portal",
     icon: "users",
   },
   {
-    title: "Attendance Tracking",
-    description: "Simplify attendance recording and generate comprehensive reports for students and staff.",
+    title: "Suivi des Présences",
+    description: "Simplifiez l&apos;enregistrement des présences et générez des rapports complets pour les étudiants et le personnel.",
     link: "/features/attendance",
     icon: "checkSquare",
   },
@@ -89,41 +89,41 @@ export const testimonials: TestimonialType[] = [
     job: "School Principal",
     image: "https://randomuser.me/api/portraits/women/1.jpg",
     review:
-      "GeSco has revolutionized how we run our school. The AI-powered e-learning platform has significantly improved student engagement and performance. It's been a game-changer for us.",
+      "GeSco a révolutionné la façon dont nous gérons notre école. La plateforme d&apos;e-learning alimentée par l&apos;IA a considérablement amélioré l&apos;engagement et les performances des élèves. Ça a été un véritable changement pour nous.",
   },
   {
     name: "Michael Chen",
     job: "IT Administrator",
     image: "https://randomuser.me/api/portraits/men/2.jpg",
     review:
-      "The ease of implementation and robust features of GeSco impressed me. It seamlessly integrated with our existing systems, and the support team was incredibly helpful throughout the process.",
+      "La facilité de mise en œuvre et les fonctionnalités robustes de GeSco m&apos;ont impressionné. Il s&apos;est intégré parfaitement à nos systèmes existants, et l&apos;équipe de support a été incroyablement utile tout au long du processus.",
   },
   {
     name: "Emily Rodriguez",
     job: "Teacher",
     image: "https://randomuser.me/api/portraits/women/3.jpg",
     review:
-      "As a teacher, I love how GeSco simplifies attendance tracking and grade management. The AI-powered learning tools have helped me provide more personalized instruction to my students.",
+      "En tant qu&apos;enseignante, j&apos;adore la façon dont GeSco simplifie le suivi des présences et la gestion des notes. Les outils d&apos;apprentissage alimentés par l&apos;IA m&apos;ont aidée à fournir un enseignement plus personnalisé à mes élèves.",
   },
   {
     name: "David Okafor",
     job: "Parent",
     image: "https://randomuser.me/api/portraits/men/4.jpg",
     review:
-      "The parents portal is fantastic! I can easily track my child's progress, communicate with teachers, and receive important updates. The payment reminder feature is also very helpful.",
+      "Le portail parents est fantastique ! Je peux facilement suivre les progrès de mon enfant, communiquer avec les enseignants et recevoir des mises à jour importantes. La fonction de rappel de paiement est également très utile.",
   },
   {
     name: "Lisa Patel",
     job: "School Administrator",
     image: "https://randomuser.me/api/portraits/women/5.jpg",
     review:
-      "GeSco has streamlined our administrative tasks tremendously. The multi-channel communication feature, including SMS and WhatsApp, has greatly improved our engagement with parents.",
+      "GeSco a considérablement rationalisé nos tâches administratives. La fonction de communication multicanale, y compris SMS et WhatsApp, a grandement amélioré notre engagement auprès des parents.",
   },
   {
     name: "Thomas Müller",
     job: "Finance Manager",
     image: "https://randomuser.me/api/portraits/men/6.jpg",
     review:
-      "The payment tracking and reminder system in GeSco has significantly improved our fee collection process. It's user-friendly for parents and has reduced our administrative workload.",
+      "Le système de suivi et de rappel des paiements de GeSco a considérablement amélioré notre processus de collecte des frais. Il est convivial pour les parents et a réduit notre charge de travail administrative.",
   },
 ];

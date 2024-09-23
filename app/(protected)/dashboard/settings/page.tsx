@@ -8,7 +8,7 @@ import { UserNameForm } from "@/components/forms/user-name-form";
 import { UserRoleForm } from "@/components/forms/user-role-form";
 
 export const metadata = constructMetadata({
-  title: "Settings – GesCo",
+  title: "Settings – Gesco",
   description: "Configure your account and website settings.",
 });
 

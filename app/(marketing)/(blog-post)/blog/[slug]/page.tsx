@@ -42,7 +42,7 @@ export async function generateMetadata({
   const { title, description, image } = post;
 
   return constructMetadata({
-    title: `${title} – GesCo`,
+    title: `${title} – Gesco`,
     description: description,
     image,
   });
