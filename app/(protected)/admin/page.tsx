@@ -7,7 +7,7 @@ import InfoCard from "@/components/dashboard/info-card";
 import TransactionsList from "@/components/dashboard/transactions-list";
 import { AttendanceChartComponent } from "@/components/charts/attendance-chart";
 export const metadata = constructMetadata({
-  title: "Admin – GesCo",
+  title: "Admin – Gesco",
   description: "Admin page for only admin management.",
 });
 

@@ -7,7 +7,7 @@ import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 
 export const metadata = constructMetadata({
-  title: "Orders – GesCo",
+  title: "Orders – Gesco",
   description: "Check and manage your latest orders.",
 });
 

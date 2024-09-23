@@ -243,7 +243,7 @@ export default function Powered() {
     <section className="py-14 text-muted-foreground">
       <MaxWidthWrapper>
         <h2 className="text-center text-sm font-semibold uppercase">
-          Powered by
+          Propulsé par
         </h2>
 
         <div className="mt-10 grid grid-cols-2 place-items-center gap-8 md:grid-cols-4">

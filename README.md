@@ -1,10 +1,10 @@
 <a href="https://next-saas-stripe-starter.vercel.app">
-  <img alt="GesCo" src="public/_static/og.jpg">
+  <img alt="Gesco" src="public/_static/og.jpg">
   <h1 align="center">Next SaaS Stripe Starter</h1>
 </a>
 
 <p align="center">
-  Start at full speed with GesCo !
+  Start at full speed with Gesco !
 </p>
 
 <p align="center">
@@ -26,7 +26,7 @@
 
 Empower your next project with the stack of Next.js 14, Prisma, Neon, Auth.js v5, Resend, React Email, Shadcn/ui, and Stripe.
 <br/>
-All seamlessly integrated with the GesCo to accelerate your development and saas journey.
+All seamlessly integrated with the Gesco to accelerate your development and saas journey.
 
 ## Installation
 

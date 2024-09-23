@@ -27,7 +27,7 @@ export default function BentoGrid() {
                 </span>
               </div>
               <h2 className="mt-6 text-center font-heading text-3xl md:text-4xl lg:text-[40px]">
-                Customizable
+                Personnalisable
               </h2>
             </div>
           </div>
@@ -90,12 +90,12 @@ export default function BentoGrid() {
               </div>
               <div className="relative z-10 mt-8 space-y-1.5 text-center">
                 <h2 className="text-lg font-medium text-foreground">
-                  Secure by default
+                Sécurisé par défaut
                 </h2>
                 <p className="text-muted-foreground">
-                  Protect student data with advanced encryption and role-based
-                  access control, ensuring compliance with educational privacy
-                  regulations.
+                    Protégez les données des élèves avec un chiffrement avancé et un 
+                    contrôle d&apos;accès basé sur les rôles, assurant la conformité 
+                    aux réglementations.
                 </p>
               </div>
             </div>
@@ -188,11 +188,11 @@ export default function BentoGrid() {
               </div>
               <div className="relative z-10 mt-8 space-y-1.5 text-center">
                 <h2 className="text-lg font-medium text-foreground">
-                Efficient Management
+                Gestion efficace
                 </h2>
                 <p className="text-muted-foreground">
-                    Streamline administrative tasks, from enrollment to grading
-                    allowing staff to focus on what matters most: education.
+                Simplifiez les tâches administratives, de l&apos;inscription à la 
+                notation, permettant au personnel de se concentrer sur l&apos;essentiel : l&apos;éducation.
                 </p>
               </div>
             </div>
@@ -220,12 +220,12 @@ export default function BentoGrid() {
                 </div>
                 <div className="space-y-2">
                   <h2 className="text-lg font-medium text-foreground">
-                  Comprehensive Reporting
+                  Rapports complets
                   </h2>
                   <p className="text-muted-foreground">
-                    Generate detailed reports on student performance, attendance, and
-                    financial data to make informed decisions and improve educational 
-                    outcomes.
+                  Générez des rapports détaillés sur les performances des élèves,
+                  la présence et les données financières pour prendre des décisions
+                  éclairées.
                   </p>
                 </div>
               </div>
@@ -306,11 +306,11 @@ export default function BentoGrid() {
                 </div>
                 <div className="space-y-2">
                   <h2 className="text-lg font-medium text-foreground">
-                  Seamless Communication
+                  Communication fluide
                   </h2>
                   <p className="text-muted-foreground">
-                    Foster collaboration between teachers, students, and parents 
-                    with integrated messaging and notification systems.
+                    Favorisez la collaboration entre enseignants, élèves et parents 
+                    grâce à des systèmes intégrés de messagerie et de notification.
                   </p>
                 </div>
               </div>

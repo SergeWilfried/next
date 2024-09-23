@@ -12,7 +12,7 @@ import { RadialTextChart } from "@/components/charts/radial-text-chart";
 import { DashboardHeader } from "@/components/dashboard/header";
 
 export const metadata = constructMetadata({
-  title: "Charts – GesCo",
+  title: "Charts – Gesco",
   description: "List of charts by shadcn-ui",
 });
 

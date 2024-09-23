@@ -6,7 +6,7 @@ export const BLOG_CATEGORIES: {
   {
     title: "News",
     slug: "news",
-    description: "Updates and announcements from Next GesCo.",
+    description: "Updates and announcements from Next Gesco.",
   },
   {
     title: "Education",

@@ -8,10 +8,9 @@ export default function Testimonials() {
     <section>
       <div className="container flex max-w-6xl flex-col gap-10 py-32 sm:gap-y-16">
         <HeaderSection
-          label="Testimonials"
-          title="What our clients are sharing."
-          subtitle="Discover the glowing feedback from our delighted customers
-            worldwide."
+          label="Témoignages"
+          title="Ce que disent nos clients."
+          subtitle="Découvrez les avis de nos clients satisfaits."
         />
 
         <div className="column-1 gap-5 space-y-5 md:columns-2 lg:columns-3 ">

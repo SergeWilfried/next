@@ -12,9 +12,9 @@ export default function Features() {
       <div className="pb-6 pt-28">
         <MaxWidthWrapper>
           <HeaderSection
-            label="Features"
-            title="Discover all features."
-            subtitle="Explore our comprehensive suite of tools designed to streamline school management and enhance the educational experience."
+            label="Fonctionnalités"
+            title="Découvrez toutes les fonctionnalités."
+            subtitle="Explorez notre suite complète d&apos;outils conçus pour rationaliser la gestion scolaire et améliorer l&apos;expérience éducative."
           />
 
           <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -46,7 +46,7 @@ export default function Features() {
                         className="px-4"
                       >
                         <Link href="/" className="flex items-center gap-2">
-                          <span>Visit the site</span>
+                          <span>Visiter le site</span>
                           <Icons.arrowUpRight className="size-4" />
                         </Link>
                       </Button>
