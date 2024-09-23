@@ -16,31 +16,22 @@ export const sidebarLinks: SidebarNavItem[] = [
         title: "Finances",
         authorizeOnly: ["ADMIN", "ACCOUNTANT"],
       },
-    
       {
-        href: "/admin/attendance",
-        title: "Personnel",
-        authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
-        icon: "users",
-        children: [
-          {
-            href: "/admin/staff",
-            icon: "briefcase",
-            title: "Personnel",
-            authorizeOnly: ["ADMIN", "ACCOUNTANT"],
-          },
-          {
-            href: "/admin/parents",
-            icon: "users",
-            title: "Parents",
-            authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
-          },
-        ]
+        href: "/admin/staff",
+        icon: "briefcase",
+        title: "Enseignants",
+        authorizeOnly: ["ADMIN", "ACCOUNTANT"],
       },
       {
-        href: "/admin/class",
+        href: "/admin/parents",
+        icon: "users",
+        title: "Parents",
+        authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
+      },
+      {
+        href: "#",
         icon: "book",
-        title: "Académique",
+        title: "Outils",
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
         children: [
           {
@@ -75,7 +66,7 @@ export const sidebarLinks: SidebarNavItem[] = [
           },
           {
             href: "/admin/attendance",
-            icon: "clipboard",
+            icon: "check",
             title: "Présence",
             authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
           },
@@ -132,7 +123,7 @@ export const sidebarLinks: SidebarNavItem[] = [
     title: "OPTIONS",
     items: [
       { href: "/dashboard/settings", icon: "settings", title: "Paramètres" },
-      { href: "/", icon: "home", title: "Page d&apos;accueil" },
+      { href: "/", icon: "home", title: "Accueil" },
       { href: "#", icon: "bookOpen", title: "Documentation" },
       {
         href: "#",
