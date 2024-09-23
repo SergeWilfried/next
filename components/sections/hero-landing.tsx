@@ -38,8 +38,8 @@ export default async function HeroLanding() {
           style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
         >
           <Link
-            href="/demo"
-            prefetch={true}
+            href="https://cal.com/sergewilfried/30min"
+            target="_blank"
             className={cn(
               buttonVariants({ size: "lg", rounded: "full" }),
               "gap-2",
