@@ -139,7 +139,7 @@ export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
   return (
     <MaxWidthWrapper>
       <section className="flex flex-col items-center text-center">
-        <HeaderSection label="Pricing" title="Start at full speed !" />
+        <HeaderSection label="Tarifs" title="Démarrez à pleine vitesse !" />
 
         <div className="mb-4 mt-10 flex items-center gap-5">
           <ToggleGroup
@@ -153,16 +153,16 @@ export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
             <ToggleGroupItem
               value="yearly"
               className="rounded-full px-5 data-[state=on]:!bg-primary data-[state=on]:!text-primary-foreground"
-              aria-label="Toggle yearly billing"
+              aria-label="Basculer vers la facturation annuelle"
             >
-              Yearly (-20%)
+              Annuel (-20%)
             </ToggleGroupItem>
             <ToggleGroupItem
               value="monthly"
               className="rounded-full px-5 data-[state=on]:!bg-primary data-[state=on]:!text-primary-foreground"
-              aria-label="Toggle monthly billing"
+              aria-label="Basculer vers la facturation mensuelle"
             >
-              Monthly
+              Mensuel
             </ToggleGroupItem>
           </ToggleGroup>
         </div>
@@ -174,17 +174,17 @@ export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
         </div>
 
         <p className="mt-3 text-balance text-center text-base text-muted-foreground">
-          Email{" "}
+          Envoyez un e-mail à{" "}
           <a
             className="font-medium text-primary hover:underline"
-            href="mailto:support@saas-starter.com"
+            href="mailto:assistance@bangre.co"
           >
             support@saas-starter.com
           </a>{" "}
-          for to contact our support team.
+          pour contacter notre équipe d&apos;assistance.
           <br />
           <strong>
-            You can test the subscriptions and won&apos;t be charged.
+            Vous pouvez tester les offres sans être facturé.
           </strong>
         </p>
       </section>
