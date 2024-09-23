@@ -133,7 +133,7 @@ export const sidebarLinks: SidebarNavItem[] = [
     items: [
       { href: "/dashboard/settings", icon: "settings", title: "Paramètres" },
       { href: "/", icon: "home", title: "Page d&apos;accueil" },
-      { href: "/docs", icon: "bookOpen", title: "Documentation" },
+      { href: "#", icon: "bookOpen", title: "Documentation" },
       {
         href: "#",
         icon: "messages",
