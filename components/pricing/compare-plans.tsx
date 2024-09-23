@@ -21,9 +21,9 @@ export function ComparePlans() {
   return (
     <MaxWidthWrapper>
       <HeaderSection
-        label="Plans"
-        title="Compare Our Plans"
-        subtitle="Find the perfect plan tailored for your business needs!"
+        label="Forfaits"
+        title="Comparez nos forfaits"
+        subtitle="Trouvez le forfait parfait adapté aux besoins de votre entreprise !"
       />
 
       <div className="my-10 overflow-x-scroll max-lg:mx-[-0.8rem] md:overflow-x-visible">
@@ -36,7 +36,7 @@ export function ComparePlans() {
                   key={col}
                   className="sticky z-10 w-40 bg-accent p-5 font-heading text-xl capitalize tracking-wide md:w-auto lg:top-14 lg:text-2xl"
                 >
-                  {col}
+                  {col} {/* Note: plansColumns should be translated separately */}
                 </th>
               ))}
             </tr>
@@ -50,7 +50,7 @@ export function ComparePlans() {
                 >
                   <div className="flex items-center justify-between space-x-2 p-4">
                     <span className="text-[15px] font-medium lg:text-base">
-                      {row.feature}
+                      {row.feature} {/* Note: row.feature should be translated separately */}
                     </span>
                     {row.tooltip && (
                       <Popover>
@@ -61,7 +61,7 @@ export function ComparePlans() {
                           side="top"
                           className="max-w-80 p-3 text-sm"
                         >
-                          {row.tooltip}
+                          {row.tooltip} {/* Note: row.tooltip should be translated separately */}
                         </PopoverContent>
                       </Popover>
                     )}
