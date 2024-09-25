@@ -29,27 +29,27 @@ export const sidebarLinks: SidebarNavItem[] = [
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
       },
       {
+        href: "/admin/class",
+        icon: "book",
+        title: "Classes",
+        authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
+      },
+      {
+        href: "/admin/students",
+        icon: "users",
+        title: "Étudiants",
+        authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
+      },
+      {
         href: "#",
         icon: "book",
-        title: "Outils",
+        title: "Curriculum",
         authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
         children: [
           {
             href: "/admin/calendar",
             icon: "calendar",
             title: "Emploi du temps",
-            authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
-          },
-          {
-            href: "/admin/students",
-            icon: "users",
-            title: "Étudiants",
-            authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
-          },
-          {
-            href: "/admin/class",
-            icon: "book",
-            title: "Classes",
             authorizeOnly: ["ADMIN", "ACCOUNTANT", "TEACHER"],
           },
           {
