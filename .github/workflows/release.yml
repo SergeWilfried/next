@@ -53,17 +53,60 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      # Download the previously uploaded artifacts
-      - uses: actions/download-artifact@v3
-        id: download
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Bump version and generate changelog
+        id: changelog
+        run: |
+          pnpm add -g conventional-changelog-cli
+          pnpm version patch -m "Bump version to %s [skip ci]"
+          pnpm exec conventional-changelog -p angular -i CHANGELOG.md -s
+          echo "::set-output name=version::$(node -p "require('./package.json').version")"
+
+      - name: Update Cargo.toml version
+        run: sed -i 's/^version = ".*"/version = "${{ steps.changelog.outputs.version }}"/' src-tauri/Cargo.toml
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add CHANGELOG.md package.json src-tauri/Cargo.toml
+          git commit -m "chore: update version to ${{ steps.changelog.outputs.version }} [skip ci]"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
         with:
           name: artifacts
           path: artifacts
-      # And create a release with the artifacts attached
-      - name: 'create release'
-        uses: softprops/action-gh-release@master
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
         env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          tag_name: v${{ steps.changelog.outputs.version }}
+          name: Release v${{ steps.changelog.outputs.version }}
+          body_path: CHANGELOG.md
           draft: false
           files: ./artifacts/**/*
