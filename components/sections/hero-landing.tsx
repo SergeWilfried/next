@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TypeAnimation } from 'react-type-animation';
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -20,10 +21,27 @@ export default async function HeroLanding() {
         </Link>
 
         <h1 className="text-balance font-urban text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-[66px]">
-          Simplifiez la gestion de votre établissement avec{" "}
-          <span className="text-gradient_indigo-purple font-extrabold">
-            Gesco
-          </span>
+          La meilleure façon de gérer votre{" "}
+          <TypeAnimation
+            sequence={[
+              'école',
+              1000,
+              'université',
+              1000,
+              'institut',
+              1000,
+              'académie',
+              1000,
+            ]}
+            wrapper="span"
+            speed={50}
+            repeat={Infinity}
+            style={{
+              display: 'inline-block',
+              minWidth: '200px', // Adjust as needed
+            }}
+            className="text-gradient_indigo-purple"
+          />
         </h1>
 
         <p
