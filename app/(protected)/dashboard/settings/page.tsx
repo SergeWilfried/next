@@ -12,6 +12,8 @@ import { DeleteAccountSection } from "@/components/dashboard/delete-account"
 import { DashboardHeader } from "@/components/dashboard/header"
 import { UserNameForm } from "@/components/forms/user-name-form"
 import { UserRoleForm } from "@/components/forms/user-role-form"
+import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar"
+import { Badge } from "lucide-react"
 
 export const metadata = constructMetadata({
   title: "Settings – Gesco",
@@ -32,9 +34,11 @@ export default async function SettingsPage() {
       <Tabs defaultValue="account" className="space-y-4">
         <TabsList>
           <TabsTrigger value="account">Account</TabsTrigger>
-          <TabsTrigger value="notifications">Notifications</TabsTrigger>
+          <TabsTrigger value="notifications">Members</TabsTrigger>
           <TabsTrigger value="integrations">Integrations</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
+          <TabsTrigger value="members">Members</TabsTrigger>
+          <TabsTrigger value="facility">Facility</TabsTrigger>
         </TabsList>
         
         <TabsContent value="account">
@@ -56,25 +60,52 @@ export default async function SettingsPage() {
         <TabsContent value="notifications">
           <Card>
             <CardHeader>
-              <CardTitle>Notification Preferences</CardTitle>
+              <CardTitle>Members</CardTitle>
               <CardDescription>Manage your notification settings.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <Label htmlFor="email-notifications">Email</Label>
-                <Switch id="email-notifications" />
+                <div className="flex items-center space-x-4">
+                  <Avatar>
+                    <AvatarImage src="/avatars/01.png" alt="Member 1" />
+                    <AvatarFallback>M1</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-medium">John Doe</p>
+                    <p className="text-sm text-gray-500">john.doe@example.com</p>
+                  </div>
+                </div>
+                <Badge>Admin</Badge>
               </div>
               <div className="flex items-center justify-between">
-                <Label htmlFor="whatsapp-notifications">Whatsapp</Label>
-                <Switch id="whatsapp-notifications" />
+                <div className="flex items-center space-x-4">
+                  <Avatar>
+                    <AvatarImage src="/avatars/02.png" alt="Member 2" />
+                    <AvatarFallback>M2</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-medium">Jane Smith</p>
+                    <p className="text-sm text-gray-500">jane.smith@example.com</p>
+                  </div>
+                </div>
+                <Badge>Member</Badge>
               </div>
               <div className="flex items-center justify-between">
-                <Label htmlFor="sms-notifications">SMS</Label>
-                <Switch id="sms-notifications" />
+                <div className="flex items-center space-x-4">
+                  <Avatar>
+                    <AvatarImage src="/avatars/03.png" alt="Member 3" />
+                    <AvatarFallback>M3</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-medium">Bob Johnson</p>
+                    <p className="text-sm text-gray-500">bob.johnson@example.com</p>
+                  </div>
+                </div>
+                <Badge>Member</Badge>
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Save Notification Settings</Button>
+              <Button>Invite</Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -152,6 +183,30 @@ export default async function SettingsPage() {
             <CardFooter>
               <Button>Update Password</Button>
             </CardFooter>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="members">
+          <Card>
+            <CardHeader>
+              <CardTitle>Member Management</CardTitle>
+              <CardDescription>Manage your organization's members.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {/* Add member management content here */}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="facility">
+          <Card>
+            <CardHeader>
+              <CardTitle>Facility Settings</CardTitle>
+              <CardDescription>Configure your facility settings.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {/* Add facility settings content here */}
+            </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
