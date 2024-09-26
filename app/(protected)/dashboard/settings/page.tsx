@@ -6,8 +6,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { ChevronDown } from "lucide-react"
 import { getCurrentUser } from "@/lib/session"
 import { constructMetadata } from "@/lib/utils"
 import { DeleteAccountSection } from "@/components/dashboard/delete-account"
@@ -17,7 +15,6 @@ import { UserRoleForm } from "@/components/forms/user-role-form"
 import { PhoneInput } from "@/components/input/phone-input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DialogHeader, DialogFooter, DialogTitle, DialogTrigger, Dialog, DialogContent, DialogDescription } from "@/components/ui/dialog"
-import { IntegrationCollapsible } from "@/components/collapsible/integration"
 export const metadata = constructMetadata({
   title: "Paramètres – Gesco",
   description: "Configurez les paramètres de votre compte et de votre site web.",
