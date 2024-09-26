@@ -14,6 +14,7 @@ import { UserNameForm } from "@/components/forms/user-name-form"
 import { UserRoleForm } from "@/components/forms/user-role-form"
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar"
 import { Badge } from "lucide-react"
+import { IntegrationCollapsible } from "@/components/collapsible/integration"
 
 export const metadata = constructMetadata({
   title: "Settings – Gesco",
@@ -113,50 +114,82 @@ export default async function SettingsPage() {
         <TabsContent value="integrations">
           <Card>
             <CardHeader>
-              <CardTitle>WhatsApp Business Integration</CardTitle>
-              <CardDescription>Configure WhatsApp Business API credentials.</CardDescription>
+              <CardTitle>Integrations</CardTitle>
+              <CardDescription>Manage your integrations and API settings.</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="whatsapp-phone">WhatsApp Phone Number</Label>
-                <Input id="whatsapp-phone" placeholder="+1234567890" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="whatsapp-api-key">API Key</Label>
-                <Input id="whatsapp-api-key" placeholder="Your WhatsApp API Key" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="whatsapp-business-id">Business Account ID</Label>
-                <Input id="whatsapp-business-id" placeholder="Your Business Account ID" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save WhatsApp Settings</Button>
-            </CardFooter>
-          </Card>
+            <CardContent className="space-y-6">
+              <IntegrationCollapsible
+                title="WhatsApp Business Integration"
+                description="Configure WhatsApp Business API credentials."
+                switchId="whatsapp-integration"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp-phone">WhatsApp Phone Number</Label>
+                  <Input id="whatsapp-phone" placeholder="+1234567890" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp-api-key">API Key</Label>
+                  <Input id="whatsapp-api-key" placeholder="Your WhatsApp API Key" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp-business-id">Business Account ID</Label>
+                  <Input id="whatsapp-business-id" placeholder="Your Business Account ID" />
+                </div>
+                <Button className="mt-4">Save WhatsApp Settings</Button>
+              </IntegrationCollapsible>
 
-          <Card className="mt-6">
-            <CardHeader>
-              <CardTitle>Twilio SMS Integration</CardTitle>
-              <CardDescription>Configure Twilio API credentials for SMS notifications.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="twilio-account-sid">Account SID</Label>
-                <Input id="twilio-account-sid" placeholder="Your Twilio Account SID" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="twilio-auth-token">Auth Token</Label>
-                <Input id="twilio-auth-token" placeholder="Your Twilio Auth Token" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="twilio-phone-number">Twilio Phone Number</Label>
-                <Input id="twilio-phone-number" placeholder="+1234567890" />
-              </div>
+              <IntegrationCollapsible
+                title="Twilio SMS Integration"
+                description="Configure Twilio API credentials for SMS notifications."
+                switchId="twilio-integration"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="twilio-account-sid">Account SID</Label>
+                  <Input id="twilio-account-sid" placeholder="Your Twilio Account SID" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="twilio-auth-token">Auth Token</Label>
+                  <Input id="twilio-auth-token" placeholder="Your Twilio Auth Token" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="twilio-phone-number">Twilio Phone Number</Label>
+                  <Input id="twilio-phone-number" placeholder="+1234567890" />
+                </div>
+                <Button className="mt-4">Save Twilio Settings</Button>
+              </IntegrationCollapsible>
+
+              <IntegrationCollapsible
+                title="Paystack Integration"
+                description="Configure Paystack API credentials for payment processing."
+                switchId="paystack-integration"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="paystack-secret-key">Secret Key</Label>
+                  <Input id="paystack-secret-key" placeholder="Your Paystack Secret Key" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="paystack-public-key">Public Key</Label>
+                  <Input id="paystack-public-key" placeholder="Your Paystack Public Key" />
+                </div>
+                <Button className="mt-4">Save Paystack Settings</Button>
+              </IntegrationCollapsible>
+
+              <IntegrationCollapsible
+                title="CinetPay Integration"
+                description="Configure CinetPay API credentials for payment processing."
+                switchId="cinetpay-integration"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="cinetpay-api-key">API Key</Label>
+                  <Input id="cinetpay-api-key" placeholder="Your CinetPay API Key" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="cinetpay-site-id">Site ID</Label>
+                  <Input id="cinetpay-site-id" placeholder="Your CinetPay Site ID" />
+                </div>
+                <Button className="mt-4">Save CinetPay Settings</Button>
+              </IntegrationCollapsible>
             </CardContent>
-            <CardFooter>
-              <Button>Save Twilio Settings</Button>
-            </CardFooter>
           </Card>
         </TabsContent>
 
@@ -190,7 +223,7 @@ export default async function SettingsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Member Management</CardTitle>
-              <CardDescription>Manage your organization&apos;`s members.</CardDescription>
+              <CardDescription>Manage your organization&apos;s members.</CardDescription>
             </CardHeader>
             <CardContent>
               {/* Add member management content here */}
