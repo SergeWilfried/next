@@ -187,7 +187,7 @@ const handleTwoFactorChange = (event) => {
                     </CollapsibleTrigger>
                   </div>
                 </div>
-                <CollapsibleContent className="space-y-4 mt-4">
+                <CollapsibleContent className="mt-4 space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="whatsapp-phone">Numéro de Téléphone WhatsApp</Label>
                     <PhoneInput defaultCountry="BF" id="whatsapp-phone" placeholder="+1234567890" />
@@ -222,7 +222,7 @@ const handleTwoFactorChange = (event) => {
                     </CollapsibleTrigger>
                   </div>
                 </div>
-                <CollapsibleContent className="space-y-4 mt-4">
+                <CollapsibleContent className="mt-4 space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="twilio-account-sid">SID du Compte</Label>
                     <Input id="twilio-account-sid" placeholder="Votre SID de Compte Twilio" />
@@ -257,7 +257,7 @@ const handleTwoFactorChange = (event) => {
                     </CollapsibleTrigger>
                   </div>
                 </div>
-                <CollapsibleContent className="space-y-4 mt-4">
+                <CollapsibleContent className="mt-4 space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="paystack-secret-key">Clé Secrète</Label>
                     <Input id="paystack-secret-key" placeholder="Votre Clé Secrète Paystack" type="password" />
