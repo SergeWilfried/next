@@ -182,7 +182,7 @@ const handleTwoFactorChange = (event) => {
                     <CollapsibleTrigger asChild>
                       <Button variant="ghost" size="sm">
                         <span className="sr-only">Basculer</span>
-                        <ChevronDown className="h-4 w-4" />
+                        <ChevronDown className="size-4" />
                       </Button>
                     </CollapsibleTrigger>
                   </div>
@@ -217,7 +217,7 @@ const handleTwoFactorChange = (event) => {
                     <CollapsibleTrigger asChild>
                       <Button variant="ghost" size="sm">
                         <span className="sr-only">Basculer</span>
-                        <ChevronDown className="h-4 w-4" />
+                        <ChevronDown className="size-4" />
                       </Button>
                     </CollapsibleTrigger>
                   </div>
@@ -252,7 +252,7 @@ const handleTwoFactorChange = (event) => {
                     <CollapsibleTrigger asChild>
                       <Button variant="ghost" size="sm">
                         <span className="sr-only">Basculer</span>
-                        <ChevronDown className="h-4 w-4" />
+                        <ChevronDown className="size-4" />
                       </Button>
                     </CollapsibleTrigger>
                   </div>
@@ -283,7 +283,7 @@ const handleTwoFactorChange = (event) => {
                     <CollapsibleTrigger asChild>
                       <Button variant="ghost" size="sm">
                         <span className="sr-only">Basculer</span>
-                        <ChevronDown className="h-4 w-4" />
+                        <ChevronDown className="size-4" />
                       </Button>
                     </CollapsibleTrigger>
                   </div>
