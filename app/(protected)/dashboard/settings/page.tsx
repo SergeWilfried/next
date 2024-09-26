@@ -91,8 +91,7 @@ const handleTwoFactorChange = (event) => {
                   { name: "Bob Smith", email: "bob@example.com", role: "Editor" },
                   { name: "Carol Williams", email: "carol@example.com", role: "Viewer" },
                 ].map((member, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
-                    <div className="flex items-center space-x-4">
+<div key={index} className="flex justify-between items-center p-4 border rounded-lg">                    <div className="flex items-center space-x-4">
                       <Avatar>
                         <AvatarImage src={`https://api.dicebear.com/6.x/initials/svg?seed=${member.name}`} />
                         <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -358,8 +357,8 @@ const handleTwoFactorChange = (event) => {
                       L&apos;authentification à deux facteurs est maintenant activée. Utilisez une application d&apos;authentification pour scanner le code QR ci-dessous.
                     </p>
                     {/* Placeholder for QR code */}
-                    <div className="w-40 h-40 bg-gray-200 flex items-center justify-center">
-                      Espace réservé pour le code QR
+                    <div className="flex justify-center items-center w-40 h-40 bg-gray-200">
+                    Espace réservé pour le code QR
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="2fa-code">Code de Vérification</Label>
