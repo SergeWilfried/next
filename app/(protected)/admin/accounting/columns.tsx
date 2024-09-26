@@ -44,7 +44,7 @@ export const paymentsTableColumns: ColumnDef<Payment>[] = [
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
         Enrollment ID
-        <ArrowUpDown className="ml-2 h-4 w-4" />
+        <ArrowUpDown className="ml-2 size-4" />
       </Button>
     ),
   },

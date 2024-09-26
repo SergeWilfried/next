@@ -52,12 +52,12 @@ function NavItem({ item, path, isSidebarExpanded }: { item: MainNavItem; path: s
               className="w-full justify-between px-2 py-1.5 text-sm font-medium"
             >
               <div className="flex items-center">
-                <Icon className="mr-2 h-4 w-4" />
+                <Icon className="mr-2 size-4" />
                 {item.title}
               </div>
               <ChevronRight
                 className={cn(
-                  "h-4 w-4 transition-transform duration-200",
+                  "size-4 transition-transform duration-200",
                   isOpen ? "rotate-90" : ""
                 )}
               />
@@ -146,13 +146,13 @@ export function DashboardSidebar({ links, user, schools }: DashboardSidebarProps
               <Button
                 variant="ghost"
                 size="icon"
-                className="ml-auto h-8 w-8"
+                className="ml-auto size-8"
                 onClick={toggleSidebar}
               >
                 {isSidebarExpanded ? (
-                  <PanelLeftClose className="h-4 w-4" />
+                  <PanelLeftClose className="size-4" />
                 ) : (
-                  <PanelRightClose className="h-4 w-4" />
+                  <PanelRightClose className="size-4" />
                 )}
               </Button>
             </div>

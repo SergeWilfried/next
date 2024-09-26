@@ -184,7 +184,7 @@ export function NewParentDialog() {
 					</form>
 				</Form>
 				<DialogClose className="absolute right-4 top-4">
-					<X className="h-4 w-4" />
+					<X className="size-4" />
 					<span className="sr-only">Close</span>
 				</DialogClose>
 			</DialogContent>

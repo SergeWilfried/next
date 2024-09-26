@@ -41,7 +41,7 @@ export const donationsTableColumns: ColumnDef<Donation>[] = [
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
         Parent ID
-        <ArrowUpDown className="ml-2 h-4 w-4" />
+        <ArrowUpDown className="ml-2 size-4" />
       </Button>
     ),
   },

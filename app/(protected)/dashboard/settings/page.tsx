@@ -28,7 +28,7 @@ export default async function SettingsPage() {
 
   if (!user?.id) redirect("/login")
 
-  // Local variables to manage state
+  // Local variables to manage page state
   let twoFactorEnabled = false
   let isInviteDialogOpen = false
 
@@ -88,7 +88,7 @@ export default async function SettingsPage() {
                   { name: "Bob Smith", email: "bob@example.com", role: "Editor" },
                   { name: "Carol Williams", email: "carol@example.com", role: "Viewer" },
                 ].map((member, index) => (
-                  <div key={index} className="flex justify-between items-center p-4 border rounded-lg">
+                  <div key={index} className="flex items-center justify-between rounded-lg border p-4">
                     <div className="flex items-center space-x-4">
                       <Avatar>
                         <AvatarImage src={`https://api.dicebear.com/6.x/initials/svg?seed=${member.name}`} />
@@ -354,7 +354,7 @@ export default async function SettingsPage() {
                     <p className="text-sm text-gray-500">
                       L&apos;authentification à deux facteurs est maintenant activée. Utilisez une application d&apos;authentification pour scanner le code QR ci-dessous.
                     </p>
-                    <div className="flex items-center justify-center w-40 h-40 bg-gray-200">
+                    <div className="flex size-40 items-center justify-center bg-gray-200">
                       Espace réservé pour le code QR
                     </div>
                     <div className="space-y-2">

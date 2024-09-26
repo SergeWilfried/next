@@ -168,13 +168,13 @@ export function DataTable<TData, TValue>({
             className="self-end"
           />
           <Button variant="outline" onClick={handleExport}>
-            <DownloadIcon className="mr-2 h-4 w-4" />
+            <DownloadIcon className="mr-2 size-4" />
             Export
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
-                Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
+                Columns <ChevronDownIcon className="ml-2 size-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
