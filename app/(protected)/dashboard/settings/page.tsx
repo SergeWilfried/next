@@ -169,7 +169,7 @@ export default async function SettingsPage() {
               {/* WhatsApp Business Integration */}
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Intégration WhatsApp Business</h3>
-                <p className="text-sm text-gray-500">Configurez les identifiants de l'API WhatsApp Business.</p>
+                <p className="text-sm text-gray-500">Configurez les identifiants de l&apos;API WhatsApp Business.</p>
                 <div className="space-y-2">
                   <Label htmlFor="whatsapp-phone">Numéro de Téléphone WhatsApp</Label>
                   <PhoneInput defaultCountry="BF" id="whatsapp-phone" placeholder="+1234567890" />
@@ -188,7 +188,7 @@ export default async function SettingsPage() {
               {/* Twilio SMS Integration */}
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Intégration Twilio SMS</h3>
-                <p className="text-sm text-gray-500">Configurez les identifiants de l'API Twilio pour les notifications SMS.</p>
+                <p className="text-sm text-gray-500">Configurez les identifiants de l&apos;API Twilio pour les notifications SMS.</p>
                 <div className="space-y-2">
                   <Label htmlFor="twilio-account-sid">SID du Compte</Label>
                   <Input id="twilio-account-sid" placeholder="Votre SID de Compte Twilio" />
