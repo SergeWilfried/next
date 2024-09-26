@@ -190,7 +190,7 @@ export default async function SettingsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Member Management</CardTitle>
-              <CardDescription>Manage your organization's members.</CardDescription>
+              <CardDescription>Manage your organization&apos;`s members.</CardDescription>
             </CardHeader>
             <CardContent>
               {/* Add member management content here */}
