@@ -21,8 +21,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DialogHeader, DialogFooter, DialogTitle, DialogTrigger, Dialog, DialogContent, DialogDescription } from "@/components/ui/dialog"
 
 export const metadata = constructMetadata({
-  title: "Settings – Gesco",
-  description: "Configure your account and website settings.",
+  title: "Paramètres – Gesco",
+  description: "Configurez les paramètres de votre compte et de votre site web.",
 })
 
 export default async function SettingsPage() {
@@ -36,23 +36,23 @@ export default async function SettingsPage() {
   return (
     <>
       <DashboardHeader
-        heading="Settings"
-        text="Manage account and website settings."
+        heading="Paramètres"
+        text="Gérez les paramètres du compte et du site web."
       />
       <Tabs defaultValue="account" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="account">Account</TabsTrigger>
-          <TabsTrigger value="members">Members</TabsTrigger>
-          <TabsTrigger value="facility">Facility</TabsTrigger>
-          <TabsTrigger value="integrations">Integrations</TabsTrigger>
-          <TabsTrigger value="security">Security</TabsTrigger>
+          <TabsTrigger value="account">Compte</TabsTrigger>
+          <TabsTrigger value="members">Membres</TabsTrigger>
+          <TabsTrigger value="facility">Établissement</TabsTrigger>
+          <TabsTrigger value="integrations">Intégrations</TabsTrigger>
+          <TabsTrigger value="security">Sécurité</TabsTrigger>
         </TabsList>
         
         <TabsContent value="account">
           <Card>
             <CardHeader>
-              <CardTitle>Account Settings</CardTitle>
-              <CardDescription>Manage your account information.</CardDescription>
+              <CardTitle>Paramètres du Compte</CardTitle>
+              <CardDescription>Gérez les informations de votre compte.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <UserNameForm user={{ id: user.id, name: user.name || "" }} />
@@ -67,8 +67,8 @@ export default async function SettingsPage() {
         <TabsContent value="members">
           <Card>
             <CardHeader>
-              <CardTitle>Team Members</CardTitle>
-              <CardDescription>Manage your team members and their roles.</CardDescription>
+              <CardTitle>Membres de l'Équipe</CardTitle>
+              <CardDescription>Gérez les membres de votre équipe et leurs rôles.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -96,11 +96,11 @@ export default async function SettingsPage() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="admin">Admin</SelectItem>
-                          <SelectItem value="editor">Editor</SelectItem>
-                          <SelectItem value="viewer">Viewer</SelectItem>
+                          <SelectItem value="editor">Éditeur</SelectItem>
+                          <SelectItem value="viewer">Spectateur</SelectItem>
                         </SelectContent>
                       </Select>
-                      <Button variant="outline" size="sm">Remove</Button>
+                      <Button variant="outline" size="sm">Supprimer</Button>
                     </div>
                   </div>
                 ))}
@@ -109,39 +109,39 @@ export default async function SettingsPage() {
             <CardFooter>
               <Dialog open={isInviteDialogOpen} onOpenChange={setInviteDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button onClick={() => setInviteDialogOpen(true)}>Invite New Member</Button>
+                  <Button onClick={() => setInviteDialogOpen(true)}>Inviter un Nouveau Membre</Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Invite New Member</DialogTitle>
-                    <DialogDescription>Enter the details of the new member you want to invite.</DialogDescription>
+                    <DialogTitle>Inviter un Nouveau Membre</DialogTitle>
+                    <DialogDescription>Entrez les détails du nouveau membre que vous souhaitez inviter.</DialogDescription>
                   </DialogHeader>
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="invite-name">Name</Label>
-                      <Input id="invite-name" placeholder="Full Name" />
+                      <Label htmlFor="invite-name">Nom</Label>
+                      <Input id="invite-name" placeholder="Nom Complet" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="invite-email">Email</Label>
-                      <Input id="invite-email" placeholder="Email Address" />
+                      <Input id="invite-email" placeholder="Adresse Email" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="invite-role">Role</Label>
+                      <Label htmlFor="invite-role">Rôle</Label>
                       <Select>
                         <SelectTrigger id="invite-role">
-                          <SelectValue placeholder="Select a role" />
+                          <SelectValue placeholder="Sélectionnez un rôle" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="admin">Admin</SelectItem>
-                          <SelectItem value="editor">Editor</SelectItem>
-                          <SelectItem value="viewer">Viewer</SelectItem>
+                          <SelectItem value="editor">Éditeur</SelectItem>
+                          <SelectItem value="viewer">Spectateur</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                   </div>
                   <DialogFooter>
-                    <Button onClick={() => setInviteDialogOpen(false)}>Cancel</Button>
-                    <Button>Send Invite</Button>
+                    <Button onClick={() => setInviteDialogOpen(false)}>Annuler</Button>
+                    <Button>Inviter</Button>
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
@@ -152,23 +152,23 @@ export default async function SettingsPage() {
         <TabsContent value="integrations">
           <Card>
             <CardHeader>
-              <CardTitle>Integrations</CardTitle>
-              <CardDescription>Manage your external service integrations.</CardDescription>
+              <CardTitle>Intégrations</CardTitle>
+              <CardDescription>Gérez vos intégrations de services externes.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* WhatsApp Business Integration */}
               <Collapsible>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="text-lg">WhatsApp Business Integration</CardTitle>
-                    <CardDescription>Configure WhatsApp Business API credentials.</CardDescription>
+                    <CardTitle className="text-lg">Intégration WhatsApp Business</CardTitle>
+                    <CardDescription>Configurez les identifiants de l'API WhatsApp Business.</CardDescription>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Label htmlFor="whatsapp-integration">Enable</Label>
+                    <Label htmlFor="whatsapp-integration">Activer</Label>
                     <Switch id="whatsapp-integration" />
                     <CollapsibleTrigger asChild>
                       <Button variant="ghost" size="sm">
-                        <span className="sr-only">Toggle</span>
+                        <span className="sr-only">Basculer</span>
                         <ChevronDown className="h-4 w-4" />
                       </Button>
                     </CollapsibleTrigger>
@@ -176,18 +176,18 @@ export default async function SettingsPage() {
                 </div>
                 <CollapsibleContent className="space-y-4 mt-4">
                   <div className="space-y-2">
-                    <Label htmlFor="whatsapp-phone">WhatsApp Phone Number</Label>
+                    <Label htmlFor="whatsapp-phone">Numéro de Téléphone WhatsApp</Label>
                     <PhoneInput defaultCountry="BF" id="whatsapp-phone" placeholder="+1234567890" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="whatsapp-api-key">API Key</Label>
-                    <Input id="whatsapp-api-key" placeholder="Your WhatsApp API Key" />
+                    <Label htmlFor="whatsapp-api-key">Clé API</Label>
+                    <Input id="whatsapp-api-key" placeholder="Votre Clé API WhatsApp" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="whatsapp-business-id">Business Account ID</Label>
-                    <Input id="whatsapp-business-id" placeholder="Your Business Account ID" />
+                    <Label htmlFor="whatsapp-business-id">ID de Compte Business</Label>
+                    <Input id="whatsapp-business-id" placeholder="Votre ID de Compte Business" />
                   </div>
-                  <Button>Save WhatsApp Settings</Button>
+                  <Button>Enregistrer les Paramètres WhatsApp</Button>
                 </CollapsibleContent>
               </Collapsible>
 
@@ -195,15 +195,15 @@ export default async function SettingsPage() {
               <Collapsible>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="text-lg">Twilio SMS Integration</CardTitle>
-                    <CardDescription>Configure Twilio API credentials for SMS notifications.</CardDescription>
+                    <CardTitle className="text-lg">Intégration Twilio SMS</CardTitle>
+                    <CardDescription>Configurez les identifiants de l'API Twilio pour les notifications SMS.</CardDescription>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Label htmlFor="twilio-integration">Enable</Label>
+                    <Label htmlFor="twilio-integration">Activer</Label>
                     <Switch id="twilio-integration" />
                     <CollapsibleTrigger asChild>
                       <Button variant="ghost" size="sm">
-                        <span className="sr-only">Toggle</span>
+                        <span className="sr-only">Basculer</span>
                         <ChevronDown className="h-4 w-4" />
                       </Button>
                     </CollapsibleTrigger>
@@ -211,18 +211,18 @@ export default async function SettingsPage() {
                 </div>
                 <CollapsibleContent className="space-y-4 mt-4">
                   <div className="space-y-2">
-                    <Label htmlFor="twilio-account-sid">Account SID</Label>
-                    <Input id="twilio-account-sid" placeholder="Your Twilio Account SID" />
+                    <Label htmlFor="twilio-account-sid">SID du Compte</Label>
+                    <Input id="twilio-account-sid" placeholder="Votre SID de Compte Twilio" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="twilio-auth-token">Auth Token</Label>
-                    <Input id="twilio-auth-token" placeholder="Your Twilio Auth Token" />
+                    <Label htmlFor="twilio-auth-token">Jeton d'Authentification</Label>
+                    <Input id="twilio-auth-token" placeholder="Votre Jeton d'Authentification Twilio" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="twilio-phone-number">Twilio Phone Number</Label>
+                    <Label htmlFor="twilio-phone-number">Numéro de Téléphone Twilio</Label>
                     <PhoneInput defaultCountry="BF" id="twilio-phone-number" placeholder="+1234567890" />
                   </div>
-                  <Button>Save Twilio Settings</Button>
+                  <Button>Enregistrer les Paramètres Twilio</Button>
                 </CollapsibleContent>
               </Collapsible>
 
@@ -230,15 +230,15 @@ export default async function SettingsPage() {
               <Collapsible>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="text-lg">Paystack Integration</CardTitle>
-                    <CardDescription>Configure Paystack for payment processing.</CardDescription>
+                    <CardTitle className="text-lg">Intégration Paystack</CardTitle>
+                    <CardDescription>Configurez Paystack pour le traitement des paiements.</CardDescription>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Label htmlFor="paystack-integration">Enable</Label>
+                    <Label htmlFor="paystack-integration">Activer</Label>
                     <Switch id="paystack-integration" />
                     <CollapsibleTrigger asChild>
                       <Button variant="ghost" size="sm">
-                        <span className="sr-only">Toggle</span>
+                        <span className="sr-only">Basculer</span>
                         <ChevronDown className="h-4 w-4" />
                       </Button>
                     </CollapsibleTrigger>
@@ -246,14 +246,14 @@ export default async function SettingsPage() {
                 </div>
                 <CollapsibleContent className="space-y-4 mt-4">
                   <div className="space-y-2">
-                    <Label htmlFor="paystack-secret-key">Secret Key</Label>
-                    <Input id="paystack-secret-key" placeholder="Your Paystack Secret Key" type="password" />
+                    <Label htmlFor="paystack-secret-key">Clé Secrète</Label>
+                    <Input id="paystack-secret-key" placeholder="Votre Clé Secrète Paystack" type="password" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="paystack-public-key">Public Key</Label>
-                    <Input id="paystack-public-key" placeholder="Your Paystack Public Key" />
+                    <Label htmlFor="paystack-public-key">Clé Publique</Label>
+                    <Input id="paystack-public-key" placeholder="Votre Clé Publique Paystack" />
                   </div>
-                  <Button>Save Paystack Settings</Button>
+                  <Button>Enregistrer les Paramètres Paystack</Button>
                 </CollapsibleContent>
               </Collapsible>
 
@@ -261,15 +261,15 @@ export default async function SettingsPage() {
               <Collapsible>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="text-lg">CinetPay Integration</CardTitle>
-                    <CardDescription>Configure CinetPay for payment processing.</CardDescription>
+                    <CardTitle className="text-lg">Intégration CinetPay</CardTitle>
+                    <CardDescription>Configurez CinetPay pour le traitement des paiements.</CardDescription>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Label htmlFor="cinetpay-integration">Enable</Label>
+                    <Label htmlFor="cinetpay-integration">Activer</Label>
                     <Switch id="cinetpay-integration" />
                     <CollapsibleTrigger asChild>
                       <Button variant="ghost" size="sm">
-                        <span className="sr-only">Toggle</span>
+                        <span className="sr-only">Basculer</span>
                         <ChevronDown className="h-4 w-4" />
                       </Button>
                     </CollapsibleTrigger>
@@ -277,18 +277,18 @@ export default async function SettingsPage() {
                 </div>
                 <CollapsibleContent className="space-y-4 mt-4">
                   <div className="space-y-2">
-                    <Label htmlFor="cinetpay-api-key">API Key</Label>
-                    <Input id="cinetpay-api-key" placeholder="Your CinetPay API Key" type="password" />
+                    <Label htmlFor="cinetpay-api-key">Clé API</Label>
+                    <Input id="cinetpay-api-key" placeholder="Votre Clé API CinetPay" type="password" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="cinetpay-site-id">Site ID</Label>
-                    <Input id="cinetpay-site-id" placeholder="Your CinetPay Site ID" />
+                    <Label htmlFor="cinetpay-site-id">ID du Site</Label>
+                    <Input id="cinetpay-site-id" placeholder="Votre ID de Site CinetPay" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="cinetpay-environment">Environment</Label>
+                    <Label htmlFor="cinetpay-environment">Environnement</Label>
                     <Select>
                       <SelectTrigger id="cinetpay-environment">
-                        <SelectValue placeholder="Select environment" />
+                        <SelectValue placeholder="Sélectionnez l'environnement" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="sandbox">Sandbox</SelectItem>
@@ -296,7 +296,7 @@ export default async function SettingsPage() {
                       </SelectContent>
                     </Select>
                   </div>
-                  <Button>Save CinetPay Settings</Button>
+                  <Button>Enregistrer les Paramètres CinetPay</Button>
                 </CollapsibleContent>
               </Collapsible>
             </CardContent>
@@ -306,29 +306,29 @@ export default async function SettingsPage() {
         <TabsContent value="security">
           <Card>
             <CardHeader>
-              <CardTitle>Security Settings</CardTitle>
-              <CardDescription>Manage your account security.</CardDescription>
+              <CardTitle>Paramètres de Sécurité</CardTitle>
+              <CardDescription>Gérez la sécurité de votre compte.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-4">
-                <h3 className="text-lg font-medium">Change Password</h3>
+                <h3 className="text-lg font-medium">Changer le Mot de Passe</h3>
                 <div className="space-y-2">
-                  <Label htmlFor="current-password">Current Password</Label>
+                  <Label htmlFor="current-password">Mot de Passe Actuel</Label>
                   <Input id="current-password" type="password" />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="new-password">New Password</Label>
+                  <Label htmlFor="new-password">Nouveau Mot de Passe</Label>
                   <Input id="new-password" type="password" />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="confirm-password">Confirm New Password</Label>
+                  <Label htmlFor="confirm-password">Confirmer le Nouveau Mot de Passe</Label>
                   <Input id="confirm-password" type="password" />
                 </div>
-                <Button>Update Password</Button>
+                <Button>Mettre à Jour le Mot de Passe</Button>
               </div>
 
               <div className="space-y-4">
-                <h3 className="text-lg font-medium">Two-Factor Authentication</h3>
+                <h3 className="text-lg font-medium">Authentification à Deux Facteurs</h3>
                 <div className="flex items-center space-x-2">
                   <Switch
                     id="two-factor-auth"
@@ -336,23 +336,23 @@ export default async function SettingsPage() {
                     onCheckedChange={setTwoFactorEnabled}
                   />
                   <Label htmlFor="two-factor-auth">
-                    Enable Two-Factor Authentication
+                    Activer l'Authentification à Deux Facteurs
                   </Label>
                 </div>
                 {twoFactorEnabled && (
                   <div className="space-y-2">
                     <p className="text-sm text-gray-500">
-                      Two-factor authentication is now enabled. Use an authenticator app to scan the QR code below.
+                      L'authentification à deux facteurs est maintenant activée. Utilisez une application d'authentification pour scanner le code QR ci-dessous.
                     </p>
                     {/* Placeholder for QR code */}
                     <div className="w-40 h-40 bg-gray-200 flex items-center justify-center">
-                      QR Code Placeholder
+                      Espace réservé pour le code QR
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="2fa-code">Verification Code</Label>
-                      <Input id="2fa-code" placeholder="Enter the 6-digit code" />
+                      <Label htmlFor="2fa-code">Code de Vérification</Label>
+                      <Input id="2fa-code" placeholder="Entrez le code à 6 chiffres" />
                     </div>
-                    <Button>Verify and Enable 2FA</Button>
+                    <Button>Activer</Button>
                   </div>
                 )}
               </div>
