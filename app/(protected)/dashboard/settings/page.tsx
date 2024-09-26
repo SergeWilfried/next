@@ -35,10 +35,9 @@ export default async function SettingsPage() {
       <Tabs defaultValue="account" className="space-y-4">
         <TabsList>
           <TabsTrigger value="account">Account</TabsTrigger>
-          <TabsTrigger value="notifications">Members</TabsTrigger>
+          <TabsTrigger value="members">Members</TabsTrigger>
           <TabsTrigger value="integrations">Integrations</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
-          <TabsTrigger value="members">Members</TabsTrigger>
           <TabsTrigger value="facility">Facility</TabsTrigger>
         </TabsList>
         
@@ -216,18 +215,6 @@ export default async function SettingsPage() {
             <CardFooter>
               <Button>Update Password</Button>
             </CardFooter>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="members">
-          <Card>
-            <CardHeader>
-              <CardTitle>Member Management</CardTitle>
-              <CardDescription>Manage your organization&apos;s members.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {/* Add member management content here */}
-            </CardContent>
           </Card>
         </TabsContent>
 
