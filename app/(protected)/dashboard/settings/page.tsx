@@ -25,7 +25,7 @@ export default async function SettingsPage() {
   if (!user?.id) redirect("/login")
 
   return (
-    <div className="container mx-auto py-10">
+    <>
       <DashboardHeader
         heading="Settings"
         text="Manage account and website settings."
@@ -34,9 +34,11 @@ export default async function SettingsPage() {
         <TabsList>
           <TabsTrigger value="account">Account</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
+          <TabsTrigger value="integrations">Integrations</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
           <TabsTrigger value="billing">Billing</TabsTrigger>
         </TabsList>
+        
         <TabsContent value="account">
           <Card>
             <CardHeader>
@@ -46,9 +48,13 @@ export default async function SettingsPage() {
             <CardContent className="space-y-4">
               <UserNameForm user={{ id: user.id, name: user.name || "" }} />
               <UserRoleForm user={{ id: user.id, role: user.role }} />
+              <div className="mt-6">
+                <DeleteAccountSection />
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
+
         <TabsContent value="notifications">
           <Card>
             <CardHeader>
@@ -57,12 +63,16 @@ export default async function SettingsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <Label htmlFor="email-notifications">Email Notifications</Label>
+                <Label htmlFor="email-notifications">Email</Label>
                 <Switch id="email-notifications" />
               </div>
               <div className="flex items-center justify-between">
-                <Label htmlFor="push-notifications">Push Notifications</Label>
-                <Switch id="push-notifications" />
+                <Label htmlFor="whatsapp-notifications">Whatsapp</Label>
+                <Switch id="whatsapp-notifications" />
+              </div>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="sms-notifications">SMS</Label>
+                <Switch id="sms-notifications" />
               </div>
             </CardContent>
             <CardFooter>
@@ -70,6 +80,57 @@ export default async function SettingsPage() {
             </CardFooter>
           </Card>
         </TabsContent>
+
+        <TabsContent value="integrations">
+          <Card>
+            <CardHeader>
+              <CardTitle>WhatsApp Business Integration</CardTitle>
+              <CardDescription>Configure WhatsApp Business API credentials.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="whatsapp-phone">WhatsApp Phone Number</Label>
+                <Input id="whatsapp-phone" placeholder="+1234567890" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="whatsapp-api-key">API Key</Label>
+                <Input id="whatsapp-api-key" placeholder="Your WhatsApp API Key" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="whatsapp-business-id">Business Account ID</Label>
+                <Input id="whatsapp-business-id" placeholder="Your Business Account ID" />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button>Save WhatsApp Settings</Button>
+            </CardFooter>
+          </Card>
+
+          <Card className="mt-6">
+            <CardHeader>
+              <CardTitle>Twilio SMS Integration</CardTitle>
+              <CardDescription>Configure Twilio API credentials for SMS notifications.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="twilio-account-sid">Account SID</Label>
+                <Input id="twilio-account-sid" placeholder="Your Twilio Account SID" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="twilio-auth-token">Auth Token</Label>
+                <Input id="twilio-auth-token" placeholder="Your Twilio Auth Token" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="twilio-phone-number">Twilio Phone Number</Label>
+                <Input id="twilio-phone-number" placeholder="+1234567890" />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button>Save Twilio Settings</Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+
         <TabsContent value="security">
           <Card>
             <CardHeader>
@@ -95,6 +156,7 @@ export default async function SettingsPage() {
             </CardFooter>
           </Card>
         </TabsContent>
+
         <TabsContent value="billing">
           <Card>
             <CardHeader>
@@ -136,9 +198,6 @@ export default async function SettingsPage() {
           </Card>
         </TabsContent>
       </Tabs>
-      <div className="mt-6">
-        <DeleteAccountSection />
-      </div>
-    </div>
+    </>
   )
 }
