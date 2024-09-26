@@ -112,7 +112,7 @@ export function PieChartComponent({title, data}: PieChartComponentProps) {
                 >
                   <div className="flex items-center gap-2 text-xs">
                     <span
-                      className="flex h-3 w-3 shrink-0 rounded-sm"
+                      className="flex size-3 shrink-0 rounded-sm"
                       style={{
                         backgroundColor: `var(--color-${key})`,
                       }}
@@ -192,7 +192,7 @@ export function PieChartComponent({title, data}: PieChartComponentProps) {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          Trending up by 15.2% this month <TrendingUp className="h-4 w-4" />
+          Trending up by 15.2% this month <TrendingUp className="size-4" />
         </div>
         <div className="leading-none text-muted-foreground">
           Showing total {title} for the last 6 months

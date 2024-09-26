@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 import { getCurrentUser } from "@/lib/session"
 import { constructMetadata } from "@/lib/utils"
@@ -13,6 +12,9 @@ import { DeleteAccountSection } from "@/components/dashboard/delete-account"
 import { DashboardHeader } from "@/components/dashboard/header"
 import { UserNameForm } from "@/components/forms/user-name-form"
 import { UserRoleForm } from "@/components/forms/user-role-form"
+import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar"
+import { Badge } from "lucide-react"
+import { IntegrationCollapsible } from "@/components/collapsible/integration"
 
 export const metadata = constructMetadata({
   title: "Settings – Gesco",
@@ -33,10 +35,11 @@ export default async function SettingsPage() {
       <Tabs defaultValue="account" className="space-y-4">
         <TabsList>
           <TabsTrigger value="account">Account</TabsTrigger>
-          <TabsTrigger value="notifications">Notifications</TabsTrigger>
+          <TabsTrigger value="notifications">Members</TabsTrigger>
           <TabsTrigger value="integrations">Integrations</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
-          <TabsTrigger value="billing">Billing</TabsTrigger>
+          <TabsTrigger value="members">Members</TabsTrigger>
+          <TabsTrigger value="facility">Facility</TabsTrigger>
         </TabsList>
         
         <TabsContent value="account">
@@ -58,25 +61,52 @@ export default async function SettingsPage() {
         <TabsContent value="notifications">
           <Card>
             <CardHeader>
-              <CardTitle>Notification Preferences</CardTitle>
+              <CardTitle>Members</CardTitle>
               <CardDescription>Manage your notification settings.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <Label htmlFor="email-notifications">Email</Label>
-                <Switch id="email-notifications" />
+                <div className="flex items-center space-x-4">
+                  <Avatar>
+                    <AvatarImage src="/avatars/01.png" alt="Member 1" />
+                    <AvatarFallback>M1</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-medium">John Doe</p>
+                    <p className="text-sm text-gray-500">john.doe@example.com</p>
+                  </div>
+                </div>
+                <Badge>Admin</Badge>
               </div>
               <div className="flex items-center justify-between">
-                <Label htmlFor="whatsapp-notifications">Whatsapp</Label>
-                <Switch id="whatsapp-notifications" />
+                <div className="flex items-center space-x-4">
+                  <Avatar>
+                    <AvatarImage src="/avatars/02.png" alt="Member 2" />
+                    <AvatarFallback>M2</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-medium">Jane Smith</p>
+                    <p className="text-sm text-gray-500">jane.smith@example.com</p>
+                  </div>
+                </div>
+                <Badge>Member</Badge>
               </div>
               <div className="flex items-center justify-between">
-                <Label htmlFor="sms-notifications">SMS</Label>
-                <Switch id="sms-notifications" />
+                <div className="flex items-center space-x-4">
+                  <Avatar>
+                    <AvatarImage src="/avatars/03.png" alt="Member 3" />
+                    <AvatarFallback>M3</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-medium">Bob Johnson</p>
+                    <p className="text-sm text-gray-500">bob.johnson@example.com</p>
+                  </div>
+                </div>
+                <Badge>Member</Badge>
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Save Notification Settings</Button>
+              <Button>Invite</Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -84,50 +114,82 @@ export default async function SettingsPage() {
         <TabsContent value="integrations">
           <Card>
             <CardHeader>
-              <CardTitle>WhatsApp Business Integration</CardTitle>
-              <CardDescription>Configure WhatsApp Business API credentials.</CardDescription>
+              <CardTitle>Integrations</CardTitle>
+              <CardDescription>Manage your integrations and API settings.</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="whatsapp-phone">WhatsApp Phone Number</Label>
-                <Input id="whatsapp-phone" placeholder="+1234567890" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="whatsapp-api-key">API Key</Label>
-                <Input id="whatsapp-api-key" placeholder="Your WhatsApp API Key" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="whatsapp-business-id">Business Account ID</Label>
-                <Input id="whatsapp-business-id" placeholder="Your Business Account ID" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save WhatsApp Settings</Button>
-            </CardFooter>
-          </Card>
+            <CardContent className="space-y-6">
+              <IntegrationCollapsible
+                title="WhatsApp Business Integration"
+                description="Configure WhatsApp Business API credentials."
+                switchId="whatsapp-integration"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp-phone">WhatsApp Phone Number</Label>
+                  <Input id="whatsapp-phone" placeholder="+1234567890" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp-api-key">API Key</Label>
+                  <Input id="whatsapp-api-key" placeholder="Your WhatsApp API Key" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp-business-id">Business Account ID</Label>
+                  <Input id="whatsapp-business-id" placeholder="Your Business Account ID" />
+                </div>
+                <Button className="mt-4">Save WhatsApp Settings</Button>
+              </IntegrationCollapsible>
 
-          <Card className="mt-6">
-            <CardHeader>
-              <CardTitle>Twilio SMS Integration</CardTitle>
-              <CardDescription>Configure Twilio API credentials for SMS notifications.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="twilio-account-sid">Account SID</Label>
-                <Input id="twilio-account-sid" placeholder="Your Twilio Account SID" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="twilio-auth-token">Auth Token</Label>
-                <Input id="twilio-auth-token" placeholder="Your Twilio Auth Token" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="twilio-phone-number">Twilio Phone Number</Label>
-                <Input id="twilio-phone-number" placeholder="+1234567890" />
-              </div>
+              <IntegrationCollapsible
+                title="Twilio SMS Integration"
+                description="Configure Twilio API credentials for SMS notifications."
+                switchId="twilio-integration"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="twilio-account-sid">Account SID</Label>
+                  <Input id="twilio-account-sid" placeholder="Your Twilio Account SID" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="twilio-auth-token">Auth Token</Label>
+                  <Input id="twilio-auth-token" placeholder="Your Twilio Auth Token" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="twilio-phone-number">Twilio Phone Number</Label>
+                  <Input id="twilio-phone-number" placeholder="+1234567890" />
+                </div>
+                <Button className="mt-4">Save Twilio Settings</Button>
+              </IntegrationCollapsible>
+
+              <IntegrationCollapsible
+                title="Paystack Integration"
+                description="Configure Paystack API credentials for payment processing."
+                switchId="paystack-integration"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="paystack-secret-key">Secret Key</Label>
+                  <Input id="paystack-secret-key" placeholder="Your Paystack Secret Key" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="paystack-public-key">Public Key</Label>
+                  <Input id="paystack-public-key" placeholder="Your Paystack Public Key" />
+                </div>
+                <Button className="mt-4">Save Paystack Settings</Button>
+              </IntegrationCollapsible>
+
+              <IntegrationCollapsible
+                title="CinetPay Integration"
+                description="Configure CinetPay API credentials for payment processing."
+                switchId="cinetpay-integration"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="cinetpay-api-key">API Key</Label>
+                  <Input id="cinetpay-api-key" placeholder="Your CinetPay API Key" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="cinetpay-site-id">Site ID</Label>
+                  <Input id="cinetpay-site-id" placeholder="Your CinetPay Site ID" />
+                </div>
+                <Button className="mt-4">Save CinetPay Settings</Button>
+              </IntegrationCollapsible>
             </CardContent>
-            <CardFooter>
-              <Button>Save Twilio Settings</Button>
-            </CardFooter>
           </Card>
         </TabsContent>
 
@@ -157,44 +219,27 @@ export default async function SettingsPage() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="billing">
+        <TabsContent value="members">
           <Card>
             <CardHeader>
-              <CardTitle>Billing Information</CardTitle>
-              <CardDescription>Manage your billing details and subscription.</CardDescription>
+              <CardTitle>Member Management</CardTitle>
+              <CardDescription>Manage your organization&apos;s members.</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="plan">Current Plan</Label>
-                <Select>
-                  <SelectTrigger id="plan">
-                    <SelectValue placeholder="Select a plan" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="free">Free</SelectItem>
-                    <SelectItem value="pro">Pro</SelectItem>
-                    <SelectItem value="enterprise">Enterprise</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="card-number">Card Number</Label>
-                <Input id="card-number" placeholder="1234 5678 9012 3456" />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="expiry-date">Expiry Date</Label>
-                  <Input id="expiry-date" placeholder="MM/YY" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="cvv">CVV</Label>
-                  <Input id="cvv" placeholder="123" />
-                </div>
-              </div>
+            <CardContent>
+              {/* Add member management content here */}
             </CardContent>
-            <CardFooter>
-              <Button>Update Billing Information</Button>
-            </CardFooter>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="facility">
+          <Card>
+            <CardHeader>
+              <CardTitle>Facility Settings</CardTitle>
+              <CardDescription>Configure your facility settings.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {/* Add facility settings content here */}
+            </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
