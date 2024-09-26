@@ -167,11 +167,9 @@ export default async function SettingsPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               {/* WhatsApp Business Integration */}
-              <IntegrationCollapsible
-                title="Intégration WhatsApp Business"
-                description="Configurez les identifiants de l'API WhatsApp Business."
-                switchId="whatsapp-integration"
-              >
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium">Intégration WhatsApp Business</h3>
+                <p className="text-sm text-gray-500">Configurez les identifiants de l'API WhatsApp Business.</p>
                 <div className="space-y-2">
                   <Label htmlFor="whatsapp-phone">Numéro de Téléphone WhatsApp</Label>
                   <PhoneInput defaultCountry="BF" id="whatsapp-phone" placeholder="+1234567890" />
@@ -185,14 +183,12 @@ export default async function SettingsPage() {
                   <Input id="whatsapp-business-id" placeholder="Votre ID de Compte Business" />
                 </div>
                 <Button>Enregistrer les Paramètres WhatsApp</Button>
-              </IntegrationCollapsible>
+              </div>
 
               {/* Twilio SMS Integration */}
-              <IntegrationCollapsible
-                title="Intégration Twilio SMS"
-                description="Configurez les identifiants de l'API Twilio pour les notifications SMS."
-                switchId="twilio-integration"
-              >
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium">Intégration Twilio SMS</h3>
+                <p className="text-sm text-gray-500">Configurez les identifiants de l'API Twilio pour les notifications SMS.</p>
                 <div className="space-y-2">
                   <Label htmlFor="twilio-account-sid">SID du Compte</Label>
                   <Input id="twilio-account-sid" placeholder="Votre SID de Compte Twilio" />
@@ -206,14 +202,12 @@ export default async function SettingsPage() {
                   <PhoneInput defaultCountry="BF" id="twilio-phone-number" placeholder="+1234567890" />
                 </div>
                 <Button>Enregistrer les Paramètres Twilio</Button>
-              </IntegrationCollapsible>
+              </div>
 
               {/* Paystack Integration */}
-              <IntegrationCollapsible
-                title="Intégration Paystack"
-                description="Configurez Paystack pour le traitement des paiements."
-                switchId="paystack-integration"
-              >
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium">Intégration Paystack</h3>
+                <p className="text-sm text-gray-500">Configurez Paystack pour le traitement des paiements.</p>
                 <div className="space-y-2">
                   <Label htmlFor="paystack-secret-key">Clé Secrète</Label>
                   <Input id="paystack-secret-key" placeholder="Votre Clé Secrète Paystack" type="password" />
@@ -223,14 +217,12 @@ export default async function SettingsPage() {
                   <Input id="paystack-public-key" placeholder="Votre Clé Publique Paystack" />
                 </div>
                 <Button>Enregistrer les Paramètres Paystack</Button>
-              </IntegrationCollapsible>
+              </div>
 
               {/* CinetPay Integration */}
-              <IntegrationCollapsible
-                title="Intégration CinetPay"
-                description="Configurez CinetPay pour le traitement des paiements."
-                switchId="cinetpay-integration"
-              >
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium">Intégration CinetPay</h3>
+                <p className="text-sm text-gray-500">Configurez CinetPay pour le traitement des paiements.</p>
                 <div className="space-y-2">
                   <Label htmlFor="cinetpay-api-key">Clé API</Label>
                   <Input id="cinetpay-api-key" placeholder="Votre Clé API CinetPay" type="password" />
@@ -252,7 +244,7 @@ export default async function SettingsPage() {
                   </Select>
                 </div>
                 <Button>Enregistrer les Paramètres CinetPay</Button>
-              </IntegrationCollapsible>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
