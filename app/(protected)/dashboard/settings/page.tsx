@@ -198,7 +198,7 @@ export default async function SettingsPage() {
                   <Input id="twilio-account-sid" placeholder="Votre SID de Compte Twilio" />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="twilio-auth-token">Jeton d'Authentification</Label>
+                  <Label htmlFor="twilio-auth-token">Jeton d&apos;Authentification</Label>
                   <Input id="twilio-auth-token" placeholder="Votre Jeton d'Authentification Twilio" />
                 </div>
                 <div className="space-y-2">
