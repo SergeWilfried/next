@@ -1,11 +1,8 @@
 'use client'
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
-import { CardTitle, CardDescription } from "@/components/ui/card"
-import { ChevronDown } from "lucide-react"
+import { CardTitle, CardDescription } from "../ui/card"
 
 interface IntegrationCollapsibleProps {
   title: string
@@ -23,13 +20,8 @@ export function IntegrationCollapsible({ title, description, children, switchId 
           <CardDescription>{description}</CardDescription>
         </div>
         <div className="flex items-center space-x-2">
-          <Label htmlFor={switchId}>Activer</Label>
-          <Switch id={switchId} />
           <CollapsibleTrigger asChild>
-            <Button variant="ghost" size="sm">
-              <span className="sr-only">Basculer</span>
-              <ChevronDown className="size-4" />
-            </Button>
+            <Switch id={switchId} />
           </CollapsibleTrigger>
         </div>
       </div>
