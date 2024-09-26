@@ -80,7 +80,7 @@ const handleTwoFactorChange = (event) => {
         <TabsContent value="members">
           <Card>
             <CardHeader>
-              <CardTitle>Membres de l'Équipe</CardTitle>
+              <CardTitle>Membres de l&apos;Équipe</CardTitle>
               <CardDescription>Gérez les membres de votre équipe et leurs rôles.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -174,7 +174,7 @@ const handleTwoFactorChange = (event) => {
                 <div className="flex items-center justify-between">
                   <div>
                     <CardTitle className="text-lg">Intégration WhatsApp Business</CardTitle>
-                    <CardDescription>Configurez les identifiants de l'API WhatsApp Business.</CardDescription>
+                    <CardDescription>Configurez les identifiants de l&apos;API WhatsApp Business.</CardDescription>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Label htmlFor="whatsapp-integration">Activer</Label>
@@ -209,7 +209,7 @@ const handleTwoFactorChange = (event) => {
                 <div className="flex items-center justify-between">
                   <div>
                     <CardTitle className="text-lg">Intégration Twilio SMS</CardTitle>
-                    <CardDescription>Configurez les identifiants de l'API Twilio pour les notifications SMS.</CardDescription>
+                    <CardDescription>Configurez les identifiants de l&apos;API Twilio pour les notifications SMS.</CardDescription>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Label htmlFor="twilio-integration">Activer</Label>
@@ -228,7 +228,7 @@ const handleTwoFactorChange = (event) => {
                     <Input id="twilio-account-sid" placeholder="Votre SID de Compte Twilio" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="twilio-auth-token">Jeton d'Authentification</Label>
+                    <Label htmlFor="twilio-auth-token">Jeton d&apos;Authentification</Label>
                     <Input id="twilio-auth-token" placeholder="Votre Jeton d'Authentification Twilio" />
                   </div>
                   <div className="space-y-2">
@@ -288,7 +288,7 @@ const handleTwoFactorChange = (event) => {
                     </CollapsibleTrigger>
                   </div>
                 </div>
-                <CollapsibleContent className="space-y-4 mt-4">
+                <CollapsibleContent className="mt-4 space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="cinetpay-api-key">Clé API</Label>
                     <Input id="cinetpay-api-key" placeholder="Votre Clé API CinetPay" type="password" />
@@ -349,13 +349,13 @@ const handleTwoFactorChange = (event) => {
                     onCheckedChange={handleTwoFactorChange}
                   />
                   <Label htmlFor="two-factor-auth">
-                    Activer l'Authentification à Deux Facteurs
+                    Activer l&apos;Authentification à Deux Facteurs
                   </Label>
                 </div>
                 {twoFactorEnabled && (
                   <div className="space-y-2">
                     <p className="text-sm text-gray-500">
-                      L'authentification à deux facteurs est maintenant activée. Utilisez une application d'authentification pour scanner le code QR ci-dessous.
+                      L&apos;authentification à deux facteurs est maintenant activée. Utilisez une application d&apos;authentification pour scanner le code QR ci-dessous.
                     </p>
                     {/* Placeholder for QR code */}
                     <div className="w-40 h-40 bg-gray-200 flex items-center justify-center">
