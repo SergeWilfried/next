@@ -15,7 +15,6 @@ import { UserRoleForm } from "@/components/forms/user-role-form"
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar"
 import { Badge } from "lucide-react"
 import { IntegrationCollapsible } from "@/components/collapsible/integration"
-import { PhoneInput } from "@/components/input/phone-input"
 
 export const metadata = constructMetadata({
   title: "Settings – Gesco",
@@ -126,7 +125,7 @@ export default async function SettingsPage() {
               >
                 <div className="space-y-2">
                   <Label htmlFor="whatsapp-phone">WhatsApp Phone Number</Label>
-                  <PhoneInput defaultCountry="BF" id="whatsapp-phone" placeholder="+1234567890" />
+                  <Input id="whatsapp-phone" placeholder="+1234567890" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="whatsapp-api-key">API Key</Label>
@@ -154,7 +153,7 @@ export default async function SettingsPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="twilio-phone-number">Twilio Phone Number</Label>
-                  <PhoneInput defaultCountry="BF" id="twilio-phone-number" placeholder="+1234567890" />
+                  <Input id="twilio-phone-number" placeholder="+1234567890" />
                 </div>
                 <Button className="mt-4">Save Twilio Settings</Button>
               </IntegrationCollapsible>
