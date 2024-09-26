@@ -17,7 +17,7 @@ import { UserRoleForm } from "@/components/forms/user-role-form"
 import { PhoneInput } from "@/components/input/phone-input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DialogHeader, DialogFooter, DialogTitle, DialogTrigger, Dialog, DialogContent, DialogDescription } from "@/components/ui/dialog"
-
+import { IntegrationCollapsible } from "@/components/collapsible/integration"
 export const metadata = constructMetadata({
   title: "Paramètres – Gesco",
   description: "Configurez les paramètres de votre compte et de votre site web.",
@@ -167,148 +167,92 @@ export default async function SettingsPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               {/* WhatsApp Business Integration */}
-              <Collapsible>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-lg">Intégration WhatsApp Business</CardTitle>
-                    <CardDescription>Configurez les identifiants de l&apos;API WhatsApp Business.</CardDescription>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Label htmlFor="whatsapp-integration">Activer</Label>
-                    <Switch id="whatsapp-integration" />
-                    <CollapsibleTrigger asChild>
-                      <Button variant="ghost" size="sm">
-                        <span className="sr-only">Basculer</span>
-                        <ChevronDown className="size-4" />
-                      </Button>
-                    </CollapsibleTrigger>
-                  </div>
+              <IntegrationCollapsible
+                title="Intégration WhatsApp Business"
+                description="Configurez les identifiants de l'API WhatsApp Business."
+                switchId="whatsapp-integration"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp-phone">Numéro de Téléphone WhatsApp</Label>
+                  <PhoneInput defaultCountry="BF" id="whatsapp-phone" placeholder="+1234567890" />
                 </div>
-                <CollapsibleContent className="mt-4 space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="whatsapp-phone">Numéro de Téléphone WhatsApp</Label>
-                    <PhoneInput defaultCountry="BF" id="whatsapp-phone" placeholder="+1234567890" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="whatsapp-api-key">Clé API</Label>
-                    <Input id="whatsapp-api-key" placeholder="Votre Clé API WhatsApp" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="whatsapp-business-id">ID de Compte Business</Label>
-                    <Input id="whatsapp-business-id" placeholder="Votre ID de Compte Business" />
-                  </div>
-                  <Button>Enregistrer les Paramètres WhatsApp</Button>
-                </CollapsibleContent>
-              </Collapsible>
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp-api-key">Clé API</Label>
+                  <Input id="whatsapp-api-key" placeholder="Votre Clé API WhatsApp" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp-business-id">ID de Compte Business</Label>
+                  <Input id="whatsapp-business-id" placeholder="Votre ID de Compte Business" />
+                </div>
+                <Button>Enregistrer les Paramètres WhatsApp</Button>
+              </IntegrationCollapsible>
 
               {/* Twilio SMS Integration */}
-              <Collapsible>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-lg">Intégration Twilio SMS</CardTitle>
-                    <CardDescription>Configurez les identifiants de l&apos;API Twilio pour les notifications SMS.</CardDescription>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Label htmlFor="twilio-integration">Activer</Label>
-                    <Switch id="twilio-integration" />
-                    <CollapsibleTrigger asChild>
-                      <Button variant="ghost" size="sm">
-                        <span className="sr-only">Basculer</span>
-                        <ChevronDown className="size-4" />
-                      </Button>
-                    </CollapsibleTrigger>
-                  </div>
+              <IntegrationCollapsible
+                title="Intégration Twilio SMS"
+                description="Configurez les identifiants de l'API Twilio pour les notifications SMS."
+                switchId="twilio-integration"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="twilio-account-sid">SID du Compte</Label>
+                  <Input id="twilio-account-sid" placeholder="Votre SID de Compte Twilio" />
                 </div>
-                <CollapsibleContent className="mt-4 space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="twilio-account-sid">SID du Compte</Label>
-                    <Input id="twilio-account-sid" placeholder="Votre SID de Compte Twilio" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="twilio-auth-token">Jeton d&apos;Authentification</Label>
-                    <Input id="twilio-auth-token" placeholder="Votre Jeton d'Authentification Twilio" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="twilio-phone-number">Numéro de Téléphone Twilio</Label>
-                    <PhoneInput defaultCountry="BF" id="twilio-phone-number" placeholder="+1234567890" />
-                  </div>
-                  <Button>Enregistrer les Paramètres Twilio</Button>
-                </CollapsibleContent>
-              </Collapsible>
+                <div className="space-y-2">
+                  <Label htmlFor="twilio-auth-token">Jeton d'Authentification</Label>
+                  <Input id="twilio-auth-token" placeholder="Votre Jeton d'Authentification Twilio" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="twilio-phone-number">Numéro de Téléphone Twilio</Label>
+                  <PhoneInput defaultCountry="BF" id="twilio-phone-number" placeholder="+1234567890" />
+                </div>
+                <Button>Enregistrer les Paramètres Twilio</Button>
+              </IntegrationCollapsible>
 
               {/* Paystack Integration */}
-              <Collapsible>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-lg">Intégration Paystack</CardTitle>
-                    <CardDescription>Configurez Paystack pour le traitement des paiements.</CardDescription>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Label htmlFor="paystack-integration">Activer</Label>
-                    <Switch id="paystack-integration" />
-                    <CollapsibleTrigger asChild>
-                      <Button variant="ghost" size="sm">
-                        <span className="sr-only">Basculer</span>
-                        <ChevronDown className="size-4" />
-                      </Button>
-                    </CollapsibleTrigger>
-                  </div>
+              <IntegrationCollapsible
+                title="Intégration Paystack"
+                description="Configurez Paystack pour le traitement des paiements."
+                switchId="paystack-integration"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="paystack-secret-key">Clé Secrète</Label>
+                  <Input id="paystack-secret-key" placeholder="Votre Clé Secrète Paystack" type="password" />
                 </div>
-                <CollapsibleContent className="mt-4 space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="paystack-secret-key">Clé Secrète</Label>
-                    <Input id="paystack-secret-key" placeholder="Votre Clé Secrète Paystack" type="password" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="paystack-public-key">Clé Publique</Label>
-                    <Input id="paystack-public-key" placeholder="Votre Clé Publique Paystack" />
-                  </div>
-                  <Button>Enregistrer les Paramètres Paystack</Button>
-                </CollapsibleContent>
-              </Collapsible>
+                <div className="space-y-2">
+                  <Label htmlFor="paystack-public-key">Clé Publique</Label>
+                  <Input id="paystack-public-key" placeholder="Votre Clé Publique Paystack" />
+                </div>
+                <Button>Enregistrer les Paramètres Paystack</Button>
+              </IntegrationCollapsible>
 
               {/* CinetPay Integration */}
-              <Collapsible>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-lg">Intégration CinetPay</CardTitle>
-                    <CardDescription>Configurez CinetPay pour le traitement des paiements.</CardDescription>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Label htmlFor="cinetpay-integration">Activer</Label>
-                    <Switch id="cinetpay-integration" />
-                    <CollapsibleTrigger asChild>
-                      <Button variant="ghost" size="sm">
-                        <span className="sr-only">Basculer</span>
-                        <ChevronDown className="size-4" />
-                      </Button>
-                    </CollapsibleTrigger>
-                  </div>
+              <IntegrationCollapsible
+                title="Intégration CinetPay"
+                description="Configurez CinetPay pour le traitement des paiements."
+                switchId="cinetpay-integration"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="cinetpay-api-key">Clé API</Label>
+                  <Input id="cinetpay-api-key" placeholder="Votre Clé API CinetPay" type="password" />
                 </div>
-                <CollapsibleContent className="mt-4 space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="cinetpay-api-key">Clé API</Label>
-                    <Input id="cinetpay-api-key" placeholder="Votre Clé API CinetPay" type="password" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="cinetpay-site-id">ID du Site</Label>
-                    <Input id="cinetpay-site-id" placeholder="Votre ID de Site CinetPay" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="cinetpay-environment">Environnement</Label>
-                    <Select>
-                      <SelectTrigger id="cinetpay-environment">
-                        <SelectValue placeholder="Sélectionnez l'environnement" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="sandbox">Sandbox</SelectItem>
-                        <SelectItem value="production">Production</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <Button>Enregistrer les Paramètres CinetPay</Button>
-                </CollapsibleContent>
-              </Collapsible>
+                <div className="space-y-2">
+                  <Label htmlFor="cinetpay-site-id">ID du Site</Label>
+                  <Input id="cinetpay-site-id" placeholder="Votre ID de Site CinetPay" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="cinetpay-environment">Environnement</Label>
+                  <Select>
+                    <SelectTrigger id="cinetpay-environment">
+                      <SelectValue placeholder="Sélectionnez l'environnement" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="sandbox">Sandbox</SelectItem>
+                      <SelectItem value="production">Production</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <Button>Enregistrer les Paramètres CinetPay</Button>
+              </IntegrationCollapsible>
             </CardContent>
           </Card>
         </TabsContent>
