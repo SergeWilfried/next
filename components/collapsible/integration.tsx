@@ -1,11 +1,8 @@
 'use client'
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
-import { CardTitle, CardDescription } from "@/components/ui/card"
-import { ChevronDown } from "lucide-react"
+import { CardTitle, CardDescription } from "../ui/card"
 
 interface IntegrationCollapsibleProps {
   title: string
