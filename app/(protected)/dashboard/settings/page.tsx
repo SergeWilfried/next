@@ -64,7 +64,7 @@ export default async function SettingsPage() {
               <CardTitle>Paramètres du Compte</CardTitle>
               <CardDescription>Gérez les informations de votre compte.</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 mt-6">
               <UserNameForm user={{ id: user.id, name: user.name || "" }} />
               <UserRoleForm user={{ id: user.id, role: user.role }} />
               <div className="mt-6">
