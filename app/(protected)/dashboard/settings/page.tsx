@@ -8,8 +8,6 @@ import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { ChevronDown } from "lucide-react"
-import { useState } from "react"
-
 import { getCurrentUser } from "@/lib/session"
 import { constructMetadata } from "@/lib/utils"
 import { DeleteAccountSection } from "@/components/dashboard/delete-account"
@@ -25,13 +23,28 @@ export const metadata = constructMetadata({
   description: "Configurez les paramètres de votre compte et de votre site web.",
 })
 
+
 export default async function SettingsPage() {
   const user = await getCurrentUser()
 
   if (!user?.id) redirect("/login")
 
-  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false)
-  const [isInviteDialogOpen, setInviteDialogOpen] = useState(false)
+
+  // Local variables to manage state
+  let twoFactorEnabled = false
+  let isInviteDialogOpen = false
+
+// Event handlers to manage state
+const handleTwoFactorChange = (event) => {
+  twoFactorEnabled = event.target.checked
+  // Force re-render if necessary
+}
+
+  const handleInviteDialogOpenChange = (isOpen) => {
+    isInviteDialogOpen = isOpen
+    // Force re-render if necessary
+  }
+
 
   return (
     <>
@@ -107,9 +120,9 @@ export default async function SettingsPage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Dialog open={isInviteDialogOpen} onOpenChange={setInviteDialogOpen}>
+              <Dialog open={isInviteDialogOpen} onOpenChange={handleInviteDialogOpenChange}>
                 <DialogTrigger asChild>
-                  <Button onClick={() => setInviteDialogOpen(true)}>Inviter un Nouveau Membre</Button>
+                  <Button onClick={() => handleInviteDialogOpenChange(true)}>Inviter un Nouveau Membre</Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
@@ -140,7 +153,7 @@ export default async function SettingsPage() {
                     </div>
                   </div>
                   <DialogFooter>
-                    <Button onClick={() => setInviteDialogOpen(false)}>Annuler</Button>
+                    <Button onClick={() => handleInviteDialogOpenChange(false)}>Annuler</Button>
                     <Button>Inviter</Button>
                   </DialogFooter>
                 </DialogContent>
@@ -333,7 +346,7 @@ export default async function SettingsPage() {
                   <Switch
                     id="two-factor-auth"
                     checked={twoFactorEnabled}
-                    onCheckedChange={setTwoFactorEnabled}
+                    onCheckedChange={handleTwoFactorChange}
                   />
                   <Label htmlFor="two-factor-auth">
                     Activer l'Authentification à Deux Facteurs
