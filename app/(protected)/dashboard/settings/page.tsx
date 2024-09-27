@@ -58,55 +58,68 @@ export default async function SettingsPage() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="notifications">
+        <TabsContent value="members">
           <Card>
             <CardHeader>
               <CardTitle>Membres</CardTitle>
-              <CardDescription>Gérez vos paramètres de notification.</CardDescription>
+              <CardDescription>Gérez les membres de votre établissement.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <Avatar>
                     <AvatarImage src="/avatars/01.png" alt="Member 1" />
-                    <AvatarFallback>M1</AvatarFallback>
+                    <AvatarFallback>JD</AvatarFallback>
                   </Avatar>
                   <div>
                     <p className="font-medium">John Doe</p>
                     <p className="text-sm text-gray-500">john.doe@example.com</p>
                   </div>
                 </div>
-                <Badge>Admin</Badge>
+                <Badge>Administrateur</Badge>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <Avatar>
                     <AvatarImage src="/avatars/02.png" alt="Member 2" />
-                    <AvatarFallback>M2</AvatarFallback>
+                    <AvatarFallback>JS</AvatarFallback>
                   </Avatar>
                   <div>
                     <p className="font-medium">Jane Smith</p>
                     <p className="text-sm text-gray-500">jane.smith@example.com</p>
                   </div>
                 </div>
-                <Badge>Member</Badge>
+                <Badge>Enseignant</Badge>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <Avatar>
                     <AvatarImage src="/avatars/03.png" alt="Member 3" />
-                    <AvatarFallback>M3</AvatarFallback>
+                    <AvatarFallback>BJ</AvatarFallback>
                   </Avatar>
                   <div>
                     <p className="font-medium">Bob Johnson</p>
                     <p className="text-sm text-gray-500">bob.johnson@example.com</p>
                   </div>
                 </div>
-                <Badge>Member</Badge>
+                <Badge>Étudiant</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <Avatar>
+                    <AvatarImage src="/avatars/04.png" alt="Member 4" />
+                    <AvatarFallback>AC</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-medium">Alice Cooper</p>
+                    <p className="text-sm text-gray-500">alice.cooper@example.com</p>
+                  </div>
+                </div>
+                <Badge>Comptable</Badge>
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Inviter</Button>
+              <Button>Inviter un nouveau membre</Button>
             </CardFooter>
           </Card>
         </TabsContent>
