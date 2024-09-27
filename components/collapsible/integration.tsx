@@ -3,6 +3,7 @@
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Switch } from "@/components/ui/switch"
 import { CardTitle, CardDescription } from "../ui/card"
+import { ChevronDown } from "lucide-react"
 
 interface IntegrationCollapsibleProps {
   title: string
@@ -21,7 +22,7 @@ export function IntegrationCollapsible({ title, description, children, switchId 
         </div>
         <div className="flex items-center space-x-2">
           <CollapsibleTrigger asChild>
-            <Switch id={switchId} />
+            <ChevronDown className="size-4" />
           </CollapsibleTrigger>
         </div>
       </div>
