@@ -245,7 +245,7 @@ export default async function SettingsPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="facility-type">Type d&apos;établissement</Label>
-                <select id="facility-type" className="w-full p-2 border rounded">
+                <select id="facility-type" className="w-full rounded border p-2">
                   <option value="">Sélectionnez un type</option>
                   <option value="primary">École primaire</option>
                   <option value="secondary">École secondaire</option>
