@@ -16,6 +16,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar"
 import { Badge } from "lucide-react"
 import { IntegrationCollapsible } from "@/components/collapsible/integration"
 import { Checkbox } from "@/components/ui/checkbox"
+import { PhoneInput } from "@/components/input/phone-input"
 
 export const metadata = constructMetadata({
   title: "Paramètres – Gesco",
@@ -136,19 +137,23 @@ export default async function SettingsPage() {
                 description="Configurez les identifiants de l&apos;API WhatsApp Business."
                 switchId="whatsapp-integration"
               >
-                <div className="space-y-2">
-                  <Label htmlFor="whatsapp-phone">Numéro de téléphone WhatsApp</Label>
-                  <Input id="whatsapp-phone" placeholder="+1234567890" />
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="whatsapp-phone">Numéro de téléphone WhatsApp</Label>
+                    <PhoneInput defaultCountry="BF" id="whatsapp-phone" placeholder="+1234567890" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="whatsapp-api-key">Clé API</Label>
+                    <Input id="whatsapp-api-key" placeholder="Votre clé API WhatsApp" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="whatsapp-business-id">ID du compte professionnel</Label>
+                    <Input id="whatsapp-business-id" placeholder="Votre ID de compte professionnel" />
+                  </div>
+                  <div className="flex justify-end">
+                    <Button>Enregistrer les paramètres WhatsApp</Button>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="whatsapp-api-key">Clé API</Label>
-                  <Input id="whatsapp-api-key" placeholder="Votre clé API WhatsApp" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="whatsapp-business-id">ID du compte professionnel</Label>
-                  <Input id="whatsapp-business-id" placeholder="Votre ID de compte professionnel" />
-                </div>
-                <Button className="mt-4">Enregistrer les paramètres WhatsApp</Button>
               </IntegrationCollapsible>
 
               <IntegrationCollapsible
@@ -156,19 +161,23 @@ export default async function SettingsPage() {
                 description="Configurez les identifiants de l&apos;API Twilio pour les notifications SMS."
                 switchId="twilio-integration"
               >
-                <div className="space-y-2">
-                  <Label htmlFor="twilio-account-sid">ID du compte</Label>
-                  <Input id="twilio-account-sid" placeholder="Votre ID de compte Twilio" />
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="twilio-account-sid">ID du compte</Label>
+                    <Input id="twilio-account-sid" placeholder="Votre ID de compte Twilio" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="twilio-auth-token">Jeton d&apos;authentification</Label>
+                    <Input id="twilio-auth-token" placeholder="Votre jeton d&apos;authentification Twilio" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="twilio-phone-number">Numéro de téléphone Twilio</Label>
+                    <PhoneInput defaultCountry="BF" id="twilio-phone-number" placeholder="+1234567890" />
+                  </div>
+                  <div className="flex justify-end">
+                    <Button>Enregistrer les paramètres Twilio</Button>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="twilio-auth-token">Jeton d&apos;authentification</Label>
-                  <Input id="twilio-auth-token" placeholder="Votre jeton d&apos;authentification Twilio" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="twilio-phone-number">Numéro de téléphone Twilio</Label>
-                  <Input id="twilio-phone-number" placeholder="+1234567890" />
-                </div>
-                <Button className="mt-4">Enregistrer les paramètres Twilio</Button>
               </IntegrationCollapsible>
 
               <IntegrationCollapsible
@@ -176,31 +185,39 @@ export default async function SettingsPage() {
                 description="Configurez les identifiants de l&apos;API Paystack pour le traitement des paiements."
                 switchId="paystack-integration"
               >
-                <div className="space-y-2">
-                  <Label htmlFor="paystack-secret-key">Clé secrète</Label>
-                  <Input id="paystack-secret-key" placeholder="Votre clé secrète Paystack" />
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="paystack-secret-key">Clé secrète</Label>
+                    <Input id="paystack-secret-key" placeholder="Votre clé secrète Paystack" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="paystack-public-key">Clé publique</Label>
+                    <Input id="paystack-public-key" placeholder="Votre clé publique Paystack" />
+                  </div>
+                  <div className="flex justify-end">
+                    <Button>Enregistrer les paramètres Paystack</Button>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="paystack-public-key">Clé publique</Label>
-                  <Input id="paystack-public-key" placeholder="Votre clé publique Paystack" />
-                </div>
-                <Button className="mt-4">Enregistrer les paramètres Paystack</Button>
               </IntegrationCollapsible>
 
               <IntegrationCollapsible
                 title="Intégration CinetPay"
-                description="Configurez les identifiants de l&apos;API CinetPay pour le traitement des paiements."
+                description="Configurez les identifiants de l'API CinetPay pour le traitement des paiements."
                 switchId="cinetpay-integration"
               >
-                <div className="space-y-2">
-                  <Label htmlFor="cinetpay-api-key">Clé API</Label>
-                  <Input id="cinetpay-api-key" placeholder="Votre clé API CinetPay" />
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="cinetpay-api-key">Clé API</Label>
+                    <Input id="cinetpay-api-key" placeholder="Votre clé API CinetPay" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="cinetpay-site-id">ID du site</Label>
+                    <Input id="cinetpay-site-id" placeholder="Votre ID de site CinetPay" />
+                  </div>
+                  <div className="flex justify-end">
+                    <Button>Enregistrer les paramètres CinetPay</Button>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="cinetpay-site-id">ID du site</Label>
-                  <Input id="cinetpay-site-id" placeholder="Votre ID de site CinetPay" />
-                </div>
-                <Button className="mt-4">Enregistrer les paramètres CinetPay</Button>
               </IntegrationCollapsible>
             </CardContent>
           </Card>
@@ -301,7 +318,7 @@ export default async function SettingsPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="facility-capacity">Capacité d&apos;accueil</Label>
-                <Input id="facility-capacity" type="number" placeholder="Nombre d&apos;étudiants" />
+                <Input id="facility-capacity" type="number" placeholder="Nombre d'étudiants" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="facility-founded">Année de fondation</Label>
