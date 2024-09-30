@@ -8,8 +8,8 @@ import { PieChartComponent } from "@/components/charts/pie-chart-interactive";
 import TransactionsList from "@/components/dashboard/transactions-list";
 
 export const metadata = constructMetadata({
-  title: "Accounting – School Management System",
-  description: "Manage payments in the school system.",
+  title: "Comptabilité – Système de Gestion Scolaire",
+  description: "Gérer les paiements dans le système scolaire.",
 });
 
 export default async function PaymentsPage() {
@@ -25,11 +25,11 @@ export default async function PaymentsPage() {
   const averagePayment = txCount > 0 ? totalRevenue / txCount : 0;
 
   const paymentsByMonth = [
-      { month: "january", paid: 250000, due: 100000, fill: "var(--color-january)" },
-      { month: "february", paid: 305000, due: 150000, fill: "var(--color-february)" },
-      { month: "march", paid: 237000, due: 120000, fill: "var(--color-march)" },
-      { month: "april", paid: 173000, due: 100000, fill: "var(--color-april)" },
-      { month: "may", paid: 209000, due: 150000, fill: "var(--color-may)" },
+      { month: "janvier", paid: 250000, due: 100000, fill: "var(--color-january)" },
+      { month: "février", paid: 305000, due: 150000, fill: "var(--color-february)" },
+      { month: "mars", paid: 237000, due: 120000, fill: "var(--color-march)" },
+      { month: "avril", paid: 173000, due: 100000, fill: "var(--color-april)" },
+      { month: "mai", paid: 209000, due: 150000, fill: "var(--color-may)" },
   ]; 
   // Logic to group payments by month
   const thisMonth = (month: string) => {
@@ -46,40 +46,40 @@ export default async function PaymentsPage() {
   return (
     <>
       <DashboardHeader
-        heading="Financial Overview"
-        text="Key metrics and trends for the school's financial health."
+        heading="Aperçu Financier"
+        text="Indicateurs clés et tendances de la santé financière de l'école."
       />   
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <InfoCard
-          title="Total Revenue"
-          value={`$${totalRevenue.toFixed(2)}`}
+          title="Revenu Total"
+          value={`${totalRevenue.toFixed(2)} €`}
           type="dollarSign"
-          change="+18% from last month"
+          change="+18% par rapport au mois dernier"
         />
         <InfoCard
-          title="Average Payment"
-          value={`$${isNaN(averagePayment) ? '0.00' : averagePayment.toFixed(2)}`}
+          title="Paiement Moyen"
+          value={`${isNaN(averagePayment) ? '0,00' : averagePayment.toFixed(2)} €`}
           type="accounting"
-          change="+18% from last month"
+          change="+18% par rapport au mois dernier"
         />
         <InfoCard
-          title="Total Payments"
+          title="Total des Paiements"
           value={txCount.toString()}
           type="fileText"
-          change="+18% from last month"
+          change="+18% par rapport au mois dernier"
         />
         <InfoCard
-          title="Payment Rate"
-          value={`${(totalRevenue / expectedRevenue) * 100}%`}
+          title="Taux de Paiement"
+          value={`${((totalRevenue / expectedRevenue) * 100).toFixed(2)}%`}
           type="percent"
-          change="+8% from last month"
+          change="+8% par rapport au mois dernier"
         />
       </div>
 
       <div className="flex flex-col gap-5 md:flex-row md:justify-between">
           <div className="w-full md:w-[50%]">
-            <PieChartComponent title="Monthly Payments" data={paymentsByMonth} />
+            <PieChartComponent title="Paiements Mensuels" data={paymentsByMonth} />
           </div>
           <div className="w-full md:w-[50%]">
             <TransactionsList />
