@@ -26,12 +26,12 @@ export default function TransactionsList() {
         <div className="grid gap-2">
           <CardTitle>Transactions</CardTitle>
           <CardDescription className="text-balance">
-            Recent transactions from your account.
+            Transactions récentes de votre compte.
           </CardDescription>
         </div>
         <Button size="sm" className="ml-auto shrink-0 gap-1 px-4">
           <Link href="#" className="flex items-center gap-2">
-            <span>View All</span>
+            <span>Voir tout</span>
             <ArrowUpRight className="hidden size-4 sm:block" />
           </Link>
         </Button>
@@ -40,15 +40,14 @@ export default function TransactionsList() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Customer</TableHead>
+              <TableHead>Client</TableHead>
               <TableHead className="hidden xl:table-column">Type</TableHead>
-              <TableHead className="hidden xl:table-column">Status</TableHead>
+              <TableHead className="hidden xl:table-column">Statut</TableHead>
               <TableHead className="hidden xl:table-column">Date</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
+              <TableHead className="text-right">Montant</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-           
             <TableRow>
               <TableCell>
                 <div className="font-medium">Olivia Smith</div>
@@ -56,16 +55,16 @@ export default function TransactionsList() {
                   olivia@example.com
                 </div>
               </TableCell>
-              <TableCell className="hidden xl:table-column">Refund</TableCell>
+              <TableCell className="hidden xl:table-column">Remboursement</TableCell>
               <TableCell className="hidden xl:table-column">
                 <Badge className="text-xs" variant="outline">
-                  Declined
+                  Refusé
                 </Badge>
               </TableCell>
               <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-24
+                24/06/2023
               </TableCell>
-              <TableCell className="text-right">$150.00</TableCell>
+              <TableCell className="text-right">150,00 €</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
@@ -75,35 +74,17 @@ export default function TransactionsList() {
                 </div>
               </TableCell>
               <TableCell className="hidden xl:table-column">
-                Subscription
+                Abonnement
               </TableCell>
               <TableCell className="hidden xl:table-column">
                 <Badge className="text-xs" variant="outline">
-                  Approved
+                  Approuvé
                 </Badge>
               </TableCell>
               <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-25
+                25/06/2023
               </TableCell>
-              <TableCell className="text-right">$350.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Emma Brown</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  emma@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">Sale</TableCell>
-              <TableCell className="hidden xl:table-column">
-                <Badge className="text-xs" variant="outline">
-                  Approved
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-26
-              </TableCell>
-              <TableCell className="text-right">$450.00</TableCell>
+              <TableCell className="text-right">350,00 €</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
@@ -112,16 +93,16 @@ export default function TransactionsList() {
                   olivia@example.com
                 </div>
               </TableCell>
-              <TableCell className="hidden xl:table-column">Purchase</TableCell>
+              <TableCell className="hidden xl:table-column">Achat</TableCell>
               <TableCell className="hidden xl:table-column">
                 <Badge className="text-xs" variant="outline">
-                  Pending
+                  En attente
                 </Badge>
               </TableCell>
               <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-27
+                27/06/2023
               </TableCell>
-              <TableCell className="text-right">$275.00</TableCell>
+              <TableCell className="text-right">275,00 €</TableCell>
             </TableRow>
           </TableBody>
         </Table>

@@ -31,32 +31,32 @@ import { TrendingUp } from "lucide-react"
 
 const chartConfig = {
   payments: {
-    label: "payments",
+    label: "Encaissements",
   },
   paid: {
-    label: "paid",
+    label: "Payés",
   },
   due: {
-    label: "due",
+    label: "Impayés",
   },
   january: {
-    label: "January",
+    label: "Janvier",
     color: "hsl(var(--chart-1))",
   },
   february: {
-    label: "February",
+    label: "Février",
     color: "hsl(var(--chart-2))",
   },
   march: {
-    label: "March",
+    label: "Mars",
     color: "hsl(var(--chart-3))",
   },
   april: {
-    label: "April",
+    label: "Avril",
     color: "hsl(var(--chart-4))",
   },
   may: {
-    label: "May",
+    label: "Mai",
     color: "hsl(var(--chart-5))",
   },
 } satisfies ChartConfig
@@ -92,9 +92,9 @@ export function PieChartComponent({title, data}: PieChartComponentProps) {
         <Select value={activeMonth} onValueChange={setActiveMonth}>
           <SelectTrigger
             className="ml-auto h-7 w-[130px] rounded-lg pl-2.5"
-            aria-label="Select a value"
+            aria-label="Sélectionner une valeur"
           >
-            <SelectValue placeholder="Select month" />
+            <SelectValue placeholder="Sélectionner le mois" />
           </SelectTrigger>
           <SelectContent align="end" className="rounded-xl">
             {months.map((key) => {
@@ -179,7 +179,7 @@ export function PieChartComponent({title, data}: PieChartComponentProps) {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Payments
+                          Paiements
                         </tspan>
                       </text>
                     )
@@ -192,10 +192,10 @@ export function PieChartComponent({title, data}: PieChartComponentProps) {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          Trending up by 15.2% this month <TrendingUp className="size-4" />
+          En hausse de 15,2% ce mois-ci <TrendingUp className="size-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total {title} for the last 6 months
+          Affichage du total {title} pour les 6 derniers mois
         </div>
       </CardFooter>
     </Card>
