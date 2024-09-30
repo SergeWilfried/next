@@ -10,7 +10,7 @@ interface MapViewProps {
   style: string;
   center: [number, number];
   zoom: number;
-  schools: School[]; // Replace 'any' with your school type
+  schools: School[]; 
   accessToken: string;
 }
 
