@@ -232,9 +232,9 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
 
   return (
     <ScrollArea className="h-screen">
-      <div className="container mx-auto p-6">
+      <div className="container mx-auto p-4 sm:p-6"> {/* Adjusted padding for smaller screens */}
         <Card className="mb-6">
-          <CardHeader className="flex flex-row items-center gap-4">
+          <CardHeader className="flex flex-col sm:flex-row items-center gap-4"> {/* Made header stack on small screens */}
             <div className="relative">
               <Avatar className="size-20">
                 <AvatarImage src={student.avatar} alt={student.name} />
@@ -255,10 +255,10 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
                 </DialogContent>
               </Dialog>
             </div>
-            <div className="grow">
-              <CardTitle className="text-2xl">{student.name}</CardTitle>
+            <div className="grow text-center sm:text-left"> {/* Centered text on small screens */}
+              <CardTitle className="text-xl sm:text-2xl">{student.name}</CardTitle>
               <CardDescription>ID : {student.id} | Niveau : {student.grade}</CardDescription>
-              <div className="mt-2 flex items-center gap-2">
+              <div className="mt-2 flex flex-wrap justify-center sm:justify-start items-center gap-2">
                 <Badge variant="outline">
                   <Icons.dollarSign className="mr-1 size-4" />
                   {student.financialInfo.tuitionStatus}
@@ -271,7 +271,7 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
             </div>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className="flex items-center gap-2">
@@ -308,7 +308,7 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
           </CardContent>
         </Card>
 
-        <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"> {/* Adjusted grid for better responsiveness */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Moyenne générale</CardTitle>
@@ -344,7 +344,7 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
         </div>
 
         <Tabs defaultValue="academics" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-6"> {/* Adjusted grid for better responsiveness */}
             <TabsTrigger value="academics">Académique</TabsTrigger>
             <TabsTrigger value="activities">Activités</TabsTrigger>
             <TabsTrigger value="achievements">Réalisations</TabsTrigger>
@@ -689,7 +689,7 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
           </DialogContent>
         </Dialog>
 
-        <div className="mt-6 flex justify-end space-x-4">
+        <div className="mt-6 flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4"> {/* Stack buttons on small screens */}
           <Button variant="outline" onClick={() => setIsEditingProfile(true)}>Modifier le profil</Button>
           <Button>
             <Icons.bookOpen className="mr-2 size-4" />
