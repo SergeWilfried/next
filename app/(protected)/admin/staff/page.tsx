@@ -46,7 +46,7 @@ export default async function StaffPage() {
           <Button>Import from Excel</Button>
         </EmptyPlaceholder>
       ) : (
-        <DataTable columns={staffTableColumns} data={staff} pageCount={count} />
+        <DataTable href="/admin/staff" columns={staffTableColumns} data={staff} pageCount={count} />
       )}
     </>
   );

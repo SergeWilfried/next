@@ -46,7 +46,7 @@ export default async function ParentsPage() {
           <Button>Import from Excel</Button>
         </EmptyPlaceholder>
       ) : (
-        <DataTable columns={parentsTableColumns} data={parents} pageCount={count} />
+        <DataTable href="/admin/parents" columns={parentsTableColumns} data={parents} pageCount={count} />
       )}
     </>
   );

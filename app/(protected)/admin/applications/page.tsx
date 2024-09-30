@@ -37,7 +37,7 @@ export default async function ApplicationsPage() {
       ) : applications === undefined ? (
         <ApplicationsLoading />
       ) : applications.length > 0 ? (
-        <DataTable columns={applicationsTableColumns} data={applications} pageCount={count} />
+        <DataTable href="/admin/applications" columns={applicationsTableColumns} data={applications} pageCount={count} />
       ) : (
         <EmptyPlaceholder>
           <EmptyPlaceholder.Icon name="file" />

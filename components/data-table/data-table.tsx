@@ -36,15 +36,17 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[],
   pageCount: number,
+  href: string, // Add this line
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends { id: string | number }, TValue>({
   columns,
   data,
   pageCount,
+  href,
 }: DataTableProps<TData, TValue>) {
 
-  const router = useRouter()
+  const router = useRouter() // Add this line
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -133,6 +135,10 @@ export function DataTable<TData, TValue>({
   const handleExport = () => {
     // Implement your export logic here
     console.log("Exporting data...")
+  }
+
+  const handleRowClick = (row: TData) => {
+    router.push(`${href}/${row.id}`)
   }
 
   return (
@@ -225,6 +231,8 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => handleRowClick(row.original)}
+                  className="cursor-pointer"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

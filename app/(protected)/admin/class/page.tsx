@@ -48,7 +48,7 @@ export default async function ClassPage() {
         <Button>Import from Excel</Button>
       </EmptyPlaceholder>
     ) : (
-      <DataTable data={classes} columns={classTableColumns} pageCount={count} />
+      <DataTable href="/admin/class" data={classes} columns={classTableColumns} pageCount={count} />
     )}
     </>
   );

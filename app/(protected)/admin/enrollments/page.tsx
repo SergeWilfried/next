@@ -42,7 +42,7 @@ export default async function EnrollmentsPage() {
         <Button>Import Enrollments</Button>
       </EmptyPlaceholder>
     ) : (
-      <DataTable data={enrollments} columns={enrollmentsTableColumns} pageCount={count} />
+      <DataTable href="/admin/enrollments" data={enrollments} columns={enrollmentsTableColumns} pageCount={count} />
     )}
     </>
   );

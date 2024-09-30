@@ -43,6 +43,7 @@ export default async function GradesPage() {
         </EmptyPlaceholder>
       ) : (
         <DataTable
+          href="/admin/grades"
           data={grades}
           columns={gradesTableColumns}
           pageCount={count}
