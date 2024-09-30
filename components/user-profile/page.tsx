@@ -221,7 +221,7 @@ export default function EnhancedStudentProfile() {
         <Card className="mb-6">
           <CardHeader className="flex flex-row items-center gap-4">
             <div className="relative">
-              <Avatar className="h-20 w-20">
+              <Avatar className="size-20">
                 <AvatarImage src={student.avatar} alt={student.name} />
                 <AvatarFallback>{student.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
               </Avatar>
@@ -245,18 +245,18 @@ export default function EnhancedStudentProfile() {
               <CardDescription>ID : {student.id} | Niveau : {student.grade}</CardDescription>
               <div className="mt-2 flex items-center gap-2">
                 <Badge variant="outline">
-                  <Icons.dollarSign className="size-4 mr-1" />
+                  <Icons.dollarSign className="mr-1 size-4" />
                   {student.financialInfo.tuitionStatus}
                 </Badge>
                 <Badge variant="outline">
-                  <Icons.users2 className="size-4 mr-1" />
+                  <Icons.users2 className="mr-1 size-4" />
                   {student.parents[0].name} ({student.parents[0].relation})
                 </Badge>
               </div>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className="flex items-center gap-2">
@@ -293,33 +293,33 @@ export default function EnhancedStudentProfile() {
           </CardContent>
         </Card>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Moyenne générale</CardTitle>
-              <Icons.graduationCap className="text-muted-foreground size-4" />
+              <Icons.graduationCap className="size-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{student.gpa.toFixed(2)}</div>
               <Progress value={(student.gpa / 4) * 100} className="mt-2" />
-              <p className="text-xs text-muted-foreground mt-1">Sur 4.0</p>
+              <p className="mt-1 text-xs text-muted-foreground">Sur 4.0</p>
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Assiduité</CardTitle>
-              <Icons.calendarDays className="text-muted-foreground size-4" />
+              <Icons.calendarDays className="size-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{student.attendance}%</div>
               <Progress value={student.attendance} className="mt-2" />
-              <p className="text-xs text-muted-foreground mt-1">Année en cours</p>
+              <p className="mt-1 text-xs text-muted-foreground">Année en cours</p>
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Activités extrascolaires</CardTitle>
-              <Icons.users className="text-muted-foreground size-4" />
+              <Icons.users className="size-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{student.activities.length}</div>
@@ -347,7 +347,7 @@ export default function EnhancedStudentProfile() {
                 </CardHeader>
                 <CardContent>
                   <Progress value={subject.progress} className="mt-2" />
-                  <p className="text-sm text-muted-foreground mt-1">Progression : {subject.progress}%</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Progression : {subject.progress}%</p>
                 </CardContent>
               </Card>
             ))}
@@ -358,7 +358,7 @@ export default function EnhancedStudentProfile() {
                 <CardTitle>Activités extrascolaires</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="list-disc pl-6 space-y-2">
+                <ul className="list-disc space-y-2 pl-6">
                   {student.activities.map((activity, index) => (
                     <li key={index}>{activity}</li>
                   ))}
@@ -372,7 +372,7 @@ export default function EnhancedStudentProfile() {
                 <CardTitle>Réalisations récentes</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="list-disc pl-6 space-y-2">
+                <ul className="list-disc space-y-2 pl-6">
                   {student.recentAchievements.map((achievement, index) => (
                     <li key={index}>{achievement}</li>
                   ))}
@@ -387,7 +387,7 @@ export default function EnhancedStudentProfile() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                     <div>
                       <h4 className="font-semibold">Statut des frais de scolarité</h4>
                       <p>{student.financialInfo.tuitionStatus}</p>
@@ -406,7 +406,7 @@ export default function EnhancedStudentProfile() {
                     </div>
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-2">Transactions récentes</h4>
+                    <h4 className="mb-2 font-semibold">Transactions récentes</h4>
                     <Table>
                       <TableHeader>
                         <TableRow>
@@ -446,13 +446,13 @@ export default function EnhancedStudentProfile() {
                     <DialogHeader>
                       <DialogTitle>{editingDocument ? 'Modifier le document' : 'Ajouter un nouveau document'}</DialogTitle>
                     </DialogHeader>
-                    <div {...getRootProps()} className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer">
+                    <div {...getRootProps()} className="cursor-pointer rounded-md border-2 border-dashed p-6 text-center">
                       <input {...getInputProps()} />
                       {isDragActive ? (
                         <p>Déposez les fichiers ici ...</p>
                       ) : (
                         <div>
-                          <Icons.upload className="mx-auto text-gray-400 size-12" />
+                          <Icons.upload className="mx-auto size-12 text-gray-400" />
                           <p>Glissez et déposez des fichiers ici, ou cliquez pour sélectionner des fichiers</p>
                         </div>
                       )}
@@ -515,14 +515,14 @@ export default function EnhancedStudentProfile() {
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>Parents</CardTitle>
                 <Button variant="outline" size="sm" onClick={handleParentAdd}>
-                  <Icons.plus className="size-4 mr-2" /> Ajouter un parent
+                  <Icons.plus className="mr-2 size-4" /> Ajouter un parent
                 </Button>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
                   {student.parents.map((parent) => (
                     <div key={parent.id} className="space-y-2">
-                      <div className="flex justify-between items-center">
+                      <div className="flex items-center justify-between">
                         <h4 className="font-semibold">{parent.name} ({parent.relation})</h4>
                         <Button variant="ghost" size="sm" onClick={() => handleParentEdit(parent)}>
                           <Icons.edit className="size-4" />

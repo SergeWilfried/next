@@ -50,7 +50,7 @@ export default function MapView({
 
   return (
     <div id="map" className="h-[500px] w-full">
-      <div ref={mapContainer} className="h-full w-full" />
+      <div ref={mapContainer} className="size-full" />
     </div>
   );
 }
