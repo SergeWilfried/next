@@ -311,6 +311,35 @@ export default async function SettingsPage() {
                 <Switch id="facility-active" />
                 <Label htmlFor="facility-active">Établissement actif</Label>
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="facility-status">Statut</Label>
+                <select id="facility-status" className="w-full rounded border p-2">
+                  <option value="">Sélectionnez un statut</option>
+                  <option value="public">Public</option>
+                  <option value="private-secular">Privé laïc</option>
+                  <option value="private-religious">Privé confessionnel</option>
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="facility-region">Région</Label>
+                <Input id="facility-region" placeholder="Ex: Centre" />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="facility-province">Province</Label>
+                <Input id="facility-province" placeholder="Ex: KADIOGO" />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="facility-commune">Commune</Label>
+                <Input id="facility-commune" placeholder="Ex: OUAGADOUGOU" />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="facility-ceb">C.E.B</Label>
+                <Input id="facility-ceb" placeholder="Ex: OUAGA 13" />
+              </div>
             </CardContent>
             <CardFooter>
               <Button>Enregistrer les paramètres</Button>
