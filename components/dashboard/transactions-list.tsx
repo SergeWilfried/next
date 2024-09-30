@@ -48,7 +48,6 @@ export default function TransactionsList() {
             </TableRow>
           </TableHeader>
           <TableBody>
-           
             <TableRow>
               <TableCell>
                 <div className="font-medium">Olivia Smith</div>
@@ -86,24 +85,6 @@ export default function TransactionsList() {
                 2023-06-25
               </TableCell>
               <TableCell className="text-right">$350.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Emma Brown</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  emma@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">Sale</TableCell>
-              <TableCell className="hidden xl:table-column">
-                <Badge className="text-xs" variant="outline">
-                  Approved
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-26
-              </TableCell>
-              <TableCell className="text-right">$450.00</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
