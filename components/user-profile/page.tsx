@@ -1,5 +1,5 @@
 "use client"
-
+import { cn } from "@/lib/utils"
 import React, { useState, useCallback } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { CalendarDays, BookOpen, GraduationCap, Users, Mail, Phone, MapPin, Cake, DollarSign, FileText, Users2, AlertTriangle, Check, ChevronUp, ChevronDown, Camera, Trash2, Plus, Edit, Upload } from 'lucide-react'
 import { useDropzone } from 'react-dropzone'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 // Enhanced mock student data
 const initialStudent = {
@@ -44,6 +45,13 @@ const initialStudent = {
     tuitionStatus: "Paid",
     scholarships: ["Merit Scholarship", "Sports Scholarship"],
     outstandingFees: 0,
+    transactions: [
+      { id: 1, date: "2023-09-01", description: "Tuition Payment", amount: -5000 },
+      { id: 2, date: "2023-09-15", description: "Book Fee", amount: -200 },
+      { id: 3, date: "2023-10-01", description: "Merit Scholarship Credit", amount: 1000 },
+      { id: 4, date: "2023-10-15", description: "Lab Fee", amount: -150 },
+      { id: 5, date: "2023-11-01", description: "Sports Scholarship Credit", amount: 500 },
+    ],
   },
   documents: [
     { id: 1, name: "Birth Certificate", status: "Verified" },
@@ -93,6 +101,20 @@ export default function EnhancedStudentProfile() {
     setIsEditingProfilePicture(false)
   }
 
+  const getBadgeFinanceVariant = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'paid':
+      case 'verified':
+        return 'success'
+      case 'pending':
+        return 'warning'
+      case 'overdue':
+        return 'destructive'
+      default:
+        return 'secondary'
+    }
+  }
+  
   const handleDocumentEdit = (document: { id: number, name: string, status: string }) => {
     setEditingDocument(document)
     setIsEditingDocument(true)
@@ -271,11 +293,6 @@ export default function EnhancedStudentProfile() {
             <CardContent>
               <div className="text-2xl font-bold">{student.activities.length}</div>
               <p className="text-xs text-muted-foreground">Activities</p>
-              <ul className="mt-2 text-sm">
-                {student.activities.map((activity, index) => (
-                  <li key={index}>{activity}</li>
-                ))}
-              </ul>
             </CardContent>
           </Card>
         </div>
@@ -338,22 +355,47 @@ export default function EnhancedStudentProfile() {
                 <CardTitle>Financial Information</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold">Tuition Status</h4>
-                    <p>{student.financialInfo.tuitionStatus}</p>
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <h4 className="font-semibold">Tuition Status</h4>
+                      <p>{student.financialInfo.tuitionStatus}</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">Scholarships</h4>
+                      <ul className="list-disc pl-6">
+                        {student.financialInfo.scholarships.map((scholarship, index) => (
+                          <li key={index}>{scholarship}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">Outstanding Fees</h4>
+                      <p>${student.financialInfo.outstandingFees.toFixed(2)}</p>
+                    </div>
                   </div>
                   <div>
-                    <h4 className="font-semibold">Scholarships</h4>
-                    <ul className="list-disc pl-6">
-                      {student.financialInfo.scholarships.map((scholarship, index) => (
-                        <li key={index}>{scholarship}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Outstanding Fees</h4>
-                    <p>${student.financialInfo.outstandingFees.toFixed(2)}</p>
+                    <h4 className="font-semibold mb-2">Recent Transactions</h4>
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Date</TableHead>
+                          <TableHead>Description</TableHead>
+                          <TableHead className="text-right">Amount</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {student.financialInfo.transactions.map((transaction) => (
+                          <TableRow key={transaction.id}>
+                            <TableCell>{transaction.date}</TableCell>
+                            <TableCell>{transaction.description}</TableCell>
+                            <TableCell className={`text-right ${transaction.amount < 0 ? 'text-red-500' : 'text-green-500'}`}>
+                              ${Math.abs(transaction.amount).toFixed(2)}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
                   </div>
                 </div>
               </CardContent>
