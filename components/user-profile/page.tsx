@@ -242,7 +242,7 @@ export default function EnhancedStudentProfile() {
             </div>
             <div className="grow">
               <CardTitle className="text-2xl">{student.name}</CardTitle>
-              <CardDescription>Student ID: {student.id} | Grade: {student.grade}</CardDescription>
+              <CardDescription>ID : {student.id} | Niveau : {student.grade}</CardDescription>
               <div className="mt-2 flex items-center gap-2">
                 <Badge variant="outline">
                   <Icons.dollarSign className="size-4 mr-1" />
@@ -262,7 +262,7 @@ export default function EnhancedStudentProfile() {
                   <TooltipTrigger className="flex items-center gap-2">
                     <Icons.mail className="size-4 opacity-70" /> <span>{student.email}</span>
                   </TooltipTrigger>
-                  <TooltipContent>Student&apos;s Email</TooltipContent>
+                  <TooltipContent>E-mail</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
               <TooltipProvider>
@@ -270,7 +270,7 @@ export default function EnhancedStudentProfile() {
                   <TooltipTrigger className="flex items-center gap-2">
                     <Icons.phone className="size-4 opacity-70" /> <span>{student.phone}</span>
                   </TooltipTrigger>
-                  <TooltipContent>Student's Phone</TooltipContent>
+                  <TooltipContent>Téléphone</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
               <TooltipProvider>
@@ -278,15 +278,15 @@ export default function EnhancedStudentProfile() {
                   <TooltipTrigger className="flex items-center gap-2">
                     <Icons.map className="size-4 opacity-70" /> <span>{student.address}</span>
                   </TooltipTrigger>
-                  <TooltipContent>Student's Address</TooltipContent>
+                  <TooltipContent>Adresse</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className="flex items-center gap-2">
-                    <Icons.cake className="size-4 opacity-70" /> <span>{student.dateOfBirth} (Age: {student.age})</span>
+                    <Icons.cake className="size-4 opacity-70" /> <span>{student.dateOfBirth} (Âge : {student.age})</span>
                   </TooltipTrigger>
-                  <TooltipContent>Student's Date of Birth</TooltipContent>
+                  <TooltipContent>Date de naissance</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </div>
@@ -296,49 +296,49 @@ export default function EnhancedStudentProfile() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">GPA</CardTitle>
+              <CardTitle className="text-sm font-medium">Moyenne générale</CardTitle>
               <Icons.graduationCap className="size-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{student.gpa.toFixed(2)}</div>
               <Progress value={(student.gpa / 4) * 100} className="mt-2" />
-              <p className="text-xs text-muted-foreground mt-1">Out of 4.0</p>
+              <p className="text-xs text-muted-foreground mt-1">Sur 4.0</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Attendance</CardTitle>
+              <CardTitle className="text-sm font-medium">Assiduité</CardTitle>
               <Icons.calendarDays className="size-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{student.attendance}%</div>
               <Progress value={student.attendance} className="mt-2" />
-              <p className="text-xs text-muted-foreground mt-1">Year to date</p>
+              <p className="text-xs text-muted-foreground mt-1">Année en cours</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Extracurricular</CardTitle>
+              <CardTitle className="text-sm font-medium">Activités extrascolaires</CardTitle>
               <Icons.users className="size-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{student.activities.length}</div>
-              <p className="text-xs text-muted-foreground">Activities</p>
+              <p className="text-xs text-muted-foreground">Activités</p>
             </CardContent>
           </Card>
         </div>
 
         <Tabs defaultValue="academics" className="space-y-4">
           <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-            <TabsTrigger value="academics">Academics</TabsTrigger>
-            <TabsTrigger value="activities">Activities</TabsTrigger>
-            <TabsTrigger value="achievements">Achievements</TabsTrigger>
-            <TabsTrigger value="financial">Financial</TabsTrigger>
+            <TabsTrigger value="academics">Académique</TabsTrigger>
+            <TabsTrigger value="activities">Activités</TabsTrigger>
+            <TabsTrigger value="achievements">Réalisations</TabsTrigger>
+            <TabsTrigger value="financial">Finances</TabsTrigger>
             <TabsTrigger value="documents">Documents</TabsTrigger>
             <TabsTrigger value="parents">Parents</TabsTrigger>
           </TabsList>
           <TabsContent value="academics" className="space-y-4">
-            <h3 className="text-lg font-semibold">Current Subjects</h3>
+            <h3 className="text-lg font-semibold">Matières actuelles</h3>
             {student.subjects.map((subject, index) => (
               <Card key={index}>
                 <CardHeader className="flex flex-row items-center justify-between py-2">
@@ -347,7 +347,7 @@ export default function EnhancedStudentProfile() {
                 </CardHeader>
                 <CardContent>
                   <Progress value={subject.progress} className="mt-2" />
-                  <p className="text-sm text-muted-foreground mt-1">Progress: {subject.progress}%</p>
+                  <p className="text-sm text-muted-foreground mt-1">Progression : {subject.progress}%</p>
                 </CardContent>
               </Card>
             ))}
@@ -355,7 +355,7 @@ export default function EnhancedStudentProfile() {
           <TabsContent value="activities">
             <Card>
               <CardHeader>
-                <CardTitle>Extracurricular Activities</CardTitle>
+                <CardTitle>Activités extrascolaires</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc pl-6 space-y-2">
@@ -369,7 +369,7 @@ export default function EnhancedStudentProfile() {
           <TabsContent value="achievements">
             <Card>
               <CardHeader>
-                <CardTitle>Recent Achievements</CardTitle>
+                <CardTitle>Réalisations récentes</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc pl-6 space-y-2">
@@ -383,17 +383,17 @@ export default function EnhancedStudentProfile() {
           <TabsContent value="financial">
             <Card>
               <CardHeader>
-                <CardTitle>Financial Information</CardTitle>
+                <CardTitle>Informations financières</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <h4 className="font-semibold">Tuition Status</h4>
+                      <h4 className="font-semibold">Statut des frais de scolarité</h4>
                       <p>{student.financialInfo.tuitionStatus}</p>
                     </div>
                     <div>
-                      <h4 className="font-semibold">Scholarships</h4>
+                      <h4 className="font-semibold">Bourses</h4>
                       <ul className="list-disc pl-6">
                         {student.financialInfo.scholarships.map((scholarship, index) => (
                           <li key={index}>{scholarship}</li>
@@ -401,18 +401,18 @@ export default function EnhancedStudentProfile() {
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-semibold">Outstanding Fees</h4>
+                      <h4 className="font-semibold">Frais impayés</h4>
                       <p>${student.financialInfo.outstandingFees.toFixed(2)}</p>
                     </div>
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-2">Recent Transactions</h4>
+                    <h4 className="font-semibold mb-2">Transactions récentes</h4>
                     <Table>
                       <TableHeader>
                         <TableRow>
                           <TableHead>Date</TableHead>
                           <TableHead>Description</TableHead>
-                          <TableHead className="text-right">Amount</TableHead>
+                          <TableHead className="text-right">Montant</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -435,32 +435,32 @@ export default function EnhancedStudentProfile() {
           <TabsContent value="documents">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Student Documents</CardTitle>
+                <CardTitle>Documents personnels</CardTitle>
                 <Dialog open={isEditingDocument} onOpenChange={setIsEditingDocument}>
                   <DialogTrigger asChild>
                     <Button variant="outline" size="sm">
-                      <Icons.plus className="size-4 mr-2" /> Add Document
+                      <Icons.plus className="size-4 mr-2" /> Ajouter un document
                     </Button>
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>{editingDocument ? 'Edit Document' : 'Add New Document'}</DialogTitle>
+                      <DialogTitle>{editingDocument ? 'Modifier le document' : 'Ajouter un nouveau document'}</DialogTitle>
                     </DialogHeader>
                     <div {...getRootProps()} className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer">
                       <input {...getInputProps()} />
                       {isDragActive ? (
-                        <p>Drop the files here ...</p>
+                        <p>Déposez les fichiers ici ...</p>
                       ) : (
                         <div>
                           <Icons.upload className="mx-auto h-12 w-12 text-gray-400" />
-                          <p>Drag 'n' drop some files here, or click to select files</p>
+                          <p>Glissez et déposez des fichiers ici, ou cliquez pour sélectionner des fichiers</p>
                         </div>
                       )}
                     </div>
                     <div className="grid gap-4 py-4">
                       <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="name" className="text-right">
-                          Name
+                          Nom
                         </Label>
                         <Input
                           id="name"
@@ -471,7 +471,7 @@ export default function EnhancedStudentProfile() {
                       </div>
                       <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="status" className="text-right">
-                          Status
+                          Statut
                         </Label>
                         <Input
                           id="status"
@@ -482,7 +482,7 @@ export default function EnhancedStudentProfile() {
                       </div>
                     </div>
                     <Button onClick={() => editingDocument && handleDocumentSave(editingDocument)}>
-                      Save Document
+                      Enregistrer le document
                     </Button>
                   </DialogContent>
                 </Dialog>
@@ -495,7 +495,7 @@ export default function EnhancedStudentProfile() {
                       <div className="flex items-center gap-2">
                         <Badge variant={doc.status === "Verified" ? "default" : "destructive"}>
                           {doc.status === "Verified" ? <Icons.check className="size-4" /> : <Icons.warning className="size-4" />}
-                          {doc.status}
+                          {doc.status === "Verified" ? "Vérifié" : "En attente"}
                         </Badge>
                         <Button variant="ghost" size="sm" onClick={() => handleDocumentEdit(doc)}>
                           <Icons.edit className="size-4" />
@@ -515,7 +515,7 @@ export default function EnhancedStudentProfile() {
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>Parents</CardTitle>
                 <Button variant="outline" size="sm" onClick={handleParentAdd}>
-                  <Icons.plus className="size-4 mr-2" /> Add Parent
+                  <Icons.plus className="size-4 mr-2" /> Ajouter un parent
                 </Button>
               </CardHeader>
               <CardContent>
@@ -547,12 +547,12 @@ export default function EnhancedStudentProfile() {
         <Dialog open={isEditingParent} onOpenChange={setIsEditingParent}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{editingParent?.id ? 'Edit Parent' : 'Add New Parent'}</DialogTitle>
+              <DialogTitle>{editingParent?.id ? 'Modifier le parent' : 'Ajouter un nouveau parent'}</DialogTitle>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="parentName" className="text-right">
-                  Name
+                  Nom
                 </Label>
                 <Input
                   id="parentName"
@@ -574,7 +574,7 @@ export default function EnhancedStudentProfile() {
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="parentPhone" className="text-right">
-                  Phone
+                  Téléphone
                 </Label>
                 <Input
                   id="parentPhone"
@@ -585,7 +585,7 @@ export default function EnhancedStudentProfile() {
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="parentEmail" className="text-right">
-                  Email
+                  E-mail
                 </Label>
                 <Input
                   id="parentEmail"
@@ -596,7 +596,7 @@ export default function EnhancedStudentProfile() {
               </div>
             </div>
             <Button onClick={() => editingParent && handleParentSave(editingParent)}>
-              Save Parent
+              Enregistrer le parent
             </Button>
           </DialogContent>
         </Dialog>
@@ -604,8 +604,8 @@ export default function EnhancedStudentProfile() {
         <Dialog open={isEditingProfile} onOpenChange={setIsEditingProfile}>
           <DialogContent className="sm:max-w-[525px]">
             <DialogHeader>
-              <DialogTitle>Edit Profile</DialogTitle>
-              <DialogDescription>Update the student's profile information.</DialogDescription>
+              <DialogTitle>Modifier le profil</DialogTitle>
+              <DialogDescription>Mettez à jour les informations du compte.</DialogDescription>
             </DialogHeader>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -614,7 +614,7 @@ export default function EnhancedStudentProfile() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Full Name</FormLabel>
+                      <FormLabel>Nom complet</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -627,7 +627,7 @@ export default function EnhancedStudentProfile() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>E-mail</FormLabel>
                       <FormControl>
                         <Input {...field} type="email" />
                       </FormControl>
@@ -640,7 +640,7 @@ export default function EnhancedStudentProfile() {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone</FormLabel>
+                      <FormLabel>Téléphone</FormLabel>
                       <FormControl>
                         <Input {...field} type="tel" />
                       </FormControl>
@@ -653,7 +653,7 @@ export default function EnhancedStudentProfile() {
                   name="address"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Address</FormLabel>
+                      <FormLabel>Adresse</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -662,23 +662,23 @@ export default function EnhancedStudentProfile() {
                   )}
                 />
                 <DialogFooter>
-                  <Button variant="outline" onClick={() => setIsEditingProfile(false)}>Cancel</Button>
-                  <Button type="submit">Save Changes</Button>
+                  <Button variant="outline" onClick={() => setIsEditingProfile(false)}>Annuler</Button>
+                  <Button type="submit">Enregistrer les modifications</Button>
                 </DialogFooter>
               </form>
             </Form>
             <DialogClose className="absolute right-4 top-4">
               <X className="size-4" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">Fermer</span>
             </DialogClose>
           </DialogContent>
         </Dialog>
 
         <div className="mt-6 flex justify-end space-x-4">
-          <Button variant="outline" onClick={() => setIsEditingProfile(true)}>Edit Profile</Button>
+          <Button variant="outline" onClick={() => setIsEditingProfile(true)}>Modifier le profil</Button>
           <Button>
             <Icons.bookOpen className="mr-2 size-4" />
-            View Full Academic Record
+            Voir le dossier académique complet
           </Button>
         </div>
       </div>
