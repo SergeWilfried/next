@@ -16,9 +16,9 @@ export default async function MapPage() {
   return (
     <>
       <DashboardHeader
-        heading="Map View"
+        heading="Carte"
         items={[
-          { href: "/", label: "Home" },
+          { href: "/", label: "Accueil" },
           { href: "/admin", label: "Admin" },
           { href: "/admin/map", label: "Map" },
         ]}

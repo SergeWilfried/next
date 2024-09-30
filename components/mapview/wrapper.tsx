@@ -7,19 +7,20 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { env } from "@/env.mjs";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export function MapClientWrapper({ initialCenter = [-1.46389, 53.296543] }) {
-  const [mapStyle, setMapStyle] = useState("mapbox://styles/mapbox/satellite-v9");
   const [center, setCenter] = useState(initialCenter);
   const [zoom, setZoom] = useState(13);
   const [schoolCategory, setSchoolCategory] = useState("");
   const [schoolType, setSchoolType] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [schools, setSchools] = useState([]);
+  const [facilityProperties, setFacilityProperties] = useState<string[]>([]);
 
   const fetchSchools = async () => {
     try {
-      const response = await fetch(`/api/schools?category=${schoolCategory}&type=${schoolType}&search=${searchTerm}`);
+      const response = await fetch(`/api/schools?category=${schoolCategory}&type=${schoolType}&search=${searchTerm}&properties=${facilityProperties.join(',')}`);
       if (!response.ok) {
         throw new Error('Failed to fetch schools');
       }
@@ -36,36 +37,7 @@ export function MapClientWrapper({ initialCenter = [-1.46389, 53.296543] }) {
         <form className="grid w-full items-start gap-6" onSubmit={(e) => { e.preventDefault(); fetchSchools(); }}>
           <fieldset className="grid gap-6 rounded-lg border p-4">
             <legend className="-ml-1 px-1 text-sm font-medium">Map Settings</legend>
-            <div className="grid gap-3">
-              <Label htmlFor="mapStyle">Map Style</Label>
-              <Select onValueChange={(value) => setMapStyle(value)}>
-                <SelectTrigger id="mapStyle">
-                  <SelectValue placeholder="Select a map style" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="mapbox://styles/mapbox/satellite-v9">Satellite</SelectItem>
-                  <SelectItem value="mapbox://styles/mapbox/streets-v11">Streets</SelectItem>
-                  <SelectItem value="mapbox://styles/mapbox/outdoors-v11">Outdoors</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="zoom">Zoom Level</Label>
-              <Input 
-                id="zoom" 
-                type="number" 
-                value={zoom} 
-                min="0"
-                max="22"
-                step="0.1"
-                onChange={(e) => {
-                  const value = Number(e.target.value);
-                  if (value >= 0 && value <= 22) {
-                    setZoom(value);
-                  }
-                }}
-              />
-            </div>
+            {/* Remove the map style selection */}
             <div className="grid gap-3">
               <Label htmlFor="schoolCategory">School Category</Label>
               <Select onValueChange={(value) => setSchoolCategory(value)}>
@@ -104,13 +76,33 @@ export function MapClientWrapper({ initialCenter = [-1.46389, 53.296543] }) {
                 placeholder="Enter school name"
               />
             </div>
+            <div className="grid gap-3">
+              <Label>Facility Properties</Label>
+              <div className="grid grid-cols-2 gap-2">
+                {['Gym', 'Library', 'Cafeteria', 'Playground', 'Science Lab', 'Computer Lab'].map((property) => (
+                  <div key={property} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={property.toLowerCase().replace(' ', '-')}
+                      onCheckedChange={(checked) => {
+                        setFacilityProperties(prev =>
+                          checked
+                            ? [...prev, property]
+                            : prev.filter(p => p !== property)
+                        );
+                      }}
+                    />
+                    <Label htmlFor={property.toLowerCase().replace(' ', '-')}>{property}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
             <Button type="submit">Apply Filters</Button>
           </fieldset>
         </form>
       </div>
       <div className="md:col-span-2">
         <MapView 
-          style={mapStyle} 
+          style="mapbox://styles/mapbox/streets-v12" 
           center={center as [number, number]} 
           zoom={zoom} 
           schools={schools}
