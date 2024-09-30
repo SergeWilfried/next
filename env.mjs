@@ -25,7 +25,7 @@ export const env = createEnv({
     NEXT_PUBLIC_STRIPE_PRO_YEARLY_PLAN_ID: z.string().optional(),
     NEXT_PUBLIC_STRIPE_BUSINESS_MONTHLY_PLAN_ID: z.string().optional(),
     NEXT_PUBLIC_STRIPE_BUSINESS_YEARLY_PLAN_ID: z.string().optional(),
-    MAPBOX_ACCESS_TOKEN: z.string().min(1),
+    NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: z.string().min(1),
   },
   runtimeEnv: {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
@@ -51,6 +51,6 @@ export const env = createEnv({
     MAILDEV_SMTP_PORT: process.env.MAILDEV_SMTP_PORT,
     MAILDEV_PORT: process.env.MAILDEV_PORT,
     EMAIL_FROM: process.env.EMAIL_FROM,
-    MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
+    MAPBOX_ACCESS_TOKEN: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN,
   },
 });
