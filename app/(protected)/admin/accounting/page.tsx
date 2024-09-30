@@ -53,13 +53,13 @@ export default async function PaymentsPage() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <InfoCard
           title="Revenu Total"
-          value={`${totalRevenue.toFixed(2)} €`}
+          value={`${totalRevenue.toFixed(2)}`}
           type="dollarSign"
           change="+18% par rapport au mois dernier"
         />
         <InfoCard
           title="Paiement Moyen"
-          value={`${Number.isNaN(averagePayment) ? '0,00' : averagePayment.toFixed(2)} €`}
+          value={`${Number.isNaN(averagePayment) ? '0,00' : averagePayment.toFixed(2)}`}
           type="accounting"
           change="+18% par rapport au mois dernier"
         />
