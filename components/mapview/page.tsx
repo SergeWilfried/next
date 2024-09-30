@@ -2,7 +2,6 @@
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useEffect, useRef } from "react";
-import styles from "../styles/index.module.scss";
 
 export default function MapView() {
   const mapContainer = useRef<any>(null);
@@ -21,7 +20,7 @@ export default function MapView() {
 
   return (
     <div id="map">
-      <div className={styles.style1} ref={mapContainer} />
+      <div ref={mapContainer} />
     </div>
   );
 }
