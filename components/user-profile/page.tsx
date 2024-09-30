@@ -1,20 +1,25 @@
 "use client"
-import { cn } from "@/lib/utils"
 import React, { useState, useCallback } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Icons } from "@/components/shared/icons"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogFooter, DialogClose, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { CalendarDays, BookOpen, GraduationCap, Users, Mail, Phone, MapPin, Cake, DollarSign, FileText, Users2, AlertTriangle, Check, ChevronUp, ChevronDown, Camera, Trash2, Plus, Edit, Upload } from 'lucide-react'
 import { useDropzone } from 'react-dropzone'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { X } from "lucide-react"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
 
 // Enhanced mock student data
 const initialStudent = {
@@ -84,6 +89,7 @@ export default function EnhancedStudentProfile() {
   const [editingDocument, setEditingDocument] = useState<{ id: number, name: string, status: string } | null>(null)
   const [isEditingParent, setIsEditingParent] = useState(false)
   const [editingParent, setEditingParent] = useState<{ id: number, name: string, relation: string, phone: string, email: string } | null>(null)
+  const [isEditingProfile, setIsEditingProfile] = useState(false)
 
   const toggleSection = (section: string) => {
     setExpandedSection(expandedSection === section ? null : section)
@@ -113,6 +119,31 @@ export default function EnhancedStudentProfile() {
       default:
         return 'secondary'
     }
+  }
+
+  const profileSchema = z.object({
+    name: z.string().min(1, "Name is required"),
+    email: z.string().email("Invalid email address"),
+    phone: z.string().min(1, "Phone number is required"),
+    address: z.string().min(1, "Address is required"),
+  })
+
+  type ProfileFormValues = z.infer<typeof profileSchema>
+
+  const form = useForm<ProfileFormValues>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      name: student.name,
+      email: student.email,
+      phone: student.phone,
+      address: student.address,
+    },
+  })
+
+  const onSubmit = (data: ProfileFormValues) => {
+    // Handle form submission
+    console.log(data)
+    setIsEditingProfile(false)
   }
   
   const handleDocumentEdit = (document: { id: number, name: string, status: string }) => {
@@ -197,7 +228,7 @@ export default function EnhancedStudentProfile() {
               <Dialog open={isEditingProfilePicture} onOpenChange={setIsEditingProfilePicture}>
                 <DialogTrigger asChild>
                   <Button variant="outline" size="icon" className="absolute bottom-0 right-0 rounded-full">
-                    <Camera className="h-4 w-4" />
+                    <Icons.camera className="h-4 w-4" />
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -214,11 +245,11 @@ export default function EnhancedStudentProfile() {
               <CardDescription>Student ID: {student.id} | Grade: {student.grade}</CardDescription>
               <div className="mt-2 flex items-center gap-2">
                 <Badge variant="outline">
-                  <DollarSign className="h-4 w-4 mr-1" />
+                  <Icons.dollarSign className="h-4 w-4 mr-1" />
                   {student.financialInfo.tuitionStatus}
                 </Badge>
                 <Badge variant="outline">
-                  <Users2 className="h-4 w-4 mr-1" />
+                  <Icons.users2 className="h-4 w-4 mr-1" />
                   {student.parents[0].name} ({student.parents[0].relation})
                 </Badge>
               </div>
@@ -229,7 +260,7 @@ export default function EnhancedStudentProfile() {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 opacity-70" /> <span>{student.email}</span>
+                    <Icons.mail className="h-4 w-4 opacity-70" /> <span>{student.email}</span>
                   </TooltipTrigger>
                   <TooltipContent>Student's Email</TooltipContent>
                 </Tooltip>
@@ -237,7 +268,7 @@ export default function EnhancedStudentProfile() {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className="flex items-center gap-2">
-                    <Phone className="h-4 w-4 opacity-70" /> <span>{student.phone}</span>
+                    <Icons.phone className="h-4 w-4 opacity-70" /> <span>{student.phone}</span>
                   </TooltipTrigger>
                   <TooltipContent>Student's Phone</TooltipContent>
                 </Tooltip>
@@ -245,7 +276,7 @@ export default function EnhancedStudentProfile() {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 opacity-70" /> <span>{student.address}</span>
+                    <Icons.map className="h-4 w-4 opacity-70" /> <span>{student.address}</span>
                   </TooltipTrigger>
                   <TooltipContent>Student's Address</TooltipContent>
                 </Tooltip>
@@ -253,7 +284,7 @@ export default function EnhancedStudentProfile() {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className="flex items-center gap-2">
-                    <Cake className="h-4 w-4 opacity-70" /> <span>{student.dateOfBirth} (Age: {student.age})</span>
+                    <Icons.cake className="h-4 w-4 opacity-70" /> <span>{student.dateOfBirth} (Age: {student.age})</span>
                   </TooltipTrigger>
                   <TooltipContent>Student's Date of Birth</TooltipContent>
                 </Tooltip>
@@ -266,7 +297,7 @@ export default function EnhancedStudentProfile() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">GPA</CardTitle>
-              <GraduationCap className="h-4 w-4 text-muted-foreground" />
+              <Icons.graduationCap className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{student.gpa.toFixed(2)}</div>
@@ -277,7 +308,7 @@ export default function EnhancedStudentProfile() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Attendance</CardTitle>
-              <CalendarDays className="h-4 w-4 text-muted-foreground" />
+              <Icons.calendarDays className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{student.attendance}%</div>
@@ -288,7 +319,7 @@ export default function EnhancedStudentProfile() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Extracurricular</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <Icons.users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{student.activities.length}</div>
@@ -408,7 +439,7 @@ export default function EnhancedStudentProfile() {
                 <Dialog open={isEditingDocument} onOpenChange={setIsEditingDocument}>
                   <DialogTrigger asChild>
                     <Button variant="outline" size="sm">
-                      <Plus className="h-4 w-4 mr-2" /> Add Document
+                      <Icons.plus className="h-4 w-4 mr-2" /> Add Document
                     </Button>
                   </DialogTrigger>
                   <DialogContent>
@@ -421,7 +452,7 @@ export default function EnhancedStudentProfile() {
                         <p>Drop the files here ...</p>
                       ) : (
                         <div>
-                          <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                          <Icons.upload className="mx-auto h-12 w-12 text-gray-400" />
                           <p>Drag 'n' drop some files here, or click to select files</p>
                         </div>
                       )}
@@ -462,15 +493,15 @@ export default function EnhancedStudentProfile() {
                     <li key={doc.id} className="flex justify-between items-center">
                       <span>{doc.name}</span>
                       <div className="flex items-center gap-2">
-                        <Badge variant={doc.status === "Verified" ? "success" : "warning"}>
-                          {doc.status === "Verified" ? <Check className="h-4 w-4" /> : <AlertTriangle className="h-4 w-4" />}
+                        <Badge variant={doc.status === "Verified" ? "default" : "destructive"}>
+                          {doc.status === "Verified" ? <Icons.check className="h-4 w-4" /> : <Icons.warning className="h-4 w-4" />}
                           {doc.status}
                         </Badge>
                         <Button variant="ghost" size="sm" onClick={() => handleDocumentEdit(doc)}>
-                          <Edit className="h-4 w-4" />
+                          <Icons.edit className="h-4 w-4" />
                         </Button>
                         <Button variant="ghost" size="sm" onClick={() => handleDocumentDelete(doc.id)}>
-                          <Trash2 className="h-4 w-4" />
+                          <Icons.trash className="h-4 w-4" />
                         </Button>
                       </div>
                     </li>
@@ -484,7 +515,7 @@ export default function EnhancedStudentProfile() {
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>Parents</CardTitle>
                 <Button variant="outline" size="sm" onClick={handleParentAdd}>
-                  <Plus className="h-4 w-4 mr-2" /> Add Parent
+                  <Icons.plus className="h-4 w-4 mr-2" /> Add Parent
                 </Button>
               </CardHeader>
               <CardContent>
@@ -494,15 +525,15 @@ export default function EnhancedStudentProfile() {
                       <div className="flex justify-between items-center">
                         <h4 className="font-semibold">{parent.name} ({parent.relation})</h4>
                         <Button variant="ghost" size="sm" onClick={() => handleParentEdit(parent)}>
-                          <Edit className="h-4 w-4" />
+                          <Icons.edit className="h-4 w-4" />
                         </Button>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Phone className="h-4 w-4 opacity-70" />
+                        <Icons.phone className="h-4 w-4 opacity-70" />
                         <span>{parent.phone}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Mail className="h-4 w-4 opacity-70" />
+                        <Icons.mail className="h-4 w-4 opacity-70" />
                         <span>{parent.email}</span>
                       </div>
                     </div>
@@ -570,10 +601,83 @@ export default function EnhancedStudentProfile() {
           </DialogContent>
         </Dialog>
 
+        <Dialog open={isEditingProfile} onOpenChange={setIsEditingProfile}>
+          <DialogContent className="sm:max-w-[525px]">
+            <DialogHeader>
+              <DialogTitle>Edit Profile</DialogTitle>
+              <DialogDescription>Update the student's profile information.</DialogDescription>
+            </DialogHeader>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Full Name</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="email" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phone</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="tel" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Address</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setIsEditingProfile(false)}>Cancel</Button>
+                  <Button type="submit">Save Changes</Button>
+                </DialogFooter>
+              </form>
+            </Form>
+            <DialogClose className="absolute right-4 top-4">
+              <X className="size-4" />
+              <span className="sr-only">Close</span>
+            </DialogClose>
+          </DialogContent>
+        </Dialog>
+
         <div className="mt-6 flex justify-end space-x-4">
-          <Button variant="outline">Edit Profile</Button>
+          <Button variant="outline" onClick={() => setIsEditingProfile(true)}>Edit Profile</Button>
           <Button>
-            <BookOpen className="mr-2 h-4 w-4" />
+            <Icons.bookOpen className="mr-2 h-4 w-4" />
             View Full Academic Record
           </Button>
         </div>
