@@ -1,26 +1,29 @@
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import { useEffect, useRef } from "react";
-import styles from "../styles/index.module.scss";
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/lib/session";
+import { constructMetadata } from "@/lib/utils";
+import { DashboardHeader } from "@/components/dashboard/header";
+import MapView from "@/components/mapview/page";
 
-export default function Maps() {
-  const mapContainer = useRef<any>(null);
-  const map = useRef<mapboxgl.Map | any>(null);
+export const metadata = constructMetadata({
+  title: "Map View – School Management System",
+  description: "View school locations on a map.",
+});
 
-  useEffect(() => {
-    mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN ?? "";
-
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: "mapbox://styles/mapbox/satellite-v9",
-      center: [-1.46389, 53.296543],
-      zoom: 13,
-    });
-  }, []);
+export default async function MapPage() {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "ADMIN") redirect("/login");
 
   return (
-    <div id="map">
-      <div className={styles.style1} ref={mapContainer} />
-    </div>
+    <>
+      <DashboardHeader
+        heading="Map View"
+        items={[
+          { href: "/", label: "Home" },
+          { href: "/admin", label: "Admin" },
+          { href: "/admin/map", label: "Map" },
+        ]}
+      />
+      <MapView />
+    </>
   );
 }
