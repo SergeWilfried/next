@@ -1,5 +1,7 @@
 import { create } from 'zustand'
 import { ColumnsAction } from '@/types'
+import { useCallback } from 'react'
+
 type DialogType = ColumnsAction['type']
 
 interface DialogState {
@@ -21,11 +23,22 @@ const useDialogStore = create<DialogState>((set) => ({
 export const useDialog = () => {
   const { isOpen, action, data, openDialog, closeDialog } = useDialogStore()
 
+  const toggleDialog = useCallback(() => {
+    isOpen ? closeDialog() : openDialog(action!, data)
+  }, [isOpen, action, data, openDialog, closeDialog])
+
+  const isActionType = useCallback(
+    (type: ColumnsAction['type']) => action?.type === type,
+    [action]
+  )
+
   return {
     isOpen,
     action,
     data,
     openDialog,
     closeDialog,
+    toggleDialog,
+    isActionType,
   }
 }
