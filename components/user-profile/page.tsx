@@ -234,7 +234,7 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
     <ScrollArea className="h-screen">
       <div className="container mx-auto p-4 sm:p-6"> {/* Adjusted padding for smaller screens */}
         <Card className="mb-6">
-          <CardHeader className="flex flex-col sm:flex-row items-center gap-4"> {/* Made header stack on small screens */}
+          <CardHeader className="flex flex-col items-center gap-4 sm:flex-row"> {/* Made header stack on small screens */}
             <div className="relative">
               <Avatar className="size-20">
                 <AvatarImage src={student.avatar} alt={student.name} />
@@ -258,7 +258,7 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
             <div className="grow text-center sm:text-left"> {/* Centered text on small screens */}
               <CardTitle className="text-xl sm:text-2xl">{student.name}</CardTitle>
               <CardDescription>ID : {student.id} | Niveau : {student.grade}</CardDescription>
-              <div className="mt-2 flex flex-wrap justify-center sm:justify-start items-center gap-2">
+              <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
                 <Badge variant="outline">
                   <Icons.dollarSign className="mr-1 size-4" />
                   {student.financialInfo.tuitionStatus}
@@ -689,7 +689,7 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
           </DialogContent>
         </Dialog>
 
-        <div className="mt-6 flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4"> {/* Stack buttons on small screens */}
+        <div className="mt-6 flex flex-col justify-end space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0"> {/* Stack buttons on small screens */}
           <Button variant="outline" onClick={() => setIsEditingProfile(true)}>Modifier le profil</Button>
           <Button>
             <Icons.bookOpen className="mr-2 size-4" />
