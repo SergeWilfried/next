@@ -102,8 +102,7 @@ export function MapClientWrapper({ initialCenter = [-1.46389, 53.296543] }) {
       </div>
       <div className="md:col-span-2">
         <MapView 
-          // Remove the style prop or set it to a default value
-          // style={mapStyle} 
+          style="mapbox://styles/mapbox/streets-v12" 
           center={center as [number, number]} 
           zoom={zoom} 
           schools={schools}
