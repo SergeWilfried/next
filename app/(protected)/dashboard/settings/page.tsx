@@ -65,58 +65,26 @@ export default async function SettingsPage() {
               <CardDescription>Gérez les membres de votre établissement.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <Avatar>
-                    <AvatarImage src="/avatars/01.png" alt="Member 1" />
-                    <AvatarFallback>JD</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium">John Doe</p>
-                    <p className="text-sm text-gray-500">john.doe@example.com</p>
+              {[
+                { name: "John Doe", email: "john.doe@example.com", role: "Administrateur", avatar: "01" },
+                { name: "Jane Smith", email: "jane.smith@example.com", role: "Enseignant", avatar: "02" },
+                { name: "Bob Johnson", email: "bob.johnson@example.com", role: "Étudiant", avatar: "03" },
+                { name: "Alice Cooper", email: "alice.cooper@example.com", role: "Comptable", avatar: "04" },
+              ].map((member, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <Avatar>
+                      <AvatarImage src={`/avatars/${member.avatar}.png`} alt={`Member ${index + 1}`} />
+                      <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="font-medium">{member.name}</p>
+                      <p className="text-sm text-gray-500">{member.email}</p>
+                    </div>
                   </div>
+                  <Badge>{member.role}</Badge>
                 </div>
-                <Badge>Administrateur</Badge>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <Avatar>
-                    <AvatarImage src="/avatars/02.png" alt="Member 2" />
-                    <AvatarFallback>JS</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium">Jane Smith</p>
-                    <p className="text-sm text-gray-500">jane.smith@example.com</p>
-                  </div>
-                </div>
-                <Badge>Enseignant</Badge>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <Avatar>
-                    <AvatarImage src="/avatars/03.png" alt="Member 3" />
-                    <AvatarFallback>BJ</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium">Bob Johnson</p>
-                    <p className="text-sm text-gray-500">bob.johnson@example.com</p>
-                  </div>
-                </div>
-                <Badge>Étudiant</Badge>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <Avatar>
-                    <AvatarImage src="/avatars/04.png" alt="Member 4" />
-                    <AvatarFallback>AC</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium">Alice Cooper</p>
-                    <p className="text-sm text-gray-500">alice.cooper@example.com</p>
-                  </div>
-                </div>
-                <Badge>Comptable</Badge>
-              </div>
+              ))}
             </CardContent>
             <CardFooter>
               <Button>Inviter un nouveau membre</Button>
@@ -239,7 +207,7 @@ export default async function SettingsPage() {
               <CardDescription>Configurez les paramètres de votre établissement.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="facility-name">Nom de l&apos;établissement</Label>
@@ -293,7 +261,7 @@ export default async function SettingsPage() {
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 <div>
                   <Label htmlFor="facility-phone">Numéro de téléphone</Label>
                   <Input id="facility-phone" placeholder="+1234567890" />
@@ -315,7 +283,7 @@ export default async function SettingsPage() {
 
               <div>
                 <Label>Options de l&apos;établissement</Label>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
+                <div className="mt-2 grid grid-cols-2 gap-4 md:grid-cols-3">
                   {['Cafétéria', 'Bibliothèque', 'Installations sportives', 'Dortoirs', 'Laboratoires', 'Service de transport'].map((option) => (
                     <div key={option} className="flex items-center space-x-2">
                       <Checkbox id={`option-${option.toLowerCase()}`} />
