@@ -79,6 +79,7 @@
     "cookies-next": "^4.2.1",
     "date-fns": "^3.6.0",
     "lucide-react": "^0.414.0",
+    "mapbox-gl": "^3.7.0",
     "ms": "^2.1.3",
     "next": "14.2.5",
     "next-auth": "5.0.0-beta.19",
