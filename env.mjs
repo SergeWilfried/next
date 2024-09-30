@@ -51,6 +51,6 @@ export const env = createEnv({
     MAILDEV_SMTP_PORT: process.env.MAILDEV_SMTP_PORT,
     MAILDEV_PORT: process.env.MAILDEV_PORT,
     EMAIL_FROM: process.env.EMAIL_FROM,
-    MAPBOX_ACCESS_TOKEN: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN,
+    NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN,
   },
 });
