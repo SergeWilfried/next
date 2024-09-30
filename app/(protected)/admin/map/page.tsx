@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/session";
 import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
-import MapView from "@/components/mapview/page";
+import { MapClientWrapper } from "@/components/mapview/wrapper";
 
 export const metadata = constructMetadata({
   title: "Map View – School Management System",
@@ -23,7 +23,7 @@ export default async function MapPage() {
           { href: "/admin/map", label: "Map" },
         ]}
       />
-      <MapView />
+      <MapClientWrapper />
     </>
   );
 }

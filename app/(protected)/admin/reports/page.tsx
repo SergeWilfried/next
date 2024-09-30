@@ -37,7 +37,7 @@ export default async function ReportsPage() {
         <Button>Add Reports</Button>
       </EmptyPlaceholder>
     ) : (
-      <DataTable data={reports} columns={reportsTableColumns} pageCount={count} />
+      <DataTable href="/admin/reports" data={reports} columns={reportsTableColumns} pageCount={count} />
     )}
     </>
   );

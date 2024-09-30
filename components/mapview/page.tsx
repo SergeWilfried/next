@@ -1,56 +1,73 @@
 "use client";
-import mapboxgl from "mapbox-gl";
+
+import { useEffect, useRef, useCallback } from 'react';
+import mapboxgl from 'mapbox-gl';
 import "mapbox-gl/dist/mapbox-gl.css";
-import { useEffect, useRef, useState } from "react";
-import { env } from "@/env.mjs";
+import { MapPin } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { School } from '@prisma/client';
+
 interface MapOptions {
   style?: string;
   center?: [number, number];
   zoom?: number;
+  schools: School[];
 }
 
-export default function MapView({ 
+export function MapView({ 
   style = "mapbox://styles/mapbox/satellite-v9",
   center = [-1.46389, 53.296543],
-  zoom = 13 
-}: MapOptions = {}) {
+  zoom = 13,
+  schools
+}: MapOptions) {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const mapboxAccessToken = env.MAPBOX_ACCESS_TOKEN;
   const map = useRef<mapboxgl.Map | null>(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
+  const markersRef = useRef<mapboxgl.Marker[]>([]);
 
-  useEffect(() => {
-    if (map.current) return;
-
-    mapboxgl.accessToken = mapboxAccessToken;
-
+  const initializeMap = useCallback(() => {
+    if (map.current || !mapContainer.current) return;
     map.current = new mapboxgl.Map({
-      container: mapContainer.current!,
-      style,
-      center,
-      zoom,
+      container: mapContainer.current,
+      style: style,
+      center: center,
+      zoom: zoom
     });
-
-    map.current.on('load', () => {
-      setMapLoaded(true);
-    });
-
-    return () => {
-      map.current?.remove();
-    };
   }, [style, center, zoom]);
 
   useEffect(() => {
-    if (!map.current || !mapLoaded) return;
+    initializeMap();
+    return () => map.current?.remove();
+  }, [initializeMap]);
 
-    map.current.setStyle(style);
-    map.current.setCenter(center);
-    map.current.setZoom(zoom);
-  }, [style, center, zoom, mapLoaded]);
+  useEffect(() => {
+    if (!map.current) return;
+
+    // Remove existing markers
+    markersRef.current.forEach(marker => marker.remove());
+    markersRef.current = [];
+
+    // Add markers for each school
+    schools.forEach((school) => {
+      if (school?.longitude && school.latitude) {
+        const marker = new mapboxgl.Marker()
+          .setLngLat([school.longitude, school.latitude])
+          .setPopup(
+            new mapboxgl.Popup({ offset: 25 }).setHTML(
+              `<h3>${school.name}</h3><p>Type: ${school.type}</p><p>Category: ${school.category}</p>`
+            )
+          )
+          .addTo(map.current!);
+        markersRef.current.push(marker);
+      }
+    });
+  }, [schools]);
 
   return (
-    <div id="map" className="h-[500px] w-full">
-      <div ref={mapContainer} className="h-full w-full" />
+    <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4">
+      <Badge variant="outline" className="absolute right-3 top-3">
+        Map
+      </Badge>
+      <div ref={mapContainer} className="map-container" style={{ height: '400px' }} />
     </div>
   );
 }

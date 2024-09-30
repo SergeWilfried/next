@@ -65,58 +65,26 @@ export default async function SettingsPage() {
               <CardDescription>Gérez les membres de votre établissement.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <Avatar>
-                    <AvatarImage src="/avatars/01.png" alt="Member 1" />
-                    <AvatarFallback>JD</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium">John Doe</p>
-                    <p className="text-sm text-gray-500">john.doe@example.com</p>
+              {[
+                { name: "John Doe", email: "john.doe@example.com", role: "Administrateur", avatar: "01" },
+                { name: "Jane Smith", email: "jane.smith@example.com", role: "Enseignant", avatar: "02" },
+                { name: "Bob Johnson", email: "bob.johnson@example.com", role: "Étudiant", avatar: "03" },
+                { name: "Alice Cooper", email: "alice.cooper@example.com", role: "Comptable", avatar: "04" },
+              ].map((member, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <Avatar>
+                      <AvatarImage src={`/avatars/${member.avatar}.png`} alt={`Member ${index + 1}`} />
+                      <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="font-medium">{member.name}</p>
+                      <p className="text-sm text-gray-500">{member.email}</p>
+                    </div>
                   </div>
+                  <Badge>{member.role}</Badge>
                 </div>
-                <Badge>Administrateur</Badge>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <Avatar>
-                    <AvatarImage src="/avatars/02.png" alt="Member 2" />
-                    <AvatarFallback>JS</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium">Jane Smith</p>
-                    <p className="text-sm text-gray-500">jane.smith@example.com</p>
-                  </div>
-                </div>
-                <Badge>Enseignant</Badge>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <Avatar>
-                    <AvatarImage src="/avatars/03.png" alt="Member 3" />
-                    <AvatarFallback>BJ</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium">Bob Johnson</p>
-                    <p className="text-sm text-gray-500">bob.johnson@example.com</p>
-                  </div>
-                </div>
-                <Badge>Étudiant</Badge>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <Avatar>
-                    <AvatarImage src="/avatars/04.png" alt="Member 4" />
-                    <AvatarFallback>AC</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium">Alice Cooper</p>
-                    <p className="text-sm text-gray-500">alice.cooper@example.com</p>
-                  </div>
-                </div>
-                <Badge>Comptable</Badge>
-              </div>
+              ))}
             </CardContent>
             <CardFooter>
               <Button>Inviter un nouveau membre</Button>
@@ -239,106 +207,95 @@ export default async function SettingsPage() {
               <CardDescription>Configurez les paramètres de votre établissement.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="facility-name">Nom de l&apos;établissement</Label>
-                <Input id="facility-name" placeholder="Entrez le nom de l&apos;établissement" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="facility-type">Type d&apos;établissement</Label>
-                <select id="facility-type" className="w-full rounded border p-2">
-                  <option value="">Sélectionnez un type</option>
-                  <option value="primary">École primaire</option>
-                  <option value="secondary">École secondaire</option>
-                  <option value="university">Université</option>
-                  <option value="other">Autre</option>
-                </select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="facility-address">Adresse</Label>
-                <Input id="facility-address" placeholder="Adresse de l&apos;établissement" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="facility-phone">Numéro de téléphone</Label>
-                <Input id="facility-phone" placeholder="+1234567890" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="facility-email">Email</Label>
-                <Input id="facility-email" type="email" placeholder="contact@etablissement.com" />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="facility-website">Site web</Label>
-                <Input id="facility-website" placeholder="https://www.etablissement.com" />
-              </div>
-              <div className="space-y-2">
-                <Label>Options de l&apos;établissement</Label>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="option-cafeteria" />
-                    <Label htmlFor="option-cafeteria">Cafétéria</Label>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="facility-name">Nom de l&apos;établissement</Label>
+                    <Input id="facility-name" placeholder="Entrez le nom de l&apos;établissement" />
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="option-library" />
-                    <Label htmlFor="option-library">Bibliothèque</Label>
+                  <div>
+                    <Label htmlFor="facility-type">Type d&apos;établissement</Label>
+                    <select id="facility-type" className="w-full rounded border p-2">
+                      <option value="">Sélectionnez un type</option>
+                      <option value="primary">École primaire</option>
+                      <option value="secondary">École secondaire</option>
+                      <option value="university">Université</option>
+                      <option value="other">Autre</option>
+                    </select>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="option-sports" />
-                    <Label htmlFor="option-sports">Installations sportives</Label>
+                  <div>
+                    <Label htmlFor="facility-status">Statut</Label>
+                    <select id="facility-status" className="w-full rounded border p-2">
+                      <option value="">Sélectionnez un statut</option>
+                      <option value="public">Public</option>
+                      <option value="private-secular">Privé laïc</option>
+                      <option value="private-religious">Privé confessionnel</option>
+                    </select>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="option-dorms" />
-                    <Label htmlFor="option-dorms">Dortoirs</Label>
+                  <div>
+                    <Label htmlFor="facility-founded">Année de fondation</Label>
+                    <Input id="facility-founded" type="number" placeholder="AAAA" />
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="option-lab" />
-                    <Label htmlFor="option-lab">Laboratoires</Label>
+                </div>
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="facility-address">Adresse</Label>
+                    <Input id="facility-address" placeholder="Adresse de l&apos;établissement" />
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="option-transport" />
-                    <Label htmlFor="option-transport">Service de transport</Label>
+                  <div>
+                    <Label htmlFor="facility-region">Région</Label>
+                    <Input id="facility-region" placeholder="Ex: Centre" />
+                  </div>
+                  <div>
+                    <Label htmlFor="facility-province">Province</Label>
+                    <Input id="facility-province" placeholder="Ex: KADIOGO" />
+                  </div>
+                  <div>
+                    <Label htmlFor="facility-commune">Commune</Label>
+                    <Input id="facility-commune" placeholder="Ex: OUAGADOUGOU" />
+                  </div>
+                  <div>
+                    <Label htmlFor="facility-ceb">C.E.B</Label>
+                    <Input id="facility-ceb" placeholder="Ex: OUAGA 13" />
                   </div>
                 </div>
               </div>
-              <div className="space-y-2">
+              
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div>
+                  <Label htmlFor="facility-phone">Numéro de téléphone</Label>
+                  <Input id="facility-phone" placeholder="+1234567890" />
+                </div>
+                <div>
+                  <Label htmlFor="facility-email">Email</Label>
+                  <Input id="facility-email" type="email" placeholder="contact@etablissement.com" />
+                </div>
+                <div>
+                  <Label htmlFor="facility-website">Site web</Label>
+                  <Input id="facility-website" placeholder="https://www.etablissement.com" />
+                </div>
+              </div>
+
+              <div>
                 <Label htmlFor="facility-capacity">Capacité d&apos;accueil</Label>
                 <Input id="facility-capacity" type="number" placeholder="Nombre d&apos;étudiants" />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="facility-founded">Année de fondation</Label>
-                <Input id="facility-founded" type="number" placeholder="AAAA" />
+
+              <div>
+                <Label>Options de l&apos;établissement</Label>
+                <div className="mt-2 grid grid-cols-2 gap-4 md:grid-cols-3">
+                  {['Cafétéria', 'Bibliothèque', 'Installations sportives', 'Dortoirs', 'Laboratoires', 'Service de transport'].map((option) => (
+                    <div key={option} className="flex items-center space-x-2">
+                      <Checkbox id={`option-${option.toLowerCase()}`} />
+                      <Label htmlFor={`option-${option.toLowerCase()}`}>{option}</Label>
+                    </div>
+                  ))}
+                </div>
               </div>
+
               <div className="flex items-center space-x-2">
                 <Switch id="facility-active" />
                 <Label htmlFor="facility-active">Établissement actif</Label>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="facility-status">Statut</Label>
-                <select id="facility-status" className="w-full rounded border p-2">
-                  <option value="">Sélectionnez un statut</option>
-                  <option value="public">Public</option>
-                  <option value="private-secular">Privé laïc</option>
-                  <option value="private-religious">Privé confessionnel</option>
-                </select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="facility-region">Région</Label>
-                <Input id="facility-region" placeholder="Ex: Centre" />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="facility-province">Province</Label>
-                <Input id="facility-province" placeholder="Ex: KADIOGO" />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="facility-commune">Commune</Label>
-                <Input id="facility-commune" placeholder="Ex: OUAGADOUGOU" />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="facility-ceb">C.E.B</Label>
-                <Input id="facility-ceb" placeholder="Ex: OUAGA 13" />
               </div>
             </CardContent>
             <CardFooter>

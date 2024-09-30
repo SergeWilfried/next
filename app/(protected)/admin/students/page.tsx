@@ -54,7 +54,7 @@ export default async function StudentsPage() {
 					<Button>Import from Excel</Button>
 				</EmptyPlaceholder>
 			) : (
-				<DataTable columns={studentsTableColumns} data={students} pageCount={count} />
+				<DataTable href="/admin/students" columns={studentsTableColumns} data={students} pageCount={count} />
 			)}
 		</>
 	);

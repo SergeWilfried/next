@@ -95,6 +95,7 @@
     "react-dropzone": "^14.2.3",
     "react-email": "2.1.5",
     "react-hook-form": "^7.52.1",
+    "react-map-gl": "^7.1.7",
     "react-phone-number-input": "^3.4.5",
     "react-textarea-autosize": "^8.5.3",
     "recharts": "^2.12.7",
@@ -108,7 +109,8 @@
     "tailwindcss-animate": "^1.0.7",
     "uploadthing": "^6.13.2",
     "vaul": "^0.9.1",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "5.0.0-rc.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
@@ -116,8 +118,8 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.13",
-    "@types/mapbox-gl": "^3.4.0",
     "@tauri-apps/cli": "^1.6.2",
+    "@types/mapbox-gl": "^3.4.0",
     "@types/node": "^20.14.11",
     "@types/papaparse": "^5.3.14",
     "@types/react": "18.3.3",

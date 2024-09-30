@@ -43,7 +43,7 @@ export default async function DonationsPage() {
         <Button>Add Donations</Button>
       </EmptyPlaceholder>
     ) : (
-      <DataTable data={donations} columns={donationsTableColumns} pageCount={count} />
+      <DataTable href="/admin/donations" data={donations} columns={donationsTableColumns} pageCount={count} />
     )}
     </>
   );
