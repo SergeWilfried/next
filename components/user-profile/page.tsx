@@ -295,9 +295,9 @@ export default function EnhancedStudentProfile() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
               <CardTitle className="text-sm font-medium">Moyenne générale</CardTitle>
-              <Icons.graduationCap className="size-4 text-muted-foreground" />
+              <Icons.graduationCap className="text-muted-foreground size-4" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{student.gpa.toFixed(2)}</div>
@@ -306,9 +306,9 @@ export default function EnhancedStudentProfile() {
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
               <CardTitle className="text-sm font-medium">Assiduité</CardTitle>
-              <Icons.calendarDays className="size-4 text-muted-foreground" />
+              <Icons.calendarDays className="text-muted-foreground size-4" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{student.attendance}%</div>
@@ -317,9 +317,9 @@ export default function EnhancedStudentProfile() {
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
               <CardTitle className="text-sm font-medium">Activités extrascolaires</CardTitle>
-              <Icons.users className="size-4 text-muted-foreground" />
+              <Icons.users className="text-muted-foreground size-4" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{student.activities.length}</div>
@@ -439,7 +439,7 @@ export default function EnhancedStudentProfile() {
                 <Dialog open={isEditingDocument} onOpenChange={setIsEditingDocument}>
                   <DialogTrigger asChild>
                     <Button variant="outline" size="sm">
-                      <Icons.plus className="size-4 mr-2" /> Ajouter un document
+                      <Icons.plus className="mr-2 size-4" /> Ajouter un document
                     </Button>
                   </DialogTrigger>
                   <DialogContent>
@@ -452,7 +452,7 @@ export default function EnhancedStudentProfile() {
                         <p>Déposez les fichiers ici ...</p>
                       ) : (
                         <div>
-                          <Icons.upload className="mx-auto h-12 w-12 text-gray-400" />
+                          <Icons.upload className="mx-auto text-gray-400 size-12" />
                           <p>Glissez et déposez des fichiers ici, ou cliquez pour sélectionner des fichiers</p>
                         </div>
                       )}
@@ -490,7 +490,7 @@ export default function EnhancedStudentProfile() {
               <CardContent>
                 <ul className="space-y-2">
                   {student.documents.map((doc) => (
-                    <li key={doc.id} className="flex justify-between items-center">
+                    <li key={doc.id} className="flex items-center justify-between">
                       <span>{doc.name}</span>
                       <div className="flex items-center gap-2">
                         <Badge variant={doc.status === "Verified" ? "default" : "destructive"}>
