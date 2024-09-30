@@ -13,12 +13,12 @@ export const metadata = constructMetadata({
 
 export default async function AdminPage() {
   const attendanceData = [
-    { month: "January", present: 186, absent: 80 },
-    { month: "February", present: 305, absent: 200 },
-    { month: "March", present: 237, absent: 120 },
-    { month: "April", present: 73, absent: 190 },
-    { month: "May", present: 209, absent: 130 },
-    { month: "June", present: 214, absent: 140 },
+    { month: "Janvier", present: 186, absent: 80 },
+    { month: "Février", present: 305, absent: 200 },
+    { month: "Mars", present: 237, absent: 120 },
+    { month: "Avril", present: 73, absent: 190 },
+    { month: "Mai", present: 209, absent: 130 },
+    { month: "Juin", present: 214, absent: 140 },
   ]
   
   const user = await getCurrentUser();

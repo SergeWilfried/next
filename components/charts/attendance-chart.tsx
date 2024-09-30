@@ -20,7 +20,7 @@ import {
 
 const chartConfig = {
   present: {
-    label: "Present",
+    label: "Présent",
     color: "hsl(var(--chart-1))",
   },
   absent: {
@@ -42,7 +42,7 @@ export function AttendanceChartComponent({title, data}: AttendanceChartComponent
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardDescription>Janvier - Juin 2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -66,10 +66,10 @@ export function AttendanceChartComponent({title, data}: AttendanceChartComponent
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="size-4" />
+          En hausse de 5,2 % ce mois-ci <TrendingUp className="size-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total attendance for the last 6 months
+          Affichage de la présence totale pour les 6 derniers mois
         </div>
       </CardFooter>
     </Card>
