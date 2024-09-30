@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -20,6 +20,11 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
+import { useParams } from 'next/navigation'
+
+interface EnhancedStudentProfileProps {
+    id: string
+  }
 
 // Enhanced mock student data
 const initialStudent = {
@@ -81,7 +86,8 @@ const initialStudent = {
   ],
 }
 
-export default function EnhancedStudentProfile() {
+export default function EnhancedStudentProfile({ id }: EnhancedStudentProfileProps) {
+  
   const [student, setStudent] = useState(initialStudent)
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
   const [isEditingProfilePicture, setIsEditingProfilePicture] = useState(false)
@@ -94,6 +100,15 @@ export default function EnhancedStudentProfile() {
   const toggleSection = (section: string) => {
     setExpandedSection(expandedSection === section ? null : section)
   }
+
+  
+  useEffect(() => {
+    // Fetch student data based on the id
+    // This is where you'd typically make an API call
+    // For now, we'll just use the initialStudent data
+    console.log(`Fetching data for student with id: ${id}`)
+    // setStudent(fetchedStudentData)
+  }, [id])
 
   const handleProfilePictureEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
