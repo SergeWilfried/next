@@ -2,7 +2,7 @@
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useEffect, useRef, useState } from "react";
-
+import { env } from "@/env.mjs";
 interface MapOptions {
   style?: string;
   center?: [number, number];
@@ -15,13 +15,14 @@ export default function MapView({
   zoom = 13 
 }: MapOptions = {}) {
   const mapContainer = useRef<HTMLDivElement>(null);
+  const mapboxAccessToken = env.MAPBOX_ACCESS_TOKEN;
   const map = useRef<mapboxgl.Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
 
   useEffect(() => {
-    if (map.current) return; // Initialize map only once
+    if (map.current) return;
 
-    mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN ?? "";
+    mapboxgl.accessToken = mapboxAccessToken;
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current!,
