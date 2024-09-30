@@ -38,10 +38,10 @@ export default async function AdminPage() {
           <InfoCard title="Revenu mensuel" value="125 000 €" type="accounting" change="+8% par rapport au mois dernier" />
         </div>
         <div className="flex flex-col gap-5 md:flex-row md:justify-between">
-          <div className="w-full md:w-[50%] h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px]">
+          <div className="h-[300px] w-full sm:h-[400px] md:w-1/2 lg:h-[500px] xl:h-[600px]">
             <AttendanceChartComponent title="Présence" data={attendanceData} />
           </div>
-          <div className="w-full md:w-[50%] h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px]">
+          <div className="h-[300px] w-full sm:h-[400px] md:w-1/2 lg:h-[500px] xl:h-[600px]">
             <TransactionsList />
           </div>
         </div>
