@@ -6,9 +6,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
-export function MapClientWrapper() {
+export function MapClientWrapper({ initialCenter = [-1.46389, 53.296543] }) {
   const [mapStyle, setMapStyle] = useState("mapbox://styles/mapbox/satellite-v9");
-  const [center, setCenter] = useState([-1.46389, 53.296543]);
+  const [center, setCenter] = useState(initialCenter);
   const [zoom, setZoom] = useState(13);
 
   return (
@@ -36,7 +36,15 @@ export function MapClientWrapper() {
                 id="zoom" 
                 type="number" 
                 value={zoom} 
-                onChange={(e) => setZoom(Number(e.target.value))}
+                min="0"
+                max="22"
+                step="0.1"
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  if (value >= 0 && value <= 22) {
+                    setZoom(value);
+                  }
+                }}
               />
             </div>
             {/* Add more controls for center coordinates if needed */}
