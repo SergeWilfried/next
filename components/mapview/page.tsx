@@ -1,56 +1,43 @@
 "use client";
-import mapboxgl from "mapbox-gl";
+
+import Map, { Marker } from 'react-map-gl';
 import "mapbox-gl/dist/mapbox-gl.css";
-import { useEffect, useRef, useState } from "react";
 import { env } from "@/env.mjs";
+import { MapPin } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+
 interface MapOptions {
   style?: string;
   center?: [number, number];
   zoom?: number;
 }
 
-export default function MapView({ 
+export function MapView({ 
   style = "mapbox://styles/mapbox/satellite-v9",
   center = [-1.46389, 53.296543],
   zoom = 13 
-}: MapOptions = {}) {
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const mapboxAccessToken = env.MAPBOX_ACCESS_TOKEN;
-  const map = useRef<mapboxgl.Map | null>(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
-
-  useEffect(() => {
-    if (map.current) return;
-
-    mapboxgl.accessToken = mapboxAccessToken;
-
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current!,
-      style,
-      center,
-      zoom,
-    });
-
-    map.current.on('load', () => {
-      setMapLoaded(true);
-    });
-
-    return () => {
-      map.current?.remove();
-    };
-  }, [style, center, zoom]);
-
-  useEffect(() => {
-    if (!map.current || !mapLoaded) return;
-
-    map.current.setStyle(style);
-    map.current.setCenter(center);
-    map.current.setZoom(zoom);
-  }, [style, center, zoom, mapLoaded]);
+}: MapOptions) {
+  const mapboxAccessToken = env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
   return (
-    <div id="map" className="h-[500px] w-full">
-      <div ref={mapContainer} className="size-full" />
+    <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4">
+      <Badge variant="outline" className="absolute right-3 top-3">
+        Map
+      </Badge>
+      <Map
+        mapboxAccessToken={mapboxAccessToken}
+        initialViewState={{
+          longitude: center[0],
+          latitude: center[1],
+          zoom: zoom
+        }}
+        style={{width: '100%', height: '100%'}}
+        mapStyle={style}
+      >
+        <Marker longitude={center[0]} latitude={center[1]} color="red">
+          <MapPin className="text-red-500" />
+        </Marker>
+      </Map>
     </div>
   );
 }

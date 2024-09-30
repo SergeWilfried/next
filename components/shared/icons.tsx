@@ -155,7 +155,6 @@ export const Icons = {
   package: Package,
   page: File,
   post: FileText,
-  messageSquare: MessagesSquare,
   checkSquare: CheckSquare,
   clock: Clock,
   dollarSign: DollarSign,
