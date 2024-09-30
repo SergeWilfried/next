@@ -1,43 +1,40 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 import "mapbox-gl/dist/mapbox-gl.css";
-import { MapPin } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { School } from '@prisma/client';
 
-interface MapOptions {
-  style?: string;
-  center?: [number, number];
-  zoom?: number;
-  schools: School[];
+interface MapViewProps {
+  style: string;
+  center: [number, number];
+  zoom: number;
+  schools: School[]; // Replace 'any' with your school type
+  accessToken: string;
 }
 
 export function MapView({ 
   style = "mapbox://styles/mapbox/satellite-v9",
   center = [-1.46389, 53.296543],
   zoom = 13,
-  schools
-}: MapOptions) {
+  schools,
+  accessToken
+}: MapViewProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<mapboxgl.Marker[]>([]);
 
-  const initializeMap = useCallback(() => {
-    if (map.current || !mapContainer.current) return;
+  useEffect(() => {
+    if (map.current) return; // Initialize map only once
+    mapboxgl.accessToken = accessToken;
     map.current = new mapboxgl.Map({
-      container: mapContainer.current,
+      container: mapContainer.current!,
       style: style,
       center: center,
       zoom: zoom
     });
-  }, [style, center, zoom]);
-
-  useEffect(() => {
-    initializeMap();
-    return () => map.current?.remove();
-  }, [initializeMap]);
+  }, []);
 
   useEffect(() => {
     if (!map.current) return;

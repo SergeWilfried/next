@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { MapView } from "@/components/mapview/page";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { env } from "@/env.mjs";
 
 export function MapClientWrapper({ initialCenter = [-1.46389, 53.296543] }) {
   const [mapStyle, setMapStyle] = useState("mapbox://styles/mapbox/satellite-v9");
@@ -26,7 +27,6 @@ export function MapClientWrapper({ initialCenter = [-1.46389, 53.296543] }) {
       setSchools(data);
     } catch (error) {
       console.error('Error fetching schools:', error);
-      // Handle error (e.g., show error message to user)
     }
   };
 
@@ -114,6 +114,7 @@ export function MapClientWrapper({ initialCenter = [-1.46389, 53.296543] }) {
           center={center as [number, number]} 
           zoom={zoom} 
           schools={schools}
+          accessToken={env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
         />
       </div>
     </div>
