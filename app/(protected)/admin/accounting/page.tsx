@@ -59,7 +59,7 @@ export default async function PaymentsPage() {
         />
         <InfoCard
           title="Paiement Moyen"
-          value={`${isNaN(averagePayment) ? '0,00' : averagePayment.toFixed(2)} €`}
+          value={`${Number.isNaN(averagePayment) ? '0,00' : averagePayment.toFixed(2)} €`}
           type="accounting"
           change="+18% par rapport au mois dernier"
         />
