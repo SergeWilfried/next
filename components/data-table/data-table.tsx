@@ -139,7 +139,7 @@ export function DataTable<TData, TValue>({
     <div className="w-full space-y-4">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter first name..."
+          placeholder="Filtrer par nom..."
           value={(table.getColumn("firstName")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("firstName")?.setFilterValue(event.target.value)
@@ -169,12 +169,12 @@ export function DataTable<TData, TValue>({
           />
           <Button variant="outline" onClick={handleExport}>
             <DownloadIcon className="mr-2 size-4" />
-            Export
+            Exporter
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
-                Columns <ChevronDownIcon className="ml-2 size-4" />
+                Colonnes <ChevronDownIcon className="ml-2 size-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -236,7 +236,7 @@ export function DataTable<TData, TValue>({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  Aucun résultat.
                 </TableCell>
               </TableRow>
             )}
@@ -245,8 +245,8 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows.length} sur{" "}
+          {table.getFilteredRowModel().rows.length} ligne(s) sélectionnée(s).
         </div>
         <div className="space-x-2">
           <Button
@@ -255,7 +255,7 @@ export function DataTable<TData, TValue>({
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            Précédent
           </Button>
           <Button
             variant="outline"
@@ -263,7 +263,7 @@ export function DataTable<TData, TValue>({
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            Suivant
           </Button>
         </div>
       </div>

@@ -8,7 +8,14 @@ import { type ClientUploadedFileData } from "uploadthing/types"
 
 export interface UploadedFile<T = unknown> extends ClientUploadedFileData<T> {}
 
-
+export type ColumnsAction = {
+  label: string;
+  type: 'edit' | 'delete' | 'copy' | 'custom' | 'view';
+  action: 'navigate' | 'dialog' | 'copy';
+  item?: any;
+  href?: string;
+  separator?: boolean;
+}
 export type SiteConfig = {
   name: string;
   description: string;
