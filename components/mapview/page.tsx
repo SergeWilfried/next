@@ -48,8 +48,8 @@ export default function MapView({
   }, [style, center, zoom, mapLoaded]);
 
   return (
-    <div id="map" className="w-full h-[500px]">
-      <div ref={mapContainer} className="w-full h-full" />
+    <div id="map" className="h-[500px] w-full">
+      <div ref={mapContainer} className="h-full w-full" />
     </div>
   );
 }
