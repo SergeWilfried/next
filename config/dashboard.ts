@@ -11,6 +11,12 @@ export const sidebarLinks: SidebarNavItem[] = [
         authorizeOnly: ["ADMIN", "ACCOUNTANT"],
       },
       {
+        href: "/admin/maps",
+        icon: "map",
+        title: "Carte",
+        authorizeOnly: ["ADMIN", "SUPER_ADMIN"],
+      },
+      {
         href: "/admin/accounting",
         icon: "creditCard",
         title: "Finances",
