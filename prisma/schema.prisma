@@ -93,7 +93,6 @@ model User {
 model School {
   id           String         @id @default(cuid())
   name         String
-  address      String
   phoneNumber  String
   parents      Parent[]
   students     Student[]
@@ -107,6 +106,8 @@ model School {
   type         SchoolType
   latitude     Float?
   longitude    Float?
+  city         String?
+  country      String?
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   User         User?          @relation(fields: [userId], references: [id])
@@ -114,7 +115,7 @@ model School {
   classes      Class[]
   courses      Course[]
 
-  @@unique([name, address])
+  @@unique([name])
   @@map(name: "schools")
 }
 
