@@ -84,7 +84,7 @@ export function MapClientWrapper({ initialCenter = [-1.46389, 53.296543] }) {
             <div className="grid gap-3">
               <Label>Propriétés</Label>
               <div className="grid grid-cols-2 gap-2">
-                {['Salle de sport', 'Bibliothèque', 'Cantine', 'Bus', 'Laboratoire de sciences', 'Salle d&apos;informatique'].map((property) => (
+                {['Salle de sport', 'Bibliothèque', 'Cantine', 'Bus', 'Laboratoire de sciences', 'Salle d\'informatique'].map((property) => (
                   <div key={property} className="flex items-center space-x-2">
                     <Checkbox
                       id={property.toLowerCase().replace(' ', '-')}
