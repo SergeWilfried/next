@@ -231,7 +231,6 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   return (
-    <ScrollArea className="h-screen">
       <div className="container mx-auto p-4 sm:p-6"> {/* Adjusted padding for smaller screens */}
         <Card className="mb-6">
           <CardHeader className="flex flex-col items-center gap-4 sm:flex-row"> {/* Made header stack on small screens */}
@@ -697,6 +696,5 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
           </Button>
         </div>
       </div>
-    </ScrollArea>
   )
 }

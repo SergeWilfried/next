@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
-
+import { IntegrationsForm } from "@/components/settings/integrations-group"
 import { getCurrentUser } from "@/lib/session"
 import { constructMetadata } from "@/lib/utils"
 import { DeleteAccountSection } from "@/components/dashboard/delete-account"
@@ -98,78 +98,8 @@ export default async function SettingsPage() {
               <CardTitle>Intégrations</CardTitle>
               <CardDescription>Gérez vos intégrations et paramètres API.</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <IntegrationCollapsible
-                title="Intégration WhatsApp Business"
-                description="Configurez les identifiants de l&apos;API WhatsApp Business."
-                switchId="whatsapp-integration"
-              >
-                <div className="space-y-2">
-                  <Label htmlFor="whatsapp-phone">Numéro de téléphone WhatsApp</Label>
-                  <Input id="whatsapp-phone" placeholder="+1234567890" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="whatsapp-api-key">Clé API</Label>
-                  <Input id="whatsapp-api-key" placeholder="Votre clé API WhatsApp" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="whatsapp-business-id">ID du compte professionnel</Label>
-                  <Input id="whatsapp-business-id" placeholder="Votre ID de compte professionnel" />
-                </div>
-                <Button className="mt-4">Enregistrer les paramètres WhatsApp</Button>
-              </IntegrationCollapsible>
-
-              <IntegrationCollapsible
-                title="Intégration SMS Twilio"
-                description="Configurez les identifiants de l&apos;API Twilio pour les notifications SMS."
-                switchId="twilio-integration"
-              >
-                <div className="space-y-2">
-                  <Label htmlFor="twilio-account-sid">ID du compte</Label>
-                  <Input id="twilio-account-sid" placeholder="Votre ID de compte Twilio" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="twilio-auth-token">Jeton d&apos;authentification</Label>
-                  <Input id="twilio-auth-token" placeholder="Votre jeton d&apos;authentification Twilio" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="twilio-phone-number">Numéro de téléphone Twilio</Label>
-                  <Input id="twilio-phone-number" placeholder="+1234567890" />
-                </div>
-                <Button className="mt-4">Enregistrer les paramètres Twilio</Button>
-              </IntegrationCollapsible>
-
-              <IntegrationCollapsible
-                title="Intégration Paystack"
-                description="Configurez les identifiants de l&apos;API Paystack pour le traitement des paiements."
-                switchId="paystack-integration"
-              >
-                <div className="space-y-2">
-                  <Label htmlFor="paystack-secret-key">Clé secrète</Label>
-                  <Input id="paystack-secret-key" placeholder="Votre clé secrète Paystack" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="paystack-public-key">Clé publique</Label>
-                  <Input id="paystack-public-key" placeholder="Votre clé publique Paystack" />
-                </div>
-                <Button className="mt-4">Enregistrer les paramètres Paystack</Button>
-              </IntegrationCollapsible>
-
-              <IntegrationCollapsible
-                title="Intégration CinetPay"
-                description="Configurez les identifiants de l&apos;API CinetPay pour le traitement des paiements."
-                switchId="cinetpay-integration"
-              >
-                <div className="space-y-2">
-                  <Label htmlFor="cinetpay-api-key">Clé API</Label>
-                  <Input id="cinetpay-api-key" placeholder="Votre clé API CinetPay" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="cinetpay-site-id">ID du site</Label>
-                  <Input id="cinetpay-site-id" placeholder="Votre ID de site CinetPay" />
-                </div>
-                <Button className="mt-4">Enregistrer les paramètres CinetPay</Button>
-              </IntegrationCollapsible>
+            <CardContent>
+              <IntegrationsForm />
             </CardContent>
           </Card>
         </TabsContent>
