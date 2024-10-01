@@ -303,6 +303,7 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
                   <TooltipContent>Date de naissance</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+              
             </div>
           </CardContent>
         </Card>
