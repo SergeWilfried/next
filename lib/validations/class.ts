@@ -11,7 +11,7 @@ export const classSchema = z.object({
   enrollments: z.array(z.string()).optional(),
   applications: z.array(z.string()).optional(),
   teachers: z.array(z.string()).optional(),
-  course: z.array(z.string()).optional(),
+  courses: z.array(z.string()).optional(),
   grades: z.array(z.string()).optional()
 })
 

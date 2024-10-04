@@ -30,8 +30,8 @@ export const POST = auth(async (req) => {
         teachers: {
           connect: validatedData.teachers?.map(id => ({ id }))
         },
-        course: {
-          connect: validatedData.course?.map(id => ({ id }))
+        courses: {
+          connect: validatedData.courses?.map(id => ({ id }))
         },
         grades: {
           connect: validatedData.grades?.map(id => ({ id }))
