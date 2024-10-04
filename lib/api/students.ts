@@ -1,6 +1,6 @@
 import { Student } from "@prisma/client";
 
-export async function getStudents({
+export async function getAllStudents({
   page,
   schoolId,
   userId,

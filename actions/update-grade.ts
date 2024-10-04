@@ -1,24 +1,24 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/db";
-import { UpdateStudentSchema } from "@/lib/validations/student";
+import { UpdateGradeSchema } from "@/lib/validations/grade";
 
-export async function updateStudent(data: UpdateStudentSchema) {
+export async function updateGrade(data: UpdateGradeSchema) {
     const { id } = data;
     try {
       const session = await auth();
   
-      if (!session?.user || session?.user.id !== id) {
+      if (!session?.user) {
         throw new Error("Unauthorized");
       }
 
-      const existingStudent = await prisma.student.findUnique({
+      const existingGrade = await prisma.grade.findUnique({
         where: { id: id },
       });
-      if (!existingStudent) {
-        throw new Error(`Student with id ${id} not found`);
+      if (!existingGrade) {
+        throw new Error(`Grade with id ${id} not found`);
       }
 
-      const student = await prisma.student.update({
+      const response = await prisma.grade.update({
         where: {
           id: id,
         },
@@ -27,7 +27,7 @@ export async function updateStudent(data: UpdateStudentSchema) {
 
       return {
         error: null,
-        data: student,
+        data: response,
       }
     } catch (error) {
       console.error(error)

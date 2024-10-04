@@ -1,6 +1,6 @@
 "use client"
 
-import { Application } from "@prisma/client"
+import { Attendance } from "@prisma/client"
 import { ColumnDef, Row } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
@@ -8,12 +8,12 @@ import { ArrowUpDown } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { ActionsCell } from "@/components/action-cell/action-cell"
 
-const actions = (row: Row<Application>) => [
+const actions = (row: Row<Attendance>) => [
   { label: "Edit", isCopyable:false, onClick: () => {} },
   { label: "Delete", isCopyable:false, onClick: () => {} },
 ]
 
-export const applicationsTableColumns: ColumnDef<Application>[] = [
+export const applicationsTableColumns: ColumnDef<Attendance>[] = [
   {
     id: "select",
     header: ({ table }) => (

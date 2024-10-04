@@ -30,6 +30,7 @@ export const createStaffSchema = z.object({
 export type CreateStaffSchema = z.infer<typeof createStaffSchema>
 
 export const updateStaffSchema = z.object({
+  id: z.string().min(1),
   name: z.string().optional(),
   position: z.string().optional(),
   department: z.string().optional(),

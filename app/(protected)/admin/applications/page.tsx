@@ -4,10 +4,10 @@ import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 import { Button } from "@/components/ui/button";
-import { getApplications } from "@/actions/get-applications";
 import { DataTable } from "@/components/data-table/data-table";
 import { applicationsTableColumns } from "./columns";
 import ApplicationsLoading from "./loading";
+import { getAllApplications } from "@/lib/api";
 
 
 export const metadata = constructMetadata({
@@ -20,7 +20,7 @@ export default async function ApplicationsPage() {
   if (!user || user.role !== "ADMIN") redirect("/login");
 
   // Fetch applications
-  const { data: applications, count, error } = await getApplications();
+  const { data: applications, count, error } = await getAllApplications();
 
   return (
     <>

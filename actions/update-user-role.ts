@@ -21,6 +21,13 @@ export async function updateUserRole(userId: string, data: FormData) {
 
     const { role } = userRoleSchema.parse(data);
 
+    const existingUser = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (!existingUser) {
+      throw new Error(`User with id ${userId} not found`);
+    }
+
     // Update the user role.
     await prisma.user.update({
       where: {

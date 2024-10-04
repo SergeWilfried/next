@@ -70,12 +70,17 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function PATCH(request: NextRequest) {
+export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
     const { id, ...updateData } = body;
     const validatedData = updateDonationSchema.parse(updateData);
-
+    const existingDonation = await prisma.donation.findUnique({
+      where: { id },
+    });
+    if (!existingDonation) {
+      throw new Error(`Donation with id ${id} not found`);
+    }
     const donation = await prisma.donation.update({
       where: { id },
       data: validatedData,
