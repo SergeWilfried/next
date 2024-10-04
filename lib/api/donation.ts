@@ -49,9 +49,12 @@ export const addNewDonation = async (payload: Donation) : Promise<{
 
     export async function deleteDonation(id: string) : Promise<void> {
         try {
-            await fetch(`/api/donation/${id}`, {
+            const response = await fetch(`/api/donation/${id}`, {
                 method: 'DELETE',
             });
+            if (!response.ok) {
+                throw new Error('Failed to delete donation');
+            }
         } catch (error) {
             console.error("Failed to delete donation:", error);
         }

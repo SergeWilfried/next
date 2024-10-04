@@ -18,7 +18,7 @@ export const addNewStaff = async (staff: Staff) : Promise<{
           throw new Error('Failed to create staff');
         }
         const result = await response.json();
-        return result;
+        return { data: result, error: null };
       } catch (error) {
         console.error("Failed to create staff:", error);
         throw error;
@@ -47,9 +47,12 @@ export const addNewStaff = async (staff: Staff) : Promise<{
 
     export async function deleteStaff(id: string) : Promise<void> {
         try {
-            await fetch(`/api/staff/${id}`, {
+            const response = await fetch(`/api/staff/${id}`, {
                 method: 'DELETE',
             });
+            if (!response.ok) {
+                throw new Error('Failed to delete staff');
+            }
         } catch (error) {
             console.error("Failed to delete staff:", error);
         }

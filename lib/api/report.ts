@@ -49,9 +49,12 @@ export const addNewReport = async (payload: Report) : Promise<{
 
     export async function deleteReport(id: string) : Promise<void> {
         try {
-            await fetch(`/api/report/${id}`, {
+            const response = await fetch(`/api/report/${id}`, {
                 method: 'DELETE',
             });
+            if (!response.ok) {
+                throw new Error('Failed to delete report');
+            }
         } catch (error) {
             console.error("Failed to delete report:", error);
         }

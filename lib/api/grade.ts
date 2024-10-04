@@ -49,9 +49,12 @@ export const addNewGrade = async (payload: Grade) : Promise<{
 
     export async function deleteGrade(id: string) : Promise<void> {
         try {
-            await fetch(`/api/grade/${id}`, {
+            const response = await fetch(`/api/grade/${id}`, {
                 method: 'DELETE',
             });
+            if (!response.ok) {
+                throw new Error('Failed to delete grade');
+            }
         } catch (error) {
             console.error("Failed to delete grade:", error);
         }

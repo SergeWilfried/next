@@ -49,9 +49,12 @@ export const addNewAttendance = async (payload: Attendance) : Promise<{
 
     export async function deleteAttendance(id: string) : Promise<void> {
         try {
-            await fetch(`/api/attendance/${id}`, {
+            const response = await fetch(`/api/attendance/${id}`, {
                 method: 'DELETE',
             });
+            if (!response.ok) {
+                throw new Error('Failed to delete attendance');
+            }
         } catch (error) {
             console.error("Failed to delete attendance:", error);
         }

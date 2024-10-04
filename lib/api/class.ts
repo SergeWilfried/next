@@ -49,9 +49,12 @@ export const addNewClass = async (payload: Class) : Promise<{
 
     export async function deleteClass(id: string) : Promise<void> {
         try {
-            await fetch(`/api/class/${id}`, {
+            const response = await fetch(`/api/class/${id}`, {
                 method: 'DELETE',
             });
+            if (!response.ok) {
+                throw new Error('Failed to delete class');
+            }
         } catch (error) {
             console.error("Failed to delete class:", error);
         }

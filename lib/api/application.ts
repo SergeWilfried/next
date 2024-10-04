@@ -49,9 +49,12 @@ export const addNewApplication = async (payload: Application) : Promise<{
 
     export async function deleteApplication(id: string) : Promise<void> {
         try {
-            await fetch(`/api/application/${id}`, {
+            const response = await fetch(`/api/application/${id}`, {
                 method: 'DELETE',
             });
+            if (!response.ok) {
+                throw new Error('Failed to delete application');
+            }
         } catch (error) {
             console.error("Failed to delete application:", error);
         }
