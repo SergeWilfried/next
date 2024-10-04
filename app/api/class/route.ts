@@ -90,8 +90,8 @@ export const PUT = auth(async (req) => {
         teachers: updateData.teachers ? {
           connect: updateData.teachers.map(id => ({ id }))
         } : undefined,
-        course: updateData.course ? {
-          connect: updateData.course.map(id => ({ id }))
+        courses: updateData.courses ? {
+          connect: updateData.courses.map(id => ({ id }))
         } : undefined,
         grades: updateData.grades ? {
           connect: updateData.grades.map(id => ({ id }))
