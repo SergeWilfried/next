@@ -11,7 +11,14 @@ export async function updateClass(data: UpdateAddressSchema) {
         throw new Error("Unauthorized");
       }
 
-      const response = await prisma.class.update({
+      const existingAddress = await prisma.address.findUnique({
+        where: { id: id },
+      });
+      if (!existingAddress) {
+        throw new Error(`Address with id ${id} not found`);
+      }
+
+      const response = await prisma.address.update({
         where: {
           id: id,
         },

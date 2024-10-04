@@ -106,7 +106,14 @@ export async function PUT(req: Request) {
   try {
     const body = await req.json();
     const validatedData = updateStudentSchema.parse(body);
-
+    const existingStudent = await prisma.student.findUnique({
+      where: { id: validatedData.id },
+    });
+    
+    if (!existingStudent) {
+      throw new Error(`Student with id ${validatedData.id} not found`);
+    }
+    
     const updatedStudent = await prisma.student.update({
       where: { id: validatedData.id },
       data: {

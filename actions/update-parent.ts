@@ -11,6 +11,13 @@ export async function updateParent(data: UpdateParentSchema) {
         throw new Error("Unauthorized");
       }
 
+      const existingParent = await prisma.parent.findUnique({
+        where: { id: id },
+      });
+      if (!existingParent) {
+        throw new Error(`Parent with id ${id} not found`);
+      }
+
       const response = await prisma.parent.update({
         where: {
           id: id,

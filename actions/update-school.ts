@@ -11,6 +11,13 @@ export async function updateSchool(data: UpdateSchoolSchema) {
         throw new Error("Unauthorized");
       }
 
+      const existingSchool = await prisma.school.findUnique({
+        where: { id: id },
+      });
+      if (!existingSchool) {
+        throw new Error(`School with id ${id} not found`);
+      }
+
       const response = await prisma.school.update({
         where: {
           id: id,

@@ -11,6 +11,13 @@ export async function updateStudent(data: UpdateStudentSchema) {
         throw new Error("Unauthorized");
       }
 
+      const existingStudent = await prisma.student.findUnique({
+        where: { id: id },
+      });
+      if (!existingStudent) {
+        throw new Error(`Student with id ${id} not found`);
+      }
+
       const student = await prisma.student.update({
         where: {
           id: id,

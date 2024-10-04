@@ -72,6 +72,12 @@ export const PUT = auth(async (req) => {
   try {
     const body = await req.json();
     const { id, ...updateData } = classSchema.extend({ id: z.string() }).parse(body);
+    const existingClass = await prisma.class.findUnique({
+      where: { id },
+    });
+    if (!existingClass) {
+      throw new Error(`Class with id ${id} not found`);
+    }
     const updatedClass = await prisma.class.update({
       where: { id },
       data: {

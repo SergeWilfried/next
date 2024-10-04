@@ -11,6 +11,13 @@ export async function updateClass(data: UpdateClassSchema) {
         throw new Error("Unauthorized");
       }
 
+      const existingClass = await prisma.class.findUnique({
+        where: { id: id },
+      });
+      if (!existingClass) {
+        throw new Error(`Class with id ${id} not found`);
+      }
+
       const response = await prisma.class.update({
         where: {
           id: id,

@@ -11,6 +11,13 @@ export async function updateGrade(data: UpdateGradeSchema) {
         throw new Error("Unauthorized");
       }
 
+      const existingGrade = await prisma.grade.findUnique({
+        where: { id: id },
+      });
+      if (!existingGrade) {
+        throw new Error(`Grade with id ${id} not found`);
+      }
+
       const response = await prisma.grade.update({
         where: {
           id: id,

@@ -11,6 +11,13 @@ export async function updateParent(data: UpdateStaffSchema) {
         throw new Error("Unauthorized");
       }
 
+      const existingStaff = await prisma.staff.findUnique({
+        where: { id: id },
+      });
+      if (!existingStaff) {
+        throw new Error(`Staff with id ${id} not found`);
+      }
+
       const response = await prisma.staff.update({
         where: {
           id: id,

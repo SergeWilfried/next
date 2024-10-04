@@ -71,7 +71,12 @@ export async function PUT(req: Request) {
     const body = await req.json();
     const validatedData = updateParentSchema.parse(body);
     const { address, ...otherData } = validatedData;
-
+    const existingParent = await prisma.parent.findUnique({
+      where: { id },
+    });
+    if (!existingParent) {
+      throw new Error(`Parent with id ${id} not found`);
+    }
     const parent = await prisma.parent.update({
       where: { id },
       data: {

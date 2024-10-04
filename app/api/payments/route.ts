@@ -49,7 +49,12 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const { id, ...updateData } = body;
     const validatedData = updatePaymentSchema.parse(updateData);
-
+    const existingPayment = await prisma.payment.findUnique({
+      where: { id },
+    });
+    if (!existingPayment) {
+      throw new Error(`Payment with id ${id} not found`);
+    }
     const payment = await prisma.payment.update({
       where: { id },
       data: validatedData,

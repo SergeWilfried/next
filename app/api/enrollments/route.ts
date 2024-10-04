@@ -36,6 +36,12 @@ export async function PUT(req: Request) {
   try {
     const json = await req.json()
     const { id, ...updateData } = updateEnrollmentSchema.parse(json)
+    const existingEnrollment = await prisma.enrollment.findUnique({
+      where: { id },
+    });
+    if (!existingEnrollment) {
+      throw new Error(`Enrollment with id ${id} not found`);
+    }
     const enrollment = await prisma.enrollment.update({
       where: { id },
       data: {
