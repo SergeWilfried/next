@@ -6,7 +6,7 @@ export const newAddressSchema = z.object({
     city: z.string().min(1),
     country: z.string().min(1),
     state: z.string().optional(),
-    postalCode: z.string().optional(),
+    zipCode: z.string().optional(),
     location: z.string().optional(), 
 })
 
@@ -18,7 +18,7 @@ export const updateAddressSchema = z.object({
     city: z.string().min(1),
     country: z.string().min(1),
     state: z.string().optional(),
-    postalCode: z.string().optional(),
+    zipCode: z.string().optional(),
     location: z.string().optional(),     
 })
 

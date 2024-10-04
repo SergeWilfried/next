@@ -10,7 +10,30 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const validatedData = createParentSchema.parse(body);
-    const parent = await prisma.parent.create({ data: validatedData });
+    const { schoolId, ...parentData } = validatedData;
+
+    const parent = await prisma.parent.create({
+      data: {
+        firstName: parentData.firstName,
+        lastName: parentData.lastName,
+        middleName: parentData.middleName,
+        gender: parentData.gender,
+        dateOfBirth: parentData.dateOfBirth,
+        maritalStatus: parentData.maritalStatus,
+        phoneNumber: parentData.phoneNumber,
+        communicationPreference: parentData.communicationPreference,
+        emergencyContacts: parentData.emergencyContacts,
+        address: {
+          create: parentData.address,
+        },
+        school: {
+          connect: { id: schoolId },
+        },
+        user: {
+          connect: { id: parentData.userId },
+        },
+      },
+    });
     return NextResponse.json(parent);
   } catch (error) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
@@ -47,7 +70,18 @@ export async function PUT(req: Request) {
 
     const body = await req.json();
     const validatedData = updateParentSchema.parse(body);
-    const parent = await prisma.parent.update({ where: { id }, data: validatedData });
+    const { address, ...otherData } = validatedData;
+
+    const parent = await prisma.parent.update({
+      where: { id },
+      data: {
+        ...otherData,
+        address: address ? {
+          update: address
+        } : undefined
+      }
+    });
+
     return NextResponse.json(parent);
   } catch (error) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
