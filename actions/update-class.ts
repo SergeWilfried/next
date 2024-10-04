@@ -29,8 +29,8 @@ export async function updateClass(data: UpdateClassSchema) {
           teachers: data.teachers ? {
             set: data.teachers.map(id => ({ id }))
           } : undefined,
-          course: data.course ? {
-            set: data.course.map(id => ({ id }))
+          courses: data.courses ? {
+            set: data.courses.map(id => ({ id }))
           } : undefined,
           grades: data.grades ? {
             set: data.grades.map(id => ({ id }))
