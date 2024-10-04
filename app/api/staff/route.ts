@@ -57,6 +57,9 @@ export async function POST(request: Request) {
         },
         schoolId: body.schoolId,
         classId: body.classId,
+        user: {
+          connect: { id: body.userId }
+        }
       },
       include: {
         school: true,
@@ -87,7 +90,14 @@ export async function PUT(request: Request) {
         return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
       }
     }
-
+    const existingStaff = await prisma.staff.findUnique({
+      where: { id },
+    });
+    
+    if (!existingStaff) {
+      throw new Error(`Staff with id ${id} not found`);
+    }
+    
     const updatedStaff = await prisma.staff.update({
       where: { id },
       data: updateData,

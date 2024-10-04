@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import StaffLoading from "./loading";
 import { DataTable } from "@/components/data-table/data-table";
 import { staffTableColumns } from "./columns";
-import { getAllStaff } from "@/actions/get-staff";
 import { NewStaffDialog } from "./add-staff-dialog";
+import { getAllStaff } from "@/lib/api";
 
 export const metadata = constructMetadata({
   title: "Staff – School Management System",

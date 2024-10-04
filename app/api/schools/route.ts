@@ -12,9 +12,12 @@ export async function POST(req: Request) {
     const school = await prisma.school.create({
       data: {
         ...validatedData,
-        userId: body.userId, // Assuming userId is provided in the request body
+        userId: body.userId,
+        address: {
+          create: validatedData.address,
+        },
         category: validatedData.category as SchoolCategory,
-        type: validatedData.type as SchoolType, // Explicitly cast type to SchoolType
+        type: validatedData.type as SchoolType,
       },
     });
     return NextResponse.json(school);

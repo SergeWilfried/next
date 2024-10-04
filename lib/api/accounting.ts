@@ -67,7 +67,7 @@ export async function createPayment(payment: Payment) : Promise<{ data: Payment 
 export async function updatePayment(id: string, payment: Payment) : Promise<{ data: Payment | null, error: Error | null }> {
     try {
         const response = await fetch(`${baseUrl}/api/payments/${id}`, {
-            method: 'PATCH',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },

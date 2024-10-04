@@ -4,9 +4,9 @@ import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 import { Button } from "@/components/ui/button";
-import { getAllGrades } from "@/actions/get-all-grades";
 import { gradesTableColumns } from "./columns";
 import { DataTable } from "@/components/data-table/data-table";
+import { getAllGrades } from "@/lib/api";
 
 export const metadata = constructMetadata({
   title: "Grades – School Management System",

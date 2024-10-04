@@ -4,10 +4,10 @@ import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 import { Button } from "@/components/ui/button";
-import { getApplications } from "@/actions/get-applications";
 import { DataTable } from "@/components/data-table/data-table";
 import { applicationsTableColumns } from "./columns";
 import ApplicationsLoading from "./loading";
+import { getAllAttendances } from "@/lib/api/attendance";
 
 
 export const metadata = constructMetadata({
@@ -20,7 +20,7 @@ export default async function ApplicationsPage() {
   if (!user || user.role !== "ADMIN") redirect("/login");
 
   // Fetch applications
-  const { data: applications, count, error } = await getApplications();
+  const { data: attendances, count, error } = await getAllAttendances();
 
   return (
     <>
@@ -34,10 +34,10 @@ export default async function ApplicationsPage() {
       />
       {error ? (
         <div>Error loading applications. Please try again later.</div>
-      ) : applications === undefined ? (
+      ) : attendances === undefined ? (
         <ApplicationsLoading />
-      ) : applications.length > 0 ? (
-        <DataTable href="/admin/attendance" columns={applicationsTableColumns} data={applications} pageCount={count} />
+      ) : attendances.length > 0 ? (
+        <DataTable href="/admin/attendance" columns={applicationsTableColumns} data={attendances} pageCount={count} />
       ) : (
         <EmptyPlaceholder>
           <EmptyPlaceholder.Icon name="file" />

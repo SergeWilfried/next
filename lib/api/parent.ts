@@ -47,9 +47,12 @@ export const addNewParent = async (parent) : Promise<{
 
     export async function deleteParent(id: string) : Promise<void> {
         try {
-            await fetch(`/api/parent/${id}`, {
+            const response = await fetch(`/api/parent/${id}`, {
                 method: 'DELETE',
             });
+            if (!response.ok) {
+                throw new Error('Failed to delete parent');
+            }
         } catch (error) {
             console.error("Failed to delete parent:", error);
         }

@@ -6,9 +6,9 @@ import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/data-table/data-table";
 import { parentsTableColumns } from "./columns";
-import { getAllParents } from "@/actions/get-parents-action";
 import ParentsLoading from "./loading";
 import { NewParentDialog } from "./add-parent-dialog";
+import { getParents } from "@/lib/api";
 
 export const metadata = constructMetadata({
   title: "Parents – School Management System",
@@ -20,7 +20,7 @@ export default async function ParentsPage() {
   if (!user || user.role !== "ADMIN") redirect("/login");
 
   // Get all parents without pagination
-  const { data: parents, count } = await getAllParents();
+  const { data: parents, count } = await getParents();
 
   return (
     <>

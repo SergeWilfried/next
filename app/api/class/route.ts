@@ -30,8 +30,8 @@ export const POST = auth(async (req) => {
         teachers: {
           connect: validatedData.teachers?.map(id => ({ id }))
         },
-        course: {
-          connect: validatedData.course?.map(id => ({ id }))
+        courses: {
+          connect: validatedData.courses?.map(id => ({ id }))
         },
         grades: {
           connect: validatedData.grades?.map(id => ({ id }))
@@ -72,6 +72,12 @@ export const PUT = auth(async (req) => {
   try {
     const body = await req.json();
     const { id, ...updateData } = classSchema.extend({ id: z.string() }).parse(body);
+    const existingClass = await prisma.class.findUnique({
+      where: { id },
+    });
+    if (!existingClass) {
+      throw new Error(`Class with id ${id} not found`);
+    }
     const updatedClass = await prisma.class.update({
       where: { id },
       data: {
@@ -90,8 +96,8 @@ export const PUT = auth(async (req) => {
         teachers: updateData.teachers ? {
           connect: updateData.teachers.map(id => ({ id }))
         } : undefined,
-        course: updateData.course ? {
-          connect: updateData.course.map(id => ({ id }))
+        courses: updateData.courses ? {
+          connect: updateData.courses.map(id => ({ id }))
         } : undefined,
         grades: updateData.grades ? {
           connect: updateData.grades.map(id => ({ id }))

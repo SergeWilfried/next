@@ -18,6 +18,12 @@ export async function updateUserName(userId: string, data: FormData) {
     }
 
     const { name } = userNameSchema.parse(data);
+    const existingUser = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (!existingUser) {
+      throw new Error(`User with id ${userId} not found`);
+    }
 
     // Update the user name.
     await prisma.user.update({

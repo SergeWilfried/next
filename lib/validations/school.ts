@@ -5,7 +5,6 @@ export const searchParamsSchema = z.object({
   per_page: z.coerce.number().default(10),
   sort: z.string().optional(),
   name: z.string().optional(),
-  address: z.string().optional(),
   phoneNumber: z.string().optional(),
   from: z.string().optional(),
   to: z.string().optional(),
@@ -18,7 +17,13 @@ export type GetSchoolsSchema = z.infer<typeof getSchoolsSchema>
 
 export const createSchoolSchema = z.object({
   name: z.string(),
-  address: z.string(),
+  address: z.object({
+    street: z.string(),
+    city: z.string(),
+    state: z.string(),
+    zipCode: z.string(),
+    country: z.string(),
+  }),
   phoneNumber: z.string(),
   userId: z.string(),
   category: z.enum(["PRIVATE", "PUBLIC", "CHARTER", "RELIGIOUS", "NON_PROFIT"]).optional(),
@@ -28,8 +33,15 @@ export const createSchoolSchema = z.object({
 export type CreateSchoolSchema = z.infer<typeof createSchoolSchema>
 
 export const updateSchoolSchema = z.object({
+  id: z.string().min(1),
   name: z.string().optional(),
-  address: z.string().optional(),
+  address: z.object({
+    street: z.string().optional(),
+    city: z.string().optional(),
+    state: z.string().optional(),
+    zipCode: z.string().optional(),
+    country: z.string().optional(),
+  }).optional(),
   phoneNumber: z.string().optional(),
 })
 

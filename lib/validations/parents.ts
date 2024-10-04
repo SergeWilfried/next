@@ -1,3 +1,4 @@
+import { useId } from "react"
 import { z } from "zod"
 
 export const searchParamsSchema = z.object({
@@ -18,13 +19,19 @@ export const getParentsSchema = searchParamsSchema
 export type GetParentsSchema = z.infer<typeof getParentsSchema>
 
 export const createParentSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
   middleName: z.string().optional(),
-  studentId: z.string(),
+  address: z.object({
+    street: z.string(),
+    city: z.string(),
+    state: z.string(),
+    zipCode: z.string(),
+    country: z.string(),
+  }),
   gender: z.enum(['MALE', 'FEMALE', 'OTHER']),
   dateOfBirth: z.string(),
-  maritalStatus: z.enum(['SINGLE', 'MARRIED', 'DIVORCED', 'WIDOWED']), 
+  maritalStatus: z.enum(['SINGLE', 'MARRIED', 'DIVORCED', 'WIDOWED', 'OTHER']),
   phoneNumber: z.string(),
   communicationPreference: z.enum(["SMS", "WHATSAPP", "PHONE"]),
   emergencyContacts: z.array(z.object({
@@ -32,7 +39,8 @@ export const createParentSchema = z.object({
     relationship: z.string(),
     phoneNumber: z.string(),
   })),
-  schoolId: z.string(),
+  schoolId: z.string(), // Add this line
+  userId: z.string(),   // Add this line
 })
 
 export const parentSchema = z.object({
@@ -56,19 +64,24 @@ export const parentSchema = z.object({
 export type CreateParentSchema = z.infer<typeof createParentSchema>
 
 export const updateParentSchema = z.object({
+  id: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   middleName: z.string().optional(),
   phoneNumber: z.string().optional(),
   communicationPreference: z.enum(["SMS", "WHATSAPP", "PHONE"]).optional(),
-  address: z.string().optional(),
+  address: z.object({
+    street: z.string().optional(),
+    city: z.string().optional(),
+    state: z.string().optional(),
+    zipCode: z.string().optional(),
+    country: z.string().optional(),
+  }).optional(),
   emergencyContacts: z.array(z.object({
     name: z.string(),
     relationship: z.string(),
     phoneNumber: z.string(),
-  })).optional(),
-  schoolId: z.string().optional(),
-  studentId: z.string().optional(),
+  })).optional()
 })
 
 export type UpdateParentSchema = z.infer<typeof updateParentSchema>

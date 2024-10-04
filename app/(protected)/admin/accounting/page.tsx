@@ -2,10 +2,10 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/session";
 import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
-import { getAllPayments } from "@/actions/get-payment";
 import InfoCard from "@/components/dashboard/info-card";
 import { PieChartComponent } from "@/components/charts/pie-chart-interactive";
 import TransactionsList from "@/components/dashboard/transactions-list";
+import { getAllPayments } from "@/lib/api";
 
 export const metadata = constructMetadata({
   title: "Comptabilité – Système de Gestion Scolaire",
@@ -18,9 +18,8 @@ export default async function PaymentsPage() {
 
   const { data: payments, count } = await getAllPayments();
   
-  // Add these new calculations
   const totalRevenue = payments ? payments.reduce((sum, payment) => sum + payment.amount, 0) : 0;
-  const expectedRevenue = 1000000; // This should be fetched from your database or calculated based on your business logic
+  const expectedRevenue = 1000000; 
   const txCount = count ? count : 0;
   const averagePayment = txCount > 0 ? totalRevenue / txCount : 0;
 
@@ -39,7 +38,6 @@ export default async function PaymentsPage() {
     return {
       paid: currentMonth.paid,
       due: currentMonth.due,
-      // compare to previous month
     trend: currentMonth.paid / previousMonth.paid
     }
   };
