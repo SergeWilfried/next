@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "../ui/button"
+import { PhoneInput } from "../input/phone-input"
 
 const FormSchema = z.object({
   whatsapp_integration: z.object({
@@ -25,16 +26,22 @@ const FormSchema = z.object({
   twilio_integration: z.object({
     enabled: z.boolean().default(false),
     accountSid: z.string().optional(),
+    phoneNumber: z.string().optional(),
     authToken: z.string().optional(),
   }),
   paystack_integration: z.object({
     enabled: z.boolean().default(false),
     secretKey: z.string().optional(),
+    publicKey: z.string().optional(),
+    paymentUrl: z.string().optional(),
+    x_callback_url: z.string().optional(),
+    currency: z.enum(["XOF", "NGN", "KES", "GHS", "RWD", "GHS", "USD"]).optional(),
   }),
   cinetpay_integration: z.object({
     enabled: z.boolean().default(false),
     apiKey: z.string().optional(),
     siteId: z.string().optional(),
+    callback_url: z.string().optional(),
   }),
 })
 
@@ -99,7 +106,7 @@ export function IntegrationsForm() {
                     <div className="space-y-0.5">
                       <FormLabel>{label}</FormLabel>
                       <FormDescription>
-                        Activer/désactiver l&apos;intégration
+                        Activer/désactiver
                       </FormDescription>
                     </div>
                     <FormControl>
@@ -121,10 +128,17 @@ export function IntegrationsForm() {
                       <FormItem>
                         <FormLabel>{field.label}</FormLabel>
                         <FormControl>
-                          <input
-                            {...inputField}
-                            className="w-full rounded-md border p-2"
-                          />
+                          {field.name === "phoneNumber" ? (
+                            <PhoneInput
+                              {...inputField}
+                              className="w-full rounded-md border p-2"
+                            />
+                          ) : (
+                            <input
+                              {...inputField}
+                              className="w-full rounded-md border p-2"
+                            />
+                          )}
                         </FormControl>
                       </FormItem>
                     )}
