@@ -64,15 +64,18 @@ export const updateParentSchema = z.object({
   middleName: z.string().optional(),
   phoneNumber: z.string().optional(),
   communicationPreference: z.enum(["SMS", "WHATSAPP", "PHONE"]).optional(),
-  address: z.string().optional(),
+  address: z.object({
+    street: z.string().optional(),
+    city: z.string().optional(),
+    state: z.string().optional(),
+    postalCode: z.string().optional(),
+    country: z.string().optional(),
+  }).optional(),
   emergencyContacts: z.array(z.object({
     name: z.string(),
     relationship: z.string(),
     phoneNumber: z.string(),
-  })).optional(),
-  userId: z.string().optional(),
-  schoolId: z.string().optional(),
-  studentId: z.string().optional(),
+  })).optional()
 })
 
 export type UpdateParentSchema = z.infer<typeof updateParentSchema>
