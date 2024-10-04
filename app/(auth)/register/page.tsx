@@ -1,10 +1,8 @@
 import Link from "next/link"
-
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/shared/icons"
-import { UserAuthForm } from "@/components/forms/user-auth-form"
-import { Suspense } from "react"
+import RegistrationFlow from '@/components/multistep/registration/registration-flow'
 
 export const metadata = {
   title: "Create an account",
@@ -25,21 +23,19 @@ export default function RegisterPage() {
       </Link>
       <div className="hidden h-full bg-muted lg:block" />
       <div className="lg:p-8">
-        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[450px]">
           <div className="flex flex-col space-y-2 text-center">
             <Icons.logo className="mx-auto size-6" />
             <h1 className="text-2xl font-semibold tracking-tight">
               Create an account
             </h1>
             <p className="text-sm text-muted-foreground">
-              Enter your email below to create your account
+              Follow the steps below to create your account
             </p>
           </div>
-          <Suspense>
-            <UserAuthForm type="register" />
-          </Suspense>
+          <RegistrationFlow />
           <p className="px-8 text-center text-sm text-muted-foreground">
-            By clicking continue, you agree to our{" "}
+            By creating an account, you agree to our{" "}
             <Link
               href="/terms"
               className="hover:text-brand underline underline-offset-4"
