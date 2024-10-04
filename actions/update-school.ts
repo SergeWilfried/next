@@ -15,7 +15,12 @@ export async function updateSchool(data: UpdateSchoolSchema) {
         where: {
           id: id,
         },
-        data: data,
+        data: {
+          ...data,
+          address: data.address ? {
+            update: data.address
+          } : undefined
+        },
       })
 
       return {
