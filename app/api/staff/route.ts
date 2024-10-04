@@ -57,6 +57,9 @@ export async function POST(request: Request) {
         },
         schoolId: body.schoolId,
         classId: body.classId,
+        user: {
+          connect: { id: body.userId }
+        }
       },
       include: {
         school: true,

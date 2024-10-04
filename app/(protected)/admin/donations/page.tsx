@@ -4,11 +4,10 @@ import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 import { Button } from "@/components/ui/button";
-import { getAllDonations } from "@/actions/get-donations";
 import DonationsLoading from "./loading";
 import { DataTable } from "@/components/data-table/data-table";
 import { donationsTableColumns } from "./columns";
-
+import { getAllDonations } from "@/lib/api";
 export const metadata = constructMetadata({
   title: "Donations – School Management System",
   description: "Manage donations in the school system.",

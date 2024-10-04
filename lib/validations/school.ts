@@ -28,6 +28,7 @@ export const createSchoolSchema = z.object({
 export type CreateSchoolSchema = z.infer<typeof createSchoolSchema>
 
 export const updateSchoolSchema = z.object({
+  id: z.string().min(1),
   name: z.string().optional(),
   address: z.string().optional(),
   phoneNumber: z.string().optional(),

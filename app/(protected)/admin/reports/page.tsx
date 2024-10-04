@@ -4,9 +4,9 @@ import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 import { Button } from "@/components/ui/button";
-import { getAllReports } from "@/actions/get-reports";
 import { DataTable } from "@/components/data-table/data-table";
 import { reportsTableColumns } from "./columns";
+import { getAllReports } from "@/lib/api/report";
 
 export const metadata = constructMetadata({
   title: "Reports – School Management System",

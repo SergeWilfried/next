@@ -1,3 +1,4 @@
+import { useId } from "react"
 import { z } from "zod"
 
 export const searchParamsSchema = z.object({
@@ -32,6 +33,7 @@ export const createParentSchema = z.object({
     relationship: z.string(),
     phoneNumber: z.string(),
   })),
+  userId: z.string(),
   schoolId: z.string(),
 })
 
@@ -56,6 +58,7 @@ export const parentSchema = z.object({
 export type CreateParentSchema = z.infer<typeof createParentSchema>
 
 export const updateParentSchema = z.object({
+  id: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   middleName: z.string().optional(),
@@ -67,6 +70,7 @@ export const updateParentSchema = z.object({
     relationship: z.string(),
     phoneNumber: z.string(),
   })).optional(),
+  userId: z.string().optional(),
   schoolId: z.string().optional(),
   studentId: z.string().optional(),
 })

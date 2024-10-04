@@ -4,9 +4,9 @@ import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { EmptyPlaceholder } from "@/components/shared/empty-placeholder";
 import { Button } from "@/components/ui/button";
-import { getAllEnrollment } from "@/actions/get-enrollment";
 import { DataTable } from "@/components/data-table/data-table";
 import { enrollmentsTableColumns } from "./columns";
+import { getAllEnrollments } from "@/lib/api";
 
 export const metadata = constructMetadata({
   title: "Enrollments – School Management System",
@@ -18,7 +18,7 @@ export default async function EnrollmentsPage() {
   if (!user || user.role !== "ADMIN") redirect("/login");
 
   // Fetch enrollments from the server
-  const { data: enrollments, error, count } = await getAllEnrollment();
+  const { data: enrollments, error, count } = await getAllEnrollments();
 
 
   return (

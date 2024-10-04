@@ -3,6 +3,8 @@ const { faker } = require('@faker-js/faker');
 
 const prisma = new PrismaClient();
 
+const famillyNamesExample = ['Sawadogo', 'Ouedraogo', 'Traore', 'Diallo', 'Sissoko', 'Konate', 'Traore', 'Diallo', 'Sissoko', 'Konate']
+const firstNamesExample = ['Awa', 'Ibrahim', 'Moussa', 'Fatoumata', 'Awa', 'Ibrahim', 'Moussa', 'Fatoumata', 'Awa', 'Ibrahim', 'Moussa', 'Fatoumata', 'Pierre', 'Julie', 'Aristide']
 async function main() {
   // Create admin user
   const admin = {

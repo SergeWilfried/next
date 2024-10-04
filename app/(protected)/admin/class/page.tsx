@@ -8,7 +8,7 @@ import { DataTable } from "@/components/data-table/data-table";
 import { classTableColumns } from "./columns";
 import AddClassDialog from "./add-class-dialog";
 import { Button } from "@/components/ui/button";
-import { getAllClasses } from "@/actions/get-all-classes";
+import { getAllClasses } from "@/lib/api/class";
 
 export const metadata = constructMetadata({
   title: "Classes – School Management System",
@@ -19,11 +19,8 @@ export default async function ClassPage() {
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/login");
 
-
-  // Fetch classes from the server
-  // TODO: Fetch classes from the server
-  // FIXME: This is a temporary placeholder for the classes table
   const { data: classes, error, count } = await getAllClasses();
+  
   return (
     <>
       <DashboardHeader
