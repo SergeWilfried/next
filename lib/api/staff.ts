@@ -69,7 +69,7 @@ export const addNewStaff = async (staff: Staff) : Promise<{
         }
     }
 
-    export async function getStaffs() : Promise<{data: Staff[], count: number, error: string | null}> {
+    export async function getAllStaff() : Promise<{data: Staff[], count: number, error: string | null}> {
         try {
             const response = await fetch('/api/staff');
             if (!response.ok) {

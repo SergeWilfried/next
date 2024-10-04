@@ -1,6 +1,6 @@
 
 
-export async function getUsers() {
+export async function getAllUsers() {
   try {
     const response = await fetch('/api/users');
     if (!response.ok) {

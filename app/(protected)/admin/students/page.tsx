@@ -7,7 +7,7 @@ import { studentsTableColumns } from "./columns";
 import StudentsLoading from "./loading";
 import { NewStudentDialog } from "./add-students-dialog";
 import { Button } from "@/components/ui/button";
-import { getStudents } from "@/lib/api";
+import { getAllStudents } from "@/lib/api";
 import { cookies } from 'next/headers';
 
 export default async function StudentsPage() {
@@ -16,7 +16,7 @@ export default async function StudentsPage() {
   const selectedSchoolId = cookieStore.get('selectedSchoolId')?.value;
 	if (!user || user.role !== "ADMIN") redirect("/login");
 
-	const { data: students, count, error } = await getStudents({
+	const { data: students, count, error } = await getAllStudents({
 		page: 1,
 		limit: 10,
 		userId: user.id ?? "",

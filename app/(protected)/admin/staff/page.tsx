@@ -8,7 +8,7 @@ import StaffLoading from "./loading";
 import { DataTable } from "@/components/data-table/data-table";
 import { staffTableColumns } from "./columns";
 import { NewStaffDialog } from "./add-staff-dialog";
-import { getStaffs } from "@/lib/api";
+import { getAllStaff } from "@/lib/api";
 
 export const metadata = constructMetadata({
   title: "Staff – School Management System",
@@ -20,7 +20,7 @@ export default async function StaffPage() {
   if (!user || user.role !== "ADMIN") redirect("/login");
 
   // Fetch staff data and count (you'll need to implement these functions)
-  const { data: staff, count } = await getStaffs();
+  const { data: staff, count } = await getAllStaff();
 
   return (
     <>
