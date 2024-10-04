@@ -1,8 +1,8 @@
 import { EyeOffIcon, EyeIcon } from "lucide-react";
-import { Box } from "@/components/ui/box";
 import { Input } from "@/components/ui/input";
 import { createElement, useState } from "react";
 import { z } from "zod";
+import { Box } from "../box";
 
 export const passwordSchema = z
   .string({
