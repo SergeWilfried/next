@@ -34,7 +34,13 @@ const initialStudent = {
   age: 16,
   email: "jane.smith@school.edu",
   phone: "+1 (555) 123-4567",
-  address: "123 School St, Cityville, State 12345",
+  address: {
+    street: "123 School St",
+    city: "Cityville",
+    state: "State",
+    zipCode: "12345",
+    country: "Country",
+  },
   dateOfBirth: "2007-05-15",
   avatar: "/placeholder.svg?height=100&width=100",
   gpa: 3.8,
@@ -296,7 +302,7 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className="flex items-center gap-2">
-                    <Icons.map className="size-4 opacity-70" /> <span>{student.address}</span>
+                    <Icons.map className="size-4 opacity-70" /> <span>{student.address.street}</span>
                   </TooltipTrigger>
                   <TooltipContent>Adresse</TooltipContent>
                 </Tooltip>
@@ -664,19 +670,6 @@ export default function EnhancedStudentProfile({ id }: EnhancedStudentProfilePro
                       <FormLabel>Téléphone</FormLabel>
                       <FormControl>
                         <Input {...field} type="tel" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="address"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Adresse</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
