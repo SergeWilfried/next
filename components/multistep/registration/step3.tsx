@@ -71,7 +71,6 @@ const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFo
           name="country"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="country">Pays</FormLabel>
               <FormControl>
                 <CountrySelect
                   control={form.control}
