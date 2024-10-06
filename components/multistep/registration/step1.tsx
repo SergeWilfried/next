@@ -4,7 +4,6 @@ import React from "react"
 import { FormField, FormItem, FormLabel, FormMessage, FormControl } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
 import { RegistrationFormData } from "./registration";
 
 const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (

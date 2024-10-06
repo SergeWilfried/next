@@ -95,7 +95,7 @@ const RegistrationForm: React.FC = () => {
         fieldsToValidate = ['schoolName', 'firstName', 'lastName', 'email', 'country'];
         break;
       case 2:
-        fieldsToValidate = ['schoolType', 'studentCount', 'streetAddress', 'city', 'state', 'zipCode'];
+        fieldsToValidate = ['schoolType', 'studentCount', 'city'];
         break;
       case 3:
         fieldsToValidate = ['password', 'confirmPassword'];
