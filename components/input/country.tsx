@@ -135,9 +135,6 @@ export function CountrySelect({ control, setValue, name }: CountrySelectProps) {
               </Command>
             </PopoverContent>
           </Popover>
-          <FormDescription>
-            This is the country that will be used in the dashboard.
-          </FormDescription>
           <FormMessage />
         </FormItem>
       )}
