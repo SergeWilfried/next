@@ -347,6 +347,27 @@ const RegistrationForm: React.FC = () => {
     alert('Account created successfully! Welcome to our School Management SaaS.')
   }
 
+  const handleNext = async () => {
+    let fieldsToValidate: (keyof RegistrationFormData)[] = [];
+    switch (step) {
+      case 1:
+        fieldsToValidate = ['firstName', 'lastName', 'email'];
+        break;
+      case 2:
+        fieldsToValidate = ['schoolName', 'schoolType', 'studentCount', 'streetAddress', 'city', 'state', 'zipCode', 'country'];
+        break;
+      case 3:
+        fieldsToValidate = ['password', 'confirmPassword'];
+        break;
+      // No validation needed for step 4 (confirmation)
+    }
+
+    const isStepValid = await methods.trigger(fieldsToValidate);
+    if (isStepValid) {
+      setStep(prev => Math.min(prev + 1, 4));
+    }
+  };
+
   return (
     <FormProvider {...form}>
     <Card className="mx-auto w-full max-w-2xl">
@@ -377,15 +398,8 @@ const RegistrationForm: React.FC = () => {
           ))}
         </div>
         {step < 4 ? (
-          <Button 
-          onClick={async () => {
-            const isValid = await form.trigger();
-            if (isValid) {
-              setStep(prev => Math.min(prev + 1, 4));
-            }
-          }}
-        >
-          Suivant
+            <Button onClick={handleNext}>
+            Suivant
           </Button>
         ) : (
           <Button onClick={form.handleSubmit(onSubmit)} disabled={!form.formState.isValid}>
