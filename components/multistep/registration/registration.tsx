@@ -116,9 +116,6 @@ const RegistrationForm: React.FC = () => {
   return (
     <FormProvider {...form}>
       <Card className="mx-auto w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl">
-      <CardHeader>
-        <CardDescription>Créez votre compte Gesco</CardDescription>
-      </CardHeader>
       <CardContent className="p-4 sm:p-6">
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
       {renderStepContent}
