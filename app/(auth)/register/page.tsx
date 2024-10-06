@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/shared/icons"
 import RegistrationFlow from '@/components/multistep/registration/registration'
 
+
 export const metadata = {
   title: "Create an account",
   description: "Create an account to get started.",
