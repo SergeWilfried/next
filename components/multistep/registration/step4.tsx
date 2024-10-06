@@ -25,7 +25,7 @@ const ConfirmationStep = React.memo(({ form }: { form: UseFormReturn<Registratio
           <li>École : {form.getValues('schoolName')}</li>
           <li>Type d&apos;école : {form.getValues('schoolType')}</li>
           <li>Nombre d&apos;élèves : {form.getValues('studentCount')}</li>
-          <li>Adresse : {form.getValues('streetAddress')}, {form.getValues('city')}, {form.getValues('state')} {form.getValues('zipCode')}, {form.getValues('country')}</li>
+          <li>Addresse : {form.getValues('city')} | {form.getValues('country')}</li>
         </ul>
       </div>
     </div>
