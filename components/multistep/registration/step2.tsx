@@ -7,7 +7,7 @@ import { PasswordField } from '@/components/input/password'
 import { RegistrationFormData } from './registration'
 
 
-export const AccountSetupStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
+const AccountSetupStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
     <>
       <div className="mt-4 grid w-full items-center gap-4">
         <FormField
@@ -48,3 +48,5 @@ export const AccountSetupStep = React.memo(({ form }: { form: UseFormReturn<Regi
     </>
   ))
   AccountSetupStep.displayName = 'AccountSetupStep'
+
+  export default AccountSetupStep;

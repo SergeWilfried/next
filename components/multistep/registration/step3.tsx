@@ -7,7 +7,7 @@ import { RegistrationFormData } from './registration';
 import { CountrySelect } from '@/components/input/country';
 
 
-export const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
+const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
     <>
       <div className="mt-4 grid w-full items-center gap-4">
         <FormField
@@ -86,3 +86,5 @@ export const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<Registr
     </>
   ))
   BasicInfoStep.displayName = 'BasicInfoStep'
+
+  export default BasicInfoStep;

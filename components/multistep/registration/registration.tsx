@@ -3,13 +3,14 @@
 import React, { useState, useMemo } from 'react'
 import { z } from 'zod'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardDescription } from "@/components/ui/card"
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SchoolDetailsSetupStep } from './step1'
-import { AccountSetupStep } from './step2'
-import { BasicInfoStep } from './step3'
-import { ConfirmationStep } from './step4'
+import SchoolDetailsSetupStep from './step1'
+import AccountSetupStep from './step2'
+import BasicInfoStep from './step3'
+import ConfirmationStep from './step4'
+import CheckEmailStep from './step5'
 
 
 // Define the Zod schema
@@ -74,6 +75,8 @@ const RegistrationForm: React.FC = () => {
         return <AccountSetupStep form={form} />
       case 4:
         return <ConfirmationStep form={form} />
+      case 5:
+        return <CheckEmailStep onPrevious={() => setStep(prev => prev - 1)} />
       default:
         return null
     }
@@ -115,7 +118,7 @@ const RegistrationForm: React.FC = () => {
     <FormProvider {...form}>
       <Card className="mx-auto w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl">
       <CardHeader>
-        <CardTitle>Créez votre compte Gesco</CardTitle>
+        <CardDescription>Créez votre compte Gesco</CardDescription>
       </CardHeader>
       <CardContent className="p-4 sm:p-6">
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>

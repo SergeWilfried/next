@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 
-export const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
+const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
     <>
       <div className="mt-4 grid w-full items-center gap-4">
         <FormField
@@ -90,3 +90,5 @@ export const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormRetur
     </>
   ))
   SchoolDetailsSetupStep.displayName = 'SchoolDetailsSetupStep'
+
+  export default SchoolDetailsSetupStep;

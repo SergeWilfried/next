@@ -12,7 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { RegistrationFormData } from "./registration";
 import { UseFormReturn } from "react-hook-form";
 
-export const ConfirmationStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
+const ConfirmationStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
   <>
     <CardTitle>Confirmation</CardTitle>
     <div className="mt-4 grid w-full items-center gap-4">
@@ -53,3 +53,5 @@ export const ConfirmationStep = React.memo(({ form }: { form: UseFormReturn<Regi
   </>
 ))
 ConfirmationStep.displayName = 'ConfirmationStep'
+
+export default ConfirmationStep;

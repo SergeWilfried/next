@@ -3,11 +3,11 @@
 import { Button } from '@/components/ui/button';
 import React from 'react';
 
-interface Step5Props {
+interface CheckEmailStepProps {
   onPrevious: () => void;
 }
 
-export const Step5: React.FC<Step5Props> = ({ onPrevious }) => {
+const CheckEmailStep: React.FC<CheckEmailStepProps> = ({ onPrevious }) => {
   return (
     <div>
       <h2>Check Your Email</h2>
@@ -18,4 +18,4 @@ export const Step5: React.FC<Step5Props> = ({ onPrevious }) => {
   );
 };
 
-export default Step5;
+export default CheckEmailStep;
