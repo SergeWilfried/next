@@ -89,19 +89,25 @@ const RegistrationForm: React.FC = () => {
     let fieldsToValidate: (keyof RegistrationFormData)[] = [];
     switch (step) {
       case 1:
-        fieldsToValidate = ['firstName', 'lastName', 'email'];
+        fieldsToValidate = ['schoolName', 'firstName', 'lastName', 'email', 'country'];
         break;
       case 2:
-        fieldsToValidate = ['schoolName', 'schoolType', 'studentCount', 'streetAddress', 'city', 'state', 'zipCode', 'country'];
+        fieldsToValidate = ['schoolType', 'studentCount', 'streetAddress', 'city', 'state', 'zipCode'];
         break;
       case 3:
         fieldsToValidate = ['password', 'confirmPassword'];
         break;
     }
-
+  
     const isStepValid = await form.trigger(fieldsToValidate);
     if (isStepValid) {
       setStep(prev => Math.min(prev + 1, 4));
+    } else {
+      // Focus on the first invalid field
+      const firstInvalidField = fieldsToValidate.find(field => form.formState.errors[field]);
+      if (firstInvalidField) {
+        form.setFocus(firstInvalidField);
+      }
     }
   };
 
