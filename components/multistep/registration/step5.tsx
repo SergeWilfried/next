@@ -15,9 +15,9 @@ const CheckEmailStep = React.memo(({ onPrevious }: CheckEmailStepProps) => (
       <p className="text-sm text-gray-500">
         Nous vous avons envoyé un e-mail avec des instructions supplémentaires. Veuillez vérifier votre boîte de réception.
       </p>
-      <div className="flex justify-between mt-6">
+      <div className="mt-6 flex justify-between">
         <Button variant="outline" onClick={onPrevious}>Retour</Button>
-        <Button>Ouvrir l'application e-mail</Button>
+        <Button>Ouvrir l&apos;application e-mail</Button>
       </div>
     </div>
   </>
