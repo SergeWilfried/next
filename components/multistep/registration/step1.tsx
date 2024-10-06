@@ -90,6 +90,6 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
       </div>
     </>
   ))
-  SchoolDetailsSetupStep.displayName = 'SchoolDetailsSetupStep'
+SchoolDetailsSetupStep.displayName = 'SchoolDetailsSetupStep'
 
   export default SchoolDetailsSetupStep;
