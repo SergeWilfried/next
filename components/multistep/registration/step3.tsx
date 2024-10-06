@@ -65,24 +65,24 @@ const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFo
             </FormItem>
           )}
         />
-        <div className="mt-4 grid w-full items-center gap-4">
-          <FormField
-            control={form.control}
-            name="country"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <CountrySelect
-                    control={form.control}
-                    setValue={form.setValue}
-                    name="country"
-                  />
-                </FormControl>
-                <FormMessage id="country-error" aria-live="polite" />
-              </FormItem>
-            )}
-          />
-        </div>
+
+        <FormField
+          control={form.control}
+          name="country"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="country">Pays</FormLabel>
+              <FormControl>
+                <CountrySelect
+                  control={form.control}
+                  setValue={form.setValue}
+                  name="country"
+                />
+              </FormControl>
+              <FormMessage id="country-error" aria-live="polite" />
+            </FormItem>
+          )}
+        />
       </div>
     </>
   ))
