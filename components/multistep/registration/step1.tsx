@@ -86,22 +86,6 @@ export const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormRetur
             )}
           />
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="zipCode"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor="zipCode">Code postal</FormLabel>
-                <FormControl>
-                  <Input {...field} id="zipCode" aria-describedby="zipCode-error" />
-                </FormControl>
-                <FormMessage id="zipCode-error" aria-live="polite" />
-              </FormItem>
-            )}
-          />
-
-        </div>
       </div>
     </>
   ))

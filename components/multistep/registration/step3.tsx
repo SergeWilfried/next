@@ -4,6 +4,7 @@ import { UseFormReturn } from 'react-hook-form';
 import { FormField, FormItem, FormLabel, FormMessage, FormControl } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RegistrationFormData } from './registration';
+import { CountrySelect } from '@/components/input/country';
 
 
 export const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
