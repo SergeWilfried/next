@@ -198,7 +198,6 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
             name="country"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="country">Pays</FormLabel>
                 <FormControl>
                   <CountrySelect
                     control={form.control}
@@ -369,35 +368,37 @@ const RegistrationForm: React.FC = () => {
 
   return (
     <FormProvider {...form}>
-    <Card className="mx-auto w-full max-w-2xl">
+      <Card className="mx-auto w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl">
       <CardHeader>
         <CardTitle>Créez votre compte Gesco</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-4 sm:p-6">
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
       {renderStepContent}
         </form>
       </CardContent>
-      <CardFooter className="flex items-center justify-between">
-        <Button
+      <CardFooter className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
+      <Button
           variant="outline"
           onClick={() => setStep(prev => Math.max(prev - 1, 1))}
           disabled={step === 1}
+          className="w-full sm:w-auto"
+
         >
           Précédent
         </Button>
         <div className="flex items-center space-x-2">
           {[1, 2, 3, 4].map((s) => (
             <div
-              key={s}
-              className={`size-3 rounded-full ${
-                s === step ? 'bg-primary' : 'bg-gray-300'
-              }`}
-            />
+            key={s}
+            className={`size-2 rounded-full sm:size-3 ${
+              s === step ? 'bg-primary' : 'bg-gray-300'
+            }`}
+          />
           ))}
         </div>
         {step < 4 ? (
-            <Button onClick={handleNext}>
+            <Button onClick={handleNext} className="w-full sm:w-auto">
             Suivant
           </Button>
         ) : (
