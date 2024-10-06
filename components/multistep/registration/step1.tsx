@@ -33,32 +33,31 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="studentCount"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor="studentCount">Nombre approximatif d&apos;élèves</FormLabel>
-              <FormControl>
-                <Input {...field} id="studentCount" type="number" min="1" aria-describedby="studentCount-error" />
-              </FormControl>
-              <FormMessage id="studentCount-error" aria-live="polite" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="streetAddress"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor="streetAddress">Adresse</FormLabel>
-              <FormControl>
-                <Textarea {...field} id="streetAddress" aria-describedby="streetAddress-error" />
-              </FormControl>
-              <FormMessage id="streetAddress-error" aria-live="polite" />
-            </FormItem>
-          )}
-        />
+<FormField
+  control={form.control}
+  name="studentCount"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel htmlFor="studentCount">Nombre approximatif d&apos;élèves</FormLabel>
+      <Select onValueChange={field.onChange} defaultValue={field.value}>
+        <FormControl>
+          <SelectTrigger id="studentCount" aria-describedby="studentCount-error">
+            <SelectValue placeholder="Sélectionnez une plage" />
+          </SelectTrigger>
+        </FormControl>
+        <SelectContent>
+          <SelectItem value="0-100">0 - 100</SelectItem>
+          <SelectItem value="101-200">101 - 200</SelectItem>
+          <SelectItem value="201-500">201 - 500</SelectItem>
+          <SelectItem value="501-1000">501 - 1000</SelectItem>
+          <SelectItem value="1001+">Plus de 1000</SelectItem>
+        </SelectContent>
+      </Select>
+      <FormMessage id="studentCount-error" aria-live="polite" />
+    </FormItem>
+  )}
+/>
+
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
@@ -70,19 +69,6 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
                   <Input {...field} id="city" aria-describedby="city-error" />
                 </FormControl>
                 <FormMessage id="city-error" aria-live="polite" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="state"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor="state">Province</FormLabel>
-                <FormControl>
-                  <Input {...field} id="state" aria-describedby="state-error" />
-                </FormControl>
-                <FormMessage id="state-error" aria-live="polite" />
               </FormItem>
             )}
           />
