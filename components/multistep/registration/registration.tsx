@@ -22,7 +22,7 @@ const formSchema = z.object({
     email: z.string().email("Invalid email address."),
     schoolName: z.string().min(2, "School name must be at least 2 characters."),
     schoolType: z.enum(['elementary', 'middle', 'high', 'college']),
-    studentCount: z.string().min(1, "Please enter the number of students."),
+    studentCount: z.number().min(1, "Number of students must be at least 1."),
     streetAddress: z.string().min(5, "Please enter a valid street address."),
     city: z.string().min(2, "City must be at least 2 characters."),
     state: z.string().min(2, "State must be at least 2 characters."),
@@ -309,13 +309,14 @@ const RegistrationForm: React.FC = () => {
  // Initialize the form
  const form = useForm<RegistrationFormData>({
     resolver: zodResolver(formSchema),
+    mode: 'onChange',
     defaultValues: {
       firstName: '',
       lastName: '',
       email: '',
       schoolName: '',
       schoolType: undefined,
-      studentCount: '',
+      studentCount: 0,
       streetAddress: '',
       city: '',
       state: '',
@@ -378,8 +379,16 @@ const RegistrationForm: React.FC = () => {
           ))}
         </div>
         {step < 4 ? (
-          <Button onClick={() => setStep(prev => Math.min(prev + 1, 4))}>
-            Suivant
+          <Button 
+          onClick={async () => {
+            const isValid = await form.trigger();
+            if (isValid) {
+              setStep(prev => Math.min(prev + 1, 4));
+            }
+          }}
+          disabled={!form.formState.isValid}
+        >
+          Suivant
           </Button>
         ) : (
           <Button onClick={form.handleSubmit(onSubmit)} disabled={!form.formState.isValid}>
