@@ -40,7 +40,6 @@ const formSchema = z.object({
 
   const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
     <>
-      <CardTitle>Informations de base</CardTitle>
       <div className="mt-4 grid w-full items-center gap-4">
         <div className="grid grid-cols-2 gap-4">
           <FormField
@@ -89,7 +88,6 @@ const formSchema = z.object({
   BasicInfoStep.displayName = 'BasicInfoStep'
 const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
     <>
-      <CardTitle>Détails de l&apos;école</CardTitle>
       <div className="mt-4 grid w-full items-center gap-4">
         <FormField
           control={form.control}
@@ -219,7 +217,6 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
   SchoolDetailsSetupStep.displayName = 'SchoolDetailsSetupStep'
   const AccountSetupStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
     <>
-      <CardTitle>Protegez votre compte</CardTitle>
       <div className="mt-4 grid w-full items-center gap-4">
         <FormField
           control={form.control}
@@ -387,7 +384,6 @@ const RegistrationForm: React.FC = () => {
               setStep(prev => Math.min(prev + 1, 4));
             }
           }}
-          disabled={!form.formState.isValid}
         >
           Suivant
           </Button>
