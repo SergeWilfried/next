@@ -1,94 +1,87 @@
-"use client";
-
+'use client'
 import React from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { UseFormReturn } from 'react-hook-form';
+import { FormField, FormItem, FormLabel, FormMessage, FormControl } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { RegistrationFormData } from './registration';
 
-interface Step3Props {
-  formData: {
-    phoneNumber: string;
-    address: {
-      street: string;
-      city: string;
-      state: string;
-      zipCode: string;
-      country: string;
-    };
-  };
-  onChange: (data: Partial<Step3Props['formData']>) => void;
-  onPrevious: () => void;
-  onNext: () => void;
-}
 
-const Step3: React.FC<Step3Props> = ({ formData, onChange }) => {
-  const handleAddressChange = (field: keyof Step3Props['formData']['address'], value: string) => {
-    onChange({ address: { ...formData.address, [field]: value } });
-  };
+export const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
+    <>
+      <div className="mt-4 grid w-full items-center gap-4">
+        <FormField
+          control={form.control}
+          name="schoolName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="schoolName">Nom de l&apos;école</FormLabel>
+              <FormControl>
+                <Input {...field} id="schoolName" aria-describedby="schoolName-error" />
+              </FormControl>
+              <FormMessage id="schoolName-error" aria-live="polite" />
+            </FormItem>
+          )}
+        />
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="firstName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="firstName">Prénom</FormLabel>
+                <FormControl>
+                  <Input {...field} id="firstName" aria-describedby="firstName-error" />
+                </FormControl>
+                <FormMessage id="firstName-error" aria-live="polite" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="lastName">Nom</FormLabel>
+                <FormControl>
+                  <Input {...field} id="lastName" aria-describedby="lastName-error" />
+                </FormControl>
+                <FormMessage id="lastName-error" aria-live="polite" />
+              </FormItem>
+            )}
+          />
+        </div>
+        
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="email">Adresse e-mail</FormLabel>
+              <FormControl>
+                <Input {...field} type="email" id="email" aria-describedby="email-error" />
+              </FormControl>
+              <FormMessage id="email-error" aria-live="polite" />
+            </FormItem>
+          )}
+        />
 
-  return (
-    <div className="space-y-4">
-      <div>
-        <Label htmlFor="phoneNumber">Phone Number</Label>
-        <Input
-          id="phoneNumber"
-          type="tel"
-          value={formData.phoneNumber}
-          onChange={(e) => onChange({ phoneNumber: e.target.value })}
-          placeholder="Phone Number"
-        />
+          <FormField
+            control={form.control}
+            name="country"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <CountrySelect
+                    control={form.control}
+                    setValue={form.setValue}
+                    name="country"
+                  />
+                </FormControl>
+                <FormMessage id="country-error" aria-live="polite" />
+              </FormItem>
+            )}
+          />
       </div>
-      <div>
-        <Label htmlFor="street">Street</Label>
-        <Input
-          id="street"
-          type="text"
-          value={formData.address.street}
-          onChange={(e) => handleAddressChange('street', e.target.value)}
-          placeholder="Street"
-        />
-      </div>
-      <div>
-        <Label htmlFor="city">City</Label>
-        <Input
-          id="city"
-          type="text"
-          value={formData.address.city}
-          onChange={(e) => handleAddressChange('city', e.target.value)}
-          placeholder="City"
-        />
-      </div>
-      <div>
-        <Label htmlFor="state">State</Label>
-        <Input
-          id="state"
-          type="text"
-          value={formData.address.state}
-          onChange={(e) => handleAddressChange('state', e.target.value)}
-          placeholder="State"
-        />
-      </div>
-      <div>
-        <Label htmlFor="zipCode">Zip Code</Label>
-        <Input
-          id="zipCode"
-          type="text"
-          value={formData.address.zipCode}
-          onChange={(e) => handleAddressChange('zipCode', e.target.value)}
-          placeholder="Zip Code"
-        />
-      </div>
-      <div>
-        <Label htmlFor="country">Country</Label>
-        <Input
-          id="country"
-          type="text"
-          value={formData.address.country}
-          onChange={(e) => handleAddressChange('country', e.target.value)}
-          placeholder="Country"
-        />
-      </div>
-    </div>
-  );
-};
-
-export default Step3;
+    </>
+  ))
+  BasicInfoStep.displayName = 'BasicInfoStep'
