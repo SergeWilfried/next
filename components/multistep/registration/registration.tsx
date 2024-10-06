@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { PasswordField } from '@/components/input/password'
-import { SubmitHandler, useForm, UseFormReturn } from 'react-hook-form'
+import { FormProvider, SubmitHandler, useForm, UseFormReturn } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CountrySelect } from '@/components/input/country'
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
@@ -351,6 +351,7 @@ const RegistrationForm: React.FC = () => {
   }
 
   return (
+    <FormProvider {...form}>
     <Card className="mx-auto w-full max-w-2xl">
       <CardHeader>
         <CardTitle>Créez votre compte Gesco</CardTitle>
@@ -397,6 +398,7 @@ const RegistrationForm: React.FC = () => {
         )}
       </CardFooter>
     </Card>
+    </FormProvider>
   )
 }
 
