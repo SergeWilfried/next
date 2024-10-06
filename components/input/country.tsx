@@ -92,7 +92,7 @@ export function CountrySelect({ control, setValue, name }: CountrySelectProps) {
                         (country) => country.value === field.value
                       )?.label
                     : "Select country"}
-                  <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  <CaretSortIcon className="ml-2 size-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
@@ -122,7 +122,7 @@ export function CountrySelect({ control, setValue, name }: CountrySelectProps) {
                           {country.label}
                           <CheckIcon
                             className={cn(
-                              "ml-auto h-4 w-4",
+                              "ml-auto size-4",
                               country.value === field.value
                                 ? "opacity-100"
                                 : "opacity-0"

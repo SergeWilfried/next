@@ -41,7 +41,7 @@ const formSchema = z.object({
   const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
     <>
       <CardTitle>Informations de base</CardTitle>
-      <div className="grid w-full items-center gap-4 mt-4">
+      <div className="mt-4 grid w-full items-center gap-4">
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
@@ -86,17 +86,17 @@ const formSchema = z.object({
       </div>
     </>
   ))
-
+  BasicInfoStep.displayName = 'BasicInfoStep'
 const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
     <>
-      <CardTitle>Détails de l'école</CardTitle>
-      <div className="grid w-full items-center gap-4 mt-4">
+      <CardTitle>Détails de l&apos;école</CardTitle>
+      <div className="mt-4 grid w-full items-center gap-4">
         <FormField
           control={form.control}
           name="schoolName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="schoolName">Nom de l'école</FormLabel>
+              <FormLabel htmlFor="schoolName">Nom de l&apos;école</FormLabel>
               <FormControl>
                 <Input {...field} id="schoolName" aria-describedby="schoolName-error" />
               </FormControl>
@@ -109,7 +109,7 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
           name="schoolType"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="schoolType">Type d'école</FormLabel>
+              <FormLabel htmlFor="schoolType">Type d&apos;école</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger id="schoolType" aria-describedby="schoolType-error">
@@ -132,7 +132,7 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
           name="studentCount"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="studentCount">Nombre approximatif d'élèves</FormLabel>
+              <FormLabel htmlFor="studentCount">Nombre approximatif d&apos;élèves</FormLabel>
               <FormControl>
                 <Input {...field} id="studentCount" type="number" min="1" aria-describedby="studentCount-error" />
               </FormControl>
@@ -216,11 +216,11 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
       </div>
     </>
   ))
-  
+  SchoolDetailsSetupStep.displayName = 'SchoolDetailsSetupStep'
   const AccountSetupStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
     <>
       <CardTitle>Protegez votre compte</CardTitle>
-      <div className="grid w-full items-center gap-4 mt-4">
+      <div className="mt-4 grid w-full items-center gap-4">
         <FormField
           control={form.control}
           name="password"
@@ -258,11 +258,12 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
       </div>
     </>
   ))
-  
+  AccountSetupStep.displayName = 'AccountSetupStep'
+
   const ConfirmationStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
     <>
       <CardTitle>Confirmation</CardTitle>
-      <div className="grid w-full items-center gap-4 mt-4">
+      <div className="mt-4 grid w-full items-center gap-4">
         <FormField
           control={form.control}
           name="agreeTerms"
@@ -278,7 +279,7 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
               </FormControl>
               <div className="space-y-1 leading-none">
                 <FormLabel htmlFor="agreeTerms">
-                  J'accepte les conditions d'utilisation et la politique de confidentialité
+                  J&apos;accepte les conditions d&apos;utilisation et la politique de confidentialité
                 </FormLabel>
                 <FormMessage id="agreeTerms-error" aria-live="polite" />
               </div>
@@ -287,21 +288,21 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
         />
         <div className="text-sm text-gray-500" aria-label="Vérifiez vos informations">
           <p>Veuillez vérifier vos informations avant de soumettre :</p>
-          <ul className="list-disc list-inside mt-2">
+          <ul className="mt-2 list-inside list-disc">
             <li>Nom : {form.getValues('firstName')} {form.getValues('lastName')}</li>
             <li>E-mail : {form.getValues('email')}</li>
             <li>École : {form.getValues('schoolName')}</li>
-            <li>Type d'école : {form.getValues('schoolType')}</li>
-            <li>Nombre d'élèves : {form.getValues('studentCount')}</li>
+            <li>Type d&apos;école : {form.getValues('schoolType')}</li>
+            <li>Nombre d&apos;élèves : {form.getValues('studentCount')}</li>
             <li>Adresse : {form.getValues('streetAddress')}, {form.getValues('city')}, {form.getValues('state')} {form.getValues('zipCode')}, {form.getValues('country')}</li>
           </ul>
         </div>
       </div>
     </>
   ))
-  
+  ConfirmationStep.displayName = 'ConfirmationStep'
 
-export default function RegistrationFlow() {
+const RegistrationForm: React.FC = () => {
   const [step, setStep] = useState(1)
 
   
@@ -349,7 +350,7 @@ export default function RegistrationFlow() {
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="mx-auto w-full max-w-2xl">
       <CardHeader>
         <CardTitle>Créez votre compte Gesco</CardTitle>
       </CardHeader>
@@ -358,7 +359,7 @@ export default function RegistrationFlow() {
       {renderStepContent}
         </form>
       </CardContent>
-      <CardFooter className="flex justify-between items-center">
+      <CardFooter className="flex items-center justify-between">
         <Button
           variant="outline"
           onClick={() => setStep(prev => Math.max(prev - 1, 1))}
@@ -370,7 +371,7 @@ export default function RegistrationFlow() {
           {[1, 2, 3, 4].map((s) => (
             <div
               key={s}
-              className={`w-3 h-3 rounded-full ${
+              className={`size-3 rounded-full ${
                 s === step ? 'bg-primary' : 'bg-gray-300'
               }`}
             />
@@ -389,3 +390,7 @@ export default function RegistrationFlow() {
     </Card>
   )
 }
+
+RegistrationForm.displayName = 'RegistrationForm'
+
+export default RegistrationForm
