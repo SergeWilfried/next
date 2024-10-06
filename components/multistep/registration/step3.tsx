@@ -65,7 +65,7 @@ const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFo
             </FormItem>
           )}
         />
-
+        <div className="mt-4 grid w-full items-center gap-4">
           <FormField
             control={form.control}
             name="country"
@@ -82,6 +82,7 @@ const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFo
               </FormItem>
             )}
           />
+        </div>
       </div>
     </>
   ))

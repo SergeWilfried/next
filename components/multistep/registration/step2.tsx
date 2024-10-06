@@ -5,6 +5,7 @@ import { UseFormReturn } from "react-hook-form"
 import { FormField, FormItem, FormLabel, FormMessage, FormControl } from "@/components/ui/form"
 import { PasswordField } from '@/components/input/password'
 import { RegistrationFormData } from './registration'
+import { Checkbox } from '@/components/ui/checkbox';
 
 
 const AccountSetupStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFormData> }) => (
@@ -44,6 +45,29 @@ const AccountSetupStep = React.memo(({ form }: { form: UseFormReturn<Registratio
             </FormItem>
           )}
         />
+
+<FormField
+        control={form.control}
+        name="agreeTerms"
+        render={({ field }) => (
+          <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+            <FormControl>
+              <Checkbox
+                checked={field.value}
+                onCheckedChange={field.onChange}
+                id="agreeTerms"
+                aria-describedby="agreeTerms-error"
+              />
+            </FormControl>
+            <div className="space-y-1 leading-none">
+              <FormLabel htmlFor="agreeTerms">
+                J&apos;accepte les conditions d&apos;utilisation et la politique de confidentialité
+              </FormLabel>
+              <FormMessage id="agreeTerms-error" aria-live="polite" />
+            </div>
+          </FormItem>
+        )}
+      />
       </div>
     </>
   ))

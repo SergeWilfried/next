@@ -16,28 +16,7 @@ const ConfirmationStep = React.memo(({ form }: { form: UseFormReturn<Registratio
   <>
     <CardTitle>Confirmation</CardTitle>
     <div className="mt-4 grid w-full items-center gap-4">
-      <FormField
-        control={form.control}
-        name="agreeTerms"
-        render={({ field }) => (
-          <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-            <FormControl>
-              <Checkbox
-                checked={field.value}
-                onCheckedChange={field.onChange}
-                id="agreeTerms"
-                aria-describedby="agreeTerms-error"
-              />
-            </FormControl>
-            <div className="space-y-1 leading-none">
-              <FormLabel htmlFor="agreeTerms">
-                J&apos;accepte les conditions d&apos;utilisation et la politique de confidentialité
-              </FormLabel>
-              <FormMessage id="agreeTerms-error" aria-live="polite" />
-            </div>
-          </FormItem>
-        )}
-      />
+  
       <div className="text-sm text-gray-500" aria-label="Vérifiez vos informations">
         <p>Veuillez vérifier vos informations avant de soumettre :</p>
         <ul className="mt-2 list-inside list-disc">
