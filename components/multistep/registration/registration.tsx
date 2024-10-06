@@ -106,7 +106,6 @@ const RegistrationForm: React.FC = () => {
     if (isStepValid) {
       setStep(prev => Math.min(prev + 1, 4));
     } else {
-      // Focus on the first invalid field
       const firstInvalidField = fieldsToValidate.find(field => form.formState.errors[field]);
       if (firstInvalidField) {
         form.setFocus(firstInvalidField);
