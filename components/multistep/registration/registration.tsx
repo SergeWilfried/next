@@ -359,10 +359,9 @@ const RegistrationForm: React.FC = () => {
       case 3:
         fieldsToValidate = ['password', 'confirmPassword'];
         break;
-      // No validation needed for step 4 (confirmation)
     }
 
-    const isStepValid = await methods.trigger(fieldsToValidate);
+    const isStepValid = await form.trigger(fieldsToValidate);
     if (isStepValid) {
       setStep(prev => Math.min(prev + 1, 4));
     }
