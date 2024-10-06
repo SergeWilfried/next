@@ -2,7 +2,7 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/shared/icons"
-import RegistrationFlow from '@/components/multistep/registration/registration-flow'
+import RegistrationFlow from '@/components/multistep/registration/registration'
 
 export const metadata = {
   title: "Create an account",
