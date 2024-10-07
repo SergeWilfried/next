@@ -157,7 +157,7 @@ const RegistrationForm: React.FC = () => {
           Précédent
         </Button>
         <div className="flex items-center space-x-2">
-          {[1, 2, 3, 4, 5].map((s) => (
+          {[1, 2, 3, 4].map((s) => (
             <div
             key={s}
             className={`size-2 rounded-full sm:size-3 ${
@@ -166,7 +166,7 @@ const RegistrationForm: React.FC = () => {
           />
           ))}
         </div>
-        {step < 5 ? (
+        {step < 4 ? (
             <Button onClick={handleNext} className="w-full sm:w-auto">
             Suivant
           </Button>
