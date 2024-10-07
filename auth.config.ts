@@ -7,7 +7,6 @@ import { prisma } from "@/lib/db";
 import PasswordHasher from "@fntools/password";
 import { verifyPassword } from "./lib/utils";
 
-const encrypt = new PasswordHasher(10);
 
 export default {
   providers: [
@@ -17,6 +16,8 @@ export default {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
+        const encrypt = new PasswordHasher(10);
+
         if (!credentials?.email || !credentials.password) {
           return null
         }
