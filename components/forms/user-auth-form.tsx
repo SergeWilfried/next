@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { redirect, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
@@ -55,7 +55,9 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
       });
     }
 
-    redirect("/admin");
+    return toast.success("Signed in successfully", {
+      description: "You have been logged in to your account.",
+    });
   }
 
   return (
