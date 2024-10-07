@@ -17,8 +17,10 @@ export const metadata = constructMetadata({
 
 export default async function StaffPage() {
   const user = await getCurrentUser();
-  if (!user || user.role !== "ADMIN") redirect("/login");
-
+  if (!user) redirect("/login");
+  if (user.role === "USER" || user.role === 'PARENT') {
+    redirect("/dashboard");
+  }
   // Fetch staff data and count (you'll need to implement these functions)
   const { data: staff, count } = await getAllStaff();
 

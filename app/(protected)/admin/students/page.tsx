@@ -14,8 +14,10 @@ export default async function StudentsPage() {
 	const user = await getCurrentUser();
   const cookieStore = cookies();
   const selectedSchoolId = cookieStore.get('selectedSchoolId')?.value;
-	if (!user || user.role !== "ADMIN") redirect("/login");
-
+  if (!user) redirect("/login");
+  if (user.role === "USER" || user.role === 'PARENT') {
+    redirect("/dashboard");
+  } 
 	const { data: students, count, error } = await getAllStudents({
 		page: 1,
 		limit: 10,

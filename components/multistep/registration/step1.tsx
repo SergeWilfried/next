@@ -57,7 +57,6 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
   )}
 />
 
-<div className="mt-4 grid w-full items-center gap-4">
 <FormField
             control={form.control}
             name="city"
@@ -72,7 +71,6 @@ const SchoolDetailsSetupStep = React.memo(({ form }: { form: UseFormReturn<Regis
             )}
           />
         </div>
-      </div>
     </>
   ))
 SchoolDetailsSetupStep.displayName = 'SchoolDetailsSetupStep'

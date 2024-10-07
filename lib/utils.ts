@@ -10,6 +10,25 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+
+export const HashPass = (password: string, encrypt: any) => {
+    const hashedPassword = encrypt.hash(password);
+    return hashedPassword;
+};
+
+export const verifyPassword = (password: string, hashedPassword: string, encrypt: any): boolean => {
+  if (!password || !hashedPassword || typeof password !== 'string' || typeof hashedPassword !== 'string') {
+    throw new Error('Invalid password or hashedPassword provided');
+  }
+  
+  try {
+    return encrypt.compare(password, hashedPassword);
+  } catch (error) {
+    console.error('Error comparing passwords:', error);
+    throw new Error('Failed to verify password');
+  }
+};
+
 export function constructMetadata({
   title = siteConfig.name,
   description = siteConfig.description,

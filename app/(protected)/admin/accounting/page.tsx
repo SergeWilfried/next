@@ -14,8 +14,10 @@ export const metadata = constructMetadata({
 
 export default async function PaymentsPage() {
   const user = await getCurrentUser();
-  if (!user || user.role !== "ADMIN") redirect("/login");
-
+  if (!user) redirect("/login");
+  if (user.role === "USER" || user.role === 'PARENT') {
+    redirect("/dashboard");
+  } 
   const { data: payments, count } = await getAllPayments();
   
   const totalRevenue = payments ? payments.reduce((sum, payment) => sum + payment.amount, 0) : 0;

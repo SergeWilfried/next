@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
+import { redirect, useSelectedLayoutSegment } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 import { docsConfig } from "@/config/docs";
@@ -102,7 +102,7 @@ export function NavBar({ scroll = false }: NavBarProps) {
 
           {session ? (
             <Link
-              href={session.user.role === "ADMIN" ? "/admin" : "/dashboard"}
+              href={session.user.role !== "TEACHER" && session.user.role !== "PARENT" ? "/admin" : "/dashboard"}
               className="hidden md:block"
             >
               <Button
@@ -120,9 +120,9 @@ export function NavBar({ scroll = false }: NavBarProps) {
               variant="default"
               size="sm"
               rounded="full"
-              onClick={() => setShowSignInModal(true)}
+              onClick={() => redirect("/register")}
             >
-              <span>Sign In</span>
+              <span>Sign Up</span>
               <Icons.arrowRight className="size-4" />
             </Button>
           ) : (

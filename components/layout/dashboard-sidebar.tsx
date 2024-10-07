@@ -121,7 +121,10 @@ function NavItem({ item, path, isSidebarExpanded }: { item: MainNavItem; path: s
 
 export function DashboardSidebar({ links, user, schools }: DashboardSidebarProps) {
   const path = usePathname();
-  if (!user || user.role !== "ADMIN") redirect("/login");
+  if (!user) redirect("/login");
+  if (user.role === "USER" || user.role === 'PARENT') {
+    redirect("/dashboard");
+  } 
 
   const { isTablet } = useMediaQuery();
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(!isTablet);

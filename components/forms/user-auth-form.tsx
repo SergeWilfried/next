@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import SubmitButton from "@/components/button/submit";
 
 import { cn } from "@/lib/utils";
 import { userAuthSchema } from "@/lib/validations/auth";
@@ -14,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Icons } from "@/components/shared/icons";
+import { PasswordField } from "../input/password";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   type?: string;
@@ -26,6 +28,8 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
+    setValue,
   } = useForm<FormData>({
     resolver: zodResolver(userAuthSchema),
   });
@@ -36,8 +40,9 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
   async function onSubmit(data: FormData) {
     setIsLoading(true);
 
-    const signInResult = await signIn("resend", {
+    const signInResult = await signIn("credentials", {
       email: data.email.toLowerCase(),
+      password: data.password,
       redirect: false,
       callbackUrl: searchParams?.get("from") || "/dashboard",
     });
@@ -50,9 +55,7 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
       });
     }
 
-    return toast.success("Check your email", {
-      description: "We sent you a login link. Be sure to check your spam too.",
-    });
+    redirect("/admin");
   }
 
   return (
@@ -79,12 +82,21 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
               </p>
             )}
           </div>
-          <button className={cn(buttonVariants())} disabled={isLoading}>
-            {isLoading && (
-              <Icons.spinner className="mr-2 size-4 animate-spin" />
+          <div className="grid gap-1">
+            <PasswordField
+              value={watch("password")}
+              placeholder="Password"
+              onChange={(value) => setValue('password', value)}
+            />
+            {errors?.password && (
+              <p className="px-1 text-xs text-red-600">
+                {errors.password.message}
+              </p>
             )}
-            {type === "register" ? "Sign Up with Email" : "Sign In with Email"}
-          </button>
+          </div>
+          <SubmitButton isLoading={isLoading}>
+            {type === "register" ? "M&apos;inscrire" : "Me connecter"}
+          </SubmitButton>
         </div>
       </form>
       <div className="relative">
@@ -93,7 +105,7 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
         </div>
         <div className="relative flex justify-center text-xs uppercase">
           <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
+            Ou continuez avec
           </span>
         </div>
       </div>

@@ -82,7 +82,7 @@ export function CountrySelect({ control, setValue, name }: CountrySelectProps) {
                   role="combobox"
                   aria-expanded={open}
                   className={cn(
-                    "w-[200px] justify-between",
+                    "w-full justify-between",
                     !field.value && "text-muted-foreground"
                   )}
                 >
@@ -90,20 +90,20 @@ export function CountrySelect({ control, setValue, name }: CountrySelectProps) {
                     ? countries.find(
                         (country) => country.value === field.value
                       )?.label
-                    : "Select country"}
+                    : "Choisir un pays"}
                   <CaretSortIcon className="ml-2 size-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-full p-0">
               <Command>
                 <CommandInput
-                  placeholder="Search country..."
+                  placeholder="Rechercher un pays..."
                   className="h-9"
                   onValueChange={(search) => setSearchValue(search)}
                 />
                 <CommandList>
-                  <CommandEmpty>No country found.</CommandEmpty>
+                  <CommandEmpty>Aucun pays trouvé.</CommandEmpty>
                   <CommandGroup>
                     {countries
                       .filter((country) =>

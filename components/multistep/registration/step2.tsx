@@ -60,7 +60,10 @@ const AccountSetupStep = React.memo(({ form }: { form: UseFormReturn<Registratio
               />
             </FormControl>
             <div className="space-y-1 leading-none">
-              <FormLabel htmlFor="agreeTerms">
+              <FormLabel
+                htmlFor="agreeTerms"
+                className={field.value ? "text-gray-600" : "text-gray-300"}
+              >
                 J&apos;accepte les conditions d&apos;utilisation et la politique de confidentialité
               </FormLabel>
               <FormMessage id="agreeTerms-error" aria-live="polite" />

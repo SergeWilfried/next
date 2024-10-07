@@ -21,6 +21,7 @@
     "@ai-sdk/anthropic": "^0.0.39",
     "@auth/prisma-adapter": "^2.4.1",
     "@faker-js/faker": "^8.4.1",
+    "@fntools/password": "^1.0.4",
     "@fullcalendar/core": "^6.1.15",
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",
@@ -149,6 +150,6 @@
     "unist-util-visit": "^5.0.0"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seeder.ts"
   }
 }

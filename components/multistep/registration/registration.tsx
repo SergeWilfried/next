@@ -3,14 +3,18 @@
 import React, { useState, useMemo } from 'react'
 import { z } from 'zod'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardDescription } from "@/components/ui/card"
+import { toast } from "sonner";
+import { signIn } from "next-auth/react";
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import SchoolDetailsSetupStep from './step1'
 import AccountSetupStep from './step2'
 import BasicInfoStep from './step3'
+import { useSearchParams } from 'next/navigation'
 import ConfirmationStep from './step4'
 import CheckEmailStep from './step5'
+import SubmitButton from '@/components/button/submit';
 
 
 // Define the Zod schema
@@ -76,10 +80,37 @@ const RegistrationForm: React.FC = () => {
     }
   }, [step, form])
 
-  const onSubmit: SubmitHandler<RegistrationFormData> = (data) => {
-    console.log('Form submitted:', data)
-    // Here you would typically send the data to your backend
-    alert('Account created successfully! Welcome to our School Management SaaS.')
+  const searchParams = useSearchParams();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const onSubmit: SubmitHandler<RegistrationFormData> = async (data) => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    setIsLoading(true);
+
+    try {
+      const signInResult = await signIn("resend", {
+        email: data.email.toLowerCase(),
+        redirect: false,
+        callbackUrl: searchParams?.get("from") || "/dashboard",
+      });
+
+      if (!signInResult?.ok) {
+        throw new Error("Sign in failed");
+      }
+
+      toast.success("Check your email", {
+        description: "We sent you a login link. Be sure to check your spam too.",
+      });
+    } catch (error) {
+      toast.error("Something went wrong.", {
+        description: "Your sign in request failed. Please try again."
+      });
+    } finally {
+      setIsLoading(false);
+      setIsSubmitting(false);
+    }
   }
 
   const handleNext = async () => {
@@ -98,7 +129,7 @@ const RegistrationForm: React.FC = () => {
   
     const isStepValid = await form.trigger(fieldsToValidate);
     if (isStepValid) {
-      setStep(prev => Math.min(prev + 1, 4));
+      setStep(prev => Math.min(prev + 1, 5));
     } else {
       const firstInvalidField = fieldsToValidate.find(field => form.formState.errors[field]);
       if (firstInvalidField) {
@@ -126,22 +157,26 @@ const RegistrationForm: React.FC = () => {
           Précédent
         </Button>
         <div className="flex items-center space-x-2">
-          {[1, 2, 3, 4].map((s) => (
+          {[1, 2, 3, 4, 5].map((s) => (
             <div
             key={s}
             className={`size-2 rounded-full sm:size-3 ${
-              s === step ? 'bg-primary' : 'bg-gray-300'
+              s === step ? 'bg-gray-600' : 'bg-gray-300'
             }`}
           />
           ))}
         </div>
         {step < 4 ? (
-            <Button onClick={handleNext} className="w-full sm:w-auto">
+          <Button onClick={handleNext} className="w-full sm:w-auto">
             Suivant
           </Button>
+        ) : step === 4 ? (
+          <SubmitButton isLoading={isLoading} type="submit">
+            Confirmer
+          </SubmitButton>
         ) : (
-          <Button onClick={form.handleSubmit(onSubmit)} disabled={!form.formState.isValid}>
-            Créer le compte
+          <Button onClick={handleNext} className="w-full sm:w-auto">
+            Ouvrir l&apos;application e-mail
           </Button>
         )}
       </CardFooter>

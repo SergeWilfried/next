@@ -1,6 +1,7 @@
 import { PrismaClient, UserRole, SchoolCategory, SchoolType, GenderEnum, MaritalStatus, CommunicationPreference, EnrollmentStatus, ApplicationStatus, PaymentStatus, PaymentMethod, AttendanceStatus } from '@prisma/client';
 import { faker } from '@faker-js/faker';
-
+import { HashPass } from '@/lib/utils';
+import { PasswordHasher } from '@fntools/passwordHasher';
 const prisma = new PrismaClient();
 
 const familyNames = ['Sawadogo', 'Ouedraogo', 'Traore', 'Diallo', 'Sissoko', 'Konate', 'Zongo', 'Kone', 'Sankara', 'Kambou', 'Kouyate', 'Toure', 'Traore', 'Diallo', 'Sissoko', 'Konate', 'Zongo', 'Kone', 'Kambou'];
@@ -14,10 +15,12 @@ function getRandomName() {
 }
 async function main() {
   // Create admin user
+  const encrypt = await PasswordHasher(10);
   const admin = await prisma.user.create({
     data: {
-      name: 'Admin',
-      email: 'assitance@bangre.co',
+      name: 'Alfred Belemkoabga',
+      email: 'demo@gesco.co',
+      passwordHash: HashPass('admin', encrypt),
       role: UserRole.SUPER_ADMIN,
       emailVerified: new Date(),
     },
