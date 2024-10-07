@@ -22,7 +22,7 @@ export default {
         }
 
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email }
+          where: { email: credentials?.email }
         })
 
         if (!user || !user.passwordHash) {
