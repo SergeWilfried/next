@@ -29,7 +29,7 @@ export default {
           return null
         }
 
-        const isPasswordValid = await ComparePass(credentials.password, user.passwordHash, encrypt)
+        const isPasswordValid = await ComparePass(credentials.password as string, user.passwordHash, encrypt)
 
         if (!isPasswordValid) {
           return null
