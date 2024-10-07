@@ -90,7 +90,7 @@ export function CountrySelect({ control, setValue, name }: CountrySelectProps) {
                     ? countries.find(
                         (country) => country.value === field.value
                       )?.label
-                    : "Select country"}
+                    : "Choisir un pays"}
                   <CaretSortIcon className="ml-2 size-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
@@ -98,12 +98,12 @@ export function CountrySelect({ control, setValue, name }: CountrySelectProps) {
             <PopoverContent className="w-full p-0">
               <Command>
                 <CommandInput
-                  placeholder="Search country..."
+                  placeholder="Rechercher un pays..."
                   className="h-9"
                   onValueChange={(search) => setSearchValue(search)}
                 />
                 <CommandList>
-                  <CommandEmpty>No country found.</CommandEmpty>
+                  <CommandEmpty>Aucun pays trouvé.</CommandEmpty>
                   <CommandGroup>
                     {countries
                       .filter((country) =>
