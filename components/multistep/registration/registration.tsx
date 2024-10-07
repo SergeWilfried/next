@@ -161,7 +161,7 @@ const RegistrationForm: React.FC = () => {
             <div
             key={s}
             className={`size-2 rounded-full sm:size-3 ${
-              s === step ? 'bg-primary' : 'bg-gray-300'
+              s === step ? 'bg-primary' : 'bg-green-300'
             }`}
           />
           ))}
@@ -171,13 +171,13 @@ const RegistrationForm: React.FC = () => {
             Suivant
           </Button>
         ) : step === 4 ? (
-          <Button onClick={handleNext} className="w-full sm:w-auto">
-            Confirmer
-          </Button>
+              <SubmitButton isLoading={isLoading} onClick={form.handleSubmit(onSubmit)}>
+                Confirmer
+              </SubmitButton>
         ) : (
-          <SubmitButton isLoading={isLoading} onClick={form.handleSubmit(onSubmit)}>
+          <Button onClick={handleNext} className="w-full sm:w-auto">
             Ouvrir l&apos;application e-mail
-          </SubmitButton>
+          </Button>
         )}
       </CardFooter>
     </Card>
