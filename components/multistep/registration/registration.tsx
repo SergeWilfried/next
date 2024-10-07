@@ -171,9 +171,9 @@ const RegistrationForm: React.FC = () => {
             Suivant
           </Button>
         ) : step === 4 ? (
-              <SubmitButton isLoading={isLoading} onClick={form.handleSubmit(onSubmit)}>
-                Confirmer
-              </SubmitButton>
+          <SubmitButton isLoading={isLoading} type="submit">
+            Confirmer
+          </SubmitButton>
         ) : (
           <Button onClick={handleNext} className="w-full sm:w-auto">
             Ouvrir l&apos;application e-mail
