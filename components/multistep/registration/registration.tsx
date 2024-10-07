@@ -129,7 +129,7 @@ const RegistrationForm: React.FC = () => {
   
     const isStepValid = await form.trigger(fieldsToValidate);
     if (isStepValid) {
-      setStep(prev => Math.min(prev + 1, 4));
+      setStep(prev => Math.min(prev + 1, 5));
     } else {
       const firstInvalidField = fieldsToValidate.find(field => form.formState.errors[field]);
       if (firstInvalidField) {
@@ -157,7 +157,7 @@ const RegistrationForm: React.FC = () => {
           Précédent
         </Button>
         <div className="flex items-center space-x-2">
-          {[1, 2, 3, 4].map((s) => (
+          {[1, 2, 3, 4, 5].map((s) => (
             <div
             key={s}
             className={`size-2 rounded-full sm:size-3 ${
@@ -166,7 +166,7 @@ const RegistrationForm: React.FC = () => {
           />
           ))}
         </div>
-        {step < 4 ? (
+        {step < 5 ? (
             <Button onClick={handleNext} className="w-full sm:w-auto">
             Suivant
           </Button>
