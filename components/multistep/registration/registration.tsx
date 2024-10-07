@@ -161,7 +161,7 @@ const RegistrationForm: React.FC = () => {
             <div
             key={s}
             className={`size-2 rounded-full sm:size-3 ${
-              s === step ? 'bg-primary' : 'bg-green-300'
+              s === step ? 'bg-green-600' : 'bg-gray-300'
             }`}
           />
           ))}
