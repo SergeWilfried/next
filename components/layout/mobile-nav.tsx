@@ -74,7 +74,7 @@ export function NavMobile() {
 
           {session ? (
             <>
-              {session.user.role === "ADMIN" ? (
+              {session.user.role !== "TEACHER" && session.user.role !== "PARENT" ? (
                 <li className="py-3">
                   <Link
                     href="/admin"

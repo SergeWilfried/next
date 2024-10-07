@@ -17,8 +17,12 @@ export const metadata = constructMetadata({
 
 export default async function ParentsPage() {
   const user = await getCurrentUser();
-  if (!user || user.role !== "ADMIN") redirect("/login");
-
+  if (!user) redirect("/login");
+  if (user.role === "USER" || user.role === 'PARENT') {
+    redirect("/dashboard");
+  } else {
+    redirect("/admin");
+  }
   // Get all parents without pagination
   const { data: parents, count } = await getParents();
 

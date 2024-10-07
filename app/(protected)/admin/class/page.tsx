@@ -17,8 +17,12 @@ export const metadata = constructMetadata({
 
 export default async function ClassPage() {
   const user = await getCurrentUser();
-  if (!user || user.role !== "ADMIN") redirect("/login");
-
+  if (!user) redirect("/login");
+  if (user.role === "USER" || user.role === 'PARENT') {
+    redirect("/dashboard");
+  } else {
+    redirect("/admin");
+  }
   const { data: classes, error, count } = await getAllClasses();
   
   return (

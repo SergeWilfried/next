@@ -10,7 +10,7 @@ export default async function AuthLayout({ children }: AuthLayoutProps) {
   const user = await getCurrentUser();
 
   if (user) {
-    if (user.role !== "USER") redirect("/admin");
+    if (user.role !== "USER" && user.role !== "PARENT") redirect("/admin");
     redirect("/dashboard");
   }
 

@@ -102,7 +102,7 @@ export function NavBar({ scroll = false }: NavBarProps) {
 
           {session ? (
             <Link
-              href={session.user.role === "ADMIN" ? "/admin" : "/dashboard"}
+              href={session.user.role !== "TEACHER" && session.user.role !== "PARENT" ? "/admin" : "/dashboard"}
               className="hidden md:block"
             >
               <Button

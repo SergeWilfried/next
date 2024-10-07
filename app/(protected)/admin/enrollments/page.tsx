@@ -15,8 +15,12 @@ export const metadata = constructMetadata({
 
 export default async function EnrollmentsPage() {
   const user = await getCurrentUser();
-  if (!user || user.role !== "ADMIN") redirect("/login");
-
+  if (!user) redirect("/login");
+  if (user.role === "USER" || user.role === 'PARENT') {
+    redirect("/dashboard");
+  } else {
+    redirect("/admin");
+  }
   // Fetch enrollments from the server
   const { data: enrollments, error, count } = await getAllEnrollments();
 
