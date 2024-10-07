@@ -82,7 +82,7 @@ export function CountrySelect({ control, setValue, name }: CountrySelectProps) {
                   role="combobox"
                   aria-expanded={open}
                   className={cn(
-                    "w-[200px] justify-between",
+                    "w-full justify-between",
                     !field.value && "text-muted-foreground"
                   )}
                 >
@@ -95,7 +95,7 @@ export function CountrySelect({ control, setValue, name }: CountrySelectProps) {
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-full p-0">
               <Command>
                 <CommandInput
                   placeholder="Search country..."
