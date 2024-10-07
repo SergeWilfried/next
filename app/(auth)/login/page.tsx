@@ -31,10 +31,10 @@ export default function LoginPage() {
         <div className="flex flex-col space-y-2 text-center">
           <Icons.logo className="mx-auto size-6" />
           <h1 className="text-2xl font-semibold tracking-tight">
-            Bon retour
+            Bienvenue
           </h1>
           <p className="text-sm text-muted-foreground">
-            Entrez votre e-mail pour vous connecter à votre compte
+            Entrez votre e-mail pour vous connecter à votre compte Gesco
           </p>
         </div>
         <Suspense>
