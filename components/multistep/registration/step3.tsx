@@ -17,7 +17,7 @@ const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFo
             <FormItem>
               <FormLabel htmlFor="schoolName">Nom de l&apos;école</FormLabel>
               <FormControl>
-                <Input {...field} id="schoolName" aria-describedby="schoolName-error" />
+                <Input {...field} id="schoolName" aria-describedby="schoolName-error" placeholder="Lycee de la Jeunesse" />
               </FormControl>
               <FormMessage id="schoolName-error" aria-live="polite" />
             </FormItem>
@@ -31,7 +31,7 @@ const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFo
               <FormItem>
                 <FormLabel htmlFor="firstName">Prénom</FormLabel>
                 <FormControl>
-                  <Input {...field} id="firstName" aria-describedby="firstName-error" />
+                  <Input {...field} id="firstName" aria-describedby="firstName-error" placeholder="Entrez votre prénom" />
                 </FormControl>
                 <FormMessage id="firstName-error" aria-live="polite" />
               </FormItem>
@@ -44,7 +44,7 @@ const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFo
               <FormItem>
                 <FormLabel htmlFor="lastName">Nom</FormLabel>
                 <FormControl>
-                  <Input {...field} id="lastName" aria-describedby="lastName-error" />
+                  <Input {...field} id="lastName" aria-describedby="lastName-error" placeholder="Entrez votre nom" />
                 </FormControl>
                 <FormMessage id="lastName-error" aria-live="polite" />
               </FormItem>
@@ -59,7 +59,7 @@ const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFo
             <FormItem>
               <FormLabel htmlFor="email">Adresse e-mail</FormLabel>
               <FormControl>
-                <Input {...field} type="email" id="email" aria-describedby="email-error" />
+                <Input {...field} type="email" id="email" aria-describedby="email-error" placeholder="Entrez votre adresse e-mail" />
               </FormControl>
               <FormMessage id="email-error" aria-live="polite" />
             </FormItem>
