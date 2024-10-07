@@ -59,7 +59,7 @@ const BasicInfoStep = React.memo(({ form }: { form: UseFormReturn<RegistrationFo
             <FormItem>
               <FormLabel htmlFor="email">Adresse e-mail</FormLabel>
               <FormControl>
-                <Input {...field} type="email" id="email" aria-describedby="email-error" placeholder="Entrez votre adresse e-mail" />
+                <Input {...field} type="email" id="email" aria-describedby="email-error" placeholder="email@example.com" />
               </FormControl>
               <FormMessage id="email-error" aria-live="polite" />
             </FormItem>
