@@ -3,14 +3,18 @@
 import React, { useState, useMemo } from 'react'
 import { z } from 'zod'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardDescription } from "@/components/ui/card"
+import { toast } from "sonner";
+import { signIn } from "next-auth/react";
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import SchoolDetailsSetupStep from './step1'
 import AccountSetupStep from './step2'
 import BasicInfoStep from './step3'
+import { useSearchParams } from 'next/navigation'
 import ConfirmationStep from './step4'
 import CheckEmailStep from './step5'
+import SubmitButton from '@/components/button/submit';
 
 
 // Define the Zod schema
@@ -76,10 +80,30 @@ const RegistrationForm: React.FC = () => {
     }
   }, [step, form])
 
-  const onSubmit: SubmitHandler<RegistrationFormData> = (data) => {
+  const searchParams = useSearchParams();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const onSubmit: SubmitHandler<RegistrationFormData> = async (data) => {
     console.log('Form submitted:', data)
-    // Here you would typically send the data to your backend
-    alert('Account created successfully! Welcome to our School Management SaaS.')
+    setIsLoading(true);
+
+    const signInResult = await signIn("resend", {
+      email: data.email.toLowerCase(),
+      redirect: false,
+      callbackUrl: searchParams?.get("from") || "/dashboard",
+    });
+
+    setIsLoading(false);
+
+    if (!signInResult?.ok) {
+      return toast.error("Something went wrong.", {
+        description: "Your sign in request failed. Please try again."
+      });
+    }
+
+    return toast.success("Check your email", {
+      description: "We sent you a login link. Be sure to check your spam too.",
+    });
   }
 
   const handleNext = async () => {
@@ -126,7 +150,7 @@ const RegistrationForm: React.FC = () => {
           Précédent
         </Button>
         <div className="flex items-center space-x-2">
-          {[1, 2, 3, 4].map((s) => (
+          {[1, 2, 3, 4, 5].map((s) => (
             <div
             key={s}
             className={`size-2 rounded-full sm:size-3 ${
@@ -135,14 +159,14 @@ const RegistrationForm: React.FC = () => {
           />
           ))}
         </div>
-        {step < 4 ? (
+        {step < 5 ? (
             <Button onClick={handleNext} className="w-full sm:w-auto">
             Suivant
           </Button>
         ) : (
-          <Button onClick={form.handleSubmit(onSubmit)} disabled={!form.formState.isValid}>
+          <SubmitButton isLoading={isLoading} onClick={form.handleSubmit(onSubmit)}>
             Créer le compte
-          </Button>
+          </SubmitButton>
         )}
       </CardFooter>
     </Card>

@@ -41,23 +41,6 @@ export default function RegisterPage() {
           <RegistrationFlow />
         </Suspense>
         <p className="px-8 text-center text-sm text-muted-foreground">
-          En créant un compte, vous acceptez nos{" "}
-          <Link
-            href="/terms"
-            className="hover:text-brand underline underline-offset-4"
-          >
-            Conditions d&apos;utilisation
-          </Link>{" "}
-          et notre{" "}
-          <Link
-            href="/privacy"
-            className="hover:text-brand underline underline-offset-4"
-          >
-            Politique de confidentialité
-          </Link>
-          .
-        </p>
-        <p className="px-8 text-center text-sm text-muted-foreground">
           <Link
             href="/login"
             className="hover:text-brand underline underline-offset-4"
