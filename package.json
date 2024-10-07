@@ -150,6 +150,6 @@
     "unist-util-visit": "^5.0.0"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seeder.ts"
   }
 }

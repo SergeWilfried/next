@@ -122,7 +122,7 @@ export const sidebarLinks: SidebarNavItem[] = [
   {
     title: "OPTIONS",
     items: [
-      { href: "/dashboard/map", icon: "map", title: "Carte" },
+      { href: "/admin/map", icon: "map", title: "Carte" },
       { href: "/dashboard/settings", icon: "settings", title: "Paramètres" },
       { href: "/", icon: "home", title: "Accueil" },
       { href: "#", icon: "bookOpen", title: "Documentation" },
