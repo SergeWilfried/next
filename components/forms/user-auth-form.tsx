@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Icons } from "@/components/shared/icons";
+import { PasswordField } from "../input/password";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   type?: string;
@@ -81,10 +82,7 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
             )}
           </div>
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="password">
-              Password
-            </Label>
-            <Input
+            <PasswordField
               id="password"
               placeholder="Password"
               type="password"
@@ -100,7 +98,7 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
             )}
           </div>
           <SubmitButton isLoading={isLoading}>
-            {type === "register" ? "Sign Up with Email" : "Sign In with Email"}
+            {type === "register" ? "M&apos;inscrire" : "Me connecter"}
           </SubmitButton>
         </div>
       </form>
