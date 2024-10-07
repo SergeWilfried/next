@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import SubmitButton from "@/components/button/submit";
 
 import { cn } from "@/lib/utils";
 import { userAuthSchema } from "@/lib/validations/auth";
@@ -98,12 +99,9 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
               </p>
             )}
           </div>
-          <button className={cn(buttonVariants())} disabled={isLoading}>
-            {isLoading && (
-              <Icons.spinner className="mr-2 size-4 animate-spin" />
-            )}
+          <SubmitButton isLoading={isLoading}>
             {type === "register" ? "Sign Up with Email" : "Sign In with Email"}
-          </button>
+          </SubmitButton>
         </div>
       </form>
       <div className="relative">
