@@ -4,7 +4,10 @@ import Resend from "next-auth/providers/resend";
 import { env } from "@/env.mjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/db";
-import { compare } from "bcrypt";
+import PasswordHasher from "@fntools/password";
+import { ComparePass } from "./lib/utils";
+
+const encrypt = new PasswordHasher(10);
 
 export default {
   providers: [
@@ -26,7 +29,7 @@ export default {
           return null
         }
 
-        const isPasswordValid = await compare(credentials.password, user.passwordHash)
+        const isPasswordValid = await ComparePass(credentials.password, user.passwordHash, encrypt)
 
         if (!isPasswordValid) {
           return null

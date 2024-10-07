@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { clsx, type ClassValue } from "clsx";
 import ms from "ms";
 import { twMerge } from "tailwind-merge";
+import PasswordHasher from "@fntools/password";
 
 import { env } from "@/env.mjs";
 import { siteConfig } from "@/config/site";
@@ -9,6 +10,17 @@ import { siteConfig } from "@/config/site";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+
+export const HashPass = (password: string, encrypt: PasswordHasher) => {
+    const hashedPassword = encrypt.hash(password);
+    return hashedPassword;
+};
+
+export const ComparePass = (password: string, hashedPassword: string, encrypt: PasswordHasher) => {
+  const result = encrypt.compare(password, hashedPassword);
+  return result;
+};
 
 export function constructMetadata({
   title = siteConfig.name,
