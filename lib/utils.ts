@@ -16,9 +16,17 @@ export const HashPass = (password: string, encrypt: any) => {
     return hashedPassword;
 };
 
-export const ComparePass = (password: string, hashedPassword: string, encrypt: any) => {
-  const result = encrypt.compare(password, hashedPassword);
-  return result;
+export const verifyPassword = (password: string, hashedPassword: string, encrypt: any): boolean => {
+  if (!password || !hashedPassword || typeof password !== 'string' || typeof hashedPassword !== 'string') {
+    throw new Error('Invalid password or hashedPassword provided');
+  }
+  
+  try {
+    return encrypt.compare(password, hashedPassword);
+  } catch (error) {
+    console.error('Error comparing passwords:', error);
+    throw new Error('Failed to verify password');
+  }
 };
 
 export function constructMetadata({

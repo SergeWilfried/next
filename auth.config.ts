@@ -5,7 +5,7 @@ import { env } from "@/env.mjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/db";
 import PasswordHasher from "@fntools/password";
-import { ComparePass } from "./lib/utils";
+import { verifyPassword } from "./lib/utils";
 
 const encrypt = new PasswordHasher(10);
 
@@ -29,7 +29,7 @@ export default {
           return null
         }
 
-        const isPasswordValid = await ComparePass(credentials.password as string, user.passwordHash, encrypt)
+        const isPasswordValid = await verifyPassword(credentials.password as string, user.passwordHash, encrypt)
 
         if (!isPasswordValid) {
           return null
