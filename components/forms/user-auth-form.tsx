@@ -28,6 +28,8 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
+    setValue,
   } = useForm<FormData>({
     resolver: zodResolver(userAuthSchema),
   });
@@ -38,8 +40,9 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
   async function onSubmit(data: FormData) {
     setIsLoading(true);
 
-    const signInResult = await signIn("resend", {
+    const signInResult = await signIn("credentials", {
       email: data.email.toLowerCase(),
+      password: data.password,
       redirect: false,
       callbackUrl: searchParams?.get("from") || "/dashboard",
     });
@@ -52,8 +55,8 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
       });
     }
 
-    return toast.success("Check your email", {
-      description: "We sent you a login link. Be sure to check your spam too.",
+    return toast.success("Signed in successfully", {
+      description: "You have been logged in to your account.",
     });
   }
 
@@ -83,13 +86,9 @@ export function UserAuthForm({ className, type, ...props }: UserAuthFormProps) {
           </div>
           <div className="grid gap-1">
             <PasswordField
-              id="password"
+              value={watch("password")}
               placeholder="Password"
-              type="password"
-              autoCapitalize="none"
-              autoComplete="current-password"
-              disabled={isLoading || isGoogleLoading}
-              {...register("password")}
+              onChange={(value) => setValue('password', value)}
             />
             {errors?.password && (
               <p className="px-1 text-xs text-red-600">
