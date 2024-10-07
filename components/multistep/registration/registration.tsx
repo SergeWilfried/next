@@ -166,13 +166,17 @@ const RegistrationForm: React.FC = () => {
           />
           ))}
         </div>
-        {step < 5 ? (
-            <Button onClick={handleNext} className="w-full sm:w-auto">
+        {step < 4 ? (
+          <Button onClick={handleNext} className="w-full sm:w-auto">
             Suivant
+          </Button>
+        ) : step === 4 ? (
+          <Button onClick={handleNext} className="w-full sm:w-auto">
+            Confirmer
           </Button>
         ) : (
           <SubmitButton isLoading={isLoading} onClick={form.handleSubmit(onSubmit)}>
-            Créer le compte
+            Ouvrir l&apos;application e-mail
           </SubmitButton>
         )}
       </CardFooter>
