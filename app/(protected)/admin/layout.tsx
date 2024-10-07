@@ -11,8 +11,6 @@ export default async function Dashboard({ children }: ProtectedLayoutProps) {
   if (!user) redirect("/login");
   if (user.role === "USER" || user.role === 'PARENT') {
     redirect("/dashboard");
-  } else {
-    redirect("/admin");
   }
 
   return <>{children}</>;

@@ -18,9 +18,7 @@ export default async function EnrollmentsPage() {
   if (!user) redirect("/login");
   if (user.role === "USER" || user.role === 'PARENT') {
     redirect("/dashboard");
-  } else {
-    redirect("/admin");
-  }
+  } 
   // Fetch enrollments from the server
   const { data: enrollments, error, count } = await getAllEnrollments();
 

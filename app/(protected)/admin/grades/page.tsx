@@ -18,8 +18,6 @@ export default async function GradesPage() {
   if (!user) redirect("/login");
   if (user.role === "USER" || user.role === 'PARENT') {
     redirect("/dashboard");
-  } else {
-    redirect("/admin");
   }
 
 

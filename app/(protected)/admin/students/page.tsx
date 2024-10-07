@@ -17,9 +17,7 @@ export default async function StudentsPage() {
   if (!user) redirect("/login");
   if (user.role === "USER" || user.role === 'PARENT') {
     redirect("/dashboard");
-  } else {
-    redirect("/admin");
-  }
+  } 
 	const { data: students, count, error } = await getAllStudents({
 		page: 1,
 		limit: 10,

@@ -18,9 +18,7 @@ export default async function ReportsPage() {
   if (!user) redirect("/login");
   if (user.role === "USER" || user.role === 'PARENT') {
     redirect("/dashboard");
-  } else {
-    redirect("/admin");
-  }
+  } 
 
   // Fetch reports from the server
   const { data: reports, error, count } = await getAllReports();

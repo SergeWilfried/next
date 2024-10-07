@@ -18,9 +18,7 @@ export default async function DonationsPage() {
   if (!user) redirect("/login");
   if (user.role === "USER" || user.role === 'PARENT') {
     redirect("/dashboard");
-  } else {
-    redirect("/admin");
-  }
+  } 
 
   // Fetch donations from the server
   const { data: donations, error, count } = await getAllDonations();

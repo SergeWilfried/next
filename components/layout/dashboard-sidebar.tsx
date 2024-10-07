@@ -124,9 +124,7 @@ export function DashboardSidebar({ links, user, schools }: DashboardSidebarProps
   if (!user) redirect("/login");
   if (user.role === "USER" || user.role === 'PARENT') {
     redirect("/dashboard");
-  } else {
-    redirect("/admin");
-  }
+  } 
 
   const { isTablet } = useMediaQuery();
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(!isTablet);

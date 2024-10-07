@@ -14,9 +14,7 @@ export default async function MapPage() {
   if (!user) redirect("/login");
   if (user.role === "USER" || user.role === 'PARENT') {
     redirect("/dashboard");
-  } else {
-    redirect("/admin");
-  }
+  } 
   return (
     <>
       <DashboardHeader

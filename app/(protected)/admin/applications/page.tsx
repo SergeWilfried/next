@@ -20,8 +20,6 @@ export default async function ApplicationsPage() {
   if (!user) redirect("/login");
   if (user.role === "USER" || user.role === 'PARENT') {
     redirect("/dashboard");
-  } else {
-    redirect("/admin");
   }
   // Fetch applications
   const { data: applications, count, error } = await getAllApplications();

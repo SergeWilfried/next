@@ -20,9 +20,7 @@ export default async function ClassPage() {
   if (!user) redirect("/login");
   if (user.role === "USER" || user.role === 'PARENT') {
     redirect("/dashboard");
-  } else {
-    redirect("/admin");
-  }
+  } 
   const { data: classes, error, count } = await getAllClasses();
   
   return (

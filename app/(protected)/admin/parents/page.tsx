@@ -20,8 +20,6 @@ export default async function ParentsPage() {
   if (!user) redirect("/login");
   if (user.role === "USER" || user.role === 'PARENT') {
     redirect("/dashboard");
-  } else {
-    redirect("/admin");
   }
   // Get all parents without pagination
   const { data: parents, count } = await getParents();

@@ -17,9 +17,7 @@ export default async function PaymentsPage() {
   if (!user) redirect("/login");
   if (user.role === "USER" || user.role === 'PARENT') {
     redirect("/dashboard");
-  } else {
-    redirect("/admin");
-  }
+  } 
   const { data: payments, count } = await getAllPayments();
   
   const totalRevenue = payments ? payments.reduce((sum, payment) => sum + payment.amount, 0) : 0;
