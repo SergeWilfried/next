@@ -82,28 +82,35 @@ const RegistrationForm: React.FC = () => {
 
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<RegistrationFormData> = async (data) => {
-    console.log('Form submitted:', data)
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     setIsLoading(true);
 
-    const signInResult = await signIn("resend", {
-      email: data.email.toLowerCase(),
-      redirect: false,
-      callbackUrl: searchParams?.get("from") || "/dashboard",
-    });
+    try {
+      const signInResult = await signIn("resend", {
+        email: data.email.toLowerCase(),
+        redirect: false,
+        callbackUrl: searchParams?.get("from") || "/dashboard",
+      });
 
-    setIsLoading(false);
+      if (!signInResult?.ok) {
+        throw new Error("Sign in failed");
+      }
 
-    if (!signInResult?.ok) {
-      return toast.error("Something went wrong.", {
+      toast.success("Check your email", {
+        description: "We sent you a login link. Be sure to check your spam too.",
+      });
+    } catch (error) {
+      toast.error("Something went wrong.", {
         description: "Your sign in request failed. Please try again."
       });
+    } finally {
+      setIsLoading(false);
+      setIsSubmitting(false);
     }
-
-    return toast.success("Check your email", {
-      description: "We sent you a login link. Be sure to check your spam too.",
-    });
   }
 
   const handleNext = async () => {
